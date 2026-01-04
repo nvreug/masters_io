@@ -1,0 +1,688 @@
+\documentclass[notes,11pt, aspectratio=169]{beamer}
+
+\usepackage{pgfpages}
+% These slides also contain speaker notes. You can print just the slides,
+% just the notes, or both, depending on the setting below. Comment out the want
+% you want.
+\setbeameroption{hide notes} % Only slide
+%\setbeameroption{show only notes} % Only notes
+%\setbeameroption{show notes on second screen=right} % Both
+
+%\usepackage[scaled=1.0]{helvet}
+\usepackage{array}
+
+\usepackage{tikz}
+\usepackage{verbatim}
+\setbeamertemplate{note page}{\pagecolor{gray!5}\insertnote}
+\usetikzlibrary{positioning}
+\usetikzlibrary{snakes}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{matrix,shapes,arrows,fit,tikzmark}
+\usepackage{amsmath}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{multimedia}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{dcolumn}
+\usepackage{bbm}
+\newcolumntype{d}[0]{D{.}{.}{5}}
+
+\usepackage{changepage}
+\usepackage{appendixnumberbeamer}
+\newcommand{\beginbackup}{
+   \newcounter{framenumbervorappendix}
+   \setcounter{framenumbervorappendix}{\value{framenumber}}
+   \setbeamertemplate{footline}
+   {
+     \leavevmode%
+     \hline
+     box{%
+       \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{footlinecolor}%
+%         \insertframenumber  \hspace*{2ex} 
+       \end{beamercolorbox}}%
+     \vskip0pt%
+   }
+ }
+\newcommand{\backupend}{
+   \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumbervorappendix}} 
+}
+
+
+\usepackage{graphicx}
+\usepackage[space]{grffile}
+\usepackage{booktabs}
+
+% These are my colors -- there are many like them, but these ones are mine.
+\definecolor{blue}{RGB}{0,114,178}
+\definecolor{red}{RGB}{213,94,0}
+\definecolor{yellow}{RGB}{240,228,66}
+\definecolor{green}{RGB}{0,158,115}
+
+\hypersetup{
+  colorlinks=false,
+  linkbordercolor = {white},
+  linkcolor = {blue}
+}
+
+
+%% I use a beige off white for my background
+\definecolor{MyBackground}{RGB}{255,253,218}
+
+%% Uncomment this if you want to change the background color to something else
+%\setbeamercolor{background canvas}{bg=MyBackground}
+
+%% Change the bg color to adjust your transition slide background color!
+\newenvironment{transitionframe}{
+  \setbeamercolor{background canvas}{bg=white}
+  \begin{frame}}{
+    \end{frame}
+}
+
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=black}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{} 
+\setbeamertemplate{itemize items}{-}
+\setbeamercolor{itemize item}{fg=blue}
+\setbeamercolor{itemize subitem}{fg=blue}
+\setbeamercolor{enumerate item}{fg=blue}
+\setbeamercolor{enumerate subitem}{fg=blue}
+\setbeamercolor{button}{bg=MyBackground,fg=blue,}
+
+
+
+% If you like road maps, rather than having clutter at the top, have a roadmap show up at the end of each section 
+% (and after your introduction)
+% Uncomment this is if you want the roadmap!
+% \AtBeginSection[]
+% {
+%    \begin{frame}
+%        \frametitle{Roadmap of Talk}
+%        \tableofcontents[currentsection]
+%    \end{frame}
+% }
+\setbeamercolor{section in toc}{fg=blue}
+\setbeamercolor{subsection in toc}{fg=red}
+\setbeamersize{text margin left=1em,text margin right=1em} 
+
+\newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
+\newenvironment{wideenumerate}{\enumerate\addtolength{\itemsep}{10pt}}{\endenumerate}
+
+\usepackage{environ}
+\NewEnviron{videoframe}[1]{
+  \begin{frame}
+    \vspace{-8pt}
+    \begin{columns}[onlytextwidth, T] % align columns
+      \begin{column}{.58\textwidth}
+        \begin{minipage}[t][\textheight][t]
+          {\dimexpr\textwidth}
+          \vspace{8pt}
+          \hspace{4pt} {\Large \sc \textcolor{blue}{#1}}
+          \vspace{8pt}
+          
+          \BODY
+        \end{minipage}
+      \end{column}%
+      \hfill%
+      \begin{column}{.42\textwidth}
+        \colorbox{green!20}{\begin{minipage}[t][1.2\textheight][t]
+            {\dimexpr\textwidth}
+            Face goes here
+          \end{minipage}}
+      \end{column}%
+    \end{columns}
+  \end{frame}
+}
+
+\title[]{\textcolor{blue}{Demand Estimation 3 \\ PhD Industrial Organization}}
+\author[PGP]{}
+\institute[FRBNY]{\small{\begin{tabular}{c c c}
+Nicholas Vreugdenhil \\
+\end{tabular}}}
+\date{} 
+
+\begin{document}
+
+%%% TIKZ STUFF
+\tikzset{   
+        every picture/.style={remember picture,baseline},
+        every node/.style={anchor=base,align=center,outer sep=1.5pt},
+        every path/.style={thick},
+        }
+\newcommand\marktopleft[1]{%
+    \tikz[overlay,remember picture] 
+        \node (marker-#1-a) at (-.3em,.3em) {};%
+}
+\newcommand\markbottomright[2]{%
+    \tikz[overlay,remember picture] 
+        \node (marker-#1-b) at (0em,0em) {};%
+}
+\tikzstyle{every picture}+=[remember picture] 
+\tikzstyle{mybox} =[draw=black, very thick, rectangle, inner sep=10pt, inner ysep=20pt]
+\tikzstyle{fancytitle} =[draw=black,fill=red, text=white]
+%%%% END TIKZ STUFF
+
+% Title Slide
+\begin{frame}
+\maketitle
+  \centering
+\end{frame}
+
+% INTRO
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		%\item Review of the BLP setup
+		%\item Price elasticity/substitution patterns
+		%\item Estimation: overview and typical data
+		\item  Identification: what if we had micro-data?
+		\item Identification: $\Sigma$ 
+		\item Estimation algorithm
+		%\item Instrumental variables
+		%\item Extensions
+		%\item Applications
+	\end{wideenumerate}
+\end{frame}
+
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		%\item Review of the BLP setup
+		%\item Price elasticity/substitution patterns
+		%\item Estimation: overview and typical data
+		\item  \textbf{ Identification: what if we had micro-data?}
+		\item Identification: $\Sigma$ 
+		\item Estimation algorithm
+		%\item Instrumental variables
+		%\item Extensions
+		%\item Applications
+	\end{wideenumerate}
+\end{frame}
+
+\begin{comment}
+\begin{frame}{Identification: review}
+	\begin{wideitemize}
+		\item \underline{What does `identification' mean?}
+		\item Very vague definition: `whether the things we observe are capable of revealing the answers to  the questions we care about'?
+		\item Slightly less vague (but still not precise) (`point identification'): `under the assumptions of the model, can the data distinguish the true parameter(s) $\theta_0$ from other parameters $\theta \neq \theta_0$?'
+		\item Precise econometric definition: see haile.pdf on Canvas, or `The Identification Zoo' (Lewbel)
+		\item Important: identification is \textbf{completely separate} from statistical precision, estimators etc
+		\begin{wideitemize}
+			\item Often the thought experiment for where the parameters are `identified' is: if we had unlimited data, could we distinguish the true parameters?
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+\end{comment}
+
+\begin{frame}{Review: setup of the problem}
+	\begin{wideitemize}
+		\item What are the parameters we need to estimate?
+		\item \underline{Linear parameters:}
+		\begin{wideitemize}
+			\item Parameters from the mean utility equation: $(\alpha_0, \beta_0)$
+		\end{wideitemize}
+		\item \underline{Nonlinear parameters}
+		\begin{wideitemize}
+			\item $\Gamma$: coefficients on (observed) demographics 
+			\item $\Sigma$:  idiosyncratic ``taste for characteristics''
+		\end{wideitemize}
+		\item So, full parameter vector to estimate: $\theta = (\alpha_0, \beta_0, \Gamma, \Sigma)$.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Review: Identification}
+	\begin{wideitemize}
+		\item \underline{What variation in the data can identify the parameters?}
+		\begin{wideitemize}
+			\item  Precise econometric definition of identification: see haile.pdf on Canvas, or `The Identification Zoo' (Lewbel)
+		\end{wideitemize}
+		\item \textbf{Thought experiment}: what if we:
+		\begin{wideitemize}
+			 \item 1. have micro-data on individual consumers
+			 \item 2. observe a single market
+			 \item 3. switch off $\Sigma=0$ (i.e. ignore any idiosyncratic ``taste for characteristics'', implies heterogeneity is only driven by observed demographics)
+		\end{wideitemize}
+			\item Later, we will build on this intuition to discuss what to do if we had more aggregated market-level data with random taste shocks etc...
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Review: Identification using individual-level data}
+	\begin{wideitemize}
+		\item (Conditional indirect) utility from product $j$ (dropping $t$ subscript and incorporating price $p_j$ as a `characteristic' in $x_j$ to simplify exposition):
+		\begin{align*}
+			u_{ij} = \underbrace{x_j \beta_0 + \xi_j}_{\delta_j} + \sum_{k,l} \beta_d^{(l,k)} D_{il} x_{jk} + \epsilon_{ij}
+		\end{align*}
+		\item Instead, use a \textbf{two-step procedure}:
+		\item 1. Include a product-specific intercept to capture $\delta=x_j \beta_0 + \xi_j$ (i.e. estimate $\tilde{\theta}= (\delta_1,...,\delta_J, \Gamma)$ using maximum likelihood )
+		\item 2. Estimate $\beta_0$ by `projecting' estimated $\delta$'s on the $x$'s.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Identification using individual-level data: step 1}
+	\begin{wideitemize}
+		\item \underline{Identifying $\Gamma$:} 
+		\item Again, looking at FOC from maximum likelihood, can show that estimates of $\Gamma$:
+		\item Equate observed to predicted covariance between demographic variables of consumers who choose product $j$ and the characteristics of the product $j$.
+		\item Asymptotically, $\Gamma$ solves $L(K+1)$ equations given by:
+		\begin{align*}
+			E_{Population} [x^k D^l] = E_{Model} [x^k D^l; \Gamma]
+		\end{align*}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Identification using individual-level data: what if $\Sigma \neq 0$?}
+	\begin{wideitemize}
+		\item \underline{What if we had a more complicated model where $\Sigma \neq 0$?}
+			\begin{wideitemize} 
+		\item i.e. still one market, but also include unobserved heterogeneity for idiosyncratic ``tastes in characteristics''
+			\end{wideitemize}
+		\item Now consider the first step of the two-step procedure from before:
+		\begin{wideitemize} 
+		\item For $(\delta, \Gamma)$, first order conditions still hold. 
+		\item But, $\Sigma$ and $\Gamma$ are \textbf{not} separately identified in this particular thought experiment.
+		\begin{wideitemize}
+			\item For $\Sigma$, we have additional moment conditions related to the covariance. These look very similar to the moment conditions for $\Gamma$.
+			\item So, it's not clear if these covariance moments are identifying the $\Sigma$ parameters or the $\Gamma$ parameters, since $\nu$ is unobserved.
+		\end{wideitemize}
+		\end{wideitemize}
+		\item However, we can use variation in the second-stage moments from before (I now explain this in detail over the next few slides...)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		%\item Review of the BLP setup
+		%\item Price elasticity/substitution patterns
+		%\item Estimation: overview and typical data
+		\item Identification: what if we had micro-data?
+		\item  \textbf{Identification: $\Sigma$}
+		\item Estimation algorithm
+		%\item Instrumental variables
+		%\item Extensions
+		%\item Applications
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Identifying $\Sigma$}
+	\begin{wideitemize}
+		\item \textbf{Thought experiment}: what if we:
+\begin{wideitemize}
+	\item 1. have only market-level data
+	\item 2. observe a single market
+	\item 3. switch off $\Gamma=0$ (this is just for exposition)
+\end{wideitemize}
+	\item Then (conditional indirect) utility is:
+	\begin{align*}
+		u_{ij} = \delta_j + \sum_k \beta^{(k)}_{\nu} \nu_{ik} x_{jk} + \epsilon_{ij}
+	\end{align*}
+	\item \textbf{Question:} how do we pin down $(\delta, \Sigma)$?
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Identifying $\Sigma$}
+	\begin{wideitemize}
+		\item Can aggregate market share data alone separately identify $\delta$ and $\Sigma$? \pause
+		\begin{wideitemize}
+			\item No...
+			\item For any given $\Sigma$ we can choose mean utilities $\delta$ that exactly equate predicted shares to observed shares using the `Berry inversion' from before. 
+			\item No variation left in the data to pin down $\Sigma$
+		\end{wideitemize} 
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Identifying $\Sigma$}
+	\begin{wideitemize}
+		\item What if we \textbf{also} had additional moment restrictions from `step 2' from before: $E[\xi_j | \textbf{Z}] = 0$?
+		\item We will work with the common assumption that $\textbf{Z}=\textbf{x}$ i.e. $\textbf{Z}$ stacks all the product characteristics
+		\begin{wideitemize}
+			\item In words: means `unobserved component of mean utility is mean-independent of market structure
+			\item Usually we would exclude price and advertising from these product characteristics due to endogeneity concerns'
+			\item Later we will talk about \textit{why} this assumption might be justified. Let's just see what it does for now...
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Identifying $\Sigma$ using $E[\xi_j | \textbf{Z}] = 0$}
+	\begin{wideitemize}
+		\item Consider one-dimensional Hotelling model. Utility to $i$ for product $j$:
+		\begin{align*}
+			u_{ij} = -\theta \cdot d(t_i,x_j) + \xi_j + \epsilon_{ij}
+		\end{align*}
+		\item Here:
+		\begin{wideitemize}
+			\item $\theta$: travel cost (this takes the place of our `unobserved taste for characteristics'). Assume $\theta \geq 0$.
+			\item $d$: distance between location $t_i \in [0,1]$ of consumer i and location $x_j \in [0,1]$ of product $j$.
+			\item $\xi_j$: mean quality of product $j$
+			\item $\epsilon_{ij}$: idiosyncratic taste shocks drawn from type-1 extreme value distribution (i.e. logit draws)
+			\item draw 100 product locations $x_j$ from a Beta distribution
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Identifying $\Sigma$ using $E[\xi_j | \textbf{Z}] = 0$}
+	\begin{centering}
+		\includegraphics[scale=0.25]{figure_1.jpeg}
+	\end{centering}
+\begin{wideitemize}
+	\item Panel (a): bunching towards center (just follows from the Beta distribution)
+	\item Panel (b): in crowded parts of product space market shares are relatively smaller. Why?
+\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Identifying $\Sigma$ using $E[\xi_j | \textbf{Z}] = 0$}
+	\begin{wideitemize}
+		\item Two possibilities could rationalize the ``data'' on market share patterns in panel (b):
+		\begin{wideitemize}
+			\item 1. Travel costs $\theta$ are large, so most products compete locally
+			\item 2. Travel costs $\theta = 0$, but products that are located in the center have \textit{systematically lower qualities} $\xi_j$ 
+		\end{wideitemize}
+		\item \textbf{This is the intuition behind why market share data alone cannot distinguish between unobserved tastes} ($\theta$) \textbf{vs unobserved quality} ($\xi_j$).
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Identifying $\Sigma$ using $E[\xi_j | \textbf{Z}] = 0$}
+	\begin{wideitemize}
+		\item Let's now consider what happens if we also have moments $E(\xi_j|x_j)=0$. 
+		\item On next slides: $\theta_0$ is the 'true' value in the model. The value $\theta$ is an alternative `guess' of $\theta_0$ that may or may not be different from the `truth'
+		\begin{wideitemize}
+			\item i.e. obtain these by guessing $\theta$ and then getting $\xi_j$ that fit observed market shares. 
+			\item The graphs on the next slides plot the quality $\xi_j(\theta)$ (implied by the model) vs the product location $x_j$.  
+		\end{wideitemize}
+		\item As we will see, the $E(\xi_j|x_j)=0$ moment rules out the second explanation from before.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Identifying $\Sigma$ using $E[\xi_j | \textbf{Z}] = 0$}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.4]{figure_2_a.jpeg}
+	\end{figure}
+	\begin{wideitemize}
+		\item If $\theta=\theta_0$, (implied) quality is uncorrelated with location. %That is, $E[\xi_j | x_j] = 0$.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Identifying $\Sigma$ using $E[\xi_j | \textbf{Z}] = 0$}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.4]{figure_2_b.jpeg}
+	\end{figure}
+	\begin{wideitemize}
+		\item If $\theta > \theta_0$, data exhibit correlation. %That is, $E[\xi_j | x_j] \neq 0$.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Identifying $\Sigma$ using $E[\xi_j | \textbf{Z}] = 0$}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.4]{figure_2_c}
+	\end{figure}
+	\begin{wideitemize}
+		\item If $\theta < \theta_0$, data exhibit correlation. %That is, $E[\xi_j | x_j] \neq 0$.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Identifying $\Sigma$ using $E[\xi_j | \textbf{Z}] = 0$}
+	\begin{wideitemize}
+		\item Main takeaways from this exercise: 
+		\item 1. \textbf{Two roles} for IVs in the model $E[\xi_j | \textbf{Z}] = 0$: dealing with price endogeneity and identifying non-linear parameters $\Sigma$
+			\begin{wideitemize}
+				\item This is under-appreciated! 
+				\item If we had micro-data we would know more moments of the distribution of choice probabilities for each product which would also be helpful for identification.
+		\end{wideitemize}
+		\item 2. Parameters of the model could potentially be identified from aggregate data on a single market.
+		\begin{wideitemize}
+			\item Often, we will also have cross-market data.
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		%\item Review of the BLP setup
+		%\item Price elasticity/substitution patterns
+		%\item Estimation: overview and typical data
+		\item Identification: what if we had micro-data?
+		\item  Identification: $\Sigma$
+		\item \textbf{Estimation algorithm}
+		%\item Instrumental variables
+		%\item Extensions
+		%\item Applications
+	\end{wideenumerate}
+\end{frame}
+
+
+\begin{frame}{Estimation algorithm}
+	\begin{wideitemize}
+		\item I will focus on the `nested fixed point' algorithm used in the original BLP paper.
+		\begin{wideitemize}
+			\item We will allow for both within- and across-market variation.
+			\item Continue to assume we have the moment restrictions: $E[\xi_{jt} | \textbf{Z}_t] = 0$.
+			\item We will talk about the choice of IVs later.
+		\end{wideitemize}
+		\item We will then discuss alternative approaches.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Estimation algorithm: overview}
+	\begin{wideitemize}
+		\item \underline{Preliminary}: 
+		\begin{wideitemize}
+			\item 	Get (and \underline{fix}) $R$ random draws from $F_{\nu}(\nu)$ (usually a standard normal) and $\hat{F}_D$ (e.g. an empirical distribution of demographics from Census data). 
+			\item  Also convert quantities to market shares by dividing by an assumed market size.
+		\end{wideitemize}
+		\item \underline{Step 1}: For a guess of $\Gamma$ and $\Sigma$, and a vector of mean utilities $\boldsymbol{\delta}_t$, compute model-predicted market shares.
+		\item \underline{Step 2}: For a guess of $\Gamma$ and $\Sigma$ do an \textbf{inversion}: find $\boldsymbol{\delta}_t$ where the model-predicted market shares match the empirical market shares $s_t$. 
+		\begin{wideitemize}
+			\item This step will repeatedly call the function from Step 1.
+		\end{wideitemize}
+		\item  \underline{Step 3}: Use the computed $\boldsymbol{\delta}_t$ from Step 2 to compute $\xi_{jt}= \delta_{jt}(\Gamma, \Sigma) - x_{jt} \beta_0 - \alpha_0 p_{jt}$. 
+		\begin{wideitemize}
+			\item Interact with IVs to get the GMM objective function. 
+			\item Search over all parameters $\theta$ to minimize objective function using non-linear optimization.
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Estimation algorithm: simple example}
+	\begin{wideitemize}
+		\item What if we have a logit model? ($\Gamma=0, \Sigma=0$)
+		\item \underline{Step 1}:
+		\begin{align*}
+			s_{jt} = \frac{\exp \{\delta_{jt} \}}{\sum_{k=0}^J \exp\{\delta_{kt}\}}
+		\end{align*}
+		\item \underline{Step 2}:
+		\begin{align*}
+			\ln (s_{jt}) - \ln(s_{0t}) = \delta_{jt} - \underbrace{ \delta_{0t} }_{=0}= x_{jt} \beta + \alpha p_{jt} + \xi_{jt}
+		\end{align*}
+		\item \underline{Step 3}: Estimate above equation with e.g. 2SLS.
+		\begin{wideitemize}
+			\item In other words, you can collapse the estimation down to a single step for the logit example. 
+			\item To make sure you understand: think about how you would construct the dependent variable `data' in this single step.
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Estimation algorithm: preliminaries}
+	\begin{wideitemize}
+		\item 	Get (and \underline{fix}) $R$ random draws from $F_{\nu}(\nu)$ (usually a standard normal) and $\hat{F}_D$ (e.g. an empirical distribution of demographics from Census data). 
+		\begin{wideitemize}
+			\item Denote these draws $\hat{F} = \left \{ \hat{\nu}_{it}, \hat{D}_{it} \right \}_{i=1}^R$
+		\end{wideitemize}
+		\item  Also convert quantities to market shares by dividing by an assumed market size ($I_t$): 
+		\begin{wideitemize}
+			\item i.e. $s_{jt} = q_{jt} / I_t$.
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Estimation algorithm: step 1}
+	\begin{wideitemize}
+		\item  For a guess of $\Gamma$ and $\Sigma$, and a vector of mean utilities $\boldsymbol{\delta}_t$, compute model-predicted market shares.
+		\begin{align*}
+			\tilde{\sigma} (\boldsymbol{\delta}_t; \Gamma, \Sigma, \textbf{x}_t, \textbf{p}_t, \hat{F}) = \frac{1}{R} \sum_{i=1}^R \frac{\exp\{\delta_{jt} + (x_{jt}, p_{jt}) \cdot (\Gamma D_{it} + \Sigma \nu_{it})\}}{1+\sum_{k=1}^J \exp \{\delta_{kt} + (x_{kt}, p_{kt}) \cdot (\Gamma D_{it} + \Sigma \nu_{it})\}}
+		\end{align*}
+		\item Can compute this using the simulated draws from the first step.
+		\item Could also use e.g. quadrature methods (since we are computing an integral)
+		\item Many tricks used to speed up this step in the literature (e.g. vectorization). See Conlon and Gortmaker (2020).
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Estimation algorithm: step 2}
+	\begin{wideitemize}
+		\item  For a guess of $\Gamma$ and $\Sigma$ do an \textbf{inversion}: find $\boldsymbol{\delta}_t$ where the model-predicted market shares match the empirical market shares $s_t$:
+		\item (i) Find a starting guess of $\boldsymbol{\delta}_t$ 
+		\item (ii) Update in the following way (Berry (1994) shows that this is a contraction mapping):
+		\begin{align*}
+			\boldsymbol{\delta}^{r+1}_t=\boldsymbol{\delta}^{r}_t + \ln(\mathbf{s}_t) - \ln	\tilde{\sigma} (\boldsymbol{\delta}^r_t; \Gamma, \Sigma, \textbf{x}_t, \textbf{p}_t, \hat{F}) 
+		\end{align*}
+		\item (iii) Continue iterating until $||\boldsymbol{\delta}^{r+1}_t - \boldsymbol{\delta}^{r}_t||<\tau$ where $\tau$ is very small.
+		\begin{wideitemize}
+			\item Note that $\tau$ needs to be \underline{really} small (e.g. $10^{-12}$).
+			\item Knittel and Metaxoglou (2014) document that the original BLP paper actually gets the estimates wrong because the tolerances are too loose.
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Estimation algorithm: step 3}
+	\begin{wideitemize}
+		\item  Denote the mean utilities from step 2: $\delta_{jt}(\Gamma, \Sigma)$
+		\item  Compute $\xi_{jt}(\theta) = \delta_{jt}(\Gamma, \Sigma) - x_{jt} \beta_0 - \alpha_0 p_{jt}$
+		\begin{wideitemize}
+			\item Above equation is why we called $\Gamma, \Sigma$ `nonlinear' variables, and $\beta_0$, $\alpha_0$ the `linear variables' 
+		\end{wideitemize}
+		\item  Interact with the instrumental variables to get the GMM objective function (denoting W as the GMM weight matrix):
+		\begin{align*}
+			\xi(\theta)' ZWZ' \xi (\theta)
+		\end{align*}
+		\item Solve for the parameters using nonlinear optimization.
+		\begin{align*}
+			\hat{\theta} = arg \min_{\theta} \xi(\theta)' ZWZ' \xi (\theta)
+		\end{align*}
+		\item \underline{Note}: since this is just a GMM problem, can also get standard errors using standard GMM methods
+	\end{wideitemize}
+ \end{frame}
+
+\begin{comment}
+\begin{frame}{Numerical issues (documented by Knittel and Metaxoglou (2014))}
+	\begin{wideitemize}
+		\item ( See Conlon and Gortmaker (2020) for latest updates on best practices. )
+		\item \underline{1. Objective function is highly nonlinear with many local minima}
+		\begin{wideitemize}
+			\item Numerical results can be sensitive to starting values or choice of optimizer method
+			\item (Partial) solution: test results with different starting values and optimizer methods
+			\item (Partial) solution: choose an optimizer that is used for commercial purposes (e.g. Knitro)
+			\item (Partial) solution: Conlon and Gortmaker (2020) make some suggestions of free optimizer methods that work well in Scipy (a Python library)
+			\item Solution (probably not yet computationally feasible): use a global optimizer like `differential evolution'
+		\end{wideitemize}
+		\item \underline{2. Need to choose very tight convergence tolerances for the inversion ($< 10^{-12}$)}
+		\item \textbf{These are common issues in structural models, so be on the lookout in other contexts.}
+	\end{wideitemize}
+\end{frame}
+
+
+\begin{frame}{Alternative algorithm: MPEC (`Mathematical Programming With Equilibrium Constraints')}
+	\begin{align}
+		\min_{\theta, \xi} &\hspace{22pt}  \xi ' ZWZ' \xi \nonumber  \\
+		\text{subject to} &\hspace{22pt} \tilde{\sigma} (\delta(\xi); x, p, \hat{F}, \theta) = s \nonumber
+	\end{align}
+	\begin{wideitemize}
+		\item Notice minimization is over both $\theta$ and $\xi$ here. 
+		\item \underline{Advantage of this approach:} No need for inversion step
+		\item \underline{Disadvantage of this approach:} Many more parameters to solve for ($\xi$)
+		\item Dube et al (2012): claim this approach results in a speedup.
+		\begin{wideitemize}
+			\item However, can be complicated to program, and some have found it slow for large problems
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		%\item Review of the BLP setup
+		%\item Price elasticity/substitution patterns
+		%\item Estimation: overview and typical data
+		\item Identification: what if we had micro-data?
+		\item Identification: $\Sigma$ 
+		\item Estimation algorithm
+		\item \textbf{Instrumental variables}
+		\item Extensions
+		\item Applications
+	\end{wideenumerate}
+\end{frame}
+
+
+\begin{frame}{Instruments}
+	\begin{wideitemize}
+		\item We used the following moment conditions in estimation:
+		\begin{align*}
+			E(\xi_{jt} | Z_{jt}) = 0
+		\end{align*}
+		\item What instruments should we use for $Z_{jt}$?
+	\begin{wideitemize}
+		\item Recall the dual role for instruments in the model.
+	\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Instruments: BLP instruments}
+	\begin{wideitemize}
+		\item Use \textbf{characteristics of products in the market}.
+		\begin{align*}
+			E(\xi_{jt} | x_{t}) = 0
+		\end{align*}
+		\begin{wideitemize}
+			\item $x_{t}$ is the vector of product characteristics in market $t$
+			\item (Note: don't include price in characteristics)
+			\item `Observed characteristics mean independent of unobserved characteristics'
+		\end{wideitemize}
+		\item Can form many moment conditions from above assumption. BLP use:
+		\begin{wideitemize}
+			\item characteristics of own product
+			\item sum of characteristics of other products produced by the firm
+			\item sum of characteristics of competitiors
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Instruments: cost-based / Hausman instruments}
+	\begin{wideitemize}
+		\item Ideal instrument: cost-shifters
+		\item But, cost data are rarely observed in practice.
+		\item Hausman (1996) and Nevo (2001) use indirect cost measures: \textbf{prices in other markets}
+		\begin{wideitemize}
+			\item i.e. $p_{jt'}$ for $t' \neq t$
+			\item Validity condition: conditional on $x_t$ and $x_t'$, pricing is independent across markets and $\xi_{jt}$ and $\xi_{jt'}$ are independent.
+			\item In words: ``IVs exploit common cost shocks across markets''
+		\end{wideitemize}
+		\item Problems (example):
+		\begin{wideitemize}
+			\item Unobserved advertising campaigns
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Instruments: Waldfogel-Fan instruments}
+	\begin{wideitemize}
+		\item Used in Waldfogel (2003), Fan (2013)
+		\item Use \textbf{demographics in other counties where the product is sold}
+			\begin{wideitemize}
+				\item Fan (2013): newspapers sold in multiple counties, uses demographics in other counties as IVs.
+				\item Idea: rely on consumption/preference externalities
+				\item E.g. Product offered in multiple counties $\rightarrow$ characteristics of product impacted by the attributes (like demographics) of the other counties.
+				\item Validity: conditional on variables in model, $\xi_{jt}$ not correlated across counties (same assumption in Hausman instruments)
+				\item Additional concern: set of counties where product is offered is not exogenous
+					\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+\end{comment}
+
+\end{document}
+

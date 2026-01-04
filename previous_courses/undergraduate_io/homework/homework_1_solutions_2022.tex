@@ -1,0 +1,415 @@
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\usepackage[left=1.0in,top=1.0in,right=1.0in,bottom=1.0in,headheight=3ex,headsep=3ex]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{adjustbox}
+
+
+\newcommand{\blankline}{\quad\pagebreak[2]}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Modify Course title, instructor name, semester here %%%%%%%%
+
+\title{ECN 453: Homework 1}
+%\date{Fall, 2021}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage[sc]{mathpazo}
+\linespread{1.3} % Palatino needs more leading (space between lines)
+\usepackage[T1]{fontenc}
+\usepackage[mmddyyyy]{datetime}% http://ctan.org/pkg/datetime
+\usepackage{advdate}% http://ctan.org/pkg/advdate
+%\newdateformat{syldate}{\twodigit{\THEMONTH}/\twodigit{\THEDAY}}
+\newsavebox{\MONDAY}\savebox{\MONDAY}{Mon}% Mon
+\newcommand{\week}[1]{%
+%  \cleardate{mydate}% Clear date
+% \newdate{mydate}{\the\day}{\the\month}{\the\year}% Store date
+  \paragraph*{\kern-2ex\quad #1, \syldate{\today} - \AdvanceDate[4]\syldate{\today}:}% Set heading  \quad #1
+%  \setbox1=\hbox{\shortdayofweekname{\getdateday{mydate}}{\getdatemonth{mydate}}{\getdateyear{mydate}}}%
+  \ifdim\wd1=\wd\MONDAY
+    \AdvanceDate[7]
+  \else
+    \AdvanceDate[7]
+  \fi%
+}
+\usepackage{setspace}
+\usepackage{multicol}
+%\usepackage{indentfirst}
+\usepackage{fancyhdr,lastpage}
+\usepackage{url}
+\pagestyle{fancy}
+\usepackage{hyperref}
+\usepackage{lastpage}
+\usepackage{amsmath}
+\usepackage{layout}
+\renewcommand{\theenumi}{\alph{enumi}}
+
+
+\lhead{}
+\chead{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Modify header here %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\rhead{\footnotesize ECN 453: Homework 1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\lfoot{}
+\cfoot{\small \thepage/\pageref*{LastPage}}
+\rfoot{}
+
+\usepackage{array, xcolor}
+\usepackage{color,hyperref}
+\definecolor{clemsonorange}{HTML}{EA6A20}
+\hypersetup{colorlinks,breaklinks,linkcolor=clemsonorange,urlcolor=clemsonorange,anchorcolor=clemsonorange,citecolor=black}
+
+\date{} 
+
+\begin{document}
+\maketitle
+
+
+\subsection*{1. Monopoly (25 points)}
+Consider a monopolist operating in a market with demand given by $q= 12-0.5p$ and total cost given by $C(q)=5+2q$.
+\begin{enumerate}
+	\item (1 point) What is the fixed cost?
+	
+	\begin{equation*}
+		FC = C(0) = 5
+	\end{equation*}
+	
+	
+	\item (1 point) What is the marginal cost?
+	
+	\begin{equation*}
+	MC = \frac{dC(q)}{dq} = 2
+	\end{equation*}
+	
+	
+	
+	\item (5 points) Find the monopolist's optimal price and quantity.
+	
+	First, convert demand to inverse demand function:
+	
+	\begin{equation*}
+	p(q) = 24-2q
+	\end{equation*}
+	
+	
+	
+	Monopolist's profit maximization problem:
+	
+	\begin{equation*}
+		\max_q \; \underbrace{(24-2q)q}_{TR(q) = p(q)q} -\underbrace{(5+2q)}_{C(q)}
+	\end{equation*}
+	
+	The solution is:
+	\begin{equation*}
+	\underbrace{24 -4q}_{MR(q)} = \underbrace{2}_{MC(q)}
+	\end{equation*}
+	\begin{equation*}
+	\implies q^* = 5.5
+	\end{equation*}
+	\begin{equation*}
+	p(q^*) = 24-2q^* \implies p(q^*) = 13 
+	\end{equation*}
+	
+	
+	
+	\item (1 point) Find the monopolist's profit.
+	
+	Monopolist's Profit:
+	\begin{equation*}
+		\Pi(q^*) = TR(q^*) - C(q^*)
+	\end{equation*}
+	\begin{equation*}
+	\Pi(q^*) = 13\times 5.5 - (5+2\times 5.5) = 55.5
+	\end{equation*}
+	
+	\item (8 points) On a graph plot: demand, marginal cost, marginal revenue, dead-weight-loss, consumer surplus, producer surplus, the monopolist's optimal price and quantity.
+	
+	
+	\begin{figure}[!htb] 
+		\centering
+%		\caption{High Wage Minus Low Wage EU Growth Rates}
+		\centering
+		\includegraphics[width=13cm, height = 9cm]{1e.png}
+		
+		%	\label{fig:1a}		
+	\end{figure}
+	
+	
+	
+	\item A regulator proposes regulating the monopoly with \textit{marginal cost pricing}. 
+	\begin{enumerate}
+		\item (1 point) What will the monopolist's profit be with marginal cost pricing?
+		
+		
+		\begin{equation*}
+			p^m = MC(q) = 2
+		\end{equation*}
+			
+		\begin{equation*}
+		q^m = 12-0.5\times2 = 11
+		\end{equation*}
+		
+		\begin{equation*}
+		\Pi(q^m) = 2\times 11 - (5+2\times11) = -5
+		\end{equation*}
+		
+		
+		\item (1 point) What subsidy will the regulator need to give the monopolist to ensure it does not shutdown?
+		
+		The regulator will need to subsidize the monopolist's fixed costs ($F(q)$) to ensure it does not shut down, so subsidy = 5.
+	\end{enumerate}
+	\item A regulator proposes regulating the monopoly with \textit{average cost pricing}. 
+	\begin{enumerate}
+		\item (5 points) What price will the monopolist charge under average cost pricing?
+		
+		\begin{equation*}
+			AC(q) = \frac{TC(q)}{q} = \frac{5}{q}+2
+		\end{equation*}
+		
+		To find price:
+		\begin{equation*}
+	    p(q) = AC(q) \implies 24 - 2q = \frac{5}{q} + 2 \implies q^a = 10.77
+		\end{equation*}
+	   (Note: there is another solution to this equation at $q=0.232$, but the regulator will not choose this because it would cause a higher deadweight loss than $q=10.77$)
+		\begin{equation*}
+         p^a = \frac{5}{10.77} + 2 = 2.46
+		\end{equation*}
+		
+		
+		\item (2 points) What is the dead-weight-loss under average cost pricing?
+		
+		\begin{equation*}
+			\text{Dead Weight Loss} = \frac{1}{2}\times (q^m-q^a)\times (p^a - p^m)
+		\end{equation*}
+		
+		\begin{equation*}
+         = \frac{1}{2}\times (11-10.77)\times (2.46-2) = 0.0529
+        \end{equation*}		
+		
+		
+	\end{enumerate}
+\end{enumerate}
+
+\subsection*{2. Selection by indicators: student discounts (25 points)}
+Suppose you are the owner of a movie theater. There are two types of customers: students (denoted `s') and non-students (denoted `ns'). You know if a customer is a student or non-student and so you could potentially use price discrimination with \textit{selection by indicators}. The demand for movies for each of these segments is:
+\begin{align*}
+	\text{Student: } &q_{s} = 20 - 2p_{s} \\
+	\text{Non-student: }& q_{ns} = 15 - p_{ns}
+\end{align*}
+\begin{enumerate}
+	\item (5 points) On a graph, plot the total demand curve and the corresponding marginal revenue curve if the two types of consumers are treated as one. (Hint: you should begin by summing the demand curves horizontally.) 
+	
+	Let $q_s + q_{ns}= q$, and $p_s = p_{ns} = p$.
+	
+	Given the individual demand curves for students and non-students, observe that if $p \geq 10$ (equivalently, $q < 5$) then only the non-students will buy tickets. 
+	
+	Then, demand is:
+	\begin{itemize}
+		\item $q=15-p$ if $p \geq 10$
+		\item $q=35-3p$ if $p < 10$
+	\end{itemize}
+	Marginal revenue is:
+	\begin{itemize}
+		\item $MR=15-2q$ if $q < 5$
+		\item $MR=\frac{35}{3}-\frac{2}{3}q$ if $q > 5$
+	\end{itemize}
+		
+	\begin{figure}[!htb] 
+		\centering
+		%		\caption{High Wage Minus Low Wage EU Growth Rates}
+		\centering
+		\includegraphics[scale=1.0]{question2_crop.pdf}
+		
+		%	\label{fig:1a}		
+	\end{figure}
+	
+	
+	\item Suppose that marginal cost = 1 and that you can only set a single \textit{uniform price}.
+	\begin{enumerate}
+		\item (2 points) What is the optimal uniform price?
+		
+		Looking at the graph, if MC=1 then $MR=MC$ on the $q>5$ segment of the marginal revenue curve. Then:
+		\begin{equation*}
+			MR(q) = MC(q) \implies \frac{35}{3} - \frac{2q}{3} = 1
+		\end{equation*}
+	    \begin{equation*}
+		\implies q^* = 16
+		\end{equation*}
+	    \begin{equation*}
+		p^* = \frac{35}{3} - \frac{16}{3} = 6.33
+		\end{equation*}
+		
+		
+		\item  (2 points) What is the profit under uniform pricing?
+		
+		\begin{equation*}
+			\Pi = p^*q^* - 1q^* = 16(6.33-1)=85.28
+		\end{equation*}
+		
+		\item (2 points) What is consumer surplus under uniform pricing?
+		
+		\begin{equation*}
+		CS = \frac{1}{2}\times (10-6.33) \times (20-2 \times 6.33) + \frac{1}{2} \times (15-6.33) \times (15-6.33)=13.47+37.58=51.05
+		\end{equation*}
+		
+		
+	\end{enumerate}
+	\item Continue to assume that marginal cost = 1. You would now like to price discriminate by setting a different price for students and for non-students.
+	\begin{enumerate}
+		\item (2 points) What are the optimal prices for students and for non-students? 
+		
+		Students:
+		\begin{equation*}
+		q_s = 20 - 2p_s \implies p_s = 10 - \frac{q_s}{2}
+		\end{equation*}
+		\begin{equation*}
+		MR(q_s) = MC(q_s) \implies 10 - q_s = 1 \implies q^*_s = 9 \implies p^*_s = 5.5
+		\end{equation*}
+		
+		\bigskip
+		
+		Non-Students:
+		\begin{equation*}
+		q_{ns} = 15 - p_{ns} \implies p_{ns} = 15 - q_{ns}
+		\end{equation*}
+		\begin{equation*}
+		MR(q_{ns}) = MC(q_{ns}) \implies 15 - 2q_{ns} = 1 \implies q^*_{ns} = 7 \implies p^*_{ns} = 8
+		\end{equation*}
+		
+		
+		
+		\item (2 points) What are the profits under price discrimination?
+		
+		\begin{equation*}
+			\Pi = \Pi_s + \Pi_{ns} = (9\times5.5 - 1\times 9) + (7\times8 - 1\times7) = 89.5
+		\end{equation*}
+		
+		
+		\item (2 point) How does the profit under price discrimination compare to uniform pricing?
+		
+		Profits under uniform pricing are lower than profits under price discrimination 
+		
+		
+		\item (2 points) How does dead-weight-loss change between uniform pricing and price discrimination?
+		
+		Uniform Pricing:
+		\begin{equation*}
+			DWL^u = \frac{1}{2}\times (32-16)\times (6.33-1) =  42.64
+		\end{equation*}
+	  where $q^m$ is the quantity produced under marginal cost pricing
+	  
+	  Price Discrimination:
+	\begin{equation*}
+	  DWL^p = DWL^s + DWL^{ns} = 20.25 + 24.5 = 44.75
+	  \end{equation*}
+	So, DWL increases after price discrimination.
+		\item (2 points) How does consumer surplus change between uniform pricing and price discrimination?
+		
+		Consumer Surplus under price discrimination:
+		\begin{equation*}
+			CS^p = CS_s + CS_{ns} = 20.25+24.5=44.75
+		\end{equation*}
+		
+		Therefore, consumer surplus under price discrimination is lower.
+		
+		\item (2 points) Briefly explain (in one or two sentences) using your results from (d) and (e) whether there is an \textit{equity-efficiency tradeoff} when moving from uniform pricing to discriminatory pricing?
+		
+		No, because a decrease in efficiency is accompanied with a decrease in consumer surplus.
+		
+	\end{enumerate}
+	\item Now, suppose that marginal cost = 10 and assume that the monopolist can only set a single \textit{uniform} price in both markets.
+	\begin{enumerate}
+		\item (2 points) What is the monopolist's optimal price?
+		
+		\begin{equation*}
+			MR = MC \implies 15-2q = 10 \implies q^* = 5/2 \implies p^* = 12.5
+		\end{equation*}
+
+	\end{enumerate}
+\end{enumerate}
+
+\subsection*{3. Price discrimination by versioning: damaged goods (25 points)}
+Suppose you are the CEO of a famous electric car company. Your marginal cost of production is \$20 thousand per vehicle. 
+
+Currently, you are selling 1 million cars per year at \$130 thousand per vehicle. Your market research team tells you that there is another segment of 4 million consumers who have a willingness-to-pay equal to \$40 thousand for exactly the same vehicle with one exception: it is `damaged' with a small software update that restricts it from using its full battery range. This segment would be willing to buy the standard model for \$50 thousand. The segment of consumers who are currently buying the car value the standard model at \$130 thousand per vehicle, and the damaged model at \$50 thousand per vehicle. To summarize:
+
+\begin{centering}
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{|l|c|c|c|}
+			\hline
+			\textbf{Consumer type}&  \textbf{Number of consumers} & \multicolumn{2}{c}{\textbf{Willingness to pay (thousands of \$)}} \\
+			%\hline
+			& & Standard & Damaged  \\
+			\hline
+			Current segment & 1 million & 130 & 50  \\
+			\hline
+			New segment& 4 million  & 50 & 40  \\
+			\hline
+		\end{tabular}
+	\end{table}
+\end{centering}
+
+
+\begin{enumerate}
+	\item Assume that the car company observes the willingness to pay of all consumers and \underline{only} offers the standard model. Under perfect price discrimination:
+	\begin{enumerate}
+		\item (2 points) What are the optimal prices? 
+		
+		Charge \$130 thousand to the current segment, \$50 thousand to the new segment. 
+		
+		\item (2 points) What is the car company's profit?
+		
+		\begin{equation*}
+		\text{Profits} = 1 \times (130-20) + 4 \times (50-20) = \$230 \text{billion}
+		\end{equation*}
+		
+	\end{enumerate}
+	\item Assume instead that the car company cannot observe a consumer's willingness to pay. 
+	\begin{enumerate}
+		\item (4 points) Suppose that the car company can only charge a uniform price of \$130 thousand for standard vehicles and damaged vehicles. What is the car company's profit?
+		
+	    Now, only the current segment of consumers will buy the standard version of the car, while the new segment will not buy either as it is above their marginal willingness to pay. Profits will be $(130-20)\times 1 = \$ 110 \text{billion}$
+		
+		\item (4 points) Suppose that the car company charges a price of \$130 thousand for the standard model and \$40 thousand for the damaged model.\footnote{These prices are equal to the willingness to pay of each segment the particular car is targeted to i.e. the standard car is targeted to the current segment and the damaged car is targeted to the new segment.} What is the car company's profit?
+		
+		The current segment of consumers will now buy the damaged version of the car since their consumer surplus from buying the damaged version ($50-40=10$) is greater than that from buying the standard version ($130-130 = 0$). The new segment will also buy the damaged version with a consumer surplus of zero. 
+		
+		\begin{equation*}
+			\text{Profits} = (40-20)\times 1 + (40-20)\times 4 = \$ 100 \text{billion}
+		\end{equation*}
+		
+		\item (4 points) Suppose that the car company charges a price of \$100 thousand for the standard model and \$30 thousand for the damaged model. What is the car company's profit?
+		
+		Now the current segment of consumers will purchase the standard version of the car as their consumer surplus from that purchase ($130-100 = 30$) is greater than the consumer surplus from purchasing the damaged version ($50-30 = 20$). The new segment will purchase the damaged version. Then profits are:
+		
+		\begin{equation*}
+		\text{Profits} = (100-20)\times 1 + (30-20)\times 4 = \$ 120 \text{billion}
+		\end{equation*}
+		
+		
+		
+		\item (4 points) Briefly explain (in one or two sentences) why the profit in (c) is higher than the profit in (b).
+		
+		In part (c), unlike part (b), prices were set in such a way that the current segment of consumers had no incentive to go for the deal intended to target the new segment of consumers.
+		
+		\item (5 points) Suggest prices for the standard model and the damaged model that result in a profit higher than (c). 
+		
+		Price of damaged version set at 40 and any prices for the standard version in $(60,120]$ will work. E.g. suppose we set the damaged price at 40 and the standard price at 119. Then, the current segment of consumers have a higher consumer surplus by purchasing the standard version ($130-119=11$) compared to the damaged version ($50-40 = 10$). New segment purchases the damaged version.
+		
+		\begin{equation*}
+			\text{Profits} = (119-20)\times 1 + (40-20)\times 4 = \$179 \text{billion}
+		\end{equation*}
+		
+	\end{enumerate}
+\end{enumerate}
+
+\end{document}

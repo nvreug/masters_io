@@ -1,0 +1,416 @@
+\documentclass[notes,11pt, aspectratio=169]{beamer}
+
+\usepackage{pgfpages}
+% These slides also contain speaker notes. You can print just the slides,
+% just the notes, or both, depending on the setting below. Comment out the want
+% you want.
+\setbeameroption{hide notes} % Only slide
+%\setbeameroption{show only notes} % Only notes
+%\setbeameroption{show notes on second screen=right} % Both
+
+%\usepackage[scaled=1.0]{helvet}
+\usepackage{array}
+
+
+\usepackage{tikz}
+\usepackage{verbatim}
+\setbeamertemplate{note page}{\pagecolor{gray!5}\insertnote}
+\usetikzlibrary{positioning}
+\usetikzlibrary{snakes}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{matrix,shapes,arrows,fit,tikzmark}
+\usepackage{amsmath}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{multimedia}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{dcolumn}
+\usepackage{bbm}
+\newcolumntype{d}[0]{D{.}{.}{5}}
+
+\usepackage{changepage}
+\usepackage{appendixnumberbeamer}
+\newcommand{\beginbackup}{
+   \newcounter{framenumbervorappendix}
+   \setcounter{framenumbervorappendix}{\value{framenumber}}
+   \setbeamertemplate{footline}
+   {
+     \leavevmode%
+     \hline
+     box{%
+       \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{footlinecolor}%
+%         \insertframenumber  \hspace*{2ex} 
+       \end{beamercolorbox}}%
+     \vskip0pt%
+   }
+ }
+\newcommand{\backupend}{
+   \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumbervorappendix}} 
+}
+
+
+\usepackage{graphicx}
+\usepackage[space]{grffile}
+\usepackage{booktabs}
+
+% These are my colors -- there are many like them, but these ones are mine.
+\definecolor{blue}{RGB}{0,114,178}
+\definecolor{red}{RGB}{213,94,0}
+\definecolor{yellow}{RGB}{240,228,66}
+\definecolor{green}{RGB}{0,158,115}
+
+\hypersetup{
+  colorlinks=false,
+  linkbordercolor = {white},
+  linkcolor = {blue}
+}
+
+
+%% I use a beige off white for my background
+\definecolor{MyBackground}{RGB}{255,253,218}
+
+%% Uncomment this if you want to change the background color to something else
+%\setbeamercolor{background canvas}{bg=MyBackground}
+
+%% Change the bg color to adjust your transition slide background color!
+\newenvironment{transitionframe}{
+  \setbeamercolor{background canvas}{bg=white}
+  \begin{frame}}{
+    \end{frame}
+}
+
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=black}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{} 
+\setbeamertemplate{itemize items}{-}
+\setbeamercolor{itemize item}{fg=blue}
+\setbeamercolor{itemize subitem}{fg=blue}
+\setbeamercolor{enumerate item}{fg=blue}
+\setbeamercolor{enumerate subitem}{fg=blue}
+\setbeamercolor{button}{bg=MyBackground,fg=blue,}
+
+
+
+% If you like road maps, rather than having clutter at the top, have a roadmap show up at the end of each section 
+% (and after your introduction)
+% Uncomment this is if you want the roadmap!
+% \AtBeginSection[]
+% {
+%    \begin{frame}
+%        \frametitle{Roadmap of Talk}
+%        \tableofcontents[currentsection]
+%    \end{frame}
+% }
+\setbeamercolor{section in toc}{fg=blue}
+\setbeamercolor{subsection in toc}{fg=red}
+\setbeamersize{text margin left=1em,text margin right=1em} 
+
+\newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
+\newenvironment{wideenumerate}{\enumerate\addtolength{\itemsep}{10pt}}{\endenumerate}
+
+\usepackage{environ}
+\NewEnviron{videoframe}[1]{
+  \begin{frame}
+    \vspace{-8pt}
+    \begin{columns}[onlytextwidth, T] % align columns
+      \begin{column}{.58\textwidth}
+        \begin{minipage}[t][\textheight][t]
+          {\dimexpr\textwidth}
+          \vspace{8pt}
+          \hspace{4pt} {\Large \sc \textcolor{blue}{#1}}
+          \vspace{8pt}
+          
+          \BODY
+        \end{minipage}
+      \end{column}%
+      \hfill%
+      \begin{column}{.42\textwidth}
+        \colorbox{green!20}{\begin{minipage}[t][1.2\textheight][t]
+            {\dimexpr\textwidth}
+            Face goes here
+          \end{minipage}}
+      \end{column}%
+    \end{columns}
+  \end{frame}
+}
+
+\title[]{\textcolor{blue}{Introduction: ECN 453 \\ Industrial Organization/Competition Policy}}
+\author[PGP]{}
+\institute[FRBNY]{\small{\begin{tabular}{c c c}
+Nicholas Vreugdenhil \\
+\end{tabular}}}
+\date{} 
+
+\begin{document}
+
+%%% TIKZ STUFF
+\tikzset{   
+        every picture/.style={remember picture,baseline},
+        every node/.style={anchor=base,align=center,outer sep=1.5pt},
+        every path/.style={thick},
+        }
+\newcommand\marktopleft[1]{%
+    \tikz[overlay,remember picture] 
+        \node (marker-#1-a) at (-.3em,.3em) {};%
+}
+\newcommand\markbottomright[2]{%
+    \tikz[overlay,remember picture] 
+        \node (marker-#1-b) at (0em,0em) {};%
+}
+\tikzstyle{every picture}+=[remember picture] 
+\tikzstyle{mybox} =[draw=black, very thick, rectangle, inner sep=10pt, inner ysep=20pt]
+\tikzstyle{fancytitle} =[draw=black,fill=red, text=white]
+%%%% END TIKZ STUFF
+
+% Title Slide
+\begin{frame}
+\maketitle
+  \centering
+\end{frame}
+
+% INTRO
+
+\begin{frame}{Plan for today}
+  \begin{wideenumerate}
+    \item What is industrial organization?
+    \item Discuss syllabus
+  \end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Plan for today}
+	\begin{wideenumerate}
+		\item \textbf{What is industrial organization?}
+		\item Discuss syllabus
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Your economics education so far}
+	\begin{wideitemize}
+		\item So far in your economics courses you have studied (at least) two forms of competition: \textbf{perfect competition} and \textbf{monopoly}.
+		\item We can think of these two forms of competition as polar opposites.
+		\item \textbf{Perfect competition} (supply and demand)
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Many tiny `atomistic' firms
+			\item Total surplus is maximized and so the market is `efficient'. Taxes and other regulation can cause inefficiencies (`deadweight loss')
+		\end{wideitemize}
+			\item \textbf{Monopoly} 
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item One single firm
+			\item Monopoly sets price `too high'; the market is inefficient. Clear scope for regulation
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Most real-world markets and firm behaviors do not fit neatly into these two categories.}
+	\begin{columns}[T] % align columns
+		\begin{column}{.6\textwidth}
+			\begin{wideitemize}
+			\vspace{11pt}
+				\item Some examples in this course:
+				\begin{wideenumerate}
+				\vspace{5pt}
+				\item Firms set different prices for the same good (e.g. airline tickets, student discounts, pharmaceutical pricing in different countries)
+				\item There are only a few big firms in the market (e.g. health insurance, internet plans, ...)
+				\item Firms collude to raise prices or restrict supply (e.g. OPEC)
+				\item Firms merge with, or acquire, other firms (subject to \textbf{antitrust} laws)
+				\end{wideenumerate}
+			\end{wideitemize}
+		\end{column}
+		\begin{column}{.4\textwidth}
+			\centering
+			%\vspace{-30pt}
+			\begin{figure}
+				\includegraphics[scale=0.6]{./standard_oil.jpeg}	
+				\vspace{-15pt}	
+				%\caption{ {\newline https://adamstoolkit.tripod.com/ \newline ushist1800/muck/cartoon.html} }
+			\end{figure}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{What is industrial organization (IO)?}
+\begin{wideitemize}
+	\item \textbf{IO is the study of firm and consumer behavior in markets between (and including) the polar opposites of perfect competition and monopoly.}
+	\item Why is this useful? 
+	\begin{wideenumerate}
+		\vspace{11pt}
+		\item Designing regulation:
+				\vspace{11pt}
+				\begin{wideitemize}
+					\item Hinges on the details of how firms and consumer behave.
+				\end{wideitemize}
+		\item Firm strategy
+				\vspace{11pt}
+				\begin{wideitemize}
+					\item e.g. How to set prices? How to design online marketplaces?{\tiny }
+				\end{wideitemize}
+	\end{wideenumerate}
+\end{wideitemize}
+\end{frame}
+
+\begin{frame}{IO is central to many heated policy debates right now}
+ \begin{columns}[T] % align columns
+	\includegraphics[scale=0.1]{politico.jpeg}
+	\pause
+	\includegraphics[scale=0.1]{tech.jpeg}
+	\pause
+	\hspace{-200pt} \includegraphics[scale=0.1]{wsj.jpeg}
+\end{columns}
+\end{frame}
+
+\begin{frame}{In this course we will focus on the following topics}
+	\begin{wideenumerate}
+		\item Part 1: Pricing, price discrimination, and an introduction to game theory
+		\item Part 2: Models of static competition
+		\item Part 3: Models of dynamic competition and collusion; horizontal and vertical relationships; mergers
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Plan for today}
+	\begin{wideenumerate}
+		\item What is industrial organization?
+		\item \textbf{Discuss syllabus}
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Syllabus}
+	\begin{wideitemize}
+		\item E-mail: \texttt{nvreugde@asu.edu} (Use `ECN 453: [email reason]' in the subject.)
+		\item Website: Canvas
+		\item Zoom Office Hours: See syllabus (\href{https://asu.zoom.us/j/6639396226}{663 939 6226}) - email me for alternative times.
+		\item Office: CRTVC 455G
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Syllabus}
+	\begin{wideitemize}
+		\item The required textbook is \textit{`Introduction to Industrial Organization, Second Edition'} by Luis Cabral. 
+		\item Grading:
+		\begin{wideitemize}
+			\item \underline{\textbf{20\%}} Best 2 out of 3 homework assignments. 
+			\begin{wideitemize}
+				\item You should work in groups of 2 or 3 and hand in one homework per group
+				\item Note that I \underline{will} accept individual homework (i.e. a group of 1), but I don't recommended this because in the past students who worked in groups tended to do a lot better.
+			\end{wideitemize}
+			\item \underline{\textbf{22.5\%}} Mid-term exam 1 
+			\item \underline{\textbf{22.5\%}} Mid-term exam 2
+			\item \underline{\textbf{35\%}} Final exam 
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Syllabus}
+	\begin{wideitemize}	
+	\item Your final grade will be converted into a letter grade using the following intervals:
+		\begin{center}
+			\centering
+			\begin{tabular}{|l|l|}
+				\hline
+				A+& Above 99  \\
+				A& [94,99) \\
+				A-&[90,94)  \\
+				B+&[87,90) \\
+				B& [84,87) \\
+				B-&[80, 84)  \\
+				C+&[70,80)  \\
+				C&[60,70)  \\
+				D& [50,60) \\
+				E& Below 50 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		\item All of the exams and homework assignments will be in points. To determine your final grade I will first scale the maximum point grade of each exam and homework assignment to 100.\footnote{So, for example, if you get 40/50 on a mid-term exam I will first scale your score to 80/100.} I will then take the above weighted average over all of your assessments.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Syllabus}
+\begin{wideitemize}
+	\item This can be a challenging class:
+	\item Make sure you ask for help early!
+\end{wideitemize}
+\begin{figure}
+	\includegraphics[scale=0.7]{past_grades.png}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Syllabus}
+	\begin{wideitemize}
+	\item There will be three exams: two mid-terms and one final exam. The dates are as follows:
+		\begin{itemize}
+			\item Mid-term exam 1 (in class, see syllabus)
+			\item Mid-term exam 2 (in class,  see syllabus)
+			\item Final exam (in finals week, see final exam schedule)
+		\end{itemize}
+	\item Please make sure that you are able to attend the exams - if you know you have a conflict then I encourage you to take the course in a different semester. 
+	\item \textbf{Important:} There will be \underline{no make up exams} without a university sanctioned excuse: if you find out you cannot take an exam you must 1. let me know at least 48 hours before the exam 2. provide documentation for your university sanctioned excuse. If you do not do both 1. and 2. then you will receive 0 points in your exam.
+		\item For \textbf{regrades} please attach a note to the front of the assessment with the reason why you want the assessment regraded. The entire assessment will be regraded so if you request a regrade \underline{your grade could decrease}. 
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Syllabus}
+	\begin{wideitemize}
+\item \textbf{Zoom Link} The department policy is: ``for campus immersion (on campus, in-person) courses, we will be able to accommodate students who have COVID or are not feeling well by enabling them to use Sync and join class via Zoom''. 
+\item Email me if you require the Zoom link and the reason why (and please do this some time before the lecture so I don't miss your email). I strongly encourage you to stay home if you are feeling unwell. Note that exams and other assessment \textbf{do} require you to attend in-person or provide proof for your absence (and the exact policies are detailed elsewhere in the syllabus).
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Syllabus}
+	\begin{enumerate}
+		\item \textbf{Part 1: Monopoly, price discrimination, and an introduction to game theory}
+		\begin{wideitemize}
+			\item Introduction and review of basic micro (Chapter 2)
+			\item Pricing and monopoly (Chapters 3.1, 3.2, 5)
+			\item Pricing and price discrimination (Chapter 6)
+			\item Game theory (simultaneous and sequential games) (Chapter 7.1, 7.2, and 8.1 if time permits)
+			\item \underline{Note: Mid-term exam 1 will cover material on this section}
+		\end{wideitemize}
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}{Syllabus}
+	\begin{enumerate}
+		\item[2] \textbf{Part 2: Models of static competition}
+		\begin{wideitemize}
+		\item Bertrand and Cournot competition (Chapter 8)
+		\item Stackelberg competition and entry deterrence (Chapter 12.1)
+		\item Hotelling model (Chapter 14., if time permits)
+		\item Potentially begin material from weeks 10-End
+		\item \underline{Note: Mid-term exam 2 will \textit{mainly} cover material on this section,  but will build on} 
+		\underline{concepts from Part 1.}
+		\end{wideitemize}
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}{Syllabus}
+	\begin{enumerate}
+		\item[3] \textbf{Part 3: Models of dynamic competition; horizontal and vertical relationships}
+		\begin{wideitemize}
+			\item Market structure (Chapter 10)
+			\item Dynamic oligopoly and collusion (Chapter 7.3, 9)
+			\item Horizontal mergers (Chapter 11)
+			\item Vertical relationships (Chapter 13 - if time permits)
+			\item Recent developments in the field (No textbook link - if time permits)
+			\item \underline{Note: The final exam will be cumulative.} 
+		\end{wideitemize}
+	\end{enumerate}
+\end{frame}
+
+\begin{frame}{Math requirements for this course}
+	\begin{wideitemize}
+		\item Common question: what are the math prerequisites for this course? 
+		\item I will post some practice exercises online that involve maximizing profits/using derivatives. If you can do these exercises, you're probably fine!
+		\item The first part of the course is (relatively) free of derivatives. But the second and third parts will require you to take derivatives, usually to maximize profit in different contexts.
+	\end{wideitemize}
+\end{frame}
+
+\end{document}

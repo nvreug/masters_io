@@ -1,0 +1,669 @@
+\documentclass[notes,11pt, aspectratio=169]{beamer}
+
+\usepackage{pgfpages}
+% These slides also contain speaker notes. You can print just the slides,
+% just the notes, or both, depending on the setting below. Comment out the want
+% you want.
+\setbeameroption{hide notes} % Only slide
+%\setbeameroption{show only notes} % Only notes
+%\setbeameroption{show notes on second screen=right} % Both
+
+%\usepackage[scaled=1.0]{helvet}
+\usepackage{array}
+
+\usepackage{tikz}
+\usepackage{verbatim}
+\setbeamertemplate{note page}{\pagecolor{gray!5}\insertnote}
+\usetikzlibrary{positioning}
+\usetikzlibrary{snakes}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{matrix,shapes,arrows,fit,tikzmark}
+\usepackage{amsmath}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{multimedia}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{dcolumn}
+\usepackage{bbm}
+\newcolumntype{d}[0]{D{.}{.}{5}}
+
+\usepackage{changepage}
+\usepackage{appendixnumberbeamer}
+\newcommand{\beginbackup}{
+   \newcounter{framenumbervorappendix}
+   \setcounter{framenumbervorappendix}{\value{framenumber}}
+   \setbeamertemplate{footline}
+   {
+     \leavevmode%
+     \hline
+     box{%
+       \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{footlinecolor}%
+%         \insertframenumber  \hspace*{2ex} 
+       \end{beamercolorbox}}%
+     \vskip0pt%
+   }
+ }
+\newcommand{\backupend}{
+   \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumbervorappendix}} 
+}
+
+
+\usepackage{graphicx}
+\usepackage[space]{grffile}
+\usepackage{booktabs}
+
+% These are my colors -- there are many like them, but these ones are mine.
+\definecolor{blue}{RGB}{0,114,178}
+\definecolor{red}{RGB}{213,94,0}
+\definecolor{yellow}{RGB}{240,228,66}
+\definecolor{green}{RGB}{0,158,115}
+
+\hypersetup{
+  colorlinks=false,
+  linkbordercolor = {white},
+  linkcolor = {blue}
+}
+
+
+%% I use a beige off white for my background
+\definecolor{MyBackground}{RGB}{255,253,218}
+
+%% Uncomment this if you want to change the background color to something else
+%\setbeamercolor{background canvas}{bg=MyBackground}
+
+%% Change the bg color to adjust your transition slide background color!
+\newenvironment{transitionframe}{
+  \setbeamercolor{background canvas}{bg=white}
+  \begin{frame}}{
+    \end{frame}
+}
+
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=black}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{} 
+\setbeamertemplate{itemize items}{-}
+\setbeamercolor{itemize item}{fg=blue}
+\setbeamercolor{itemize subitem}{fg=blue}
+\setbeamercolor{enumerate item}{fg=blue}
+\setbeamercolor{enumerate subitem}{fg=blue}
+\setbeamercolor{button}{bg=MyBackground,fg=blue,}
+
+
+
+% If you like road maps, rather than having clutter at the top, have a roadmap show up at the end of each section 
+% (and after your introduction)
+% Uncomment this is if you want the roadmap!
+% \AtBeginSection[]
+% {
+%    \begin{frame}
+%        \frametitle{Roadmap of Talk}
+%        \tableofcontents[currentsection]
+%    \end{frame}
+% }
+\setbeamercolor{section in toc}{fg=blue}
+\setbeamercolor{subsection in toc}{fg=red}
+\setbeamersize{text margin left=1em,text margin right=1em} 
+
+\newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
+\newenvironment{wideenumerate}{\enumerate\addtolength{\itemsep}{10pt}}{\endenumerate}
+
+\usepackage{environ}
+\NewEnviron{videoframe}[1]{
+  \begin{frame}
+    \vspace{-8pt}
+    \begin{columns}[onlytextwidth, T] % align columns
+      \begin{column}{.58\textwidth}
+        \begin{minipage}[t][\textheight][t]
+          {\dimexpr\textwidth}
+          \vspace{8pt}
+          \hspace{4pt} {\Large \sc \textcolor{blue}{#1}}
+          \vspace{8pt}
+          
+          \BODY
+        \end{minipage}
+      \end{column}%
+      \hfill%
+      \begin{column}{.42\textwidth}
+        \colorbox{green!20}{\begin{minipage}[t][1.2\textheight][t]
+            {\dimexpr\textwidth}
+            Face goes here
+          \end{minipage}}
+      \end{column}%
+    \end{columns}
+  \end{frame}
+}
+
+\title[]{\textcolor{blue}{Demand Estimation 5 \\ PhD Industrial Organization}}
+\author[PGP]{}
+\institute[FRBNY]{\small{\begin{tabular}{c c c}
+Nicholas Vreugdenhil \\
+\end{tabular}}}
+\date{} 
+
+\begin{document}
+
+%%% TIKZ STUFF
+\tikzset{   
+        every picture/.style={remember picture,baseline},
+        every node/.style={anchor=base,align=center,outer sep=1.5pt},
+        every path/.style={thick},
+        }
+\newcommand\marktopleft[1]{%
+    \tikz[overlay,remember picture] 
+        \node (marker-#1-a) at (-.3em,.3em) {};%
+}
+\newcommand\markbottomright[2]{%
+    \tikz[overlay,remember picture] 
+        \node (marker-#1-b) at (0em,0em) {};%
+}
+\tikzstyle{every picture}+=[remember picture] 
+\tikzstyle{mybox} =[draw=black, very thick, rectangle, inner sep=10pt, inner ysep=20pt]
+\tikzstyle{fancytitle} =[draw=black,fill=red, text=white]
+%%%% END TIKZ STUFF
+
+% Title Slide
+\begin{frame}
+\maketitle
+  \centering
+\end{frame}
+
+% INTRO
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item Distinguishing models of competition
+		\item Supply-side moments
+		\item Welfare from new products: theory
+		\item Welfare from new products: application
+		\item Apple-cinnamon cheerios war
+		\item Main takeaways of demand estimation
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item \textbf{Distinguishing models of competition}
+		\item Supply-side moments
+		\item Welfare from new products: theory
+		\item Welfare from new products: application
+		\item Apple-cinnamon cheerios war
+		\item Main takeaways of demand estimation
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Application: distinguishing between models of competition}
+	\begin{wideitemize}
+		\item \textbf{Overall strategy:}
+		\item 1. Estimate demand
+		\item 2. Use estimates + pricing rules implied by different models of firm conduct to get price-cost margins (PCM)
+		\begin{wideitemize}
+			\item Challenge: costs not observed
+		\end{wideitemize}
+		\item 3. Compare predicted PCM from different models of conduct to true PCM
+		\begin{wideitemize}
+			\item See which model of firm conduct best matches the data.
+		\end{wideitemize}
+		\item \textbf{Main finding:}
+		\item Nash-Bertrand pricing best matches observed PCM
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Application: distinguishing between models of competition}
+\begin{wideitemize}
+\item \textbf{Demand side:}
+\item Utility model is exactly what we have seen:
+\begin{align*}
+u_{ijt} = x_{jt} \beta_i + \alpha_i p_{jt} + \xi_{jt} + \epsilon_{ijt}
+\end{align*}
+\item \textbf{Data:}
+\item Use top 25 cereal brands
+\item Scanner data $\rightarrow$ get market shares, prices, etc. 
+\begin{wideitemize}
+\item Aggregate to MSA-quarter level = 1124 markets.
+\end{wideitemize}
+\item Advertising data
+\item Cereal box characteristics (nutritional information); subjective characteristics (`mushy')
+\item Demographics from CPS
+\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Application: distinguishing between models of competition}
+\begin{wideitemize}
+\item \textbf{Supply side:}
+\item Profits of firm $f$:
+\begin{align*}
+\pi_f = \sum_{j \in \mathcal{J}_f} \left[ (p_j - mc_j) q_j(\textbf{p}) - FC_j \right]
+\end{align*}
+\item Where:
+\begin{wideitemize}
+\item $\pi_f$: profits of firm $f$
+\item $p_j$: price of product $j$; $\textbf{p}$: vector of prices
+\item $mc_j$: marginal cost
+\item $FC_j$: fixed cost
+\item $q_j$: quantity of product $j$ (depends on \underline{all} prices)
+\item $\mathcal{J}_f$: set of products that firm $f$ maximizes profit over
+\end{wideitemize}
+\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Application: distinguishing between models of competition}
+\begin{wideitemize}
+\item \textbf{Supply side:}
+\item Define \textbf{conduct structure} as JxJ matrix:
+\[ H_{jk} = \begin{cases} 
+1 & \text{ if } \exists $f$ \text{ where } \{j,k\} \subset  \mathcal{J}_f \\
+0 & otherwise
+\end{cases}
+\]
+\item Elements of H either 0 or 1
+\item If value of element = 1: then product $j$ and $k$ are priced \textit{as if jointly owned}
+\item \underline{Examples}:
+\begin{wideitemize}
+\item Single product firm pricing: identity matrix
+\item Joint profit maximization: matrix of 1's
+\end{wideitemize}
+\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Application: distinguishing between models of competition}
+\begin{wideitemize}
+\item \textbf{Supply side:}
+\item Define $\Omega_{jk} = -\partial q_k / \partial p_j \cdot H_{jk}$ 
+\begin{wideitemize}
+\item Recall: j is index, k is column
+\end{wideitemize}
+\item First order condition of firms' profit maximization problem (bold denotes vectors):
+\begin{align*}
+\textbf{q} (\textbf{p}) - \Omega (\textbf{p} - \textbf{mc}) = 0
+\end{align*}
+\item Implies pricing equation:
+\begin{align*}
+\textbf{p} - \textbf{mc} = \Omega^{-1} \textbf{q}(\textbf{p})
+\end{align*}
+\item \underline{Important:} above equation implies that given conduct structure + estimates of demand substitution $\Omega$ $\rightarrow$ can measure price-cost margins \textit{without observing cost data}.
+\end{wideitemize}
+\end{frame}
+
+
+\begin{frame}{Application: distinguishing between models of competition: estimation}
+\begin{wideitemize}
+\item Only estimate demand
+\item Use BLP algorithm
+\item Instruments: Hausman instruments  (prices in other markets)
+\end{wideitemize}
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+\includegraphics[scale=0.16]{nevo_1.jpeg}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+\includegraphics[scale=0.16]{nevo_4.jpeg}
+\end{figure}
+\end{frame}
+
+\begin{frame}
+\begin{figure}
+\includegraphics[scale=0.3]{nevo_3.jpeg}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Application: distinguishing between models of competition: mergers}
+\begin{wideitemize}
+\item Common use of the framework in this paper can also be used to determine the effects of a merger. How would you do this? \pause
+\item \underline{Answer:}
+\item 1. Using pre-merger data estimate demand and recover marginal costs by inverting the pricing equation:
+\begin{align*}
+\textbf{mc} = 	\textbf{p} -  \Omega^{-1} \textbf{q}(\textbf{p})
+\end{align*}
+\item 2. Change the conduct structure $H$ so that the merging firms jointly maximize the profits of their products
+\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item \textbf{Supply-side moments}
+		\item Welfare from new products: theory
+		\item Welfare from new products: application
+		\item Apple-cinnamon cheerios war
+		\item Main takeaways of demand estimation
+	\end{wideenumerate}
+\end{frame}
+
+
+\begin{frame}{Supply-side moments}
+	\begin{wideitemize}
+		\item Previously, we used our demand model + different assumptions about how firms set prices to `test' models of firm conduct.
+		\item In a related idea, we could alternatively:
+		\begin{wideitemize}
+			\item make assumptions about how firms choose prices
+			\item utilize data on the supply side to help identify the demand model
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Supply-side moments}
+	\begin{wideitemize}
+		\item Assume marginal cost is given by:
+		\begin{align*}
+			mc_{jt} = w_{jt} \mathbold{\gamma} + \omega_{jt}
+		\end{align*}
+		\item Where:
+		\begin{wideitemize}
+			\item $w_{jt}$: vector of observed characteristics of product $j$
+			\item $\omega_{jt}$: unobserved component
+			\item $ \mathbold{\gamma} $: parameters to be estimated
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Supply-side moments}
+	\begin{wideitemize}
+		\item Also assume Nash-Bertrand pricing model and combine with cost parametrization on previous slide (using the notation from the previous lecture)
+		\begin{align*}
+			\textbf{p}_t = w_t  \mathbold{\gamma} + \Omega^{-1} \textbf{q}(\textbf{p}_t) + \mathbold{\omega}_t
+		\end{align*}
+		\item Can form supply-side moments: $E(\omega_{jt} | \textbf{Z}_t) = 0$.
+		\item Here: $\textbf{Z}_t$: vector of IVs that include product characteristics, and cost shifters
+		\item Note that above equation is informative about both supply parameters $ \mathbold{\gamma}$ and the demand parameters (which affect $\Omega$)
+		\item Can include these additional moments in the GMM step
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item Supply-side moments
+		\item \textbf{Welfare from new products: theory}
+		\item Welfare from new products: application
+		\item Apple-cinnamon cheerios war
+		\item Main takeaways of demand estimation
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Consumer welfare}
+	\begin{wideitemize}
+		\item Define the \textbf{consumer surplus from a logit model}
+		\item Expected utility prior to observing the i.i.d. logit draws from $ \{1, 2, ..., J\}$ choice alternatives: (the \textbf{`inclusive value'})
+		\begin{align*}
+			\omega_{it} = E_{ \{ \epsilon_{i0t},...,\epsilon_{iJt} \}} \max_j \{ \delta_{jt} + \mu_{ijt} + \epsilon_{ijt}\} = \ln \left ( \sum_{j } \exp \{ \delta_{jt} + \mu_{ijt} \} \right )
+		\end{align*}
+		\item This formula is also known as the `log-sum' formula.
+		\item If utility is linear in price, inclusive value can be converted into dollars by dividing by the price coefficient.
+		\item You have (probably) seen this value before, since it comes up when computing a nested logit
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Consumer welfare}
+	\begin{wideitemize}
+		\item Typically, two cases where we compute welfare.
+		\item \underline{Case 1:} observe quantities and prices and want to summarize them into a welfare measure.
+		\begin{wideitemize}
+			\item Key issue: before we normalized the utility of the outside option to zero.
+			\item This is fine for estimating choice probabilities (why?)
+			\item But, issues occur if want to compute inclusive value over time (or across markets)
+			\item This is because we would be \textit{implicitly assuming that utility from the outside good is constant over time}.
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Consumer welfare}
+	\begin{wideitemize}
+		\item Typically, two cases where we compute welfare.
+		\item \underline{Case 1:} observe quantities and prices and want to summarize them into a welfare measure.
+		\begin{wideitemize}
+			\item \underline{Example:} What if we see the share of the `inside' products increasing over time. 
+			\item \underline{Question:} What could cause this? \pause
+			\item Answer: price of inside goods decreased (or quality $\xi_{jt}$ increased) OR the outside option got worse. Different welfare implications, but assuming outside good is 0 rules out latter.
+			\item Partial solution: Nevo (2003) compute welfare over time for when  $\xi_{jt}$ changes / outside option constant vs $\xi_{jt}$  fixed /outside option flexible. Report both extreme cases.
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Consumer welfare}
+	\begin{wideitemize}
+		\item \underline{Case 2:} Use the model to compute a welfare gain from a counterfactual outcome.
+		\item Assume we observe one market over time (denoted by t). 
+		\item Can show that the change in welfare from introducing a product in period $t$ (which comes from the change in the inclusive value) is:
+		\begin{align*}
+			\textbf{Logit:     }&\ln \left( \frac{1}{s_{0t}} \right) - \ln \left( \frac{1}{s_{0{t-1}}} \right) \\
+			\textbf{Mixed logit:     }& \int \ln \left( \frac{1}{s_{i0t}} \right)dF(D_{it}, \nu_{it}) - \int \ln \left( \frac{1}{s_{0{t-1}}} \right)dF(D_{it-1}, \nu_{it-1})  \\
+		\end{align*}
+		\item So, logit model: welfare directly related to share of the outside good.
+		\item Mixed logit: same idea, but difference depends on heterogeneity of choosing the outside option.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Consumer welfare}
+	\begin{wideitemize}
+		\item \underline{Case 2:} Use the model to compute a welfare gain from a counterfactual outcome.
+		\item Problem with computing welfare from new goods: \textbf{red-bus blue-bus problem}.
+		\item \underline{Thought experiment}:
+		\item Market where consumers choose how to commute. 
+		\begin{wideitemize}
+			\item Choices: Car, Red Bus
+			\item Assume half consumers choose Car, half choose Red Bus
+		\end{wideitemize}
+		\item Assume we artificially introduce a new option: \textbf{the Blue Bus}
+		\begin{wideitemize}
+			\item Artificial because we also \textbf{assume consumers are color-blind}
+			\item (Also assume price, frequency of service etc are not impacted)
+			\item Now, half consumers choose a car, and the rest are split between the two buses.
+			\item Clearly, \textbf{consumer welfare has not changed}.
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Consumer welfare}
+	\begin{wideitemize}
+		\item \underline{Case 2:} Use the model to compute a welfare gain from a counterfactual outcome.
+		\item \textbf{What if we now use our logit model to estimate the welfare effects of introducing a Blue Bus? }
+		\begin{wideitemize}
+			\item (Suppose we only observe data pre-introduction of the Blue Bus.) \pause
+			\item \underline{Pre-introduction:}
+			\item Assume car is outside good, normalize to zero: $\delta_{car}=0$. Then, also, $\delta_{\text{red-bus}}=0$ since $s_{car}=s_{\text{red-bus}}=0$.
+			\item Inclusive value is: $\ln(e^{0} + e^{0}) = \ln(2)$.
+			\item  \underline{Post-introduction:}
+			\item $\delta_{\text{blue-bus}}=\delta_{\text{red-bus}}=0$ (since same bus)
+			\item So, $s_{car}=s_{\text{blue-bus}}=s_{\text{red-bus}}=1/3$. Inclusive value is: $\ln(3)$, a \textbf{welfare increase}!
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Consumer welfare}
+	\begin{wideitemize}
+		\item \underline{Case 2:} Use the model to compute a welfare gain from a counterfactual outcome.
+		\item Where did we go wrong with the previous analysis? \pause
+		\item \underline{Main issue:} we are getting an extra logit draw when we introduce the Blue Bus.
+		\item \underline{Possible solution:} if we observe the market post-introduction of the new product (i.e. the Blue Bus).
+		\item  \underline{Post-introduction:}
+		\item $s_{car}=0.5$, $s_{\text{blue-bus}}=s_{\text{red-bus}}=0.25$
+		\item Implies: $\delta_{\text{blue-bus}}=\delta_{\text{red-bus}}=\ln(0.5)$
+		\item Inclusive value: $\ln(e^0+2*e^{ln(0.5)}) = \ln(2).$ Note that this is the correct answer.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Consumer welfare}
+	\begin{wideitemize}
+		\item \underline{Main takeaways from the above `red-bus blue-bus' exercise:}
+		\item 1. Introducing new products also introduces with extra logit draws, which can bias welfare computations
+		\item 2. Observing post-introduction market shares can `correct' for this bias. 
+		\item Note that the above is true as well in Mixed Logit and other models:
+		\begin{wideitemize}
+			\item Berry and Pakes (2007): ``the fact that the contraction fits the shares exactly means that the extra gain from the logit errors is offset by lower $\delta$’s, and this roughly counteracts the problems generated for welfare measurement by the model with tastes for products.”
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item Supply-side moments
+		\item Welfare from new products: theory
+		\item \textbf{Welfare from new products: application}
+		\item Apple-cinnamon cheerios war
+		\item Main takeaways of demand estimation
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Application of welfare from new products: the minivan (Petrin, 2002)}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+		\begin{wideitemize}
+			\item \textbf{Question:} what are the welfare benefits of the minivan?
+			\item \underline{Minivan}:
+			\item Box-like vehicle first introduced in 1984
+			\item Increased height, decreased floor, making entry easier and allowing more movement in the vehicle
+			\item Extremely popular with families in the 80s, 90s, etc
+		\end{wideitemize}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\includegraphics[scale=0.2]{minivan.jpeg}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Application of welfare from new products: the minivan (Petrin, 2002)}
+		\begin{wideitemize}
+		\item \underline{Motivation}: new products, and product improvements, are a key source of economic growth. But how should we actually value these innovations?
+		\item  \underline{Main takeaways} (beyond valuing the minivan):
+		\item  1. Logit model performs extremely poorly compared to mixed logit
+		\item 2. Use of micro-moments
+		\item 3. Dealing with the `red-bus blue-bus' problem
+\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Application of welfare from new products: the minivan (Petrin, 2002)}
+	\begin{wideitemize}
+		\item (Conditional, indirect) utility:
+		\begin{align*}
+			u_{ijt} = x_{jt} \beta_{it} + \alpha_{it} \ln (y_i-p_{jt}) + \xi_{jt} + \epsilon_{ijt}
+		\end{align*}
+		\item Price coefficient allowed to vary by income
+		\item Other notes: `minivan' enters \textit{as a characteristic}, also includes a supply side
+		\item \underline{Data}
+		\item Observes US market 1981-1993 (for 916 vehicles)
+		\item Prices, quantities (from Automotive Data Book)
+		\item Product characteristics: fuel efficiency, vehicle dimensions, etc
+		\item Important: also has CEX auto supplement, links demographics $\leftrightarrow$ new vehicle purchases
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Application of welfare from new products: the minivan (Petrin, 2002)}
+	\begin{wideitemize}
+		\item Main difference to BLP: \underline{includes micro-moments} using his data from CEX
+		\begin{wideitemize}
+			\item E[i buys new vehicle $\vert$ low income]
+			\item E[i buys new vehicle $\vert$ mid income]
+			\item E[i buys new vehicle $\vert$ high income]
+			\item E[family size of i $\vert$ i purchase minivan]
+			\item E[family size of i $\vert$ i purchase station wagon]
+			\item etc...
+		\end{wideitemize}
+		\item Include these as additional moments in the GMM part of the BLP estimator
+		\item Benefit: more info on heterogeneity $\rightarrow$ can better capture substitution patterns
+		\item Advice: add micro-moments where possible
+		\item (Note: also uses product characteristics as instruments)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Application of welfare from new products: the minivan (Petrin, 2002)}
+\begin{figure}
+	\includegraphics[scale=0.25]{table_4_1.jpeg}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Application of welfare from new products: the minivan (Petrin, 2002)}
+	\begin{figure}
+		\includegraphics[scale=0.2]{table_4_2.jpeg}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Application of welfare from new products: the minivan (Petrin, 2002)}
+	\begin{wideitemize}
+		\item Counterfactual exercise: eliminate minivan
+		\item Compute change in consumer welfare (`compensating variation')
+		\item (Note: prices allowed to readjust too using the supply-side)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Application of welfare from new products: the minivan (Petrin, 2002)}
+	\begin{figure}
+		\includegraphics[scale=0.4]{table_8_1.jpeg}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Application of welfare from new products: the minivan (Petrin, 2002)}
+	\begin{wideitemize}
+		\item CV in logit model is biased upwards (due to large logit draws - i.e. consumers in the model with extreme tastes for minivans)
+		\item Petrin claims: adding the micro-data reduces reliance of the model on the logit draws, and so reduces the overall welfare gain.
+		\item Additionally: directly observes the counterfactual new product choice (so market shares with the new product are correct - we mentioned earlier this was useful in reducing the red-bus blue-bus problem).
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item Supply-side moments
+		\item Welfare from new products: theory
+		\item Welfare from new products: application
+		\item  \textbf{Apple-cinnamon cheerios war}
+		\item Main takeaways of demand estimation
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Apple-cinnamon cheerios war}
+	\begin{columns}
+		\begin{column}{0.65\textwidth}
+			\begin{wideitemize}
+				\item Hausman paper in ``The Economics of New Goods'' (1997)
+				\item Values welfare contribution of Apple Cinnamon Cheerios at 60 million dollars per year (in mid 1990s)
+				\item Bresnahan (1997) disagrees with this computation. Criticises identifying assumptions, assumptions about competition, etc...  
+				\item Not time to go into it in detail, but on reading list and highly recommended 
+				\item Quote from Bresnahan (1997): \textit{`I have never met an economist who strayed that
+				far from reality by ideology -- only by arrogance.'}
+			\end{wideitemize}
+		\end{column}
+		\begin{column}{0.35\textwidth}
+			\includegraphics[scale=0.2]{cheerios.png}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item Supply-side moments
+		\item Welfare from new products: theory
+		\item Welfare from new products: application
+		\item Apple-cinnamon cheerios war
+		\item  \textbf{Main takeaways of demand estimation}
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Main takeaways of demand estimation part of this course}
+	\begin{wideitemize}
+		\item We learned the Mixed Logit (`BLP') model, a model of \textbf{demand for differentiated products}.
+		\item \textbf{Main components}: product characteristics, observed demographics, unobserved tastes for characteristics, unobserved demand shocks
+		\item Captures \textbf{more consumer heterogeneity} than standard logit. An example where this really matters is getting substitution patterns right.
+		\item We saw how to estimate it using the BLP method, common data that are useful or required, and common computational problems
+		\item We studied common instruments (and discussed identification - e.g. recall \textbf{dual role} of instruments)
+		\item We saw some applications: measuring conduct, valuing new goods (there are *many* more - often used whenever you need demand in a model)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Main takeaways of demand estimation part of this course}
+	\begin{wideitemize}
+		\item \underline{Computational note}: I will get you to code up a simple version of BLP in the homework. 
+		\item However, if you actually use it, I highly recommend the PyBLP package (Conlon and Gortmaker). This will save potentially years of computation/coding time!
+	\end{wideitemize}
+\end{frame}
+
+\end{document}
+

@@ -1,0 +1,167 @@
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\usepackage[left=1.0in,top=1.0in,right=1.0in,bottom=1.0in,headheight=3ex,headsep=3ex]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{adjustbox}
+
+
+\newcommand{\blankline}{\quad\pagebreak[2]}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Modify Course title, instructor name, semester here %%%%%%%%
+
+\title{PhD Industrial Organization: Homework 1}
+\author{\textbf{Due: See Canvas.} \\
+\textbf{You can work in groups of up to 2 people.} }
+%\date{Fall, 2021}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage[sc]{mathpazo}
+\linespread{1.3} % Palatino needs more leading (space between lines)
+\usepackage[T1]{fontenc}
+\usepackage[mmddyyyy]{datetime}% http://ctan.org/pkg/datetime
+\usepackage{advdate}% http://ctan.org/pkg/advdate
+%\newdateformat{syldate}{\twodigit{\THEMONTH}/\twodigit{\THEDAY}}
+\newsavebox{\MONDAY}\savebox{\MONDAY}{Mon}% Mon
+\newcommand{\week}[1]{%
+%  \cleardate{mydate}% Clear date
+% \newdate{mydate}{\the\day}{\the\month}{\the\year}% Store date
+  \paragraph*{\kern-2ex\quad #1, \syldate{\today} - \AdvanceDate[4]\syldate{\today}:}% Set heading  \quad #1
+%  \setbox1=\hbox{\shortdayofweekname{\getdateday{mydate}}{\getdatemonth{mydate}}{\getdateyear{mydate}}}%
+  \ifdim\wd1=\wd\MONDAY
+    \AdvanceDate[7]
+  \else
+    \AdvanceDate[7]
+  \fi%
+}
+\usepackage{setspace}
+\usepackage{multicol}
+%\usepackage{indentfirst}
+\usepackage{fancyhdr,lastpage}
+\usepackage{url}
+\pagestyle{fancy}
+\usepackage{hyperref}
+\usepackage{lastpage}
+\usepackage{amsmath}
+\usepackage{layout}
+\renewcommand{\theenumi}{\alph{enumi}}
+
+
+\lhead{}
+\chead{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Modify header here %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\rhead{\footnotesize PhD Industrial Organization: Homework 1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\lfoot{}
+\cfoot{\small \thepage/\pageref*{LastPage}}
+\rfoot{}
+
+\usepackage{array, xcolor}
+\usepackage{color,hyperref}
+\definecolor{clemsonorange}{HTML}{EA6A20}
+\hypersetup{colorlinks,breaklinks,linkcolor=clemsonorange,urlcolor=clemsonorange,anchorcolor=clemsonorange,citecolor=black}
+
+\date{} 
+
+\begin{document}
+\maketitle
+
+\subsection*{Instructions}
+
+\begin{itemize}
+\item You can work in groups of 2 people. It might be a good idea to code up the solutions individually and then compare answers so that you both get experience with the code and understand the solutions.
+\item As you work through the questions, I strongly recommend using Git to version control your code (and pushing to your Github account as you make changes). Git is also great for collaboration if you are working in a group of 2.
+\item Please hand in both your solutions and also the code you used to generate the solutions. You can work in whichever programming language you want.
+\item This assignment is based on one written by Allan Collard-Wexler.
+\item Good luck!
+\end{itemize}
+
+\subsection*{Background and Data}
+In this homework assignment you will be coding up the BLP algorithm (amongst other things). You will be applying demand estimation to a famous `fake cereal dataset' which used to be found on Aviv Nevo's website, and which I downloaded from the PyBLP tutorial module (by Conlon and Gortmaker (2020)) and modified slightly. The datasets are synthetic - presumably the original cereal data could not be shared publicly - but retain some of the properties of the original dataset and so can be used for estimation.
+
+There are two datasets:
+\begin{itemize}
+	\item \textbf{product\_data.csv}
+			\item This contains data about market shares, prices, and product characteristics.
+			\item The descriptions of the variables are:
+	\begin{itemize}
+		\item \textit{market\_ids}: IDs for the different markets. The ID denotes a city-quarter. So, `C01Q1' captures a city (e.g. `C01') in a quarter (`Q1').
+		\item \textit{product\_ids}: IDs for the different products. A single code might correspond to, for example, `Apple-Cinnamon Cheerios'
+		\item  \textit{shares}: market shares (precomputed)
+		\item \textit{prices}: prices of a cereal box
+		\item \textit{sugar}: amount of sugar
+		\item \textit{demand\_instruments0, ..., demand\_instruments19}: precomputed demand instruments (these were the ones used in the original paper). 
+	\end{itemize}
+	\item \textbf{agent\_data.csv}
+	\item This contains 20 precomputed random draws for each market which you can use to do monte-carlo integration. (Note that if you were doing this in a research paper you should probably use more draws.)
+	\item The descriptions of the variables are:
+	\begin{itemize}
+		\item \textit{market\_ids}: IDs for the different markets. The ID denotes a city-quarter. So, `C01Q1' captures a city (e.g. `C01') in a quarter (`Q1').
+		\item \textit{weights}: weight of each draw (= 1/20)
+		\item  \textit{income}: draw from the distribution of income in each market (this is an observed demographic)
+		\item \textit{nodes0}: draw from a standard normal (this is used in the computation of the unbserved taste for characteristics)
+	\end{itemize}
+\end{itemize}
+
+\subsection*{Good resources if you have questions}
+\begin{itemize}
+	\item It is extremely likely that you will run into some confusion about how all the pieces in the algorithm fit together. After all, understanding this is the point of the assignment! Here are some good places to search if you have questions:
+	\item Conlon and Gortmaker ``Best Practices For Differentiated Products Demand Estimation With PyBLP'' (2020, Rand): this paper clearly sets out the algorithm, tricks that people have found useful to speed up the computation, and what works and what doesn't. 
+	\item The corresponding PyBLP Python Module: docs at $https://pyblp.readthedocs.io/en/stable/$. This is where I pulled the data from. I kept the column names the same in case you want to use the results of  PyBLP as a `source of truth' to check that your algorithm is working properly.
+	\item You can also talk to me after class, send me an email to set up a meeting, or just ask the question by email: nvreugde@asu.edu. 
+\end{itemize}
+
+\subsection*{1. Logit Model}
+Consider the homogeneous-consumer logit model:
+\begin{align*}
+	u_{ijt} = x_{jt} \beta + \alpha p_{jt} + \xi_{jt} + \epsilon_{ijt}
+\end{align*}
+Here the notation is the same as in Handbook Chapter 2 and the lecture slides. Specifically:
+\begin{itemize}
+	\item $u_{ijt}$: utility of consumer $i$ of product $j$ in market $t$
+	\item $x_{jt}$: observed characteristics of product $j$ in market $t$ (note: this should \underline{include a constant} as well as the variable `sugar')
+	\item $p_{jt}$: price of product $j$ in market $t$
+	\item $\xi_{jt}$: unobserved demand shifter
+	\item $ \epsilon_{ijt}$: i.i.d. logit draws
+\end{itemize}
+\textbf{Instructions:} 
+\begin{enumerate}
+	\item Estimate the above model using OLS and report the coefficients (no need to report standard errors).
+	\item Estimate the above model using 2SLS, instrumenting for price using the instruments: \textit{demand\_instruments0, ..., demand\_instruments19}. Report the coefficients (no need to report standard errors).
+	\item Using your estimated coefficients from Part (b.) compute own-price elasticities for each product in the market `C01Q1'. Draw a scatterplot with the computed own-price elasticities on the y-axis and prices on the x-axis (each dot on the scatterplot should correspond to an individual product in the market `C01Q1'). Discuss the observed relationship between prices and the own-price elasticities predicted by the model.
+\end{enumerate}
+
+\subsection*{2. Mixed Logit/ BLP Model}
+Consider the mixed logit/BLP model:
+\begin{align*}
+	u_{ijt} = x_{jt} \beta_{it} + \alpha_{it} p_{jt} + \xi_{jt} + \epsilon_{ijt}
+\end{align*}
+In the above equation the notation is the same as in Handbook Chapter 2 and the lecture slides. The coefficients that comprise the vector $\beta_{it}$ are a function of income but do not have a random component and are given by:
+\begin{itemize}
+	\item $\beta^0_{it} = \beta^{0}_0 + \beta^{0}_{income} [income_{it}]$
+	\item $\beta^{sugar}_{it} = \beta^{sugar}_{income} [income_{it}]$
+\end{itemize}
+The coefficient on price is a function of the consumer's income and a random part (denoted by $\nu_{it}$ where $\nu_{it}$ is drawn from a standard normal distribution):
+\begin{itemize}
+	\item $\alpha_{it} = \alpha_0 + \alpha_{income} [income_{it}] + \alpha_{\nu} \nu_{it}$
+\end{itemize}
+Therefore, there are six unknown parameters. There are two `linear' parameters: $\beta^0_0 $ and $\alpha_0 $. There are four `nonlinear' parameters: $\beta^0_{income}, \beta^{sugar}_{income} ,  \alpha_{income}, \alpha_{\nu} $.\footnote{Presumably you could write down a more flexible model allowing for more interactions etc - the above model is deliberately simplified to make the computation easier.}
+
+\vspace{11pt}
+\textbf{Instructions:} 
+\begin{enumerate}
+	\item Estimate the above model using the BLP method and report the parameters (please write your own code; no need to report standard errors). To build the moments in the GMM objective function include the product characteristic `sugar' as an instrument  as well the precomputed demand instruments. For the weighting matrix choose the `optimal weight matrix' $W=(Z'Z)^{-1}$ where $Z$ is the vector of instruments.
+	\item Using your estimated parameters from Part (a.) compute own-price elasticities for each product in the market `C01Q1'. Draw a scatterplot with the computed own-price elasticities on the y-axis and prices on the x-axis (each dot on the scatterplot should correspond to an individual product in the market `C01Q1'). Discuss the observed relationship between prices and the own-price elasticities predicted by the model. Also, discuss differences with Part 1(c.)
+	
+	\item (\textit{Optional/challenge question}) Using the ASU Sol cluster, submit a job which computes the model optimization at 10 different initial starting points. To choose the initial points, pick one of the parameters to vary (say, $\alpha_{income}$) and fix the other parameters. The batch job should itself submit 10 sub-jobs, with each job running the optimization for one of the starting points (for more information, search for \textit{`SLURM job array'} or see \href{https://docs.rc.asu.edu/slurm-job-array-examples/}{here}).\footnote{This exercise closely mirrors the kinds of things you might use the ASU Sol cluster for if you were using a structural model in your research. For example, you might use a batch job if you were bootstrapping your standard errors. An extra benefit of attempting this challenge question is that you will probably be able to repurpose most of your submission script in future modeling work.} Does the model optimization find the same coefficients regardless of the starting point, or does it hit local minima?
+\end{enumerate}
+
+\end{document}

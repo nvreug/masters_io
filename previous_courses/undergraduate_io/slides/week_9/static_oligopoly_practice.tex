@@ -1,0 +1,477 @@
+\documentclass[notes,11pt, aspectratio=169]{beamer}
+
+\usepackage{pgfpages}
+% These slides also contain speaker notes. You can print just the slides,
+% just the notes, or both, depending on the setting below. Comment out the want
+% you want.
+\setbeameroption{hide notes} % Only slide
+%\setbeameroption{show only notes} % Only notes
+%\setbeameroption{show notes on second screen=right} % Both
+
+%\usepackage[scaled=1.0]{helvet}
+\usepackage{array}
+
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{matrix}
+\usetikzlibrary{positioning}
+
+\newcommand{\payoff}[4][below]{\node[#1]at(#2){$(#3,#4)$};}
+\usepackage{verbatim}
+\setbeamertemplate{note page}{\pagecolor{gray!5}\insertnote}
+\usetikzlibrary{positioning}
+\usetikzlibrary{snakes}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{matrix,shapes,arrows,fit,tikzmark}
+\usepackage{amsmath}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{multimedia}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{dcolumn}
+\usepackage{bbm}
+\newcolumntype{d}[0]{D{.}{.}{5}}
+
+\usepackage{changepage}
+\usepackage{appendixnumberbeamer}
+\newcommand{\beginbackup}{
+   \newcounter{framenumbervorappendix}
+   \setcounter{framenumbervorappendix}{\value{framenumber}}
+   \setbeamertemplate{footline}
+   {
+     \leavevmode%
+     \hline
+     box{%
+       \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{footlinecolor}%
+%         \insertframenumber  \hspace*{2ex} 
+       \end{beamercolorbox}}%
+     \vskip0pt%
+   }
+ }
+\newcommand{\backupend}{
+   \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumbervorappendix}} 
+}
+
+
+\usepackage{graphicx}
+\usepackage[space]{grffile}
+\usepackage{booktabs}
+
+% These are my colors -- there are many like them, but these ones are mine.
+\definecolor{blue}{RGB}{0,114,178}
+\definecolor{red}{RGB}{213,94,0}
+\definecolor{yellow}{RGB}{240,228,66}
+\definecolor{green}{RGB}{0,158,115}
+
+\hypersetup{
+  colorlinks=false,
+  linkbordercolor = {white},
+  linkcolor = {blue}
+}
+
+\usepackage{graphicx,stackengine,xcolor}
+\newcommand\Circle[1]{%
+	\def\useanchorwidth{T}%
+	\def\stacktype{L}%
+	\stackon[0pt]{#1}{\scalebox{2.0}[1.15]{\textcolor{red}{$\bigcirc$}}}%
+}
+
+%% I use a beige off white for my background
+\definecolor{MyBackground}{RGB}{255,253,218}
+
+%% Uncomment this if you want to change the background color to something else
+%\setbeamercolor{background canvas}{bg=MyBackground}
+
+%% Change the bg color to adjust your transition slide background color!
+\newenvironment{transitionframe}{
+  \setbeamercolor{background canvas}{bg=white}
+  \begin{frame}}{
+    \end{frame}
+}
+
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=black}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{} 
+\setbeamertemplate{itemize items}{-}
+\setbeamercolor{itemize item}{fg=blue}
+\setbeamercolor{itemize subitem}{fg=blue}
+\setbeamercolor{enumerate item}{fg=blue}
+\setbeamercolor{enumerate subitem}{fg=blue}
+\setbeamercolor{button}{bg=MyBackground,fg=blue,}
+
+%%% TIKZ STUFF
+\tikzset{   
+	every picture/.style={remember picture,baseline},
+	every node/.style={anchor=base,align=center,outer sep=1.5pt},
+	every path/.style={thick},
+}
+\newcommand\marktopleft[1]{%
+	\tikz[overlay,remember picture] 
+	\node (marker-#1-a) at (-.3em,.3em) {};%
+}
+\newcommand\markbottomright[2]{%
+	\tikz[overlay,remember picture] 
+	\node (marker-#1-b) at (0em,0em) {};%
+}
+\tikzstyle{every picture}+=[remember picture] 
+\tikzstyle{mybox} =[draw=black, very thick, rectangle, inner sep=10pt, inner ysep=20pt]
+\tikzstyle{fancytitle} =[draw=black,fill=red, text=white]
+%%%% END TIKZ STUFF
+
+
+% If you like road maps, rather than having clutter at the top, have a roadmap show up at the end of each section 
+% (and after your introduction)
+% Uncomment this is if you want the roadmap!
+% \AtBeginSection[]
+% {
+%    \begin{frame}
+%        \frametitle{Roadmap of Talk}
+%        \tableofcontents[currentsection]
+%    \end{frame}
+% }
+\setbeamercolor{section in toc}{fg=blue}
+\setbeamercolor{subsection in toc}{fg=red}
+\setbeamersize{text margin left=1em,text margin right=1em} 
+
+\newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
+\newenvironment{wideenumerate}{\enumerate\addtolength{\itemsep}{10pt}}{\endenumerate}
+
+\usepackage{environ}
+\NewEnviron{videoframe}[1]{
+  \begin{frame}
+    \vspace{-8pt}
+    \begin{columns}[onlytextwidth, T] % align columns
+      \begin{column}{.58\textwidth}
+        \begin{minipage}[t][\textheight][t]
+          {\dimexpr\textwidth}
+          \vspace{8pt}
+          \hspace{4pt} {\Large \sc \textcolor{blue}{#1}}
+          \vspace{8pt}
+          
+          \BODY
+        \end{minipage}
+      \end{column}%
+      \hfill%
+      \begin{column}{.42\textwidth}
+        \colorbox{green!20}{\begin{minipage}[t][1.2\textheight][t]
+            {\dimexpr\textwidth}
+            Face goes here
+          \end{minipage}}
+      \end{column}%
+    \end{columns}
+  \end{frame}
+}
+
+\title[]{\textcolor{blue}{ECN 453: Hotelling Competition}}
+\author[PGP]{}
+\institute[FRBNY]{\small{\begin{tabular}{c c c}
+Nicholas Vreugdenhil \\
+\end{tabular}}}
+\date{} 
+
+\begin{document}
+
+% Title Slide
+\begin{frame}
+\maketitle
+  \centering
+\end{frame}
+
+% INTRO
+
+\begin{frame}{Static Models of Oligopoly: Hotelling Competition}
+\begin{wideitemize}
+	\item So far we have studied three models of competition with \textbf{homogeneous} products.
+	\item In many markets firms sell \textbf{differentiated} (heterogeneous) products. 
+	\item How should we model competition in these markets?
+	\item Today we will see one model: \textbf{Hotelling competition}.
+\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Static Models of Oligopoly: Hotelling Competition}
+	\begin{wideitemize}
+		\item Hotelling competition relates to selling products with \textbf{horizontal differentiation}.
+		\item `Horizontal differentiation' relates to characteristics where there is no clear quality ordering
+		\item Examples:
+		\begin{wideitemize}
+			\item Geographical differentiation (one supermarket might be closer to where you live than another)
+			\item Product characteristics that appeal to different `tastes' (Pepsi vs Coke)
+			\item Ice-cream vendors on a 1 mile beach (this was the original example given when this model was written)
+		\end{wideitemize}
+		\item Contrast: `Vertical differentiation' - consumers agree on which is the better product (i.e. quality differentiation)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Static Models of Oligopoly: Horizontal Differentiation On Campus}
+	\begin{figure}
+		\item \includegraphics[scale=0.18]{tempe_map.jpeg}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item Hotelling Competition: Setup
+		\item Hotelling Competition: Solution
+		\item Hotelling Competition: Application
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item \textbf{Hotelling Competition: Setup}
+		\item Hotelling Competition: Solution
+		\item Hotelling Competition: Application
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Hotelling Competition: Setup - Preliminaries}
+	\begin{wideitemize}
+		\item Let's review one math preliminary before getting into the model.
+		\item Remember the uniform distribution? 
+		\item Uniform distribution: $x \sim U[0,1]$
+		\vspace{11pt}
+		\begin{wideitemize}
+			\item If we pick a point $s \in [0,1]$, $Pr(x \leq s) = s$
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Hotelling Competition: Setup}
+	\begin{wideitemize}
+		\item \textbf{Players}
+		\item Consumers are distributed $x \in U[0,1]$
+		\begin{wideitemize}
+			\item E.g. x refers to a consumer's `address'
+		\end{wideitemize}
+		\item Firm 1 is located at address $x=0$ and Firm 2 is located at address $x=1$.
+		\item Consumer at location x pays a \textit{transport cost} equal to $t$ multiplied by the distance between its address and the Firm's address when they buy from a particular Firm (as well as price)
+		\begin{wideitemize}
+			\item Consumer at address $x$ pays transport cost $tx$ to get to Firm 1 and $t(1-x)$ to get to Firm 2.
+		\end{wideitemize}
+		\item \textbf{Strategies}
+		\begin{wideitemize}
+			\item Firm 1 and Firm 2 choose prices $p_1$ and $p_2$
+		\end{wideitemize}
+		\item \textbf{Payoffs}
+		\begin{wideitemize}
+			\item Firm 1 has marginal cost $c_1$ and Firm 2 has marginal cost $c_2$
+			\item Firms maximize their profits
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Hotelling Competition: Setup - graph of consumer's payoffs}
+	\begin{figure}
+		\includegraphics[scale=0.6]{hotelling_consumers.pdf}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Hotelling Competition: Setup}
+	\begin{wideitemize}
+		\item Before solving this model, let's first think about how the math relates to some real-world applications:
+		\item \textbf{Supermarket competition}: here there are two supermarkets and the 'distance' cost might be e.g. cost of driving
+		\item \textbf{Coke vs Pepsi (or other products)}: consumers have different tastes - if prices are equal will just choose the brand that is closest to their tastes.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item Hotelling Competition: Setup
+		\item \textbf{Hotelling Competition: Solution}
+		\item Hotelling Competition: Application
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Hotelling Competition: Solution}
+	\begin{wideitemize}
+		\item Broadly, we will follow our 'usual steps' to solve these models of competition:
+		\item 1. Get the payoffs (profits)
+		\item 2. Find the best responses
+		\item 3. Solve for the Nash equilibrium
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Hotelling Competition: Solution - 1. Get the payoffs}
+	\begin{wideitemize}
+		\item \textbf{Note}: for simplicity, we will assume that consumers always choose to buy \textit{something} (i.e. ignore the possibility that the firms might set prices so high some consumers may choose to buy from either firm)
+		\item A consumer with address $x'$ is indifferent between the two firms if:
+		\begin{align*}
+			tx'+p_1 = t(1-x')+p_2
+		\end{align*}
+		\item So, consumers to the left of $x'$ buy from Firm 1 and consumers to the right of $x'$ buy from Firm 2.
+		\begin{wideitemize}
+			\item So, since consumers are uniform distributed Firm 1's demand is $x'$ and Firm 2's demand is $1-x'$.
+		\end{wideitemize}
+		\item Solving the above equation for $x'$ implies:
+		\begin{align*}
+			q_1 &= 0.5 + \frac{p_1 - p_2}{2t} \\
+			q_2 &= 0.5 + \frac{p_2 - p_1}{2t} 
+		\end{align*}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Hotelling Competition: Solution - 1. Get the payoffs}
+	\begin{wideitemize}
+		\item On the previous slide we found demand for each firm. Use this demand to get the payoffs:
+		\begin{align*}
+			\pi_1 &= q_1 (p_1 - c_1) = (0.5 + \frac{p_1 - p_2}{2t})(p_1-c_1) \\
+			\pi_2 &= q_2 (p_2 - c_2) = (0.5 + \frac{p_2 - p_1}{2t})(p_2-c_2) \\
+		\end{align*}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Hotelling Competition: Solution - 2. Get the best responses}
+	\begin{wideitemize}
+		\item Take the derivative of the payoffs with respect to price and set to 0 to maximize profit:
+		\item \underline{Firm 1}:
+		\begin{align*}
+			0.5 - \frac{p_2-p_1}{2t} - \frac{1}{2t}(p_1-c_1) = 0
+		\end{align*}
+		\item So:
+		\begin{align*}
+			p_1 = 0.5(c_1+t+p_2)
+		\end{align*}
+		\item \underline{Firm 2}:
+		\begin{align*}
+			0.5 - \frac{p_1-p_2}{2t} - \frac{1}{2t}(p_2-c_2) = 0
+		\end{align*}
+		\item So:
+		\begin{align*}
+			p_2 = 0.5(c_2+t+p_1)
+		\end{align*}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Hotelling Competition: Solution - 3. Solve for the Nash equilibrium}
+	\begin{wideitemize}
+		\item Setting $c_1=c_2=c$ and noting that since Firm 1 and Firm 2 are now identical, in equilibrium $p_1=p_2$.
+		\item So:
+		\begin{align*}
+			p_1=p_2=c+t
+		\end{align*}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Hotelling Competition: Solution Discussion}
+	\begin{wideitemize}
+		\item Consider the solution:
+		\begin{align*}
+			p_1=p_2=c+t
+		\end{align*}
+		\item The transportation costs $t$ (which index how differentiated products are to consumers) govern how intense competition is. 
+		\item If $t=0$ consumers flock to the product with the lowest cost and we get the Bertrand solution. So, in the model, product differentiation ($t>0$) solves the 'Bertrand Trap'.
+		\item Using the model solution, we can relate this idea to `market power' (the ability of firms to price their products above marginal cost):
+		\item \textbf{The greater the degree of product differentiation, the greater the degree of market power.}
+		\end{wideitemize}
+\end{frame}
+
+
+\begin{frame}{Hotelling Competition: Solution Discussion}
+	\begin{wideitemize}
+		\item What if firms could choose their location (product positioning) and then set prices?
+		\begin{wideitemize}
+		\item Full solution is a little too complicated to go into in detail, but I'll discuss the main intuition 
+		\end{wideitemize}
+		\item Depends on the interplay between two effects (consider the case of moving from opposite ends of the uniform distribution the center at 0.5):
+		\begin{wideitemize}
+			\item \underline{Direct effect}: Holding prices fixed, moving closer to the center increases demand and profits
+			\item \underline{Strategic effect}: Moving closer to the rival leads the rival to decrease its prices, which in turn decreases a firm's profits.
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Hotelling Competition: Solution Discussion}
+	\begin{wideitemize}
+		\item Examples of these effects:
+		\item \textit{Example:} retail banking in Europe. Prices (interest rates) determined at the country level, so strategic effect is low. So, expect banks to locate branches close to the center.
+		\item \textit{Example:} ice-cream vendors on a beach. Consumers choose solely based on price - expect them to locate far from each other.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Hotelling Competition: Solution Discussion}
+	\begin{wideitemize}
+		\item Overall:
+		\item \textbf{If price competition is very intense, then firms tend to locate far apart (high degree of differentation).} 
+		\item \textbf{If price competition is not very intense, then firms tend to locate close to each other (low degree of differentiation).}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item Hotelling Competition: Setup
+		\item Hotelling Competition: Solution
+		\item \textbf{Hotelling Competition: Application}
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Hotelling Competition: Application - Strategic Trade Policy}
+	\begin{wideitemize}
+		\item \textbf{Background}: Airplane producers: US (Boeing); EU (Airbus)
+		\item In 2005 US sued EU before the World Trade Organization, accusing the EU of subsidizing Airbus.
+		\item We'd like to know: what was the impact of these subsidies on Boeing's profitability?
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Hotelling Competition: Application - Strategic Trade Policy}
+	\begin{wideitemize}
+		\item \textbf{Setup}: Suppose that we have the Hotelling setup from before, where we found the best responses were:
+		\begin{align*}
+			\text{Firm 1:} \hspace{11pt} p_1 = 0.5(c_1+t+p_2) \\
+			\text{Firm 2:} \hspace{11pt} p_2 = 0.5(c_2+t+p_1)
+		\end{align*}
+		\item \textbf{Questions:}
+		\item 1. What is the Nash equilibrium?
+		\item 2. Starting from the case where costs are the same ($c_1=c_2$) what is the change in Boeing's profits (Firm 1) for a $\$1$ increase in subsidies for Airbus (Firm 2)?
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Hotelling Competition: Application - Strategic Trade Policy: Solution}
+	\begin{wideitemize}
+		\item 1. Nash equilibrium (where $i$ is a particular firm and $j$ is its rival) is:
+		\begin{align*}
+			p_i = \frac{2}{3} c_i + \frac{1}{3}c_j + t
+		\end{align*}
+		\item 2. Note that profit is: $\pi_i = \frac{1}{18t} (3t + c_j - c_i)^2$
+		\item Compute $\frac{d \pi_1}{d c_2} = $.
+		\item Substitute in $c_1=c_2$ and we get that the derivative here is $-\frac{1}{3}$.
+		\item So, $\$1$ increase in subsidies results in a 66c decrease in Boeing's profit.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Summary of key points*}
+	%\vspace{-20pt}
+	\begin{wideitemize}
+		\item Know what 'horizontal differentiation' is
+		\item Know how to setup, interpret, and solve the Hotelling model with two firms
+		\item Understand the 'strategic' vs 'direct' effects as firms change location
+	\end{wideitemize}
+	\vspace{20pt}
+	*To clarify, all the material in the slides, problem sets, etc is assessable unless stated otherwise, but I hope this summary might be a useful place to start when studying the material.
+\end{frame}
+
+\begin{frame}{Question}
+	%\vspace{-20pt}
+	\begin{wideitemize}
+		\item \textbf{Setup:} 
+		\item Suppose that consumers are distributed uniformly between $0$ and $1$. 
+		\item Firm 1 is located at $0$ and Firm 2 is located at $0.75$. 
+		\item Marginal costs are equal for both firms and equal to $c$. 
+		\item Constant transport costs equal to $td$ where $d$ is distance and $t$ is a number. 
+		\item Firms choose prices and compete under Hotelling competition.
+		\item \textbf{Question:} 
+		\item 1. Find demand for each firm
+		\item 2. Find the best responses
+		\item 3. Find the Nash equilibrium prices
+	\end{wideitemize}
+\end{frame}
+
+\end{document}

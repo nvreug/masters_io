@@ -1,0 +1,510 @@
+\documentclass[notes,11pt, aspectratio=169]{beamer}
+
+\usepackage{pgfpages}
+% These slides also contain speaker notes. You can print just the slides,
+% just the notes, or both, depending on the setting below. Comment out the want
+% you want.
+\setbeameroption{hide notes} % Only slide
+%\setbeameroption{show only notes} % Only notes
+%\setbeameroption{show notes on second screen=right} % Both
+
+%\usepackage[scaled=1.0]{helvet}
+\usepackage{array}
+
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{matrix}
+\usetikzlibrary{positioning}
+
+\newcommand{\payoff}[4][below]{\node[#1]at(#2){$(#3,#4)$};}
+\usepackage{verbatim}
+\setbeamertemplate{note page}{\pagecolor{gray!5}\insertnote}
+\usetikzlibrary{positioning}
+\usetikzlibrary{snakes}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{matrix,shapes,arrows,fit,tikzmark}
+\usepackage{amsmath}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{multimedia}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{dcolumn}
+\usepackage{bbm}
+\newcolumntype{d}[0]{D{.}{.}{5}}
+
+\usepackage{changepage}
+\usepackage{appendixnumberbeamer}
+\newcommand{\beginbackup}{
+   \newcounter{framenumbervorappendix}
+   \setcounter{framenumbervorappendix}{\value{framenumber}}
+   \setbeamertemplate{footline}
+   {
+     \leavevmode%
+     \hline
+     box{%
+       \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{footlinecolor}%
+%         \insertframenumber  \hspace*{2ex} 
+       \end{beamercolorbox}}%
+     \vskip0pt%
+   }
+ }
+\newcommand{\backupend}{
+   \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumbervorappendix}} 
+}
+
+
+\usepackage{graphicx}
+\usepackage[space]{grffile}
+\usepackage{booktabs}
+
+% These are my colors -- there are many like them, but these ones are mine.
+\definecolor{blue}{RGB}{0,114,178}
+\definecolor{red}{RGB}{213,94,0}
+\definecolor{yellow}{RGB}{240,228,66}
+\definecolor{green}{RGB}{0,158,115}
+
+\hypersetup{
+  colorlinks=false,
+  linkbordercolor = {white},
+  linkcolor = {blue}
+}
+
+\usepackage{graphicx,stackengine,xcolor}
+\newcommand\Circle[1]{%
+	\def\useanchorwidth{T}%
+	\def\stacktype{L}%
+	\stackon[0pt]{#1}{\scalebox{2.0}[1.15]{\textcolor{red}{$\bigcirc$}}}%
+}
+
+%% I use a beige off white for my background
+\definecolor{MyBackground}{RGB}{255,253,218}
+
+%% Uncomment this if you want to change the background color to something else
+%\setbeamercolor{background canvas}{bg=MyBackground}
+
+%% Change the bg color to adjust your transition slide background color!
+\newenvironment{transitionframe}{
+  \setbeamercolor{background canvas}{bg=white}
+  \begin{frame}}{
+    \end{frame}
+}
+
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=black}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{} 
+\setbeamertemplate{itemize items}{-}
+\setbeamercolor{itemize item}{fg=blue}
+\setbeamercolor{itemize subitem}{fg=blue}
+\setbeamercolor{enumerate item}{fg=blue}
+\setbeamercolor{enumerate subitem}{fg=blue}
+\setbeamercolor{button}{bg=MyBackground,fg=blue,}
+
+%%% TIKZ STUFF
+\tikzset{   
+	every picture/.style={remember picture,baseline},
+	every node/.style={anchor=base,align=center,outer sep=1.5pt},
+	every path/.style={thick},
+}
+\newcommand\marktopleft[1]{%
+	\tikz[overlay,remember picture] 
+	\node (marker-#1-a) at (-.3em,.3em) {};%
+}
+\newcommand\markbottomright[2]{%
+	\tikz[overlay,remember picture] 
+	\node (marker-#1-b) at (0em,0em) {};%
+}
+\tikzstyle{every picture}+=[remember picture] 
+\tikzstyle{mybox} =[draw=black, very thick, rectangle, inner sep=10pt, inner ysep=20pt]
+\tikzstyle{fancytitle} =[draw=black,fill=red, text=white]
+%%%% END TIKZ STUFF
+
+
+% If you like road maps, rather than having clutter at the top, have a roadmap show up at the end of each section 
+% (and after your introduction)
+% Uncomment this is if you want the roadmap!
+% \AtBeginSection[]
+% {
+%    \begin{frame}
+%        \frametitle{Roadmap of Talk}
+%        \tableofcontents[currentsection]
+%    \end{frame}
+% }
+\setbeamercolor{section in toc}{fg=blue}
+\setbeamercolor{subsection in toc}{fg=red}
+\setbeamersize{text margin left=1em,text margin right=1em} 
+
+\newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
+\newenvironment{wideenumerate}{\enumerate\addtolength{\itemsep}{10pt}}{\endenumerate}
+
+\usepackage{environ}
+\NewEnviron{videoframe}[1]{
+  \begin{frame}
+    \vspace{-8pt}
+    \begin{columns}[onlytextwidth, T] % align columns
+      \begin{column}{.58\textwidth}
+        \begin{minipage}[t][\textheight][t]
+          {\dimexpr\textwidth}
+          \vspace{8pt}
+          \hspace{4pt} {\Large \sc \textcolor{blue}{#1}}
+          \vspace{8pt}
+          
+          \BODY
+        \end{minipage}
+      \end{column}%
+      \hfill%
+      \begin{column}{.42\textwidth}
+        \colorbox{green!20}{\begin{minipage}[t][1.2\textheight][t]
+            {\dimexpr\textwidth}
+            Face goes here
+          \end{minipage}}
+      \end{column}%
+    \end{columns}
+  \end{frame}
+}
+
+\title[]{\textcolor{blue}{ECN 453: Collusion and Price Wars 2}}
+\author[PGP]{}
+\institute[FRBNY]{\small{\begin{tabular}{c c c}
+Nicholas Vreugdenhil \\
+\end{tabular}}}
+\date{} 
+
+\begin{document}
+
+% Title Slide
+\begin{frame}
+\maketitle
+  \centering
+\end{frame}
+
+% INTRO
+
+\begin{frame}{Collusion and Price Wars: Review}
+\begin{wideitemize}
+	\item Last time: we studied how repeated interactions between firms can facilitate collusion.
+	\item Main idea: \pause firms can now threaten to punish each other in the future if they do not collude in the current period. 
+	\item Collusion required that the \textit{discount factor} $\delta$ be sufficiently high so that firms care `enough' about future punishments.
+	\begin{wideitemize}
+		\item E.g. `Let's set the monopoly price together today otherwise I'll punish you tomorrow'.
+	\end{wideitemize}
+\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item Stability of collusive agreements: discount factor
+		\item Factors that facilitate collusion
+		\item Price wars
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item \textbf{Stability of collusive agreements: discount factor}
+		\item Factors that facilitate collusion
+		\item Price wars
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Stability of collusive agreements: discount factor}
+	\begin{wideitemize}
+		\item One reason why $\delta < 1$: opportunity cost of time. \pause
+		\item  If interest rate is $r$ per period then an investor might use \$1 to gain \$(1+r) next period. Then:
+		\begin{align*}
+			\delta = \frac{1}{1+r}
+		\end{align*}
+		\item \pause What if $r$ is the annual rate but firms can change their prices $f$ times per year? Then:			\begin{align*}
+			\delta = \frac{1}{1+r/f}
+		\end{align*}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Stability of collusive agreements: discount factor}
+	\begin{wideitemize}
+		\item Another reason why $\delta < 1$: payoff in the future might not be received at all. \pause
+		\item E.g. Two pharmaceutical firms colluding. What if a third firm discovers an innovation (e.g. a superior drug) that would eliminate the market for the two firms? (This story is probably unlikely for some other industries like cement.)
+		\item Let $h$ be the probability that the industry will cease to exist one period later. Then:
+		\begin{align*}
+				\delta = \frac{1-h}{1+r/f}
+		\end{align*}
+		\item \pause What if industry is growing at rate $g$? Then, profits in $t+1$ are $1+g$ greater than in period $t$. 
+		\item Could model this with a discount factor:
+		\begin{align*}
+			\delta = \frac{(1+g)(1-h)}{1+r/f}
+		\end{align*}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Stability of collusive agreements: discount factor}
+	\begin{align*}
+		\delta = \frac{(1+g)(1-h)}{1+r/f}
+	\end{align*}
+	\begin{wideitemize}
+		\item \textbf{Collusion is normally easier to maintain when firms interact frequently and when the probability of industry continuation and growth is high.}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item Stability of collusive agreements: discount factor
+		\item \textbf{Factors that facilitate collusion}
+		\item Price wars
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Factors that facilitate collusion: market structure}
+	\begin{wideitemize}
+		\item Collusion is more likely in concentrated industries than fragmented ones
+		\begin{wideitemize}
+			\item Easier to \textit{establish} an agreement (anecdotal)
+			\item Easier to \textit{maintain} a collusive agreement
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Factors that facilitate collusion: market structure}
+	\begin{wideitemize}
+		\item Example about maintaining an agreement:
+		\item \textbf{Setup:} 
+		\item Consider the n-firm Bertrand model (i.e. homogeneous product, price competition etc) that is repeated infinitely many times. Assume agents have the discount factor $\delta$.
+		\item Assume that firms sustain collusion using a `grim trigger strategy' where:
+		\begin{wideitemize}
+			\item They set the monopoly price $p^M$ if the monopoly price has been set in all previous periods
+			\item Otherwise, set the perfectly competitive price $p=MC$ if there is any deviation from the monopoly price.
+		\end{wideitemize}
+	 		\item \textbf{Question:} How does the minimum discount factor that sustains collusion change with the number of firms $n$?
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Factors that facilitate collusion: solution}
+	\begin{wideitemize}
+		\item Maintain agreement:
+		\item $\Pi=\pi^M/n + \delta \pi^M/2 + \delta^2 \pi^M/n + ... = \frac{\pi^M/n}{1-\delta}$
+		\item Deviate:
+		\item $\Pi'=\pi^M + \delta 0 + \delta^2 0 = \pi^M + \frac{0}{1-\delta}$
+		\item Collude if: $\Pi \geq \Pi'$. Equivalently: $\delta \geq 1-\frac{1}{n}$
+		\item So, as number of firms $n$ increases, the minimum discount factor $1-\frac{1}{n}$ also increases.
+		\item Intuition: benefit of staying in the agreement is lower with more firms (since the profits need to be split amongst more firms) but the punishment from the grim trigger strategy is the same.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Factors that facilitate collusion: market structure}
+\begin{wideitemize}
+	\item Easier to maintain collusion amongst \textit{similar} firms
+	\item \textbf{Example:} Bromide cartel
+	\begin{wideitemize}
+		\item In 1885-1914 industry was dominated by a cartel.
+		\item Six price wars occurred
+		\item Why? Wars were over disagreements about how to split the profits from the cartel, since the members of the cartel were many different sizes.
+		\item If the firms were all the same size, simply equally distribute the profits.
+	\end{wideitemize}
+	\item \textbf{Overall: collusion is normally easier to maintain among few and similar firms.}
+\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Factors that facilitate collusion: multimarket contact}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\begin{wideitemize}
+				\item What if firms compete with each other in \textit{several} different markets?
+				\item \textbf{Example:} Flight routes between two cities
+				\item Average contact in each market: compute average number of other markets where competing airlines face each other
+				\item This measure is positively correlated with airfares
+				\item One explanation: airlines use competition on other routes as a means to collude on a given route.
+			\end{wideitemize}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\begin{figure}
+				\includegraphics[scale=0.15]{airline.jpeg}
+			\end{figure}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Factors that facilitate collusion: multimarket contact}
+	\begin{wideitemize}
+		\item In what situations will multimarket contact facilitate collusion? Actually not obvious!
+		\item \textbf{Setup:} 
+		\begin{wideitemize}
+			\item Note: in this example multimarket contact will \textit{not} facilitate collusion
+		\end{wideitemize}
+		\item Consider the collusion setup from the previous lecture with two \textit{identical} firms: the firms choose prices (like in Bertrand) and sustain collusion using a grim trigger strategy.
+		\item \textbf{Questions:} 
+		\item What discount factors sustain collusion if the firms compete in a single market?
+		\item What discount factors sustain collusion if the firms compete in two identical markets?
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Factors that facilitate collusion: multimarket contact}
+	\begin{wideitemize}
+		\item \textbf{Question:} What discount factors sustain collusion if the firms compete in a single market?
+		\item \textbf{Solution:} From the last lecture, we found that $\delta \geq 0.5$
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Factors that facilitate collusion: multimarket contact}
+	\begin{wideitemize}
+		\item \textbf{Question:} What discount factors sustain collusion if the firms compete in two identical markets?
+		\item \textbf{Solution:} Condition is now:
+		\begin{align*}
+			\frac{1}{1-\delta} 0.5 \pi^M + \frac{1}{1-\delta}0.5 \pi^M \geq \pi^M + \pi^M
+		\end{align*}
+		\item $\delta \geq 0.5$, so no change in range of discount factors that sustain collusion when there are more markets in this example.
+		\item Why? Different markets are just a replication of each other so as costs of deviating increase, so do the benefits.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Factors that facilitate collusion: multimarket contact}
+	\begin{wideitemize}
+		\item \textbf{Setup:} 
+		\item Same setup as before (two markets, firms choose prices). Except:
+		\item Firm 1 has cost advantage in market 1, with cost for Firm 2 higher than Firm 1 $\bar{c}>\underbar{c}$. 
+		\item Similarly, Firm 2 has cost advantage in market 2, with cost for Firm 1 higher than Firm 2 $\bar{c}>\underbar{c}$. 
+		\item Use numbers: $\bar{c}=1, \underbar{c}=0, p^M=5$ and $q=1.0$ for all prices below $p^M$.
+		\item \textbf{Question:} does multimarket contact facilitate collusion in this case?
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Factors that facilitate collusion: multimarket contact}
+	\begin{wideitemize}
+		\item \textbf{Solution:} 
+		\item Consider the `efficient' collusive agreement: lowest cost firm takes over each market.
+		\begin{wideitemize}
+			\item Specifically, lowest cost firm prices at the monopoly price. The higher cost firm prices above the monopoly price so that the lower cost firm takes over the market.
+		\end{wideitemize}
+				\item If no multimarket contact (i.e. firms look at each market in isolation) this agreement is \textit{not} stable.
+		\begin{wideitemize}
+				\item Why? The other firm could enter and undercut, and there's no way to punish this behavior.
+			\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Factors that facilitate collusion: multimarket contact}
+	\begin{wideitemize}
+		\item \textbf{Solution:} 
+		\item Consider the `efficient' collusive agreement: lowest cost firm takes over each market.
+		\begin{wideitemize}
+			\item Specifically, lowest cost firm prices at the monopoly price. The higher cost firm prices above the monopoly price so that the lower cost firm takes over the market.
+		\end{wideitemize}
+			\item What if there is multimarket contact? Specifically consider the threat that if firms deviate from the above agreement then the higher cost firm will undercut the other firm and price at $\bar{c}=1$. \pause
+		\begin{wideitemize}
+			\item Remain in agreement:
+			\item $\Pi = (5-0) + \delta (5-0) + \delta^2 (5-0) + ... = \frac{5}{1-\delta}$
+			\item Deviate from agreement:
+			\item $\Pi' = (5-0) + (5-1) + \delta (1-0)+ \delta^2 (1-0)=9 + \frac{\delta}{1-\delta}$
+			\item So, agreement sustainable if: $\delta \geq 0.5$. (Much better with multimarket contact than without, where the agreement was not at all sustainable.)
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Factors that facilitate collusion: information sharing}
+	\begin{wideitemize}
+		\item Natural (but not always true) presumption: transparency increases competition
+		\item But: may actually \textit{enhance} collusion. Why? \pause
+		\item Example: 
+				\begin{wideitemize}
+		\item In the US until 1986 railroads could enter into confidential agreements with grain shippers.
+		\item In 1986: law passed that forced disclosure of certain terms of a contract
+		\item Empirical evidence: suggest that this caused prices to \textit{increase}
+			\item Why? Public prices makes monitoring other firms and ensuring they stick to the agreement much easier.
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Factors that facilitate collusion: information sharing}
+	\begin{wideitemize}
+		\item Another example: Danish ready-mixed concrete market
+		\begin{wideitemize}
+			\item Regional oligopolies of a few firms
+			\item Until 1993, prices were frequently confidential
+			\item Regulator in October 1993 (Danish Competition Council) gathered and published actual transaction prices every week to try to increase competition and lower prices.
+			\item This resulted in \underline{higher} prices (the regulation actually had the opposite intended effect)
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Factors that facilitate collusion: information sharing}
+	\begin{figure}
+		\includegraphics[scale=0.2]{concrete.jpeg}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item Stability of collusive agreements: discount factor
+		\item Factors that facilitate collusion
+		\item \textbf{Price wars}
+	\end{wideenumerate}
+\end{frame}
+
+
+\begin{frame}{Price wars}
+	\begin{wideitemize}
+		\item Implication of the model of collusion we have seen so far: 
+		\begin{wideitemize}
+				\item We should never actually see the threat of punishment being carried out.
+		\end{wideitemize}
+		\item But in reality we see patterns of \textbf{price wars} in real-world cartels. Why?
+		\begin{wideitemize}
+			\item Price war: prices oscillate between (high) collusive prices and (low) competitive prices.
+		\end{wideitemize}
+		\item Example: Joint Executive Committee (a railroad cartel which controlled eastbound freight shipments from Chicago to the Atlantic in the 1880s)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Price wars: the Joint Executive Committee, Porter (1983)}
+\begin{figure}
+	\includegraphics[scale=0.2]{green_porter.jpeg}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Price wars: the Joint Executive Committee, Porter (1983)}
+	\begin{wideitemize}
+		\item Explanation for price wars: total demand fluctuates and these fluctuations cannot be perfectly observed. Each firm \underline{only} sees the demand it receives.
+		\item  For each firm, there is a guessing problem: \pause
+		\begin{wideitemize}
+			\item Is my demand low because my rival has undercut me and cheated on the cartel agreement?
+			\item Or is it low because overall demand is low?
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Price wars: the Joint Executive Committee, Porter (1983)}
+	\begin{wideitemize}
+		\item Potential solutions to the guessing problem:
+		\begin{wideitemize}
+			\item \underline{No punishment}. Not an equilibrium since then other firms could always blame market conditions and deviate from the agreement.
+			\item \underline{Indefinite price war}. Would prevent cheating but would always end up in an indefinite price war when there is a demand shock (and so what is the point of the cartel?)
+			\item \underline{Intermediate solution}: every time a firm receives low demand, revert to a temporary price war and after some time revert back to the previous arrangement.
+			\begin{wideitemize}
+				\item Deters cheating
+				\item But avoids an indefinite price war
+			\end{wideitemize}
+		\end{wideitemize}
+		\item \textbf{If price cuts are difficult to observe, then occasional price wars may be necessary to discipline collusive agreements.}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Summary of key points*}
+	%\vspace{-20pt}
+	\begin{wideitemize}
+		\item Know how to compute the present discounted value given a discount factor
+		\item Know what the grim trigger strategy is and how to check whether it is an equilibrium (and, alternatively, for what discount factors it is an equilibrium) 
+		\item Know how different industries may have different discount factors (which can affect how stable collusive agreements are).
+		\item Understand different factors that facilitate collusion (market structure, multimarket contact, information sharing)
+		\item Know that price wars may results as a way for cartels to enforce agreements with unobserved demand fluctuations
+	\end{wideitemize}
+	\vspace{20pt}
+	*To clarify, all the material in the slides, problem sets, etc is assessable unless stated otherwise, but I hope this summary might be a useful place to start when studying the material.
+\end{frame}
+
+\end{document}

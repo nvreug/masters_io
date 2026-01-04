@@ -1,0 +1,255 @@
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\usepackage[left=1.0in,top=1.0in,right=1.0in,bottom=1.0in,headheight=3ex,headsep=3ex]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{adjustbox}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{matrix}
+\usetikzlibrary{positioning}
+
+\tikzset{   
+	every picture/.style={remember picture,baseline},
+	every node/.style={anchor=base,align=center,outer sep=1.5pt},
+	every path/.style={thick},
+}
+\newcommand\marktopleft[1]{%
+	\tikz[overlay,remember picture] 
+	\node (marker-#1-a) at (-.3em,.3em) {};%
+}
+\newcommand\markbottomright[2]{%
+	\tikz[overlay,remember picture] 
+	\node (marker-#1-b) at (0em,0em) {};%
+}
+\tikzstyle{every picture}+=[remember picture] 
+\tikzstyle{mybox} =[draw=black, very thick, rectangle, inner sep=10pt, inner ysep=20pt]
+\tikzstyle{fancytitle} =[draw=black,fill=red, text=white]
+
+
+\usepackage{graphicx,stackengine,xcolor}
+\newcommand\Circle[1]{%
+	\def\useanchorwidth{T}%
+	\def\stacktype{L}%
+	\stackon[0pt]{#1}{\scalebox{2.0}[1.15]{\textcolor{red}{$\bigcirc$}}}%
+}
+\newcommand{\blankline}{\quad\pagebreak[2]}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Modify Course title, instructor name, semester here %%%%%%%%
+
+\title{ECN 453: Mid-term Exam 1}
+%\date{Fall, 2021}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage[sc]{mathpazo}
+\linespread{1.3} % Palatino needs more leading (space between lines)
+\usepackage[T1]{fontenc}
+\usepackage[mmddyyyy]{datetime}% http://ctan.org/pkg/datetime
+\usepackage{advdate}% http://ctan.org/pkg/advdate
+%\newdateformat{syldate}{\twodigit{\THEMONTH}/\twodigit{\THEDAY}}
+\newsavebox{\MONDAY}\savebox{\MONDAY}{Mon}% Mon
+\newcommand{\week}[1]{%
+%  \cleardate{mydate}% Clear date
+% \newdate{mydate}{\the\day}{\the\month}{\the\year}% Store date
+  \paragraph*{\kern-2ex\quad #1, \syldate{\today} - \AdvanceDate[4]\syldate{\today}:}% Set heading  \quad #1
+%  \setbox1=\hbox{\shortdayofweekname{\getdateday{mydate}}{\getdatemonth{mydate}}{\getdateyear{mydate}}}%
+  \ifdim\wd1=\wd\MONDAY
+    \AdvanceDate[7]
+  \else
+    \AdvanceDate[7]
+  \fi%
+}
+\usepackage{setspace}
+\usepackage{multicol}
+%\usepackage{indentfirst}
+\usepackage{fancyhdr,lastpage}
+\usepackage{url}
+\pagestyle{fancy}
+\usepackage{hyperref}
+\usepackage{lastpage}
+\usepackage{amsmath}
+\usepackage{layout}
+%\renewcommand{\theenumi}{\alph{enumi}}
+
+
+\lhead{}
+\chead{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Modify header here %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\rhead{\footnotesize ECN 453: Mid-term Exam 1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\lfoot{}
+\cfoot{\small \thepage/\pageref*{LastPage}}
+\rfoot{}
+
+\usepackage{array, xcolor}
+\usepackage{color,hyperref}
+\definecolor{clemsonorange}{HTML}{EA6A20}
+\hypersetup{colorlinks,breaklinks,linkcolor=clemsonorange,urlcolor=clemsonorange,anchorcolor=clemsonorange,citecolor=black}
+
+\date{} 
+
+\begin{document}
+\maketitle
+
+\subsection*{1. Short answer questions (30 points)}
+
+\begin{enumerate}
+	\item 	Use elasticity rule to find P = 10.
+	\item A few possible answers here: average cost pricing, marginal cost pricing with appropriate subsidies, divestment etc
+	\item A few possible answers here: average cost pricing, marginal cost pricing with appropriate subsidies, divestment etc
+	\item False
+	\item False
+	\item True
+	\item 5
+	\item False
+	\item True
+	\item False (Not Enough Information ok too)
+	
+\end{enumerate}
+
+
+\subsection*{2. Price discrimination by indicators (30 points)}
+\begin{enumerate}
+\item 
+\begin{enumerate}
+		\item Notice that for $p\geq 50$, students will not demand any quantity. Then, setting $q_s + q_{ns} = Q$, and $p_s = p_{ns} = p$, demand is:
+		\begin{align*}
+			Q = 150 - 2p \text{  if  }  p < 50 \\ 
+			Q = 100 - p \text{  if  }  p \geq 50 
+		\end{align*}
+		\item 
+		\begin{align*}
+		MR = 100 - 2Q \text{  if  }  Q < 50 \\ 
+		MR = 75 - Q \text{  if  }  Q > 50 
+		\end{align*}
+		\item
+		Case 1: $p<50, Q>50$
+		\begin{align*}
+			MR = MC \implies 75-Q = 20 \implies Q = 55 \implies p = 47.5 
+		\end{align*}
+		Profits here are 1512.5.
+		
+		Case 2: $p > 50, Q\ < 50$
+		\begin{align*}
+		MR = MC \implies 100-2Q = 20 \implies Q = 40 \implies p = 60 
+		\end{align*}
+		Profits here are 1600.
+		
+		Thus, the firm chooses the optimal prices and quantities from case 2 and only serves the non-student market.		
+			
+		\item 
+		\begin{equation*}
+		CS = 0.5\times 40 \times (60-20) = 800 
+		\end{equation*}
+		
+	
+		
+		
+	\end{enumerate}
+	\item 
+
+
+\begin{enumerate}
+\item 
+Students:
+
+\begin{equation*}
+p = 50 - q \implies MR = 50 - 2q
+\end{equation*}
+\begin{equation*}
+MR = MC \implies 50-2q = 20 \implies q = 15 \implies p = 35
+\end{equation*}
+
+Non-students:
+
+\begin{equation*}
+p = 100 - q \implies MR = 100 - 2q
+\end{equation*}
+\begin{equation*}
+MR = MC \implies 100-2q = 20 \implies q = 40 \implies p = 60
+\end{equation*}
+
+\item 
+\begin{equation*}
+CS = CS_{s} + CS_{ns}
+\end{equation*}
+
+\begin{equation*}
+CS_s = 0.5 \times 15^2 = 112.5
+\end{equation*}
+
+\begin{equation*}
+CS_{ns} = 0.5 \times 40^2 = 800
+\end{equation*}
+
+
+
+\end{enumerate}
+
+\item 
+
+\begin{equation*}
+	\text{Two-part Tariff} = \underbrace{f}_{\text{Fixed Part}} + \underbrace{pq}_{\text{Variable Part}}
+\end{equation*}
+
+Set f equal to CS
+\begin{equation*}
+	f = CS(p_{pc}) \implies f = CS(MC) 
+\end{equation*}
+
+\begin{equation*}
+CS(20) = 0.5 \times (50 - 20)\times 30 = 450 \implies f = 450
+\end{equation*}
+
+Set p equal to MC
+\begin{equation*}
+p = 20
+\end{equation*}
+
+Thus, optimal two part tariff is:
+\begin{equation*}
+	\text{Two-part Tariff} = 450 + 20q
+\end{equation*}
+\end{enumerate}
+
+
+\subsection*{3. Pricing airline tickets (30 points)}
+
+\begin{enumerate}
+\item Under perfect price discrimination, firm can charge the full willingness to pay for each type of consumer. Therefore, profits are:
+
+\begin{equation*}
+10 \times (180-30) + 30 \times (60-30) = 2400
+\end{equation*}
+
+\item
+\begin{enumerate}
+	\item Optimal uniform price is 180.	Firm makes a profit of 1500, only supplying tickets to business consumers. In order to get tourists, the firm needs to lower the price to at least 60. Profits drop to 1200 in that case.
+	\item Business consumers will buy the restricted ticket because they generate more consumer surplus. Tourists will also buy the restricted ticket as the price for the standard ticket is above their willingness to pay. In such a case, profits will be 800.
+	\item If the airline charges 90 for the restricted ticket, neither type of consumers would opt for it as it is above their willingness to pay. Then this case becomes analogous to case a and the airline would optimally charge a price of 180.
+	\item The airline needs to make sure that the business type of consumers do not opt for the restricted ticket. As a result, the airline needs to price the standard ticket in such a way that it generates at least a consumer surplus of 30 for the business ticket. The optimal price would be 150 for the standard ticket (ok if you write 149, too).
+\end{enumerate}
+
+\end{enumerate}
+
+
+
+
+\subsection*{4. Game theory (30 points)}
+
+\begin{enumerate}
+	\item Nash Equilibria are (T,R) and (B,L)
+	\item Any $x > 0$. Now playing L becomes a dominant strategy for Player 2. 
+	\item With the NE of (B,L), Player 2 gets a payoff of 20. By moving first, Player 2 wants to get the outcome of (T,R) and generate a payoff of 50. Therefore, Player 2 can pay up to 30 to commit to moving first.
+	\item Solve by backward induction. With $x > 30$, Player 2 would choose L, given 1's best responses of choosing B if she is at the L node, and T is she's on the R node.
+\end{enumerate}
+
+\end{document}

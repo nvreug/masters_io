@@ -1,0 +1,145 @@
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\usepackage[left=0.9in,top=0.9in,right=0.9in,bottom=0.9in,headheight=3ex,headsep=3ex]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{adjustbox}
+\usepackage{tikz}
+\usetikzlibrary{positioning}
+\usetikzlibrary{snakes}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{matrix,shapes,arrows,fit,tikzmark}
+
+
+\newcommand{\blankline}{\quad\pagebreak[2]}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Modify Course title, instructor name, semester here %%%%%%%%
+
+\title{ECN 453: Homework 3}
+\author{\textbf{Due: Start of class Monday 29th November.} \\
+\textbf{You can work in groups of up to 3 people (hand in one solution per group).} }
+%\date{Fall, 2021}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage[sc]{mathpazo}
+\linespread{1.3} % Palatino needs more leading (space between lines)
+\usepackage[T1]{fontenc}
+\usepackage[mmddyyyy]{datetime}% http://ctan.org/pkg/datetime
+\usepackage{advdate}% http://ctan.org/pkg/advdate
+%\newdateformat{syldate}{\twodigit{\THEMONTH}/\twodigit{\THEDAY}}
+\newsavebox{\MONDAY}\savebox{\MONDAY}{Mon}% Mon
+\newcommand{\week}[1]{%
+%  \cleardate{mydate}% Clear date
+% \newdate{mydate}{\the\day}{\the\month}{\the\year}% Store date
+  \paragraph*{\kern-2ex\quad #1, \syldate{\today} - \AdvanceDate[4]\syldate{\today}:}% Set heading  \quad #1
+%  \setbox1=\hbox{\shortdayofweekname{\getdateday{mydate}}{\getdatemonth{mydate}}{\getdateyear{mydate}}}%
+  \ifdim\wd1=\wd\MONDAY
+    \AdvanceDate[7]
+  \else
+    \AdvanceDate[7]
+  \fi%
+}
+\usepackage{setspace}
+\usepackage{multicol}
+%\usepackage{indentfirst}
+\usepackage{fancyhdr,lastpage}
+\usepackage{url}
+\pagestyle{fancy}
+\usepackage{hyperref}
+\usepackage{lastpage}
+\usepackage{amsmath}
+\usepackage{layout}
+\renewcommand{\theenumi}{\alph{enumi}}
+
+
+\lhead{}
+\chead{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Modify header here %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\rhead{\footnotesize ECN 453: Homework 3}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\lfoot{}
+\cfoot{\small \thepage/\pageref*{LastPage}}
+\rfoot{}
+
+\usepackage{array, xcolor}
+\usepackage{color,hyperref}
+\definecolor{clemsonorange}{HTML}{EA6A20}
+\hypersetup{colorlinks,breaklinks,linkcolor=clemsonorange,urlcolor=clemsonorange,anchorcolor=clemsonorange,citecolor=black}
+
+\date{} 
+
+\begin{document}
+\maketitle
+
+\paragraph{Instructions} Please neatly write your answers, staple them together, and submit this homework at the start of class on Monday 29th November.\footnote{If you can't come to class you can email me your solutions.} If the work is too messy/hard to read it will not be graded. I encourage you to talk to your classmates about the homework, but make sure you can do all the problems. Don't forget to put the names of everyone in your group on the front. If you have questions come and talk to me in office hours, after class, or by email: nvreugde@asu.edu. Good luck!
+
+\subsection*{1. New technology and market structure (30 points)}
+Consider an industry with market demand $Q=a-p$ and an infinite number of potential entrants with access to the same technology. Initially, the technology is given by $C=F+cq$. A new technology allows for a lower marginal cost $c'<c$ at the expense of a higher fixed cost $F'>F$.
+	\begin{enumerate}
+	%\item (10 points) Explain in 1-2 sentences: what can you say (if anything) about the effect of the new technology on equilibrium price?
+	\item (30 points) Suppose that $a=10, F=2, F'=3,c=2,c'=1$.\footnote{To map it exactly onto the formula discussed in class, note that the demand curve implies that market size $S=1$.} Determine the equilibrium price under both the old and new technologies.
+\end{enumerate}
+
+\newpage
+
+\subsection*{2. Repeated games (50 points)}
+Consider the following game and suppose that it is repeated an infinite number of times. Players have a discount value of $\delta$. 
+\begin{figure}[h]
+	\centering
+\begin{tikzpicture}
+	\matrix[matrix of math nodes,
+	every odd row/.style={align=right},every evenrow/.style={align=left},every node/.style={text width=1.5cm},row sep=0.2cm,column sep=0.2cm,ampersand replacement=\&] (m) {
+		10\&12 \\
+		10\&0 \\
+		0 \&1 \\
+		12 \&1\\
+	};
+	\draw (m.north east) rectangle (m.south west);
+	\draw (m.north) -- (m.south);
+	\draw (m.east) -- (m.west);
+	
+	% Player 1
+	\coordinate (c) at ($(m.north west)!0.25!(m.south west)$);
+	\coordinate (d) at ($(m.north west)!0.75!(m.south west)$);
+	\node[left=2pt of c,text width=1cm]  {T};
+	\node[left=2pt of d,text width=1cm]  {B};
+	
+	% Player 2
+	\coordinate (a) at ($(m.north west)!0.25!(m.north east)$);
+	\coordinate (b) at ($(m.north west)!0.75!(m.north east)$);
+	\node[above=5pt of a,anchor=base] {L};
+	\node[above=5pt of b,anchor=base] {R};
+	
+	\node[above=18pt of m.north] (firm b) {Player 2};
+	\node[left=1.6cm of m.west,rotate=90,align=center,anchor=center] {Player 1};
+	
+	%\node[above=5pt of firm b]  {Payoff Matrix};
+\end{tikzpicture}
+\end{figure}
+
+\begin{enumerate}
+	\item (20 points) For what values of $\delta$ can collusion on (T,L) be sustained under the following grim trigger strategy:
+	\begin{itemize}
+		\item Play (T,L) if (T,L) has been played in all previous periods
+		\item Otherwise play (B,R).
+	\end{itemize}
+	\item (20 points) Suppose instead that the payoffs from playing (B,R) are (0,0) (i.e. not (1, 1)). For what values of $\delta$ can collusion on (T,L) be sustained under the following grim trigger strategy:\footnote{This is the same grim trigger strategy in (a) but you will need to compute it with different payoffs.}
+	\begin{itemize}
+		\item Play (T,L) if (T,L) has been played in all previous periods
+		\item Otherwise play (B,R).
+	\end{itemize}
+	\item (10 points) Explain in 1-2 sentences: why does your answer change between Part a and Part b?
+\end{enumerate}
+
+\end{document}

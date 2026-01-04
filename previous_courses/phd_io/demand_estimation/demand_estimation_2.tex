@@ -1,0 +1,594 @@
+\documentclass[notes,11pt, aspectratio=169]{beamer}
+
+\usepackage{pgfpages}
+% These slides also contain speaker notes. You can print just the slides,
+% just the notes, or both, depending on the setting below. Comment out the want
+% you want.
+\setbeameroption{hide notes} % Only slide
+%\setbeameroption{show only notes} % Only notes
+%\setbeameroption{show notes on second screen=right} % Both
+
+%\usepackage[scaled=1.0]{helvet}
+\usepackage{array}
+
+\usepackage{tikz}
+\usepackage{verbatim}
+\setbeamertemplate{note page}{\pagecolor{gray!5}\insertnote}
+\usetikzlibrary{positioning}
+\usetikzlibrary{snakes}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{matrix,shapes,arrows,fit,tikzmark}
+\usepackage{amsmath}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{multimedia}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{dcolumn}
+\usepackage{bbm}
+\newcolumntype{d}[0]{D{.}{.}{5}}
+
+\usepackage{changepage}
+\usepackage{appendixnumberbeamer}
+\newcommand{\beginbackup}{
+   \newcounter{framenumbervorappendix}
+   \setcounter{framenumbervorappendix}{\value{framenumber}}
+   \setbeamertemplate{footline}
+   {
+     \leavevmode%
+     \hline
+     box{%
+       \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{footlinecolor}%
+%         \insertframenumber  \hspace*{2ex} 
+       \end{beamercolorbox}}%
+     \vskip0pt%
+   }
+ }
+\newcommand{\backupend}{
+   \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumbervorappendix}} 
+}
+
+
+\usepackage{graphicx}
+\usepackage[space]{grffile}
+\usepackage{booktabs}
+
+% These are my colors -- there are many like them, but these ones are mine.
+\definecolor{blue}{RGB}{0,114,178}
+\definecolor{red}{RGB}{213,94,0}
+\definecolor{yellow}{RGB}{240,228,66}
+\definecolor{green}{RGB}{0,158,115}
+
+\hypersetup{
+  colorlinks=false,
+  linkbordercolor = {white},
+  linkcolor = {blue}
+}
+
+
+%% I use a beige off white for my background
+\definecolor{MyBackground}{RGB}{255,253,218}
+
+%% Uncomment this if you want to change the background color to something else
+%\setbeamercolor{background canvas}{bg=MyBackground}
+
+%% Change the bg color to adjust your transition slide background color!
+\newenvironment{transitionframe}{
+  \setbeamercolor{background canvas}{bg=white}
+  \begin{frame}}{
+    \end{frame}
+}
+
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=black}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{} 
+\setbeamertemplate{itemize items}{-}
+\setbeamercolor{itemize item}{fg=blue}
+\setbeamercolor{itemize subitem}{fg=blue}
+\setbeamercolor{enumerate item}{fg=blue}
+\setbeamercolor{enumerate subitem}{fg=blue}
+\setbeamercolor{button}{bg=MyBackground,fg=blue,}
+
+
+
+% If you like road maps, rather than having clutter at the top, have a roadmap show up at the end of each section 
+% (and after your introduction)
+% Uncomment this is if you want the roadmap!
+% \AtBeginSection[]
+% {
+%    \begin{frame}
+%        \frametitle{Roadmap of Talk}
+%        \tableofcontents[currentsection]
+%    \end{frame}
+% }
+\setbeamercolor{section in toc}{fg=blue}
+\setbeamercolor{subsection in toc}{fg=red}
+\setbeamersize{text margin left=1em,text margin right=1em} 
+
+\newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
+\newenvironment{wideenumerate}{\enumerate\addtolength{\itemsep}{10pt}}{\endenumerate}
+
+\usepackage{environ}
+\NewEnviron{videoframe}[1]{
+  \begin{frame}
+    \vspace{-8pt}
+    \begin{columns}[onlytextwidth, T] % align columns
+      \begin{column}{.58\textwidth}
+        \begin{minipage}[t][\textheight][t]
+          {\dimexpr\textwidth}
+          \vspace{8pt}
+          \hspace{4pt} {\Large \sc \textcolor{blue}{#1}}
+          \vspace{8pt}
+          
+          \BODY
+        \end{minipage}
+      \end{column}%
+      \hfill%
+      \begin{column}{.42\textwidth}
+        \colorbox{green!20}{\begin{minipage}[t][1.2\textheight][t]
+            {\dimexpr\textwidth}
+            Face goes here
+          \end{minipage}}
+      \end{column}%
+    \end{columns}
+  \end{frame}
+}
+
+\title[]{\textcolor{blue}{Demand Estimation 2 \\ PhD Industrial Organization}}
+\author[PGP]{}
+\institute[FRBNY]{\small{\begin{tabular}{c c c}
+Nicholas Vreugdenhil \\
+\end{tabular}}}
+\date{} 
+
+\begin{document}
+
+%%% TIKZ STUFF
+\tikzset{   
+        every picture/.style={remember picture,baseline},
+        every node/.style={anchor=base,align=center,outer sep=1.5pt},
+        every path/.style={thick},
+        }
+\newcommand\marktopleft[1]{%
+    \tikz[overlay,remember picture] 
+        \node (marker-#1-a) at (-.3em,.3em) {};%
+}
+\newcommand\markbottomright[2]{%
+    \tikz[overlay,remember picture] 
+        \node (marker-#1-b) at (0em,0em) {};%
+}
+\tikzstyle{every picture}+=[remember picture] 
+\tikzstyle{mybox} =[draw=black, very thick, rectangle, inner sep=10pt, inner ysep=20pt]
+\tikzstyle{fancytitle} =[draw=black,fill=red, text=white]
+%%%% END TIKZ STUFF
+
+% Title Slide
+\begin{frame}
+\maketitle
+  \centering
+\end{frame}
+
+% INTRO
+
+\begin{frame}{Plan}
+\begin{wideenumerate}
+\item BLP setup
+\item Price elasticity/substitution patterns
+\item Estimation: overview and typical data
+\item Identification: what if we had micro-data?
+%\item Identification: $\Sigma$ 
+%\item Estimation algorithm
+%\item Instrumental variables
+%\item Extensions
+%\item Applications
+\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item \textbf{ BLP setup }
+		\item Price elasticity/substitution patterns
+		\item Estimation: overview and typical data
+		\item Identification: what if we had micro-data?
+		%\item Identification: $\Sigma$ 
+		%\item Estimation algorithm
+		%\item Instrumental variables
+		%\item Extensions
+		%\item Applications
+	\end{wideenumerate}
+\end{frame}
+
+
+\begin{frame}{Discrete choice demand models: general setup of `BLP'}{Berry, Levinsohn, and Pakes (1995)}
+	\begin{align*}
+		u_{ijt} = x_{jt} \beta_{it} + \alpha_{it} p_{jt} + \xi_{jt} + \epsilon_{ijt}
+	\end{align*}
+	\begin{wideitemize}
+		\item \underline{What about income?}:
+		\item In the above equation, $p_{jt}$ should really be $y_i-p_{jt}$ where $y_i$ is income.
+		\item Leaving it out has no impact for choices however, and just simplifies exposition. Why? \pause
+		\begin{wideitemize}
+			\item Income enters linearly to all options, and only relative differences in utilities matter for choice probabilities 
+			\item If $y_i-p_{jt}$ entered non-linearly then it would affect the choice probabilities and should be included
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Discrete choice demand models: general setup of `BLP'}{Berry, Levinsohn, and Pakes (1995)}
+	\begin{wideitemize}
+		\item \underline{Even more notation}: 
+		\begin{wideitemize}
+			\item Recall $L$ number of demographic vars, $K$ number of product characteristics
+		\end{wideitemize}
+		\item Define:
+		\begin{wideitemize}
+			\item The \textbf{mean utility} of product j in market t: $\delta_{jt} = x_{jt} \beta_0 + \alpha_0 p_{jt} + \xi_{jt}$
+			\item $\Gamma$: $(K+1) \times L$ matrix with coefficients of demographic variables
+			\item $\Sigma$: $(K+1) \times (K+1)$ diagonal matrix with diagonal $(\alpha_{\nu},\beta_{\nu}^{(1)},..., \beta_{\nu}^{(K)} )$
+			\item $\nu_{it} = ( \nu^{(0)}_{it}, ..., \nu^{(K)}_{it} )^T$
+			\item $\mu_{ijt} = (x_{jt}, p_{jt}) \cdot (\Gamma D_{it} + \Sigma \nu_{it})$
+		\end{wideitemize}
+		\item Then we can rewrite our utility equation as:
+	\end{wideitemize}
+	\begin{align*}
+		u_{ijt} = \underbrace{\delta_{jt}}_{\text{mean utility}} + \underbrace{\mu_{ijt}}_{\text{interaction between  consumer tastes + product characteristics}}+ \underbrace{\epsilon_{ijt}}_{ \text{idiosyncratic error}}
+	\end{align*}
+\end{frame}
+
+\begin{frame}{Discrete choice demand models: general setup of `BLP'}{Berry, Levinsohn, and Pakes (1995)}
+	\begin{wideitemize}
+		\item \underline{Review of where we are}: we just characterized a very flexible model of consumer utility. 
+		\item Assuming i.i.d. extreme value errors $\epsilon_{ijt}$ the probability consumer $i$ chooses product $j$ is:
+		\begin{align*}
+			\frac{ \exp(\delta_{jt} + \mu_{ijt}) }{1 + \sum_{k=1}^J \exp(\delta_{kt} + \mu_{ikt})}
+		\end{align*}
+		\item And \textbf{demand} (the share of consumers who purchase good $j$ in market $t$) is:
+		\begin{align*}
+			s_{jt} = \sigma_j ( \boldsymbol{\delta}_t,  \boldsymbol{x}_t,  \boldsymbol{p}_t;\Gamma, \Sigma  ) = \int \frac{ \exp(\delta_{jt} + \mu_{ijt}) }{1 + \sum_{k=1}^J \exp(\delta_{kt} + \mu_{ikt})} dF(D_{it}, v_{it})
+		\end{align*}
+		\item Here:
+		\begin{wideitemize}
+			\item $\boldsymbol{\delta}_t,  \boldsymbol{x}_t,  \boldsymbol{p}_t$ are vectors of mean utilities, observed product characteristics, prices, in market $t$
+			\item $F$ is the joint distribution of observed demographics and unobserved tastes
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item BLP setup
+		\item \textbf{ Price elasticity/substitution patterns}
+		\item Estimation: overview and typical data
+		\item Identification: what if we had micro-data?
+		%\item Identification: $\Sigma$ 
+		%\item Estimation algorithm
+		%\item Instrumental variables
+		%\item Extensions
+		%\item Applications
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Price elasticity/substitution patterns}
+\begin{wideitemize}
+\item \textbf{Question}: is all the complexity in the previous section necessary (in terms of heterogeneous consumers etc)? 
+\begin{wideitemize}
+\item What would a simpler model (for example, with homogeneous consumers) fail to capture?
+\end{wideitemize}
+\item \textbf{Answer}: (Typically) it is! 
+\begin{wideitemize}
+\item Key implication of a demand model: substitution patterns between goods/price elasticity
+\item I will now argue that allowing for flexible consumer heterogeneity is \textbf{necessary to get the model to generate realistic substitution patterns}.
+\end{wideitemize}
+\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Price elasticity/substitution patterns: implications of homogeneous consumer model}
+\begin{wideitemize}
+\item \textbf{Thought experiment}: switch off consumer heterogeneity.
+\begin{wideitemize}
+\item E.g. accomplish this by setting $\Gamma=0$ and $\Sigma=0$. So, $\mu_{ijt}=0$.
+\end{wideitemize}
+\item Then, just a Logit model: 
+\begin{align*}
+s_{jt} = \frac{\exp(\delta_{jt})}{1 + \sum_{k=1}^J \exp (\delta_{kt})}
+\end{align*}
+\item Price elasticities:
+\[  \eta_{jkt} = \frac{\partial s_{jt}}{ \partial p_{kt} } \frac{p_{kt}} {s_{jt}} =  \left\{
+\begin{array}{ll}
+\alpha_0 p_{jt} (1-s_{jt}) & \text{if } $j=k$ \\
+-\alpha_0 p_{kt} s_{kt} & \text{otherwise} \\
+\end{array} 
+\right. \]
+\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Price elasticity/substitution patterns: implications of homogeneous consumer model}
+\begin{wideitemize}
+\item Price elasticities:
+\[  \eta_{jkt} = \frac{\partial s_{jt}}{ \partial p_{kt} } \frac{p_{kt}} {s_{jt}} =  \left\{
+\begin{array}{ll}
+\alpha_0 p_{jt} (1-s_{jt}) & \text{if } $j=k$ \\
+-\alpha_0 p_{kt} s_{kt} & \text{otherwise} \\
+\end{array} 
+\right. \]
+\item \textbf{Implication 1}: 
+\begin{wideitemize}
+\item Typically, $\alpha_0 (1-s_{jt}) \approx \alpha_0 $ since there are many products and market share of each product is small.
+\item So, own price-elasticities (j=k) are proportional to price.
+\item What does the model imply about prices vs demand elasticity?
+\begin{wideitemize}
+	\item This demand model implies that the \textbf{lower the price, the more inelastic is demand}
+	\item Further implication: under typical pricing models $\rightarrow$ higher markup for these lower priced goods
+	\item Question: do you think that these implications are reasonable predictions for the model to make?
+\end{wideitemize}
+\end{wideitemize}
+\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Price elasticity/substitution patterns: implications of homogeneous consumer model}
+\begin{wideitemize}
+\item Price elasticities:
+\[  \eta_{jkt} = \frac{\partial s_{jt}}{ \partial p_{kt} } \frac{p_{kt}} {s_{jt}} =  \left\{
+\begin{array}{ll}
+\alpha_0 p_{jt} (1-s_{jt}) & \text{if } $j=k$ \\
+-\alpha_0 p_{kt} s_{kt} & \text{otherwise} \\
+\end{array} 
+\right. \]
+\item \textbf{Implication 2}: 
+\begin{wideitemize}
+\item Consider an increase in the price of product $k$. Concretely, think about the market for cars. The price of a BMW goes up. Do you think consumers will substitute towards a Mercedes or a Honda Civic? \pause
+\begin{wideitemize}
+\item Usually, we'd expect consumers to substitute towards similar products (i.e. the Mercedes)
+\end{wideitemize}
+\item But, the homogeneous consumer model predicts the following \textbf{diversion ratio}:
+\begin{align*}
+\frac{\partial s_{jt}}{ \partial p_{kt} } / \frac{\partial s_{kt}}{ \partial p_{kt} } = s_{jt} / (1-s_{kt})
+\end{align*}
+\item Here, substitution is proportional to market share, not how close the products are in terms of their characteristics. 
+\begin{wideitemize}
+\item Idea: as $p_k$ increases, consumers who no longer choose $k$ choose other options at the same frequency as the `average' consumer (i.e. in proportion to their market share).
+\end{wideitemize}
+\end{wideitemize}
+\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Price elasticity/substitution patterns}
+\begin{wideitemize}
+\item Price elasticities in the full BLP model (which heterogeneous consumers):
+\[  \eta_{jkt} = \frac{\partial s_{jt}}{ \partial p_{kt} } \frac{p_{kt}} {s_{jt}} =  \left\{
+\begin{array}{ll}
+\frac{p_{jt}}{s_{jt}} \int \alpha_{it} s_{ijt} (1-s_{ijt}) dF(D_{it}, \nu_{it}) & \text{if } $j=k$ \\
+-\frac{p_{kt}}{s_{jt}} \int \alpha_{it} s_{ijt} s_{ikt} dF(D_{it}, \nu_{it}) & \text{otherwise} \\
+\end{array} 
+\right. \]
+\item Notation: $s_{ijt}$: probability that $i$ purchases $j$ in market $t$
+\item \textbf{Observation 1}: 
+\item Each consumer has a different price sensitivity, which is averaged to a product-specific mean price sensitivity using the individual probabilities of purchase as weights.
+\item This relaxes `implication 1' from before. I.e. model could generate that low-price products have more elastic demand
+\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Price elasticity/substitution patterns}
+\begin{wideitemize}
+\item Price elasticities in the full BLP model (i.e. including heterogeneous consumers):
+\[  \eta_{jkt} = \frac{\partial s_{jt}}{ \partial p_{kt} } \frac{p_{kt}} {s_{jt}} =  \left\{
+\begin{array}{ll}
+\frac{p_{jt}}{s_{jt}} \int \alpha_{it} s_{ijt} (1-s_{ijt}) dF(D_{it}, \nu_{it}) & \text{if } $j=k$ \\
+-\frac{p_{kt}}{s_{jt}} \int \alpha_{it} s_{ijt} s_{ikt} dF(D_{it}, \nu_{it}) & \text{otherwise} \\
+\end{array} 
+\right. \]
+\item Notation: $s_{ijt}$: probability that $i$ purchases $j$ in market $t$
+\item \textbf{Observation 2}: 
+\item Model generates flexible cross-product substitution patterns.
+\begin{itemize}
+\item How? Correlation in $\mu_{ijt}$ and $\mu_{ikt}$ induces correlation between $s_{ijt}$ and $s_{ikt}$, which then determines substitution patterns.
+\end{itemize}
+\item Note: alternatively, may be able to generate realistic substitution patterns with a nested logit (e.g. put the luxury cars in the same nest)
+\begin{itemize}
+\item ...but this requires a-priori decisions about how to segment the market. 
+\end{itemize}
+\end{wideitemize}
+\end{frame}
+
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item BLP setup
+		\item Price elasticity/substitution patterns
+		\item  \textbf{ Estimation: overview and typical data }
+		\item Identification: what if we had micro-data?
+		%\item Identification: $\Sigma$ 
+		%\item Estimation algorithm
+		%\item Instrumental variables
+		%\item Extensions
+		%\item Applications
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Estimation: setup of the problem}
+	\begin{wideitemize}
+		\item What are the parameters we need to estimate? \pause
+		\item \underline{Linear parameters:}
+		\begin{wideitemize}
+			\item Parameters from the mean utility equation: $(\alpha_0, \beta_0)$
+		\end{wideitemize}
+		\item \underline{Nonlinear parameters}
+		\begin{wideitemize}
+			\item $\Gamma$: coefficients on (observed) demographics 
+			\item $\Sigma$:  idiosyncratic ``taste for characteristics''
+		\end{wideitemize}
+		\item So, full parameter vector to estimate: $\theta = (\alpha_0, \beta_0, \Gamma, \Sigma)$.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Estimation: setup of the problem}
+	\begin{wideitemize}
+		\item Common assumptions in empirical work:
+		\begin{wideitemize}
+			\item We will also make these assumptions from now on. 
+			\item They simplify the model, but are not necessary, see Chapter 1 of the Handbook for ways to relax these assumptions.
+			\item (Always good to know common assumptions people make in empirical work, especially when they simplify the model!)
+		\end{wideitemize}
+		\item 1. Distribution of ``taste for characteristics'' $\nu_{it} =  ( \nu^{(0)}_{it}, ..., \nu^{(K)}_{it} )$ is independent of the distribution of demographics $D_{it}$.
+		\begin{wideitemize}
+			\item Then, $F(D_{it}, \nu_{it}) = F_D(D_{it})F_{\nu}(\nu_{it})$.
+		\end{wideitemize}
+		\item 2. Each $v_{it}^{(k)}$ is independent across $k=0,...,K$ and distributed standard normal.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Data: typically, the data have three types of variables}
+	\begin{wideitemize}
+		\item \underline{1. Quantities of the J products purchased in market t.}
+		\begin{wideitemize}
+			\item These are aggregations of individual consumer choices. 
+			\item As we will see, only aggregate data (ie. data on total quantities at the market level) is required for identification. However, information from micro-data (i.e. data on individual choices) can be incorporated. 
+			\item Remember: we are implicit assuming that definition of a market is narrow enough that consumers in the market face the same prices, characteristics, and demand shocks.
+			\item Can convert aggregate quantities to market shares if we know the total market size $I_t$: $s_{jt} = q_{jt} / I_t$.
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Data: typically, the data have three types of variables}
+	\begin{wideitemize}
+		\item \underline{2. Prices $p_{jt}$ and ``observed'' product characteristics $x_{jt}$ of each of $J$ products in market $t$.}
+		\item \underline{3. Information on consumer demographics.}
+		\begin{wideitemize}
+			\item In micro-data, will observe $D_{ilt}$ i.e. demographics for each $i$
+			\begin{wideitemize}
+				\item e.g. survey data on car purchases
+			\end{wideitemize}
+			\item In other applications, more aggregated data
+			\begin{wideitemize}
+				\item e.g. \textit{distribution} of demographics $F_t(D)$ 
+				\item could obtain such data from e.g. the Current Population Survey in different cities in the US)
+			\end{wideitemize}
+			\item In other applications, data at a granularity somewhere between the two above cases. 
+			\begin{wideitemize}
+				\item e.g. average age of consumers who purchase product $j$
+			\end{wideitemize}
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item BLP setup
+		\item Price elasticity/substitution patterns
+		\item Estimation: overview and typical data
+		\item  \textbf{ Identification: what if we had micro-data?}
+		%\item Identification: $\Sigma$ 
+		%\item Estimation algorithm
+		%\item Instrumental variables
+		%\item Extensions
+		%\item Applications
+	\end{wideenumerate}
+\end{frame}
+
+\begin{comment}
+\begin{frame}{Identification: review}
+	\begin{wideitemize}
+		\item \underline{What does `identification' mean?}
+		\item Very vague definition: `whether the things we observe are capable of revealing the answers to  the questions we care about'?
+		\item Slightly less vague (but still not precise) (`point identification'): `under the assumptions of the model, can the data distinguish the true parameter(s) $\theta_0$ from other parameters $\theta \neq \theta_0$?'
+		\item Precise econometric definition: see haile.pdf on Canvas, or `The Identification Zoo' (Lewbel)
+		\item Important: identification is \textbf{completely separate} from statistical precision, estimators etc
+		\begin{wideitemize}
+			\item Often the thought experiment for where the parameters are `identified' is: if we had unlimited data, could we distinguish the true parameters?
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+\end{comment}
+
+\begin{frame}{Identification}
+	\begin{wideitemize}
+		\item \underline{What variation in the data can identify the parameters?}
+		\begin{wideitemize}
+			\item  Precise econometric definition of identification: see haile.pdf on Canvas, or `The Identification Zoo' (Lewbel)
+		\end{wideitemize}
+		\item \textbf{Thought experiment}: what if we:
+		\begin{wideitemize}
+			 \item 1. have micro-data on individual consumers
+			 \item 2. observe a single market
+			 \item 3. switch off $\Sigma=0$ (i.e. ignore any idiosyncratic ``taste for characteristics'', implies heterogeneity is only driven by observed demographics)
+		\end{wideitemize}
+			\item Later, we will build on this intuition to discuss what to do if we had more aggregated market-level data with random taste shocks etc...
+	\end{wideitemize}
+\end{frame}
+
+
+\begin{frame}{Identification using individual-level data}
+	\begin{wideitemize}
+		\item \underline{Data:}
+		\item $\{y_{ij}, D_i\}_{i=1,...,I}$ where $y_{ij}=1$ for $j=0,1,...,J$ if consumer $i$ chooses product $j$ and $\sum_j y_{ij}=1$.
+		\item All consumers are from the same market (same prices, same product characteristics both observed $\textbf{x}$ and unobserved $\xi$)
+		\item \underline{Comment:}
+		\item Estimating demand might seem hopeless here: we only see one market, so how are we supposed to get how quantities vary with prices if there is no price variation in the data?
+		\item But, we will now see that it is in fact possible.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Identification using individual-level data}
+	\begin{wideitemize}
+		\item (Conditional indirect) utility from product $j$ (dropping $t$ subscript and incorporating price $p_j$ as a `characteristic' in $x_j$ to simplify exposition):
+		\begin{align*}
+			u_{ij} = \underbrace{x_j \beta_0 + \xi_j}_{\delta_j} + \sum_{k,l} \beta_d^{(l,k)} D_{il} x_{jk} + \epsilon_{ij}
+		\end{align*}
+		\item \underline{Comment:} if we didn't have the (unobserved) demand shock $\xi_j$ then we could estimate all the parameters of the model at once by maximum likelihood.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Identification using individual-level data}
+	\begin{wideitemize}
+		\item (Conditional indirect) utility from product $j$ (dropping $t$ subscript and incorporating price $p_j$ as a `characteristic' in $x_j$ to simplify exposition):
+		\begin{align*}
+			u_{ij} = \underbrace{x_j \beta_0 + \xi_j}_{\delta_j} + \sum_{k,l} \beta_d^{(l,k)} D_{il} x_{jk} + \epsilon_{ij}
+		\end{align*}
+		\item Instead, use a \textbf{two-step procedure}:
+		\item 1. Include a product-specific intercept to capture $\delta_j=x_j \beta_0 + \xi_j$ (i.e. estimate $\tilde{\theta}= (\delta_1,...,\delta_J, \Gamma)$ using maximum likelihood )
+		\item 2. Estimate $\beta_0$ by `projecting' estimated $\delta$'s on the $x$'s.
+		\begin{wideitemize}
+			\item If assume $E(\xi_j|x_j)=0$ then can use (weighted) least squares
+			\item If concerned x's are correlated with $\xi$ can use $E(\xi_j|Z_j)=0$ where $Z$ are a vector of exogeneous variables (discuss more in a few slides...)
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Identification using individual-level data: step 1}
+	\begin{wideitemize}
+		\item Estimate the $\delta$ and $\Gamma$ parameters by maximum likelihood with utility:
+		\begin{align*}
+			u_{ij} = \delta_j + \sum_{k,l} \beta_d^{(l,k)} D_{il} x_{jk} + \epsilon_{ij}
+		\end{align*}
+		\item \underline{Identifying $\delta_j$:} 
+		\item Take FOC of likelihood $\rightarrow$ can show that intercepts $\delta_j$ are found by setting observed market shares equal to the ones predicted by model. That is, if for a fixed $\Gamma$, set:
+		\begin{align*}
+			\hat{s}_j = \hat{\sigma}(\hat{\delta}_1,..., \hat{\delta}_J)
+		\end{align*}
+		\item Under some general technical conditions can invert this relationship (the `Berry inversion'):
+		\begin{align*}
+			\hat{\delta}_j = \hat{\sigma}_j^{-1}(\hat{s}_1,..., \hat{s}_J)
+		\end{align*}
+		\item Asymptotically as $I \rightarrow \infty$:
+		\begin{align*}
+			\delta_j = \sigma_j^{-1}(s_1,..., s_J)
+		\end{align*}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Identification using individual-level data: step 1}
+	\begin{wideitemize}
+		\item To be continued...
+	\end{wideitemize}
+\end{frame}
+
+
+\end{document}
+

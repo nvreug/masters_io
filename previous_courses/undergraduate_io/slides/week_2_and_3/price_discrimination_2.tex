@@ -1,0 +1,507 @@
+\documentclass[notes,11pt, aspectratio=169]{beamer}
+
+\usepackage{pgfpages}
+% These slides also contain speaker notes. You can print just the slides,
+% just the notes, or both, depending on the setting below. Comment out the want
+% you want.
+\setbeameroption{hide notes} % Only slide
+%\setbeameroption{show only notes} % Only notes
+%\setbeameroption{show notes on second screen=right} % Both
+
+%\usepackage[scaled=1.0]{helvet}
+\usepackage{array}
+
+
+\usepackage{tikz}
+\usepackage{verbatim}
+\setbeamertemplate{note page}{\pagecolor{gray!5}\insertnote}
+\usetikzlibrary{positioning}
+\usetikzlibrary{snakes}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{matrix,shapes,arrows,fit,tikzmark}
+\usepackage{amsmath}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{multimedia}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{dcolumn}
+\usepackage{bbm}
+\newcolumntype{d}[0]{D{.}{.}{5}}
+
+\usepackage{changepage}
+\usepackage{appendixnumberbeamer}
+\newcommand{\beginbackup}{
+   \newcounter{framenumbervorappendix}
+   \setcounter{framenumbervorappendix}{\value{framenumber}}
+   \setbeamertemplate{footline}
+   {
+     \leavevmode%
+     \hline
+     box{%
+       \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{footlinecolor}%
+%         \insertframenumber  \hspace*{2ex} 
+       \end{beamercolorbox}}%
+     \vskip0pt%
+   }
+ }
+\newcommand{\backupend}{
+   \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumbervorappendix}} 
+}
+
+
+\usepackage{graphicx}
+\usepackage[space]{grffile}
+\usepackage{booktabs}
+
+% These are my colors -- there are many like them, but these ones are mine.
+\definecolor{blue}{RGB}{0,114,178}
+\definecolor{red}{RGB}{213,94,0}
+\definecolor{yellow}{RGB}{240,228,66}
+\definecolor{green}{RGB}{0,158,115}
+
+\hypersetup{
+  colorlinks=false,
+  linkbordercolor = {white},
+  linkcolor = {blue}
+}
+
+
+%% I use a beige off white for my background
+\definecolor{MyBackground}{RGB}{255,253,218}
+
+%% Uncomment this if you want to change the background color to something else
+%\setbeamercolor{background canvas}{bg=MyBackground}
+
+%% Change the bg color to adjust your transition slide background color!
+\newenvironment{transitionframe}{
+  \setbeamercolor{background canvas}{bg=white}
+  \begin{frame}}{
+    \end{frame}
+}
+
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=black}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{} 
+\setbeamertemplate{itemize items}{-}
+\setbeamercolor{itemize item}{fg=blue}
+\setbeamercolor{itemize subitem}{fg=blue}
+\setbeamercolor{enumerate item}{fg=blue}
+\setbeamercolor{enumerate subitem}{fg=blue}
+\setbeamercolor{button}{bg=MyBackground,fg=blue,}
+
+%%% TIKZ STUFF
+\tikzset{   
+	every picture/.style={remember picture,baseline},
+	every node/.style={anchor=base,align=center,outer sep=1.5pt},
+	every path/.style={thick},
+}
+\newcommand\marktopleft[1]{%
+	\tikz[overlay,remember picture] 
+	\node (marker-#1-a) at (-.3em,.3em) {};%
+}
+\newcommand\markbottomright[2]{%
+	\tikz[overlay,remember picture] 
+	\node (marker-#1-b) at (0em,0em) {};%
+}
+\tikzstyle{every picture}+=[remember picture] 
+\tikzstyle{mybox} =[draw=black, very thick, rectangle, inner sep=10pt, inner ysep=20pt]
+\tikzstyle{fancytitle} =[draw=black,fill=red, text=white]
+%%%% END TIKZ STUFF
+
+
+% If you like road maps, rather than having clutter at the top, have a roadmap show up at the end of each section 
+% (and after your introduction)
+% Uncomment this is if you want the roadmap!
+% \AtBeginSection[]
+% {
+%    \begin{frame}
+%        \frametitle{Roadmap of Talk}
+%        \tableofcontents[currentsection]
+%    \end{frame}
+% }
+\setbeamercolor{section in toc}{fg=blue}
+\setbeamercolor{subsection in toc}{fg=red}
+\setbeamersize{text margin left=1em,text margin right=1em} 
+
+\newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
+\newenvironment{wideenumerate}{\enumerate\addtolength{\itemsep}{10pt}}{\endenumerate}
+
+\usepackage{environ}
+\NewEnviron{videoframe}[1]{
+  \begin{frame}
+    \vspace{-8pt}
+    \begin{columns}[onlytextwidth, T] % align columns
+      \begin{column}{.58\textwidth}
+        \begin{minipage}[t][\textheight][t]
+          {\dimexpr\textwidth}
+          \vspace{8pt}
+          \hspace{4pt} {\Large \sc \textcolor{blue}{#1}}
+          \vspace{8pt}
+          
+          \BODY
+        \end{minipage}
+      \end{column}%
+      \hfill%
+      \begin{column}{.42\textwidth}
+        \colorbox{green!20}{\begin{minipage}[t][1.2\textheight][t]
+            {\dimexpr\textwidth}
+            Face goes here
+          \end{minipage}}
+      \end{column}%
+    \end{columns}
+  \end{frame}
+}
+
+\title[]{\textcolor{blue}{ECN 453: Pricing and Price Discrimination 2}}
+\author[PGP]{}
+\institute[FRBNY]{\small{\begin{tabular}{c c c}
+Nicholas Vreugdenhil \\
+\end{tabular}}}
+\date{} 
+
+\begin{document}
+
+% Title Slide
+\begin{frame}
+\maketitle
+  \centering
+\end{frame}
+
+% INTRO
+
+\begin{frame}{Price discrimination: self-selection}
+	\begin{wideitemize}
+		\item In the previous section we studied `selection by indicators'.
+		\begin{wideitemize}
+			\vspace{11pt}
+			\item To use selection by indicators, the seller needed information about the characteristics of consumers so they could offer different buyers different prices.
+			\item Often, sellers do not have much information about consumers. 
+			\item e.g. if you're selling airline tickets online, not much information about who the high-value business travellers are.
+		\end{wideitemize}
+		\item We will now discuss two types of \textbf{price discrimination by self-selection}. 		\pause
+		\begin{wideitemize}
+			\vspace{11pt}
+			\item These are used when the seller has no information about the characteristics of consumers.
+			\item Instead, the seller offers different `deals' which cause buyers to self-select into which group they belong to.
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item Price discrimination: self-selection by versioning
+		\item Price discrimination: bundling
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item \textbf{Price discrimination: self-selection by versioning}
+		\item Price discrimination: bundling
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Self-selection: versioning}
+	\begin{wideitemize}
+		\item \textbf{Self-selection by versioning}: offering different `versions' of a product, each version targeted at a different group of consumers.
+		\item Typical: a `high-quality' version targeted at high-value consumers, and a `lower-quality' version targeted at low-value consumers.
+	\end{wideitemize}
+    \begin{columns}[onlytextwidth, T] % align columns
+		\begin{column}{.58\textwidth}
+			\begin{wideitemize}
+				\item \textbf{Examples:}
+				\item Discount airfares with date/destination restrictions
+				\item Iphone pro vs Iphone pro max
+				\item Different models of Amazon Kindle
+			\end{wideitemize}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\begin{centering}
+				\includegraphics[scale=0.12]{iphone.png}
+			\end{centering}	
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Self-selection: versioning}
+	\begin{wideitemize}
+		\item An extreme form of versioning: \textbf{damaged goods} - reduce the quality of existing products
+		\item \textbf{Example:}
+	\end{wideitemize}
+	\begin{columns}
+		\begin{column}{0.4\textwidth}
+			\begin{figure}
+				\includegraphics[scale=0.2]{tesla.jpeg}
+				\caption{2017 Tesla Model S full range: \$76 thousand}
+			\end{figure}
+		\end{column}
+		\begin{column}{0.4\textwidth}
+			\begin{figure}
+				\includegraphics[scale=0.2]{tesla.jpeg}
+				\caption{Exactly the same car with a few extra lines of code to restrict battery: \$70 thousand}
+			\end{figure}
+		\end{column}
+	\end{columns}
+		\begin{wideitemize}
+			\item Why would it be profitable for a seller to intentionally make some of its products worse? Price discrimination.
+		\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Self-selection: versioning}
+	\begin{wideitemize}
+		\item Another example of damaged goods (from textbook)
+		\item \underline{19th century French railcars}: how to prevent wealthy passengers from choosing third-class tickets rather than second-class tickets? \pause
+		\item Answer: pull the roof off the third-class railcar!
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Self-selection: versioning, example (p131)}
+\begin{wideitemize}
+	\item \textbf{Example:}
+	\item Two versions of product: full and stripped-down. MC = 300 for both versions.
+	\item Two types of consumers: 1 million people of type 1; 2 million people of type 2
+	\item Willingness-to-pay of consumers:
+	\begin{figure}
+		\centering
+	\begin{tabular}{|c|c|c|}
+		\hline
+		& full &stripped-down\\
+		\hline
+		type 1 (high-end)& 1500  & 800  \\
+		type 2 (low-end)&600  & 500  \\
+		\hline
+	\end{tabular}
+	\end{figure}
+	\item \textbf{Questions:} 
+	\item 1. Find the profit from selling only the full version for 1500.
+	\item 2. Find the profit from charging 1500 for full version; 500 for the stripped-down version.
+	\item 3. Find the profit from charging 1200 for full version; 500 for the stripped-down version.
+\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Self-selection: versioning, example}
+	\begin{wideitemize}
+		\item \textbf{Solution:}
+		\item Idea: each type of consumer will \underline{self-select} into the version with the \underline{highest consumer surplus} (consumer surplus = willingness-to-pay - price).
+		\item E.g. consumer 1 buys the full version if:
+		\begin{align*}
+			1500-p_{full} \geq 800 - p_{stripped-down}
+		\end{align*}
+		\item 1. Find the profit from selling only the full version for 1500.
+		\vspace{11pt}
+		\begin{wideitemize}
+			\item Consumer type 1 buys the full version (receiving CS=0)
+			\item Consumer type 2 does not buy anything (since their CS would be 600-1500=-900 from buying the full version).
+			\item Then, $Profit = (1500-300) \times 1 \text{ million} = \$1.2 \text{ billion}$
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Self-selection: versioning, example}
+	\begin{wideitemize}
+		\item \textbf{Solution:}
+		\item 2. Find the profit from charging 1500 for full version; 500 for the stripped-down version.
+		\vspace{11pt}
+		\begin{wideitemize}
+			%\item (Why are we considering this pricing? This is the pricing the seller would choose if it could practice perfect price discrimination. That is, pricing the full version at the type-1 willingness-to-pay and the stripped-down version at the type-2 willingness-to-pay.)
+			\item \underline{Consumer type 1:} buys stripped down version (CS=0 from full version but CS=800-500=300 from the stripped-down version).
+			\item \underline{Consumer type 2:} buys stripped down version (CS=600-1500=-900 from full version but CS=500-500=0 from the stripped-down version).
+			\item Then, $Profit = (500-300) \times 1 \text{ million} + (500-300) \times 2 \text{ million} = \$600 \text{ million}$
+			\item Profit is actually less than in part 1 when we only offered the full version. Why? Consumer type 1 now chooses the stripped-down version.
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Self-selection: versioning, example}
+	\begin{wideitemize}
+		\item \textbf{Solution:}
+		\item 3. Find the profit from charging 1200 for full version; 500 for the stripped-down version.
+		\vspace{11pt}
+		\begin{wideitemize}
+			\item \underline{Consumer type 1:} buys full version (CS=1500-1200=300 from full version but CS=800-500=300 from the stripped-down version).
+			\item \underline{Consumer type 2:} buys stripped down version (CS=600-1200=-600 from full version but CS=500-500=0 from the stripped-down version).
+			\item Then, $Profit = (1200-300) \times 1 \text{ million} + (500-300) \times 2 \text{ million} = \$1.3 \text{ billion}$
+			\item So, compared to Part 1, the seller is better off by \$100 million.
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Self-selection: versioning}
+	\begin{wideitemize}
+		\item Why are profits in Part 3 of the previous example higher than in Part 2? \pause
+		\item The reason is that the prices in Part 3 ensured that the \textbf{high-end consumer had no incentive to go for the deal that was intended for the low-end consumer.} 
+		\begin{wideitemize}
+			\vspace{11pt}
+			\item Put another way, the prices in Part 3 of the example ensured that high-end consumers self-selected into buying the high-quality version, and low-end consumers self-selected into buying the low-quality version. 
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Self-selection: versioning}
+	\begin{wideitemize}
+		\item We can make the self-selection idea more precise. Specifically, in order to get price discrimination by self-selection to work in the previous example, prices must satisfy the following constraints:
+		\item \underline{`Incentive constraints'}: (each consumer purchases the product that is designed for them)
+		\begin{align*}
+			\text{Consumer type 1: \hspace{11pt}} &1500-p_{full} \geq 800 - p_{stripped-down} &(IC1) \\
+			\text{Consumer type 2: \hspace{11pt}} &600-p_{full} \leq 500 - p_{stripped-down} &(IC2)
+		\end{align*}
+		\item \underline{`Participation constraints'}: (price is not greater than the consumer's willingness-to-pay)
+		\begin{align*}
+			\text{Consumer type 1: \hspace{11pt}} &1500-p_{full} \geq 0 &(PC1) \\
+			\text{Consumer type 2: \hspace{11pt}} &500 - p_{stripped-down} \geq 0 &(PC2)
+		\end{align*}
+		%\item In the previous example, the two constraints IC1 and PC2 held with equality (they are `binding'). 
+		%\item We can actually show (using some complicated math outside the scope of this course) that these are 
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Self-selection: versioning - additional comment}
+	\begin{wideitemize}
+		\item Typically, we assume that if a consumer is indifferent between buying two products then they choose the product the monopolist would like them to. 
+		\item Specifically, this means (for example):
+		\begin{wideitemize}
+			\item If the `high-end' consumer is indifferent between buying the full version and the stripped-down version (i.e. they get the same consumer surplus from both types), they buy the full version.
+			\item Similarly, if the `low-end' consumer gets consumer surplus = 0 for the stripped-down version, then they will still buy it.
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Self-selection: versioning - cookbook steps to solve}
+	\begin{wideitemize}
+		\item 1. Get the consumer surplus for each product, for each consumer:
+		\begin{align*}
+			\text{consumer surplus} = \text{willingness to pay} - \text{price}
+		\end{align*}
+		\item 2. For each consumer, find the product they buy by finding the product with the highest consumer surplus
+		\item 3. Check that consumer surplus in not negative for the products that each consumer buys 
+				\begin{wideitemize}
+					\item this amounts to checking if the `participation constraints' hold
+				\end{wideitemize}
+		\item 4. Compute profits given consumer choices.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Self-selection: bundling}
+	\begin{wideitemize}
+		\item \textbf{Bundling}: combining products and selling them together.
+	\end{wideitemize}
+	\begin{columns}
+		\begin{column}{0.4\textwidth}
+		\begin{wideitemize}
+		\item \textbf{Examples}: 
+		\item Software is bundled as a `suite' e.g. microsoft office
+		\item Cable tv channels
+		\item Phone and internet plans
+		\item Movie distribution
+		\end{wideitemize}
+		\end{column}
+		\begin{column}{0.6\textwidth}
+			\begin{figure}
+			\vspace{11pt}
+			\includegraphics[scale=0.12]{bundles.jpeg}
+			\caption{Centurylink internet bundles}
+			\end{figure}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Self-selection: bundling, example p133}
+	\begin{wideitemize}
+		\item \textbf{Example}: Three user types: writer, number cruncher, generalist. Two products: word processor, spreadsheet. Assume $TC =0$.
+		\begin{table}
+			\begin{tabular}{|l|c|c|c|}
+				\hline
+				\textbf{User type}&  \textbf{Number of users} & \multicolumn{2}{c}{\textbf{Willingness to pay}} \\
+				\hline
+				& & Word processor & Spreadsheet  \\
+				\hline
+				Writer& 40 & 50 & 0  \\
+				\hline
+				Number cruncher& 40  & 0 & 50  \\
+				\hline
+				Generalist& 20  & 30 & 30  \\
+				\hline
+			\end{tabular}
+		\end{table}
+		\item \textbf{Questions}:
+		\item 1. What is the profit if each product is sold separately?
+		\item 2. What is the profit if each product is sold separately for \$50 \underline{and} a bundle of the two products is offered for \$60?
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Self-selection: bundling, example p133}
+\begin{wideitemize}
+	\item Main idea: each consumer will choose (i.e. self-select into) the product/bundle with the highest consumer surplus (= willingness-to-pay - price). We need to first find the optimal price and then find the profit.
+	\item 1. What is the profit if each product is sold separately?
+	\item \textbf{Solution:}
+	\item The optimal price is to charge \$50 for the word processor and \$50 for the spreadsheet.
+	\begin{wideitemize}
+			\item Here, writers choose the word processor (and generate profit $= 50 \times 40 = \$2000$), and number crunchers choose the spreadsheet (generating \$2000), for \underline{total profit of \$4000}.
+	\end{wideitemize}
+	\item An alternative price is to charge \$30 for both products. But, this is not optimal.
+	\begin{wideitemize}
+		\item Both writers and generalists will choose the word processor (generating $40 \times 30 + 20 \times 30 = \$1800$ from word processors). Similarly, \$1800 profit is made from selling the spreadsheet for a total profit of \$3600.
+	\end{wideitemize}
+	\item (If it's not obvious, convince yourself that intermediate prices e.g. \$40 for both products, are not optimal.)
+\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Self-selection: bundling, example p133}
+	\begin{wideitemize}
+		\item 2. What is the profit if each product is sold separately for $\$50$ \underline{and} a bundle of the two products is offered for \$60?
+		\item \textbf{Solution:}
+		\item \underline{Writers:} choose the word processor (they could choose the bundle but they would be paying \$10 more for something they do not value). Profit from writers = $40 \times 50 = 2000$.
+		\item \underline{Number cruncher:} choose the spreadsheet (they could choose the bundle but they would be paying \$10 more for something they do not value). Profit from number crunchers = $40 \times 50 = 2000$.
+		\item \underline{Generalists:} choose the bundle (value the bundle at \$60, but would not want to buy a word processor or spreadsheet individually for \$50 since they only value each of these at \$30). Profit from generalists = \$1200.
+		\item So, make \$5200 profit in total, and \$1200 more profit, from selling the bundle.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Self-selection: bundling, example p133}
+		\begin{wideitemize}
+			\item Why did bundling increase profits in the previous example? \pause
+			\item By offering a bundle of the two products, the seller was able to:
+			\begin{wideitemize}
+				\item get the generalist group to self-select into buying the bundle...
+				\item ...while still getting the writers and number crunchers to purchase products separately.
+			\end{wideitemize}
+			\item This self-selection revealed to the seller the type of user. 
+			\begin{wideitemize}
+				\item The seller could then price-discriminate and charge a price equal to the willingness-to-pay in each group.
+			\end{wideitemize}
+
+\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Self-selection: bundling, example p133}
+	\begin{wideitemize}
+		\item Why did bundling increase profits in the previous example? (More on this...)
+		\item In terms of the consumer valuations, the \textit{negative correlation} in the valuations of writers and number crunchers for the products meant that these consumers did not buy the bundle (and so bundling worked as a price discrimination strategy).
+		\begin{wideitemize}
+			\vspace{11pt}
+			\item For example, the writer loved the word processor but did not value the spreadsheet; the number cruncher loved the spreadsheet but did not value the word processor.
+			\item The generalist had a moderate valuation for each good and so bought the bundle.
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Summary of key points*}
+	\vspace{11pt}
+	\begin{wideitemize}
+		\item Price discrimination by self-selection is used when the seller does not have information about the exact characteristics of consumers.
+		\item Versioning: Know how to compute the total profit (and potentially other things like consumer surplus, etc) given particular prices, using the consumer's self-selection choice.
+		\item Bundling: Know how to compute the total profit (and potentially other things like consumer surplus, etc) given particular prices, using the consumer's self-selection choice.
+	\end{wideitemize}
+	\vspace{30pt}
+	*To clarify, all the material in the slides, problem sets, etc is assessable unless stated otherwise, but I hope this summary might be a useful place to start when studying the material.
+\end{frame}
+
+\end{document}

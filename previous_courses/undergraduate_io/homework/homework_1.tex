@@ -1,0 +1,166 @@
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\usepackage[left=1.0in,top=1.0in,right=1.0in,bottom=1.0in,headheight=3ex,headsep=3ex]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{adjustbox}
+
+
+\newcommand{\blankline}{\quad\pagebreak[2]}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Modify Course title, instructor name, semester here %%%%%%%%
+
+\title{ECN 453: Homework 1}
+\author{\textbf{Due: Start of class Tuesday 13th September.} \\
+\textbf{Please work in groups of \underline{2-3 people} and hand in one solution per group.\footnote{Note: I \underline{will accept} individual submission (groups of 1) but this is not recommended because people who work in groups have done better in the past.}} }
+%\date{Fall, 2021}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage[sc]{mathpazo}
+\linespread{1.3} % Palatino needs more leading (space between lines)
+\usepackage[T1]{fontenc}
+\usepackage[mmddyyyy]{datetime}% http://ctan.org/pkg/datetime
+\usepackage{advdate}% http://ctan.org/pkg/advdate
+%\newdateformat{syldate}{\twodigit{\THEMONTH}/\twodigit{\THEDAY}}
+\newsavebox{\MONDAY}\savebox{\MONDAY}{Mon}% Mon
+\newcommand{\week}[1]{%
+%  \cleardate{mydate}% Clear date
+% \newdate{mydate}{\the\day}{\the\month}{\the\year}% Store date
+  \paragraph*{\kern-2ex\quad #1, \syldate{\today} - \AdvanceDate[4]\syldate{\today}:}% Set heading  \quad #1
+%  \setbox1=\hbox{\shortdayofweekname{\getdateday{mydate}}{\getdatemonth{mydate}}{\getdateyear{mydate}}}%
+  \ifdim\wd1=\wd\MONDAY
+    \AdvanceDate[7]
+  \else
+    \AdvanceDate[7]
+  \fi%
+}
+\usepackage{setspace}
+\usepackage{multicol}
+%\usepackage{indentfirst}
+\usepackage{fancyhdr,lastpage}
+\usepackage{url}
+\pagestyle{fancy}
+\usepackage{hyperref}
+\usepackage{lastpage}
+\usepackage{amsmath}
+\usepackage{layout}
+\renewcommand{\theenumi}{\alph{enumi}}
+
+
+\lhead{}
+\chead{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Modify header here %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\rhead{\footnotesize ECN 453: Homework 1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\lfoot{}
+\cfoot{\small \thepage/\pageref*{LastPage}}
+\rfoot{}
+
+\usepackage{array, xcolor}
+\usepackage{color,hyperref}
+\definecolor{clemsonorange}{HTML}{EA6A20}
+\hypersetup{colorlinks,breaklinks,linkcolor=clemsonorange,urlcolor=clemsonorange,anchorcolor=clemsonorange,citecolor=black}
+
+\date{} 
+
+\begin{document}
+\maketitle
+
+\paragraph{Instructions} Please neatly write your answers, staple them together, and submit this homework at the start of class on Tuesday 13th September. If the work is too messy/hard to read it will not be graded. Even though you are working in groups, please make sure you can do all the problems. Don't forget to put the names of everyone in your group on the front. If you have questions come and talk to me in office hours, after class, or by email: nvreugde@asu.edu. Good luck!
+
+\subsection*{1. Monopoly (25 points)}
+Consider a monopolist operating in a market with demand given by $q= 12-0.5p$ and total cost given by $C(q)=5+2q$.
+\begin{enumerate}
+	\item (1 point) What is the fixed cost?
+	\item (1 point) What is the marginal cost?
+	\item (5 points) Find the monopolist's optimal price and quantity.
+	\item (1 point) Find the monopolist's profit.
+	\item (8 points) On a graph plot: demand, marginal cost, marginal revenue, dead-weight-loss, consumer surplus, producer surplus, the monopolist's optimal price and quantity.
+	\item A regulator proposes regulating the monopoly with \textit{marginal cost pricing}. 
+	\begin{enumerate}
+		\item (1 point) What will the monopolist's profit be with marginal cost pricing?
+		\item (1 point) What subsidy will the regulator need to give the monopolist to ensure it does not shutdown?
+	\end{enumerate}
+	\item A regulator proposes regulating the monopoly with \textit{average cost pricing}. 
+	\begin{enumerate}
+		\item (5 points) What price will the monopolist charge under average cost pricing?
+		\item (2 points) What is the dead-weight-loss under average cost pricing?
+	\end{enumerate}
+\end{enumerate}
+
+\subsection*{2. Selection by indicators: student discounts (25 points)}
+Suppose you are the owner of a movie theater. There are two types of customers: students (denoted `s') and non-students (denoted `ns'). You know if a customer is a student or non-student and so you could potentially use price discrimination with \textit{selection by indicators}. The demand for movies for each of these segments is:
+\begin{align*}
+	\text{Student: } &q_{s} = 20 - 2 p_{s} \\
+	\text{Non-student: }& q_{ns} = 15 - p_{ns}
+\end{align*}
+\begin{enumerate}
+	\item (5 points) On a graph, plot the total demand curve and the corresponding marginal revenue curve if the two types of consumers are treated as one. 
+	\item Suppose that marginal cost = 1 and that you can only set a single \textit{uniform price}.
+	\begin{enumerate}
+		\item (2 points) What is the optimal uniform price?
+		\item  (2 points) What is the profit under uniform pricing?
+		\item (2 points) What is consumer surplus under uniform pricing?
+	\end{enumerate}
+	\item Continue to assume that marginal cost = 1. You would now like to price discriminate by setting a different price for students and for non-students.
+	\begin{enumerate}
+		\item (2 points) What are the optimal prices for students and for non-students? 
+		\item (2 points) What are the profits under price discrimination?
+		\item (2 point) How does the profit under price discrimination compare to uniform pricing?
+		\item (2 points) How does dead-weight-loss change between uniform pricing and price discrimination?
+		\item (2 points) How does consumer surplus change between uniform pricing and price discrimination?
+		\item (2 points) Briefly explain (in one or two sentences) using your results from (d) and (e) whether there is an \textit{equity-efficiency tradeoff} when moving from uniform pricing to discriminatory pricing?
+	\end{enumerate}
+	\item Now, suppose that marginal cost = 10 and assume that the monopolist can only set a single \textit{uniform} price in both markets.
+	\begin{enumerate}
+		\item (2 points) What is the monopolist's optimal price?
+	\end{enumerate}
+\end{enumerate}
+
+\subsection*{3. Price discrimination by versioning: damaged goods (25 points)}
+Suppose you are the CEO of a famous electric car company. Your marginal cost of production is \$20 thousand per vehicle. 
+
+Currently, you are selling 1 million cars per year at \$130 thousand per vehicle. Your market research team tells you that there is another segment of 4 million consumers who have a willingness-to-pay equal to \$40 thousand for exactly the same vehicle with one exception: it is `damaged' with a small software update that restricts it from using its full battery range. This segment would be willing to buy the standard model for \$50 thousand. The segment of consumers who are currently buying the car value the standard model at \$130 thousand per vehicle, and the damaged model at \$50 thousand per vehicle. To summarize:
+
+\begin{centering}
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{|l|c|c|c|}
+			\hline
+			\textbf{Consumer type}&  \textbf{Number of consumers} & \multicolumn{2}{c}{\textbf{Willingness to pay (thousands of \$)}} \\
+			%\hline
+			& & Standard & Damaged  \\
+			\hline
+			Current segment & 1 million & 130 & 50  \\
+			\hline
+			New segment& 4 million  & 50 & 40  \\
+			\hline
+		\end{tabular}
+	\end{table}
+\end{centering}
+
+\begin{enumerate}
+	\item Assume that the car company observes the willingness to pay of all consumers and \underline{only} offers the standard model. Under perfect price discrimination:
+	\begin{enumerate}
+		\item (2 points) What are the optimal prices? 
+		\item (2 points) What is the car company's profit?
+	\end{enumerate}
+	\item Assume instead that the car company cannot observe a consumer's willingness to pay. 
+	\begin{enumerate}
+		\item (4 points) Suppose that the car company can only charge a uniform price of \$130 thousand for standard vehicles and damaged vehicles. What is the car company's profit?
+		\item (4 points) Suppose that the car company charges a price of \$130 thousand for the standard model and \$40 thousand for the damaged model.\footnote{These prices are equal to the willingness to pay of each segment the particular car is targeted to i.e. the standard car is targeted to the current segment and the damaged car is targeted to the new segment.} What is the car company's profit?
+		\item (4 points) Suppose that the car company charges a price of \$100 thousand for the standard model and \$30 thousand for the damaged model. What is the car company's profit?
+		\item (4 points) Briefly explain (in one or two sentences) why the profit in (c) is higher than the profit in (b).
+		\item (5 points) Suggest prices for the standard model and the damaged model that result in a profit higher than (c). 
+	\end{enumerate}
+\end{enumerate}
+
+\end{document}

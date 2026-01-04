@@ -1,0 +1,112 @@
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\usepackage[left=0.9in,top=0.9in,right=0.9in,bottom=0.9in,headheight=3ex,headsep=3ex]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{adjustbox}
+
+
+\newcommand{\blankline}{\quad\pagebreak[2]}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Modify Course title, instructor name, semester here %%%%%%%%
+
+\title{ECN 453: Homework 2}
+\author{\textbf{Due: Start of class Monday 25th October.} \\
+\textbf{You can work in groups of up to 3 people (hand in one solution per group).} }
+%\date{Fall, 2021}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage[sc]{mathpazo}
+\linespread{1.3} % Palatino needs more leading (space between lines)
+\usepackage[T1]{fontenc}
+\usepackage[mmddyyyy]{datetime}% http://ctan.org/pkg/datetime
+\usepackage{advdate}% http://ctan.org/pkg/advdate
+%\newdateformat{syldate}{\twodigit{\THEMONTH}/\twodigit{\THEDAY}}
+\newsavebox{\MONDAY}\savebox{\MONDAY}{Mon}% Mon
+\newcommand{\week}[1]{%
+%  \cleardate{mydate}% Clear date
+% \newdate{mydate}{\the\day}{\the\month}{\the\year}% Store date
+  \paragraph*{\kern-2ex\quad #1, \syldate{\today} - \AdvanceDate[4]\syldate{\today}:}% Set heading  \quad #1
+%  \setbox1=\hbox{\shortdayofweekname{\getdateday{mydate}}{\getdatemonth{mydate}}{\getdateyear{mydate}}}%
+  \ifdim\wd1=\wd\MONDAY
+    \AdvanceDate[7]
+  \else
+    \AdvanceDate[7]
+  \fi%
+}
+\usepackage{setspace}
+\usepackage{multicol}
+%\usepackage{indentfirst}
+\usepackage{fancyhdr,lastpage}
+\usepackage{url}
+\pagestyle{fancy}
+\usepackage{hyperref}
+\usepackage{lastpage}
+\usepackage{amsmath}
+\usepackage{layout}
+\renewcommand{\theenumi}{\alph{enumi}}
+
+
+\lhead{}
+\chead{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Modify header here %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\rhead{\footnotesize ECN 453: Homework 2}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\lfoot{}
+\cfoot{\small \thepage/\pageref*{LastPage}}
+\rfoot{}
+
+\usepackage{array, xcolor}
+\usepackage{color,hyperref}
+\definecolor{clemsonorange}{HTML}{EA6A20}
+\hypersetup{colorlinks,breaklinks,linkcolor=clemsonorange,urlcolor=clemsonorange,anchorcolor=clemsonorange,citecolor=black}
+
+\date{} 
+
+\begin{document}
+\maketitle
+
+\paragraph{Instructions} Please neatly write your answers, staple them together, and submit this homework at the start of class on Monday 25th October.\footnote{If you can't come to class you can email me your solutions.} If the work is too messy/hard to read it will not be graded. I encourage you to talk to your classmates about the homework, but make sure you can do all the problems. Don't forget to put the names of everyone in your group on the front. If you have questions come and talk to me in office hours, after class, or by email: nvreugde@asu.edu. Good luck!
+
+\subsection*{1. Bertrand Competition (20 points)}
+Suppose that total demand for golf balls is $Q=90-3p$ and $Q$ is measured in pounds of balls. There are two firms that supply the market. Firm 1 can produce a pound of balls at a marginal cost of \$15 whereas Firm 2 has a marginal cost equal to \$10.
+\begin{enumerate}
+	\item (5 points) Suppose the firms compete in price. How much does each firm sell in a Bertrand equilibrium? What is the market price and what are firms' profits?
+	\item (10 points) How would your answer to Part a. change if there were three firms, one with marginal cost = \$20 and two with marginal cost = \$10?
+	\item (5 points) In one sentence: how would your answer to Part b. change if Firm 1's golf balls were green and endorsed by a famous golfer, but Firm 2's were plain and white?
+\end{enumerate}
+
+\subsection*{2. Cournot Competition With Increasing Marginal Costs (25 points)\footnote{(based on 8.19 from book)}}
+Suppose that total demand is $Q=10-0.5p$. Each firm's cost function is given by $C(q_i)=10+q_i^2$ for $i=1$ or $i=2$. The firms compete on quantities (Cournot competition).
+\begin{enumerate}
+	\item (15 points) Determine the equilibrium quantities (and corresponding profits) in the Cournot equilibrium.
+	\item (10 points) Recompute the equilibrium quantities for all firms if there is an additional Firm 3 (competing with Firm 1 and Firm 2) with the cost function $C(q_3)=10+2q_3^2$.\footnote{Hint: notice that Firm 1 and Firm 2 have identical payoffs. Therefore, in equilibrium, Firm 1 and Firm 2 will have identical equilibrium outputs $q_1=q_2$ and so $Q=2q_1+q_3$. This will reduce the equilibrium computation problem from solving for 3 equilibrium quantities to solving for 2 equilibrium quantities.}
+\end{enumerate}
+
+\subsection*{3. Cournot Competition With Asymmetric Marginal Costs (30 points)\footnote{(based on 8.20 from book)}}
+Suppose that total demand in the market for cement is $Q=450-2p$. Firm 1's marginal cost is \$50. Firm 2's marginal cost is \$40. A technological innovation allows firms to reduce marginal cost by \$6. The firms compete on quantities (Cournot competition).
+\begin{enumerate}
+	\item (10 points) Draw the best response curves for Firm 1 and Firm 2 without the technological innovation.
+	\item (5 points) Determine the equilibrium production choices in the Cournot equilibrium without the technological innovation.
+	\item (10 points) On the same graph as Part a., draw the best response curves if Firm 1 acquired the technological innovation (but Firm 2 did not).
+	\item (5 points) How much would Firm 1 be willing to pay for the innovation if it were the only firm to acquire it?\footnote{Hint: solve for the equilibrium with the technological advance and compare Firm 1's profits with and without the innovation.}
+	%\item (10 points) What are the optimal production choices \underline{without} the technological innovation if there is an additional firm in the market, Firm 3, with a marginal cost of \$40?
+\end{enumerate}
+
+\subsection*{4. Stackelberg Competition (25 points)}
+Consider a Stackelberg game of quantity competition between two firms. Firm 1 moves first and Firm 2 moves second. Market demand is $p=100-4Q$.  Each firm has a marginal cost of production equal to 20.
+\begin{enumerate}
+	\item (25 points) Solve for the equilibrium quantities, showing all your steps.
+	%\item (15 points) (More difficult) Suppose Firm 2's marginal cost of production is $c<20$. What value would c have to be so that in equilibrium Firm 1 and Firm 2 have the same market share (i.e. $q_1=q_2$)?
+\end{enumerate}
+
+
+\end{document}

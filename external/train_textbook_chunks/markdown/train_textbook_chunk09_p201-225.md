@@ -1,0 +1,1104 @@
+_7.6. MIXED MODELS_ 191
+
+
+The probability is simulated by drawing from the distribution, calculating the function for each draw, and averaging the results. We give
+two examples below, but researchers will inevitably develop others that
+meet the needs of their particular projects, such as Bhat’s (1999) use
+of mixed ordered logit.
+
+
+**7.6.1** **Mixed Nested Logit**
+
+
+The mixed logit model does not exhibit the independence from irrelevant alteratives property of logit, and can approximate any substitution pattern by appropriate specification of variables and mixing
+distribution. This fact has lead some people to feel that there is no further need for nested logit models. A mixed logit can be estimated that
+provides an analogous correlation/substitution patterns as a nested
+logit. For example, consider a nested logit with two nests of alternatives labeled A and B. Provided the logsum coefficients are between 0
+and 1, substitution within each nest is greater than substitution across
+nests. This substitution pattern can be represented in a mixed logit
+model by specifying a dummy variable for each nest and allowing the
+coefficients on the dummies to be random (constraining, for identification purposes, the means to be zero if a full set of alternative-specific
+constants are included and the two variances to be the same.)
+While a mixed logit can be specified in this way, doing so misses the
+point of simulation. As discussed in Chapter 1, simulation is used as a
+way to approximate integrals when a closed form does not exist. Analytic integration is always more accurate than simulation and should
+be used whenever feasible, unless there is a compelling reason to the
+contrary. Using a mixed logit to represent the substitution patterns of
+a nested logit, while feasible, replaces the closed-form integral of the
+nested logit with an integral that needs to be simulated. From a numerical perspective, this replacement can only reduce accuracy. The
+only possible advantages of mixed logit in this context are that (1) it
+might be easier for the researcher to test numerous nesting structures,
+including overlapping nests, within a mixed logit than a nested logit,
+and (2) the researcher might specify other coefficients to be random
+such that a mixed logit is already being used.
+The second reason suggests a mixed nested logit. Suppose the researcher believes that some of the coefficients in the model are random
+and also that, conditional on these coefficients, the unobserved factors
+
+
+192 _CHAPTER 7. VARIATIONS ON A THEME_
+
+
+are correlated over alternatives in a way that can be represented by a
+nested logit. A mixed nested logit model can be specified to represent
+this situation. Conditional on the coefficients that enter utility, the
+choice probabilities are nested logit, which is a close-form and can be
+calculated exactly. The unconditional probability is the nested logit
+formula integrated over the distribution of the the random coefficients.
+Software for mixed logit can be modified by simply locating the logit
+formula within the code and changing it to the appropriate nested logit
+formula. Experience indicates that maximizing the likelihood function
+for unmixed nested logits is often difficult numerically, and mixing
+the model will compound this difficulty. Hierarchical Bayes estimation
+(Chapter 12) could prove particularly useful in this situation, since it
+does not involve maximizing the likelihood function.
+
+
+**7.6.2** **Mixed Probit**
+
+
+A constraint of probit models, and in fact their defining characteristic,
+is all random terms enter utility linearly and are randomly distributed
+such that utility itself is normally distributed. This constraint can
+be removed by specifying a mixed probit. Suppose that some random
+terms enter non-linearly or are not randomly distributed, but that _con-_
+_ditional_ on these, utility is normally distributed. For example, a price
+coefficient might be lognormal to assure that it is negative for all people, and yet all other coefficients are either fixed or normal and the
+final error terms are jointly normal. A mixed probit model is appropriate for this specification. Conditional on the price coefficient, the
+choice probabilities follow the standard probit formula. The unconditional probabilities are the integral of this probit formula over the
+distribution of the price coefficient. Two layers of simulation are used
+to approximate the probabilities: (1) a draw of the price coefficient
+is taken, and (2) for this draw, the GHK or other probit simulator is
+used to approximate the conditional choice probability. This process
+is repeated many times and the results are averaged.
+Long run times can be expected for the mixed probit model since
+the GHK simulator is calculated for each draw of the price coefficient. However, the number of draws in the GHK simulator can be
+reduced, since the averaging over draws of the price coefficient reduces
+the variance generated by the GHK simulator. In principle, the GHK
+simulator can be based on only one draw for each draw of the price
+
+
+_7.7. DYNAMIC OPTIMIZATION_ 193
+
+
+coefficient. In practice, it might be advisable to use more than one
+draw but far fewer than would used in a unmixed probit.
+The mixed probit model provides a way for the researcher to avoid
+some of the practical difficulties that can arise with a mixed logit
+model. For example, to represent pure heteroskedasticity ( _i.e.,_ a different variance for each alternative’s utility) or a fixed correlation pattern
+among alternatives ( _i.e._, a covariance matrix that does not depend on
+the variables), it can often be easier to estimate a probit instead of
+specifying numerous error components within a mixed logit. As emphasized by Ben-Akiva et al. (2001), specification of covariance and
+heteroskedasticity can be more complex in a mixed logit model than
+a probit, due to the fact that iid extreme value terms are necessarily added to whatever other random elements the researcher specifies.
+Probit is a more natural specification in these situations. However, if
+the researcher wants to include some non-normal random terms, an unmixed probit cannot be used. Mixing the probit allows the researcher
+to include non-normal terms while still maintaining the simplicity of
+probit’s representation of fixed covariance for additive errors. Conceptually, the specification and estimation procedure are straightforward.
+The cost comes only in extra computation time, which becomes less
+relevant as computers get faster.
+
+### **7.7 Dynamic optimization**
+
+
+In previous chapters we examined certain types of dynamics, by which
+choices in one period affect choices in another period. For example, we
+described how a lagged dependent variable can be included to capture
+inertia or variety-seeking behavior. These discussions suggest a much
+wider realm of dynamics than we had actually considered. In particular: if past choices affect current choices, then current choice affect
+future choices, and a decision-maker who is aware of this fact will take
+these future impacts into consideration. A link from the past to the
+present necessarily implies a link from the present to the future.
+In many situations, the choices that a person makes at one point in
+his life have profound impact on the options that are available to him in
+the future. Going to college, while expensive and sometimes irritating,
+enhances future job possibilities. Saving money now allows a person to
+buy things later than he otherwise would not be able to afford. Going
+to the gym today means that we can skip going tomorrow. Most of us
+
+
+194 _CHAPTER 7. VARIATIONS ON A THEME_
+
+
+take future impacts like these into consideration when choosing among
+current alternatives.
+
+The question is: how can behavior such as this be represented in
+discrete choice models? In general the situation can be described as
+follows. A person makes a series of choices over time. The alternative
+that is chosen in one period affects the attributes and availability of
+alternatives in the future. Sometimes the future impacts are not fully
+known, or depend on factors that have not yet transpired (such as
+the future state of the economy). However, the person knows that he
+will, in the future, maximize utility among the alternatives that are
+available at that time under the conditions that prevail at that time.
+This knowledge enables him to choose the alternative in the current
+period that maximizes his expected utility over the current and future
+periods. The researcher recognizes that the decision-maker acts in this
+way, but does not observe everything that the decision-maker considers
+in the current and future periods. As usual, the choice probability is
+an integral of the decision-maker’s behavior over all possible values of
+the factors that the researcher does not observe.
+
+In this section we specify models in which the future consequences
+of current decisions are incorporated. For these models, we will assume
+that the decision-maker is fully rational in the sense that he optimizes
+perfectly in each time period given the information that is available to
+him at that point in time and given that he knows he will act optimally
+in the future when future information is revealed. The procedures for
+modeling these decisions were first developed for various applications
+by, for example,Wolpin (1984) on women’s fertility, Pakes (1986) on
+patent options, Wolpin (1987) on job search, Rust (1987) on engine
+replacement, Berkovec and Stern (1991) on retirement, and others.
+Eckstein and Wolpin (1989) provide an excellent survey of these early
+contributions. The thrust of more recent work has primarily between
+toward solving some of the computational difficulties that can arise in
+these models, as discussed below.
+
+Before embarking on this endeavor, it is important to keep the concept of rationality in perspective. A model of rational decision-making
+over time does not necessarily represent behavior more accurately than
+a model of myopic behavior, where the decision-maker ignores future
+consequences. In fact, the truth in a given situation might lie between
+these two extremes: decision-makers might be acting in ways that are
+neither completely myopic nor completely rational. As we will see, the
+
+
+_7.7. DYNAMIC OPTIMIZATION_ 195
+
+
+truly optimizing behavior is very complex. People might engage in
+behavior that is only approximately optimal simply because they (we)
+can’t figure out the truly optimal way to proceed. Viewed in another
+light, one could argue that people always optimize when the realm of
+optimization is broadened sufficiently. For example, rules of thumb or
+other behavior that seem only to approximate optimality might actually be optimal when the costs of optimization are considered.
+The concepts and procedures that are developed to examine optimizing behavior carry over, in modified form, to other types of behavior
+that recognize future impacts from current choices. Furthermore, the
+researcher can often test alternative behavioral representations. Myopic behavior nearly always appears as a testable restriction on a fully
+rational model, namely, a zero coefficient for the variable that captures
+future impacts. Sometimes, the standard rational model is a restriction on a supposedly non-rational one. For example, O’Donoghue and
+Rabin (1999), among others, argue that people are time inconsistent:
+when it is Monday, we weigh the benefits and costs that will come on,
+say, Wednesday only marginally more than those that will arrive on
+Thursday, and yet when Wednesday actually arrives, we weigh Wednesday’s (today’s) benefits and costs far more than Thursday’s. Essentially, we have a bias for the present. The standard rational model,
+where the same discount rate is used between any two periods independent of whether the person is in one of the periods, constitutes a
+restriction on the time-inconsistent model.
+The concepts in this area of analysis are more straightforward than
+the notation. To develop the concepts with a minimum of notation,
+we will start with a two period model in which the decision-maker
+knows the exact impact of first-period choices on the second-period
+alternatives and utilities. We will then expand the model to more
+periods and to situations where the decision-maker faces uncertainty
+about future impacts.
+
+
+**7.7.1** **Two-periods, no uncertainty about future impacts**
+
+
+To make the explication concrete, consider a high school student’s
+choice of whether or not to go to college. The choice can be examined
+in the context of two periods: the college years and the post-college
+years. In the first period, the student either goes to college or not.
+Even though these are called the college years, the student need not
+
+
+196 _CHAPTER 7. VARIATIONS ON A THEME_
+
+
+go to college but can take a job instead right out of high school. In the
+second period the student chooses among the jobs that are available
+to him at that time. Going to college during the “college years” means
+less income during that period but better job options in the postcollege years. _U_ 1 _C_ is the utility that the student obtains in period 1
+from going to college, and _U_ 1 _W_ is the utility he obtains in the first
+period if he works in the first period instead of going to college. If
+the student were myopic, he would choose college only if _U_ 1 _C > U_ 1 _W_ .
+However, we assume that he is not myopic. For the second period, let
+_J_ denote the set of all possible jobs. The utility of job _j_ in period
+2 is _U_ 2 _[C]_ _j_ [if the student went to college and] _[ U]_ 2 _[W]_ _j_ [if he worked in the]
+first period. The utility from a job depends on the wage that the
+person is paid as well as other factors. For many jobs, people with
+a college degree are paid higher wages and granted greater autonomy
+and responsibility. For these jobs, _U_ 2 _[C]_ _j_ _[> U]_ 2 _[W]_ _j_ [. However, working in]
+the first period provides on-the-job experience that commands higher
+wages/responsibility than a college degree for some jobs; for these,
+_U_ 2 _[W]_ _j_ _[> U]_ 2 _[C]_ _j_ [. A job not being available is represented as having a utility]
+of negative infinity. For example, if job _j_ is available only to college
+graduates, then _U_ 2 _[W]_ _j_ [=] _[ −∞]_ [.]
+How will the high school student decide whether to go to college?
+We assume for now that the student knows _U_ 2 _[C]_ _j_ [and] _[ U]_ 2 _[W]_ _j_ [for all] _[ j][ ∈]_ _[J]_
+when deciding whether to go to college in the first period. That is, the
+student has perfect knowledge of his future options under whatever
+choice he makes in the first period. We will later consider how the
+decision-process changes when the student is uncertain about these
+future utilities. The student knows that when the second period arrives
+he will choose the job that provides the greatest utility. That is, he
+knows in the first period that the utility that he will obtain in the
+second period if he chooses college in the first period is the maximum
+of _U_ 2 _[C]_ _j_ [over all possible jobs. We label this utility as] _[ U]_ 2 _[C]_ [=] _[ max][j]_ [(] _[U]_ 2 _[C]_ _j_ [).]
+The student therefore realizes that, if he chooses college in the first
+period, his total utility over both periods will be:
+
+
+_TUC_ = _U_ 1 _C_ + _λU_ 2 _[C]_
+= _U_ 1 _C_ + _λmaxj_ ( _U_ 2 _[C]_ _j_ [)]
+
+
+where _λ_ reflects the relative weighting of the two periods’ utilities in
+the student’s decision-process. Given the way we have defined time
+periods, _λ_ incorporates the relative time spans of each period as well
+
+
+_7.7. DYNAMIC OPTIMIZATION_ 197
+
+
+as the traditional discounting of future utility relative to current utility.
+Thus, _λ_ can exceed one, even with discounting, if the second period
+represents say forty years while the first period is four years. Myopic
+behavior is represented as _λ_ = 0.
+The same logic is applied to the option of working in the first period
+instead of going to school. The student knows that he will choose the
+job that offers the greatest utility such that _U_ 2 _[W]_ = _maxj_ ( _U_ 2 _[W]_ _j_ [) and the]
+total utility over both period from choosing to work in the first period
+is
+
+
+_TUW_ = _U_ 1 _W_ + _λU_ 2 _[W]_
+= _U_ 1 _W_ + _λmaxj_ ( _U_ 2 _[W]_ _j_ [)] _[.]_
+
+
+The student chooses college if _TUC > TUW_ and otherwise chooses to
+work in the first period.
+This completes the description of the decision-maker’s behavior.
+We now turn to the researcher. As always, the researcher observes only
+some of the factors that affect the student’s utility. Each utility in each
+period is decomposed into an observed and unobserved component:
+
+
+_U_ 1 _C_ = _V_ 1 _C_ + _ε_ 1 _C_
+_U_ 1 _W_ = _V_ 1 _W_ + _ε_ 1 _W_
+
+
+and
+
+
+_U_ 2 _[C]_ _j_ [=] _[ V][ C]_ 2 _j_ [+] _[ ε]_ 2 _[C]_ _j_
+_U_ 2 _[W]_ _j_ [=] _[ V][ W]_ 2 _j_ [+] _[ ε]_ 2 _[W]_ _j_
+
+
+for all _j ∈_ _J_ . Collect the unobserved components into vector _ε_ =
+_⟨ε_ 1 _C, ε_ 1 _W, ε_ _[C]_ 2 _j_ _[, ε]_ 2 _[W]_ _j_ _[,][ ∀][j][⟩]_ [, and denote the density of these terms as] _[ f]_ [(] _[ε]_ [).]
+The probability of the student choosing college is
+
+
+_PC_ = _Prob_ ( _TUC > TUW_ )
+
+= _Prob_ [ _U_ 1 _C_ + _maxj_ ( _U_ 2 _[C]_ _j_ [)] _[ > U]_ [1] _[W]_ [+] _[ max][j]_ [(] _[U]_ 2 _[W]_ _j_ [)]]
+
+= _Prob_ [ _V_ 1 _C_ + _ε_ 1 _C_ + _maxj_ ( _V_ 2 _[C]_ _j_ [+] _[ ε]_ 2 _[C]_ _j_ [)] _[ > V]_ [1] _[W]_ [+] _[ ε]_ [1] _[W]_ [+] _[ max][j]_ [(] _[V][ W]_ 2 _j_ [+] _[ ε]_ 2 _[W]_ _j_ [)]]
+
+    = _I_ [ _V_ 1 _C_ + _ε_ 1 _C_ + _maxj_ ( _V_ 2 _[C]_ _j_ [+] _[ ε]_ 2 _[C]_ _j_ [)] _[ > V]_ [1] _[W]_ [+] _[ ε]_ [1] _[W]_ [+] _[ max][j]_ [(] _[V][ W]_ 2 _j_ [+] _[ ε]_ 2 _[W]_ _j_ [)]] _[f]_ [(] _[ε]_ [)] _[dε]_
+
+
+where _I_ [ _._ ] is an indicator of whether the statement in brackets is true.
+
+
+198 _CHAPTER 7. VARIATIONS ON A THEME_
+
+
+The integral can be approximated through simulation. For an
+accept-reject simulator: (1) Take a draw from _f_ ( _ε_ ), with its components labeled _ε_ _[r]_ 1 _C_ _[, ε]_ 2 _[Cr]_ _j_ [, etc. (2) Calculate] _[ U]_ 2 _[C]_ _j_ [=] _[ V][ C]_ 2 _j_ [+] _[ ε]_ 2 _[Cr]_ _j_ [for all]
+_j_, determine the highest one and labeled it _U_ 2 _[Cr]_ [. Similarly, calculate]
+_U_ 2 _[Wr]_ . (3) Calculate the total utilities as _TUC_ _[r]_ [=] _[ V][ r]_ 1 _C_ [+] _[ λU]_ 2 _[Cr]_ and similarly for _TUW_ _[r]_ [. (4) Determine whether] _[ TU]_ _C_ _[r]_ _[> TU]_ _W_ _[r]_ [. If so, set] _[ I]_ _[r]_ [ = 1.]
+Otherwise, let _I_ _[r]_ = 0. (5). Repeat steps 1-4 _R_ times. The simulated
+probability of choosing college is _P_ [˜] _C_ = [�] _r_ _[I]_ _[r][/R]_ [.]
+Convenient error partitioning (as explained in section 1.2) can be
+utilized to obtain a smooth and more accurate simulator than acceptreject, provided that the integral over the first period errors has a closed
+form conditional on the second period errors. Suppose for example
+that _ε_ 1 _C_ and _ε_ 1 _W_ are iid extreme value. Label the second period
+errors collectively as _ε_ 2 with any density _g_ ( _ε_ 2). Conditional on the
+second period errors, the probability of the student going to college is a
+standard logit model with an extra explanatory variable that captures
+the future effect of the current choice. That is,
+
+
+_e_ _[V]_ [1] _[C]_ [+] _[U]_ 2 _[C]_ [(] _[ε]_ [2][)]
+_PC_ ( _ε_ 2) =
+
+_e_ _[V]_ [1] _[C]_ [+] _[U]_ 2 _[C]_ [(] _[ε]_ [2][)] + _e_ _[V]_ [1] _[W]_ [ +] _[U]_ 2 _[C]_ [(] _[ε]_ [2][)]
+
+
+where _U_ 2 _[C]_ [(] _[ε]_ [2][) is calculated from the second period errors as] _[ U]_ 2 _[C]_ [(] _[ε]_ [2][) =]
+_maxj_ ( _V_ 2 _[C]_ _j_ [+] _[ ε]_ 2 _[C]_ _j_ [), and similarly for] _[ U]_ 2 _[W]_ [(] _[ε]_ [2][). The unconditional proba-]
+bility is then the integral of this logit formula over all possible values
+of the second-period errors:
+
+             _PC_ = _PC_ ( _ε_ 2) _g_ ( _ε_ 2) _dε_ 2 _._
+
+
+
+The probability is simulated as follows: (1) Take a draw from density
+_g_ ( _·_ ) and label it _ε_ _[r]_ 2 [. (2) Using this draw of the second period errors,]
+calculate the utility that would be obtained from each possible job if
+the person went to college. That is, calculate _U_ 2 _[Cr]_ _j_ [=] _[ V][ C]_ 2 _j_ [+] _[ε]_ 2 _[Cr]_ _j_ [for all] _[ j]_ [.]
+(3) Determine the maximum of these utilities and label it _U_ 2 _[Cr]_ [. This]
+is the utility that the person would obtain in the second period if he
+went to college in the first period, based on this draw of the secondperiod errors. (4)-(5) Similarly, calculate _U_ 2 _[Wr]_ _j_ _∀j_ and then determine
+the maximum _U_ 2 _[Wr]_ . (6) Calculate the conditional choice probability
+for this draw as
+
+
+
+_e_ _[V]_ [1] _[C]_ [+] _[U]_ 2 _[Cr]_
+_PC_ _[r]_ [=] _[Cr]_
+
+
+
+_._
+_e_ _[V]_ [1] _[C]_ [+] _[U]_ 2 _[Cr]_ + _e_ _[V]_ [1] _[W]_ [ +] _[U]_ 2 _[W r]_
+
+
+_7.7. DYNAMIC OPTIMIZATION_ 199
+
+
+(7) Repeat steps 1-6 many times, labeled _r_ = 1 _, . . ., R_ . (8) The simulated probability is _P_ [˜] _C_ = [�] _r_ _[P]_ _C_ _[ r]_ _[/R]_ [.]
+If the second-period errors are also iid extreme value, then the
+probability of taking a particular job in the second period is standard
+logit. The probability of going to college and taking job _j_ is
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+_PCj_ =
+
+
+
+���
+_e_ _[V]_ [1] _[C]_ [+] _[U]_ 2 _[C]_ [(] _[ε]_ [2][)]
+
+_e_ _[V]_ [1] _[C]_ [+] _[U]_ 2 _[C]_ [(] _[ε]_ [2][)] + _e_ _[V]_ [1] _[W]_ [ +] _[U]_ 2 _[C]_ [(] _[ε]_ [2][)]
+
+
+
+_g_ ( _ε_ 2) _dε_ 2
+
+
+
+
+- []
+
+_e_ _[V]_ 2 _[ C]_ _j_
+
+
+~~�~~
+2 _k_
+_k_ _[e][V][ C]_
+
+
+
+The choice probabilities for the first period are simulated by taking
+draws of the second period errors, as described above with _g_ ( _·_ ) being the extreme value distribution. However, the probabilities for the
+second period are calculated exactly. The draws of the second-period
+errors are used only in calculating the first period probabilities, where
+they do not integrate out in closed form. The second-period errors integrate out of the second-period probabilities in a closed form, which is
+used to calculate the second-period probabilities exactly. Application
+to other distributions that allow correlation over alternatives, such as
+GEV or normal, is straightforward. Allowing the errors to be correlated over time can be accomplished with a joint normal distribution
+and simulation of both periods’ probabilities.
+
+
+**7.7.2** **Multiple periods**
+
+
+We first expand to three periods and then generalize to any number of
+periods. The model of college choice can be extended by considering
+retirement options. When a person reaches retirement age, there are
+usually several options available. He can continue working full time,
+or work part time and spend part of his retirement funds, or retire
+fully and collect social security and perhaps a pension. The person’s
+income under these alternatives depends largely on the job that the
+person has held and the retirement plan that the job provided. Three
+periods are sufficient to capture the decision process. The person goes
+to college or not in the first period, chooses a job in the second period,
+and chooses among the available retirement-age options in the third
+period. The high school student knows, when deciding whether to go
+to college, that this decision will affect his job opportunities, which in
+turn will affect his retirement options. (This foreknowledge is starting
+to seem like a mighty big burden for a high school student, but let’s
+proceed without getting too depressed.)
+
+
+200 _CHAPTER 7. VARIATIONS ON A THEME_
+
+
+The set of retirement-age alternatives is labeled _S_ with elements
+indexed by _s_ . In the third period, the utility that the person obtains
+from alternative _s_ if he went to college in the first period and had job
+_j_ in the second period is _U_ 3 _[Cj]_ _s_ [. Conditional on these previous choices,]
+the person chooses option _s_ if _U_ 3 _[Cj]_ _s_ _[> U]_ 3 _[Cj]_ _t_ for all _s ̸_ = _t_ and _s, t ∈_ _S_ .
+Similar notation and behavior applies conditional on other choices in
+the first and second periods.
+In the second period, the person recognizes that his job choice will
+affect his retirement-age options. He knows he will maximize among
+the available options when retirement age arrives. Suppose he chose
+college in the first period. In the second period, he knows that the
+utility he will obtain in the third period if he chooses job _j_ is _maxsU_ 3 _[Cj]_ _s_ [.]
+The total utility of choosing job _j_ in the second period, given that he
+chose college in the first period, is therefore _TUj_ _[C]_ [=] _[ U]_ 2 _[C]_ _j_ [+] _[ θmax][s][U]_ 3 _[Cj]_ _s_ [,]
+where _θ_ weights period three relative to period two. He chooses job _j_ if
+_TUj_ _[C]_ _[> TU]_ _k_ _[C]_ [for all] _[ k][ ̸]_ [=] _[ j]_ [ and] _[ j, k][ ∈]_ _[J]_ [. Similar notation and behavior]
+occurs if he chose to work in the first period.
+Consider now the first period. He knows that, if he chooses college,
+he will choose the job that maximizes his utility from jobs conditional
+on going to college, and then will choose the retirement-age option that
+maximizes his utility conditional on that chosen job. The total utility
+from college is
+
+
+_TUC_ = _U_ 1 _c_ + _λmaxjTUj_ _[C]_
+
+               -               = _U_ 1 _c_ + _λmaxj_ _U_ 2 _[C]_ _j_ [+] _[ θmax][s][U]_ 3 _[Cj]_ _s_ _._
+
+
+This expression is similar to that in the two-period model except that it
+includes an additional layer of maximization: the maximization for the
+third period is contained in each maximization for the second period.
+A similar term gives the total utility of working in the first period,
+_TUW_ . The person chooses college if _TUC > TUW_ .
+This completes the description of the person’s behavior. The researcher observes a portion of each utility function, _U_ 1 _C, U_ 1 _W_, _U_ 2 _[C]_ _j_ [and]
+_U_ 2 _[W]_ _j_ _[∀][j][ ∈]_ _[J]_ [ and] _[ U]_ 3 _[Cj]_ _s_ [and] _[ U]_ 3 _[Wj]_ _s_ _∀s ∈_ _S, j ∈_ _J_ . The unobserved portions
+are collected labeled by the vector _ε_ with density _f_ ( _ε_ ). The probability
+that the person chooses college is
+
+      _PC_ = _I_ ( _ε_ ) _f_ ( _ε_ ) _dε_
+
+
+where
+
+
+_7.7. DYNAMIC OPTIMIZATION_ 201
+
+
+_I_ ( _ε_ ) = 1
+
+
+
+if
+
+
+
+
+          -          _V_ 1 _C_ + _ε_ 1 _C_ + _λmaxj_ _V_ 2 _[C]_ _j_ [+] _[ ε]_ 2 _[C]_ _j_ [+] _[ θmax][s]_ [(] _[V][ Cj]_ 3 _s_ [+] _[ ε]_ 32 _[Cj]_ [)]
+
+          -           
+_>_ _V_ 1 _W_ + _ε_ 1 _W_ + _λmaxj_ _V_ 2 _[W]_ _j_ [+] _[ ε]_ 2 _[W]_ _j_ [+] _[ θmax][s]_ [(] _[V][ Wj]_ 3 _s_ + _ε_ _[Wj]_ 32 [)]
+
+
+
+This expression is the same as in the two-period model except that
+now the term inside the indicator function has an extra level of maximization. An accept-reject simulator is obtained by: (1) draw from
+_f_ ( _ε_ ), (2) calculate the third period utility _U_ 3 _[Cj]_ _s_ [for each] _[ s]_ [, (3) identify]
+the maximum over _s_, (4) calculate _TU_ 2 _[C]_ _j_ [with this maximum, (5) re-]
+peat steps 2-5 for each _j_ and identify the maximum of _TU_ 2 _[C]_ _j_ [over] _[ j]_ [, (6)]
+calculate _TUC_ using this maximum, (7) repeat steps 2-6 for _TUW_, (8)
+determine whether _TUC > TUW_ and set _I_ = 1 if it is, (9) repeat steps
+1-8 many times and average the results. Convenient error partitioning can also be used. For example if all errors are iid extreme value,
+then the first-period choice probabilities, conditional on draws of the
+second- and third-period errors, are logit; the second-period probabilities, conditional on the third-period errors, are logit; and the third
+period probabilities are logit.
+We can now generalize these concepts and introduce some widelyused terminology. Note that the analysis of the person’s behavior and
+the simulation of the choice probabilities by the researcher start with
+the last period and work backwards in time to the first period. This
+process is called backwards recursion. Suppose there are _J_ alternatives
+in each of _T_ equal-length time periods. Let a sequence of choices up to
+period _t_ be denoted _{i_ 1 _, i_ 2 _, · · ·, it}_ . The utility that the person obtains
+in period _t_ from alternative _j_ is _Utj_ ( _i_ 1 _, i_ 2 _, · · ·, it−_ 1), which depends on
+all previous choices. If the person chooses alternative _j_ in period _t_, he
+will obtain this utility plus the future utility of choices conditioned on
+this choice. The total utility (current and future) that the person obtains from choosing alternative _j_ in period _t_ is _TUtj_ ( _i_ 1 _, i_ 2 _, · · ·, it−_ 1). He
+chooses the alternative in the current period that provides the greatest
+total utility. Therefore the total utility he receives from his optimal
+choice in period _t_ is _TUt_ ( _i_ 1 _, i_ 2 _, · · ·, it−_ 1) = _maxjTUtj_ ( _i_ 1 _, i_ 2 _, · · ·, it−_ 1).
+This total utility from the optimal choice at time _t_, _TUt_, is called the
+valuation function at time _t_ .
+The person chooses optimally in the current period with knowledge
+that he will choose optimally in the future. This fact establishes a con
+
+202 _CHAPTER 7. VARIATIONS ON A THEME_
+
+
+venient relation between the valuation function in successive periods.
+In particular,
+
+
+_TUt_ ( _i_ 1 _, · · ·, it−_ 1) = _maxj_ [ _Ujt_ ( _i_ 1 _, · · ·, it−_ 1) + _δTUt_ +1( _i_ 1 _, · · ·, it_ = _j_ )]
+
+
+where _δ_ is a parameter that discounts the future. _TUt_ +1 on the right
+hand side is the total utility that the person will obtain in period _t_ + 1
+onward if he chooses alternative _j_ in period t (i.e., if _it_ = _j_ ). The
+equation states that the total utility that the person obtains from optimizing behavior from period _t_ onwards, given previous choices, is the
+maximum over _j_ of: the utility from _j_ in period _t_ plus the discounted
+total utility from optimizing behavior from period _t_ + 1 onwards conditional on choosing _j_ in period _t_ . This relation is Bellman’s equation
+(1957) applied to discrete choice with perfect information.
+_TUtj_ ( _i_ 1 _, · · ·, it−_ 1) is sometimes called the conditional valuation function, conditional on choosing alternative _j_ in period _t_ . A Bellman
+equation also operates for this term:
+
+
+_TUtj_ ( _i_ 1 _, · · ·, it−_ 1) = _Ujt_ ( _i_ 1 _, · · ·, it−_ 1 + _δmaxk_ [ _TUt_ +1 _,k_ ( _i_ 1 _, · · ·, it_ = _j_ )] _._
+
+
+Since by definition _TUt_ ( _i_ 1 _, · · ·, it−_ 1) = _maxj_ [ _TUtj_ ( _i_ 1 _, · · ·, it−_ 1)], the
+Bellman equation in terms of conditional valuation function is equivalent to the Bellman equation in terms of the unconditional valuation
+function.
+If _T_ is finite, the Bellman equation can be applied with backwards
+recursion to calculate _TUtj_ for each time period. At _t_ = _T_, there is
+no future time period, and so _TUTj_ ( _i_ 1 _, · · ·, iT_ _−_ 1) = _UTj_ ( _i_ 1 _, · · ·, iT_ _−_ 1).
+Then _TUT_ _−_ 1 _,j_ ( _i_ 1 _, · · ·, iT_ _−_ 2) is calculated from _TUTj_ ( _i_ 1 _, · · ·, iT_ _−_ 1) using Bellman’s equation. And so on forward to _t_ = 1. Note that
+_Utj_ ( _i_ 1 _, · · ·, it−_ 1) must be calculated for each _t_, _j_, and, importantly, for
+each possible sequence of past choices, _i_ 1 _, · · ·, it−_ 1. With _J_ alternatives in _T_ time periods, the recursion requires calculation of ( _J_ _[T]_ ) _T_
+utilities (that is, _J_ _[T]_ possible sequences of choices, with each sequence
+containing _T_ one-period utilities.) To simulate the probabilities, the
+researcher must calculate these utilities for each draw of unobserved
+factors. And these probabilities must be simulated for each value of
+the parameters in the numerical search for the estimates. This huge
+computational burden is called the curse of dimensionality and is the
+main stumbling block to application of the procedures with more than
+a few time periods and/or alternatives. We discuss in the next subsection procedures that have been suggested to avoid or mitigate this
+
+
+_7.7. DYNAMIC OPTIMIZATION_ 203
+
+
+curse, after showing that the curse is even greater when uncertainty is
+considered.
+
+
+**7.7.3** **Uncertainty about future impacts**
+
+
+In the analysis so far we have assumed that the decision-maker knows
+the utility for each alternative in each future time period and how this
+utility is affected by prior choices. Usually, the decision-maker does
+not possess such foreknowledge. A degree of uncertainty shrouds the
+future impacts of current choices.
+The behavioral model can be adapted to incorporate uncertainty.
+For simplicity, return to the two-period model for our high school student. In the first period, the student does not know for sure the secondperiod utilities, _U_ 2 _[C]_ _j_ [and] _[ U]_ 2 _[W]_ _j_ _[∀][j]_ [. For example, the student does not]
+know, before going to college, how strong the economy, and hence his
+job possibilities, will be when he graduates. These utilities can be
+expressed as functions of unknown factors: _U_ 2 _[C]_ _j_ [(] _[e]_ [) where] _[ e]_ [ refers col-]
+lectively to all factors in period two that are unknown in period one.
+These unknown factors will become known (that is, will be revealed)
+when the student reaches the second period, but are unknown to the
+person in the first period. The student has a subjective distribution on
+_e_ that reflects the likelihood that he ascribes to the unknown factors
+taking a particular realization in the second period. This density is
+labeled _g_ ( _e_ ). He knows that, whatever realization of _e_ actually occurs,
+he will, in the second period, choose the job that gives him the maximum utility. That is, he will receive utility _maxjU_ 2 _[C]_ _j_ [(] _[e]_ [) in the second]
+period if he chooses college in the first period and the unknown factors
+end up being _e_ . In the first period, when evaluating whether to go to
+college, he takes the expectation of this future utility over all possible
+realizations of the unknown factors, using his subjective distribution
+over these realizations. The expected utility that he will obtain in
+the second period if he chooses college in the first period is therefore
+
+        
+- [�]
+_maxj_ ( _U_ 2 _[C]_ _j_ [(] _[e]_ [))] _g_ ( _e_ ) _d_ ( _e_ ). The total expected utility from choosing
+college in the first period is then:
+
+��          _TEUC_ = _U_ 1 _C_ + _λ_ _maxj_ ( _U_ 2 _[C]_ _j_ [(] _[e]_ [))] _g_ ( _e_ ) _d_ ( _e_ )
+
+
+_TEUW_ is defined similarly. The person chooses college if _TEUC >_
+_TEUW_ . In the second period, the unknown factors become known, and
+
+
+204 _CHAPTER 7. VARIATIONS ON A THEME_
+
+
+the person chooses job _j_ if he had chosen college if _U_ 2 _[C]_ _j_ [(] _[e][∗]_ [)] _[ > U]_ 2 _[C]_ _k_ [(] _[e][∗]_ [)]
+for all _k ̸_ = _j_, where _e∗_ is the realization that actually occurred.
+Turning to the researcher, we have an extra complication introduced by _g_ ( _e_ ), the decision-maker’s subjective distribution for unknown factors. In addition to not knowing utilities in their entirety,
+the researcher has only partial knowledge of the decision-maker’s subjective probability _g_ ( _e_ ). This lack of information is usually represented
+through parameterization. The researcher specifies a density, labeled
+_h_ ( _e | θ_ ), that depends on unknown parameters _θ_ . The researcher then
+assumes that the person’s subjective density is the specified density
+evaluated at the true parameters _θ_ _[∗]_ . That is, the researcher assumes
+_h_ ( _e | θ_ _[∗]_ ) = _g_ ( _e_ ). Stated more persuasively and accurately: the true
+parameters are, by definition, the parameters for which the researcher’s
+specified density _h_ ( _e | θ_ ) becomes the density _g_ ( _e_ ) that the person actually used. With a sufficiently flexible _h_, any _g_ can be represented as
+_h_ evaluated at some parameters, which are called the true parameters.
+These parameters are estimated along with the parameters that enter
+utility. (Other ways of representing the researcher’s lack of knowledge
+about _g_ ( _e_ ) can be specified; however, they are generally more complex.)
+Utilities are decomposed into their observed and unobserved portions, with the unobserved portions collectively called _ε_ with density
+_f_ ( _ε_ ). The probability that the person goes to college is
+
+
+_PC_ = _Prob_ ( _TEUC > TEUW_ )
+
+��   -   = _I_ ( _V_ 1 _c_ + _ε_ 1 _C_ + _λ_ _{maxj_ ( _V_ 2 _[C]_ _j_ [(] _[e]_ [) +] _[ ε]_ 2 _[C]_ _j_ [(] _[e]_ [))] _[}][h]_ [(] _[e][ |][ θ]_ [)] _[d]_ [(] _[e]_ [))] _f_ ( _ε_ ) _dε._
+
+
+The probablity can be approximated by simulating the inside integral
+within the simulation of the outside integral. (1) Take a draw of _ε_ .
+(2a) Take a draw of _e_ from _h_ ( _e | θ_ ). (2b) Using this draw, calculate
+the term in squiggly brackets. (2c) Repeat steps 2a-b many times and
+average the results. (3) Using the value from 2c, calculate the term
+in square brackets. (4) Repeat steps 1-3 many times and average the
+results. As the reader can see, the curse of dimensionality grows worse.
+Several authors have suggested ways to reduce the computational
+burden. Keane and Wolpin (1994) calculate the valuation function
+at selected realizations of the unknown factors and past choices; they
+then approximate the valuation function at other realizations and past
+choices through interpolating from the calculated valuations. Rust
+
+
+_7.7. DYNAMIC OPTIMIZATION_ 205
+
+
+(1997) suggests simulating future paths and using the average over
+these simulated paths as an approximation in the valuation function.
+Hotz and Miller (1993) and Hotz _et al._ (1993) show that there is a
+correspondence between the valuation function in each time period
+and the choice probabilities in future periods. This correspondence
+allows the valuation functions to be calculated with these probabilities
+instead of backwards recursion.
+
+Each of these procedures has limitations and is applicable in only
+certain situations, which the authors themselves describe. As Rust
+(1994) has observed, it is unlikely that a general-purpose breakthrough
+will arise that makes estimation simple for all forms of dynamic optimization models. Inevitably the researcher will need to make tradeoffs
+in specifying the model to assure feasibility, and the most appropriate
+specification and estimation method will depend on the particulars of
+the choice process and the goals of the research. In this regard, I have
+found that two simplifications are very powerful in that they often provide a large gain in computational feasibility for a relatively small loss
+(and sometimes a gain) in content.
+
+The first suggestion is for the researcher to consider ways to capture
+the nature of the choice situation with as few time periods as possible.
+Sometimes, in fact usually, time periods will need to be defined not
+by the standard markers, such as year or month, but rather in a way
+that is more structural to the decision process. For example, for the
+high school student deciding whether to go to college, it might seem
+natural to say that the student makes a choice each year among the
+jobs and schooling options that are available in that year, given his
+past choices. Indeed, this statement is true: the student does indeed
+make annual (or even monthly, weekly, daily) choices. However, such a
+model would clearly face the curse of dimensionality. In contrast, the
+specification that we discussed above involves only two time periods,
+or three if retirement is considered. Estimation is quite feasible for this
+specification. In fact, the two-period model might be more accurate
+than an annual model: students deciding on college probably think in
+terms of the college years and their post-college options, rather than
+trying to anticipate their future choices in each future year. McFadden
+and Train (1996) provide an example of how an dynamic optimization
+model with only a few well-considered periods can accurately capture
+the nature of the choice situation.
+
+A second powerful simplification was first noted by Rust (1987).
+
+
+206 _CHAPTER 7. VARIATIONS ON A THEME_
+
+
+Suppose that the factors that the decision-maker does not observe
+beforehand are also the factors that the researcher does not observe
+(either before or after), and that these factors are thought by the
+decision-maker to be iid extreme value. Under this admittedly restrictive assumption, the choice probabilities take a closed form that
+is easy to calculate. The result can be readily derived for our model of
+college choice. Assume that the student, when in the first period, decomposes second-period utility into an known and unknown part, e.g.,
+_U_ 2 _[C]_ _j_ [(] _[e]_ [) =] _[ V][ C]_ 2 _j_ [+] _[ e]_ 2 _[C]_ _j_ [, and assumes that] _[ e]_ 2 _[C]_ _j_ [follows an extreme value dis-]
+tribution independent of all else. This unknown factor becomes known
+to the student in the second period, such that second-period choice
+entails maximization over known _U_ 2 _[C]_ _j_ _[∀][j]_ [. However, in the first period]
+it is unknown. Recall from section 3.5 that the expected maximum of
+utilities that are iid extreme value takes the familiar log-sum formula.
+In our context, this result means that
+
+
+
+
+
+
+
+
+
+
+
+ -  _E_ _maxj_ ( _V_ 2 _[C]_ _j_ [+] _[ ε]_ 2 _[C]_ _j_ [)] = _αln_
+
+
+
+
+
+ [�] _e_ _[V]_ 2 _[ C]_ _j_
+
+
+_j_
+
+
+
+which we can label _LS_ 2 _[C]_ [.] _[ LS]_ 2 _[W]_ is derived similarly. The person chooses
+college if then
+
+
+_TEUC_ _>_ _TEUW_
+_U_ 1 _C_ + _λLS_ 2 _[C]_ _>_ _U_ 1 _W_ + _λLS_ 2 _[W]_
+
+
+Note that this decision-rule is in closed form: the integral over unknown future factors becomes the log-sum formula. Consider now the
+researcher. Each first-period utility is decomposed into an observed
+and unobserved part, _U_ 1 _C_ = _V_ 1 _C_ + _ε_ 1 _C, U_ 1 _W_ = _V_ 1 _W_ + _ε_ 1 _W_, and we
+assume that the unobserved portions are iid extreme value. For the
+second-period utilities, we make a fairly restrictive assumption. We assume that the part of utility that the researcher does not observe is the
+same as the part of utility that the student does not know beforehand.
+That is, we assume _U_ 2 _[C]_ _j_ [=] _[ V][ C]_ 2 _j_ [+] _[ ε]_ 2 _[C]_ _j_ _[∀][j]_ [, where the researcher’s] _[ ε]_ 2 _[C]_ _j_ [is]
+the same as the student’s _e_ _[C]_ 2 _j_ [. Under this assumption, the researcher]
+can calculate the log-sum term for future utility, _LC_ 2 _[C]_ [and] _[ LS]_ 2 _[W]_ [, ex-]
+actly, since these terms depend only on the observed portion of utility
+in the second period, _V_ 2 _[C]_ _j_ _[∀][j]_ [, which is observed by the researcher and]
+known beforehand by the decision-maker. The probability of the stu
+
+_7.7. DYNAMIC OPTIMIZATION_ 207
+
+
+dent choosing college is then
+
+
+_PC_ = _Prob_ ( _TEUC > TEUW_ )
+
+= _Prob_ ( _U_ 1 _C_ + _λLS_ 2 _[C]_ _[> U]_ [1] _[W]_ [+] _[ λLS]_ 2 _[W]_
+= _Prob_ ( _V_ 1 _C_ + _ε_ 1 _C_ + _λLS_ 2 _[C]_ _[> V]_ [1] _[W]_ [+] _[ ε]_ [1] _[W]_ [+] _[ λLS]_ 2 _[W]_
+
+_e_ _[V]_ [1] _[C]_ [+] _[λLS]_ 2 _[C]_
+=
+
+_e_ _[V]_ [1] _[C]_ [+] _[LS]_ 2 _[C]_ + _e_ _[V]_ [1] _[W]_ [ +] _[λLS]_ 2 _[W]_ _[.]_
+
+
+The model takes the same form as the upper part of a nested logit
+model: the first-period choice probability is the logit formula with
+a log-sum term included as an extra explanatory variable. Multiple
+periods are handled the same way as multi-level nested logits.
+It is doubtful that the researcher, in reality, observes everything
+that the decision-maker knows beforehand. However, the simplification that arises from this assumption is so great, and the curse of
+dimensionality that would arise otherwise is so severe, that proceeding
+as if it were true is perhaps worthwhile in many situations.
+
+
+208 _CHAPTER 7. VARIATIONS ON A THEME_
+
+
+## **Part II**
+
+# **Estimation**
+
+209
+
+
+## **Chapter 8**
+
+# **Numerical Maximization**
+
+### **8.1 Motivation**
+
+Most estimation involves maximization of some function, such as the
+likelihood function, the simulated likelihood function, or squared moment conditions. This chapter describes numerical procedures that are
+used to maximize a likelihood function. Analogous procedures apply
+when maximizing other functions.
+
+
+Knowing and being able to apply these procedures is critical in our
+new age of discrete choice modeling. In the past, researchers adapted
+their specifications to the few convenient models that were available.
+These models were included in commercially available estimation packages, such that the researcher could estimate the models without knowing the details of how the estimation was actually performed from a
+numerical perspective. The thrust of the wave of discrete choice methods is to free the researcher to specify models that are tailor-made to
+her situation and issues. Exercising this freedom means that the researcher will often find herself specifying a model that is not exactly
+the same as any in commercial software. The researcher will need to
+write special code for her special model.
+
+
+The purpose of this chapter is to assist in this exercise. Though not
+usually taught in econometrics courses, the procedures for maximization are fairly straightforward and easy to implement. Once learned,
+the freedom they allow is invaluable.
+
+
+211
+
+
+212 _CHAPTER 8. NUMERICAL MAXIMIZATION_
+
+### **8.2 Notation**
+
+
+The log-likelihood function takes the form _LL_ ( _β_ ) = [�] _[N]_ _n_ =1 _[lnP][n]_ [(] _[β]_ [)] _[/N]_
+where _Pn_ ( _β_ ) is the probability of the observed outcome for decisionmaker _n_, _N_ is the sample size, and _β_ is a _K_ _×_ 1 vector of parameters. In
+this chapter, we divide the log-likelihood function by _N_, such that _LL_
+is the average log-likelihood in the sample. Doing so does not affect the
+location of the maximum (since _N_ is fixed for a given sample) and yet
+facilitates interpretation of some of the procedures. All the procedures
+operate the same whether or not the log-likelihood is divided by _N_ .
+The reader can verify this fact as we go along by observing that _N_
+cancels out of the relevant formulas.
+
+
+The goal is to find the value of _β_ that maximizes _LL_ ( _β_ ). In terms
+of Figure 8.1, the goal is to locate _β_ [ˆ] . Note in this figure that _LL_ is
+always negative, since the likelihood is a probability between 0 and 1
+and the log of any number between 0 and 1 is negative. Numerically,
+the maximum can be found by “walking up” the likelihood function
+until no further increase can be found. The researcher specifies starting values _β_ 0. Each iteration, or step, moves to a new value of the
+parameters at which _LL_ ( _β_ ) is higher than at the previous value. Denote the current value of _β_ as _βt_, which is attained after _t_ steps from
+the starting values. The question is: what is the best step we can take
+next, that is, what is the best value for _βt_ +1?
+
+The gradient at _βt_ is the vector of first derivatives of _LL_ ( _β_ ) evaluated at _βt_ :
+
+
+
+
+  _∂LL_ ( _β_ )
+_gt_ =
+
+_∂β_
+
+
+
+
+
+
+
+_._
+_βt_
+
+
+
+This vector tells us which way to step in order to go up the likelihood
+function. The Hessian is the matrix of second derivatives:
+
+
+
+
+
+
+_._
+
+_βt_
+
+
+
+
+  _∂gt_
+_Ht_ =
+
+_∂β_ _[′]_
+
+
+
+
+
+
+
+=
+_βt_
+
+
+
+
+_∂_ [2] _LL_ ( _β_ )
+
+_∂β∂β_ _[′]_
+
+
+
+The gradient has dimension _K ×_ 1 and the Hessian is _K × K_ . As we
+will see, the Hessian can help us to know _how far_ to step, given that
+the gradient tells us _in which direction_ to step.
+
+
+_8.3. ALGORITHMS_ 213
+
+
+β _t_ _^_ β
+
+β
+
+
+Figure 8.1: Maximum likelihood estimate.
+
+### **8.3 Algorithms**
+
+
+Of the numerous maximization algorithms that have been developed
+over the years, I describe below only the most prominent, with an
+emphasis on the pedagogical value of the procedures as well as their
+practical use. Readers who are induced to explore further will find
+the treatments by Judge et al. (1985, Appendix B) and Ruud (2000)
+rewarding.
+
+
+**8.3.1** **Newton-Raphson**
+
+
+To determine the best value of _βt_ +1, take a second order Taylor’s approximation of _LL_ ( _βt_ +1) around _LL_ ( _βt_ ):
+
+_LL_ ( _βt_ +1) = _LL_ ( _βt_ )+( _βt_ +1 _−_ _βt_ ) _[′]_ _gt_ + [1]
+
+2 [(] _[β][t]_ [+1] _[−]_ _[β][t]_ [)] _[′][H][t]_ [(] _[β][t]_ [+1] _[−]_ _[β][t]_ [)] _[.]_ [ (8.1)]
+
+
+Now find the value of _βt_ +1 that maximizes this approximation to
+_LL_ ( _βt_ +1):
+_∂LL_ ( _βt_ +1)
+
+= _gt_ + _Ht_ ( _βt_ +1 _−_ _βt_ ) = 0 _._
+_∂βt_ +1
+
+
+_Ht_ ( _βt_ +1 _−_ _βt_ ) = _−gt_
+
+
+
+![](/Users/nicholasvreugdenhil/ASU Dropbox/Nicholas Vreugdenhil/masters_io_2026/external/train_textbook_chunks/markdown/train_textbook_chunk09_p201-225_images/train_textbook_chunk09_p201-225.pdf-22-0.png)
+214 _CHAPTER 8. NUMERICAL MAXIMIZATION_
+
+
+( _βt_ +1 _−_ _βt_ ) = _−Ht_ _[−]_ [1] _gt_
+_βt_ +1 = _βt_ + ( _−Ht_ _[−]_ [1] ) _gt._
+
+
+The Newton-Raphson procedure uses this formula. The step from the
+current value of _β_ to the new value is ( _−Ht_ _[−]_ [1] ) _gt_, that is, the gradient
+vector premultiplied by the negative of the inverse of the Hessian.
+
+
+This formula is intuitively meaningful. Consider _K_ = 1, as illustrated in Figure 8.2. The slope of the log-likelihood function is _gt_ . The
+
+
+
+β
+_t_
+
+
+
+β
+_t_
+
+β
+
+
+
+![](/Users/nicholasvreugdenhil/ASU Dropbox/Nicholas Vreugdenhil/masters_io_2026/external/train_textbook_chunks/markdown/train_textbook_chunk09_p201-225_images/train_textbook_chunk09_p201-225.pdf-23-2.png)
+
+Figure 8.2: Direction of step follows the slope.
+
+
+second derivative is the Hessian _Ht_, which is negative for this graph
+since the curve is drawn to be concave. The negative of this negative
+Hessian is positive and represents the degree of curvature. That is,
+( _−Ht_ ) is the positive curvature. Each step of _β_ is the slope of the loglikelihood function divided by its curvature. If the slope is positive, _β_ is
+raised as in the first panel, and _β_ is lowered if the slope if negative as in
+the second panel. The curvature determines how large a step is made.
+If the curvature is great, meaning that the slope changes quickly as in
+the first panel of Figure 8.3, then the maximum is likely to be close
+and so a small step is taken (dividing the gradient by a large number
+gives a small number). Conversely, if the curvature is small, meaning
+that the slope is not changing much, then the maximum seems to be
+further away and so a larger step is taken.
+
+
+Three issues are relevant to the Newton-Raphson (N-R) procedure.
+
+
+_8.3. ALGORITHMS_ 215
+
+
+
+β
+_t_
+
+
+
+β _^_ β
+_t_
+
+
+
+β _^_
+
+
+
+β
+
+
+
+![](/Users/nicholasvreugdenhil/ASU Dropbox/Nicholas Vreugdenhil/masters_io_2026/external/train_textbook_chunks/markdown/train_textbook_chunk09_p201-225_images/train_textbook_chunk09_p201-225.pdf-24-0.png)
+
+
+
+![](/Users/nicholasvreugdenhil/ASU Dropbox/Nicholas Vreugdenhil/masters_io_2026/external/train_textbook_chunks/markdown/train_textbook_chunk09_p201-225_images/train_textbook_chunk09_p201-225.pdf-24-1.png)
+
+
+
+
+
+
+
+Figure 8.3: Step size is inversely related to curvature.
+
+
+**Quadratics**
+
+
+If _LL_ ( _β_ ) were exactly quadratic in _β_, then the N-R procedure would
+reach the maximum in one step from any starting value. This fact can
+easily be verified with _K_ = 1. If _LL_ ( _β_ ) is quadratic, then it can be
+written as:
+_LL_ ( _β_ ) = _a_ + _bβ_ + _cβ_ [2] _._
+
+
+The maximum is:
+
+_∂LL_ ( _β_ )
+
+= _b_ + 2 _cβ_ = 0
+_∂β_
+
+_β_ ˆ = _−_ _[b]_
+
+2 _c_ _[.]_
+
+The gradient and Hessian are _gt_ = _b_ + 2 _cβt_ and _Ht_ = 2 _c_, and so N-R
+gives us:
+
+_βt_ +1 = _βt −_ _Ht_ _[−]_ [1] _gt_
+
+= _βt −_ [1]
+
+2 _c_ [(] _[b]_ [ + 2] _[cβ][t]_ [)]
+
+= _βt −_ _[b]_
+
+2 _c_ _[−]_ _[β][t]_
+
+= _−_ _[b]_
+
+2 _c_ [= ˆ] _[β.]_
+
+
+Most log-likelihood functions are not quadratic, and so the N-R
+procedure takes more than one step to reach the maximum. However,
+knowing how N-R behaves in the quadratic case helps in understanding
+its behavior with non-quadratic _LL_, as we will see below.
+
+

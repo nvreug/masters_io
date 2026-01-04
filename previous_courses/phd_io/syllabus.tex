@@ -1,0 +1,283 @@
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\usepackage[left=1.0in,top=1.0in,right=1.0in,bottom=1.0in,headheight=3ex,headsep=3ex]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{adjustbox}
+
+
+\newcommand{\blankline}{\quad\pagebreak[2]}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Modify Course title, instructor name, semester here %%%%%%%%
+
+\title{PhD Industrial Organization 1}
+\author{Nicholas Vreugdenhil}
+\date{Fall, 2025}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage[sc]{mathpazo}
+\linespread{1.3} % Palatino needs more leading (space between lines)
+\usepackage[T1]{fontenc}
+\usepackage[mmddyyyy]{datetime}% http://ctan.org/pkg/datetime
+\usepackage{advdate}% http://ctan.org/pkg/advdate
+\newdateformat{syldate}{\twodigit{\THEMONTH}/\twodigit{\THEDAY}}
+\newsavebox{\MONDAY}\savebox{\MONDAY}{Mon}% Mon
+\newcommand{\week}[1]{%
+%  \cleardate{mydate}% Clear date
+% \newdate{mydate}{\the\day}{\the\month}{\the\year}% Store date
+  \paragraph*{\kern-2ex\quad #1, \syldate{\today} - \AdvanceDate[4]\syldate{\today}:}% Set heading  \quad #1
+%  \setbox1=\hbox{\shortdayofweekname{\getdateday{mydate}}{\getdatemonth{mydate}}{\getdateyear{mydate}}}%
+  \ifdim\wd1=\wd\MONDAY
+    \AdvanceDate[7]
+  \else
+    \AdvanceDate[7]
+  \fi%
+}
+\usepackage{setspace}
+\usepackage{multicol}
+%\usepackage{indentfirst}
+\usepackage{fancyhdr,lastpage}
+\usepackage{url}
+\pagestyle{fancy}
+\usepackage{hyperref}
+\usepackage{lastpage}
+\usepackage{amsmath}
+\usepackage{layout}
+
+\lhead{}
+\chead{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Modify header here %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\rhead{\footnotesize PhD Industrial Organization 1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\lfoot{}
+\cfoot{\small \thepage/\pageref*{LastPage}}
+\rfoot{}
+
+\usepackage{array, xcolor}
+\usepackage{color,hyperref}
+\definecolor{clemsonorange}{HTML}{EA6A20}
+\hypersetup{colorlinks,breaklinks,linkcolor=clemsonorange,urlcolor=clemsonorange,anchorcolor=clemsonorange,citecolor=black}
+
+\begin{document}
+
+\maketitle
+
+\blankline
+
+\begin{tabular*}{.93\textwidth}{@{\extracolsep{\fill}}lr}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Modify information %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+E-mail: \texttt{nvreugde@asu.edu} & Website: Canvas \\
+
+ Office Hours: Email for appointment&  Class Hours: Mon/Wed 1:30-2:45pm \\
+
+ Office: CPCOM 455G &  \\
+  %\hspace{11pt}*Use `ECN 453: [email reason]' in the subject. \\
+ %\hspace{11pt}**Use zoom meeting: \href{https://asu.zoom.us/j/6639396226}{663 939 6226}
+  & \\
+\hline
+\end{tabular*} \
+\\
+
+\bigskip
+\section*{Course Description}
+This course is the first of a two-course PhD sequence designed as an overview of modern empirical industrial organization. A core focus of the class is on empirical methods. While I will discuss traditional industrial organization applications to show you how to apply these methods  (e.g. merger policy), an emphasis of the course is applying these methods to interesting new applications in, for example, education, health, environmental economics, trade, and market design.
+
+This is an ideal course to take if you are an applied micro student interested in estimating a model in your research. It is also a great course to take if your research is more theory-oriented but you are interested in how you might apply your model to data. Similarly, the computational methods have strong connections to macroeconomics, especially when we discuss dynamics.
+
+\section*{Textbook}
+
+\begin{itemize}
+\item There is no textbook for this course. However, my lectures will draw heavily from the fourth edition of the `Handbook of Industrial Organization'. This edition is relatively new and so is extremely up-to-date with the latest research developments. The main chapters we will discuss (which you should be able to find online) are:
+\begin{itemize}
+	\item Chapter 1: Foundations of demand estimation
+	\item Chapter 2: Empirical models of demand and supply in differentiated products industries
+	\item Chapter 4: Dynamic games in empirical industrial organization
+\end{itemize}
+\item I also provide several key papers to read for each topic later in the syllabus.
+\end{itemize}
+
+% Third Section %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section*{Prerequisites/preparation}
+This is a second year PhD course. Therefore, you should have completed all the first year PhD course material.
+
+I suggest that you take the following steps early in the semester if you have not already (these could be helpful for completing the assignments and will be definitely be useful if you continue to use the methods discussed in the course):
+\begin{itemize}
+\item \underline{Computational resources}: apply for access to the ASU Sol computer system and familiarize yourself in how to use it (you could do this by attending a regularly scheduled tutorial by the ASU computing people). 
+\item \underline{Version control}: learn how to use Git, and sign up for Github.
+\item \underline{Programming language}: settle on a programming language to use in your work. The most common languages that IO people use are: Matlab, Python (with Numba to speed up the slow parts), R (with C++ to speed up the slow parts), Julia (this is a newer language and so you might need to pair it with, for instance, R, since there are not as many packages available). There are pros and cons to each language - I am happy to discuss more if you are deciding what to invest in (as would be others in the department).
+\end{itemize}
+
+\section*{Homework}
+There will be two homework assignments. You can work in groups of \textbf{up to two} on the homework assignments but please make sure you understand all the code. To both learn the methods and ensure your solutions are accurate, it may be best to code up the solutions individually and then check that you get the same results. 
+
+You can use whichever programming language you want to do the assignments. 
+
+\section*{Paper presentations}
+The final section of the course will be devoted to paper presentations. I will assign papers to present (subject to your input for preferences) early on in the course. The number of papers presented per person will depend on the final number of people enrolled in the class but will most likely be two per person. 
+
+\section*{Grading Policy}
+This is a second year PhD course. Therefore, this course will be useful in so far as it complements your future research. That said, your final grade will be determined as follows:
+\begin{itemize}
+	\item \underline{\textbf{50\%}} Two homework assignments
+	\item \underline{\textbf{40\%}} Half-hour paper presentations
+	\item \underline{\textbf{10\%}} Engagement in class discussion
+\end{itemize}
+
+\section*{Zoom Link}
+This is the zoom link: https://asu.zoom.us/j/6639396226  .
+
+I'd prefer for you to attend class in-person. Of course, if you can't make it to class due to Covid or other reasons email me so I can make sure Zoom is connected. I strongly encourage you to stay home if you are feeling unwell. 
+
+\newpage
+\section{Reading List}
+\normalsize
+
+\textbf{Note:} This schedule may be subject to change. Papers with * are key papers to read.\footnote{As an acknowledgement, the choice of papers and topics is inspired by the PhD IO sequence at Northwestern and Conlon's Grad IO course at NYU.} The acronym HIO4 stands for Handbook of Industrial Organization Volume 4.
+
+\subsection{Introduction and review}
+\subsubsection*{Review}
+\begin{itemize}
+	\item Econometrics II Lecture 11 (from Alvin Murphy's course)
+\end{itemize}
+\subsubsection*{Perspectives, terminology, history}
+\begin{itemize}
+	\item Haile ``Language, Confusion, and Models in Empirical Economics'' (2021) - I will post this .pdf on Canvas
+	\item Nevo and Whinston ``Taking the Dogma out of Econometrics: Structural Modeling and Credible Inference'' (JEP, 2010)
+	\item Einav and Levin ``Empirical Industrial Organization: A Progress Report'' (Journal of Economic Perspectives, 2010)
+\end{itemize}
+\subsection{Demand Estimation}
+\subsubsection*{Handbook Chapters}
+\begin{itemize}
+		\item HIO4 Chapter 1: Foundations of demand estimation
+		\item HIO4 Chapter 2: Empirical models of demand and supply in differentiated products industries
+\end{itemize}
+\subsubsection*{Methods}
+\begin{itemize}
+	\item Bresnahan ``Competition and Collusion in the American Automobile Industry: The 1955 Price War'' (Journal of Industrial Economics, 1987)
+	\item Berry, ``Estimating Discrete-Choice Models of Product Differentiation'' (Rand, 1994)
+	\item *Berry, Levinsohn, and Pakes``Automobile Prices in Market Equilibrium'' (Econometrica, 1995)
+	\item *Nevo``Measuring Market Power in the Read-to-Eat Cereal Industry'' (Econometrica, 2001)
+\end{itemize}
+\subsubsection*{Practical Considerations}
+\begin{itemize}
+	\item Nevo ``A Practitioner's Guide to Estimation of Random Coefficients Logit Models of Demand'' (Journal of Economics \& Management Strategy, 2000)
+	\item Conlon and Gortmaker ``Best Practices for Demand Estimation with pyBLP'' (Rand, 2020)
+\end{itemize}
+\subsubsection*{Extensions, valuing new goods, etc}
+\begin{itemize}
+		\item *Petrin``Quantifying the Benefits of New Products: The Case of the Minivan'' (Journal of Political Economy, 2002)
+		\item Gentzkow ``Valuing New Goods in a Model with Complementaries: Online Newspapers'' (American Economic Review, 2007)
+		\item Apple-Cinnamon Cheerios War
+		\begin{itemize}
+			\item Hausman ``Valuation of New Goods under Perfect and Imperfect Competition'' (1996)
+			\item Hausman``Reply to Bresnahan'' (1997)
+			\item Bresnahan ``Recomment'' (1997)
+		\end{itemize}
+	\item Miller and Weinberg ``Understanding the Price Effects of the Miller-Coors Joint Venture'' (Econometrica, 2017)
+	\item Agarwal ``An Empirical Model of the Medical Match'' (American Economic Review, 2015)
+	\item Corts, ``Conduct parameters and the measurement of market power.'' (JoE, 1999)
+	\item Hortacsu, Natan, Parsley, Schwieg, Williams``Demand Estimation with Infrequent Purchases and Small Market Sizes.'' (QE, 2023)
+	\item Gowrisankaran, Nevo, Town ``Mergers when prices are negotiated:
+Evidence from the hospital industry.'' (AER, 2015)
+\end{itemize}
+
+\subsection{Two Period Models of Entry and Exit; Market Structure}
+\subsubsection*{Entry}
+\begin{itemize}
+	\item *Bresnahan and Reiss ``Entry and Competition in Concentrated Markets'' (Journal of Political Economy, 1991)
+	\item Mazzeo ``Product Choice and Oligopoly Market Structure'' (Rand, 2002)
+	\item Seim ``An Empirical Model of Firm Entry with Endogenous Product-Type Choices'' (Rand, 2006)
+\end{itemize}
+\subsubsection*{Moment Inequalities and Bounds}
+\begin{itemize}
+	\item *Ciliberto and Tamer ``Market Structure and Multiple Equilibria in the Airline Market'' (Econometrica, 2009)
+	\item Wollmann ``Trucks without Bailouts: Equilibrium Product Characteristics for Commercial Vehicles'' (American Economic Review, 2018)
+\end{itemize}
+
+\subsection{Single Agent Dynamics}
+\subsubsection*{Handbook Chapter}	
+\begin{itemize}
+	\item HIO4 Chapter 4: Dynamic games in empirical industrial organization
+	\item Handbook of Econometrics Vol 5, Chp 51 ``Structural Estimation of Markov Decision Processes''
+\end{itemize}
+\subsubsection*{Methods}
+\begin{itemize}
+	\item *Rust ``An Empirical Model of Harold Zurcher'' (Econometrica, 1987)
+	\item Hotz and Miller ``Conditional Choice Probabilities and the Estimation of Dynamic Models'' (Restud, 1993)
+	\item Hotz, Miller, Sanders, and Smith ``A Simulation Estimator for Dynamic Models of Discrete Choice'' (Restud, 1994)
+	\item Aguirregabiria and Mira ``Swapping the Nested Fixed Point Algorithm'' (Econometrica, 2002)
+	\item Pesendorfer and Schmidt-Dengler ``Asymptotic Least Squares Estimators for Dynamic Games'' (Review of Economic Studies, 2007)
+\end{itemize}
+\subsubsection*{Identification}
+\begin{itemize}
+	\item *Magnac and Thesmar ``Identifying Dynamic Discrete Decision Processes'' (Econometrica, 2002)
+	\item Arcidiacono and Miller ``Identifying Dynamic Discrete Choice Models off Short Panels'' (Journal of Econometrics, 2020)
+	\item Kalouptsidi, Scott, and Souza-Rodrigues ``Identification of Counterfactuals in Dynamic Discrete Choice Models'' (2021, WP)
+	\item Kalouptsidi, Kitamura, and Lima ``Counterfactual Analysis for Structural Dynamic Discrete Choice Models'' (2021, WP)
+\end{itemize}
+\subsubsection*{Dynamic Demand}
+\begin{itemize}
+	\item *Hendel and Nevo ``Measuring the Implications of Sales and Consumer Behavior'' (Econometrica, 2006)
+	\item *Gowrisankaran and Rysman ``Dynamics of Consumer Demand for New Durable Goods'' (Journal of Political Economy, 2012)
+\end{itemize}
+\subsubsection*{Persistence and Heterogeneity}
+\begin{itemize}
+	\item Arcidiacono and Miller ``Nonstationary Dynamic Models with Finite Dependence'' (Quantitative Economics, 2019)
+	\item Arcidiacono and Miller ``Conditional Choice Probability Estimation of Dynamic Discrete Choice Models with Unobserved Heterogeneity'' (Econometrica, 2011)
+	\item Arcidiacono, Bayer, Blevins, and Ellickson ``Estimation of Dynamic Discrete Choice Models in Continuous Time with an Application to Retail Competition'' (Review of Economic Studies, 2016)
+	\item Nevo, Turner, and Williams ``Usage-based Pricing and Demand for Residential Broadband'' (Econometrica, 2016)
+	\item Fox, Kim, Ryan, and Bajari ``A Simple Estimator for the Distribution of Random Coefficients'' (Quantitative Economics, 2011)
+\end{itemize}
+
+\subsection{Dynamic Games/Oligopoly}
+\subsubsection*{Handbook Chapter}	
+\begin{itemize}
+	\item HIO4 Chapter 4: Dynamic games in empirical industrial organization
+\end{itemize}
+\subsubsection*{Methods}	
+\begin{itemize}
+	\item Ericson and Pakes ``Markov-Perfect Industry Dynamics: A Framework for Empirical Work'' (Review of Economic Studies, 1995)
+	\item *Bajari, Benkard, and Levin ``Estimating Dynamic Models of Imperfect Competition'' (Econometrica, 2007)
+	\item Weintraub, Benkard, and Roy ``Markov Perfect Industry Dynamics with Many Firms'' (Econometrica, 2008)
+	\item Ifrach and Weintraub ``A Framework for Dynamic Oligopoly in Concentrated Industries'' (Review of Economic Studies, 2017)
+\end{itemize}
+\subsubsection*{Applications}
+	\begin{itemize}
+		\item Collard-Wexler ``Demand Fluctuations in the Ready-Mix Concrete Industry'' (Econometrica, 2013)
+		\item *Ryan ``The Costs of Environmental Regulation in a Concentrated Industry'' (Econometrica, 2013)
+		\item Igami ``Estimating the Innovator's Dilemma: Structural Analysis of Creative Destruction in the Hard Disk Drive Industry 1981-1988'' (Journal of Political Economy, 2019)
+		\item *Kalouptsidi ``Time to Build and Fluctuations in Bulk Shipping'' (American Economic Review, 2014)
+	\end{itemize}
+\subsubsection*{Collusion and cartels}
+	\begin{itemize}
+	\item Porter ``A Study of Cartel Stability: The Joint Executive Committee, 1880-1886'' (Bell Journal of Economics, 1983)
+\end{itemize}
+
+\newpage
+\section*{Other policies}
+Several important W. P. Carey and ASU Policies for the course can we be found \href{https://docs.google.com/document/d/1o28FnvL6UJR6lYQ7U5V-aV6ise0jWuBDuQWQchv7URU/edit}{here}, including:
+\begin{itemize}
+	\item Honor Code and Professionalism Policy
+	\item Prohibition Against Discrimination, Harassment, and Retaliation  
+	\item Instructor Absence Policy
+	\item Religious Accommodations
+	\item University-Sanctioned Activities
+	\item Tutoring Support
+	\item Threatening Behavior Policy
+	\item Disability Accommodations
+	\item Offensive Material
+	\item Copyright Material
+\end{itemize}
+
+\end{document}

@@ -1,0 +1,517 @@
+\documentclass[notes,11pt, aspectratio=169]{beamer}
+
+\usepackage{pgfpages}
+% These slides also contain speaker notes. You can print just the slides,
+% just the notes, or both, depending on the setting below. Comment out the want
+% you want.
+\setbeameroption{hide notes} % Only slide
+%\setbeameroption{show only notes} % Only notes
+%\setbeameroption{show notes on second screen=right} % Both
+
+%\usepackage[scaled=1.0]{helvet}
+\usepackage{array}
+
+\usepackage{tikz}
+\usepackage{verbatim}
+\setbeamertemplate{note page}{\pagecolor{gray!5}\insertnote}
+\usetikzlibrary{positioning}
+\usetikzlibrary{snakes}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{matrix,shapes,arrows,fit,tikzmark}
+\usepackage{amsmath}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{multimedia}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{dcolumn}
+\usepackage{bbm}
+\newcolumntype{d}[0]{D{.}{.}{5}}
+
+\usepackage{changepage}
+\usepackage{appendixnumberbeamer}
+\newcommand{\beginbackup}{
+   \newcounter{framenumbervorappendix}
+   \setcounter{framenumbervorappendix}{\value{framenumber}}
+   \setbeamertemplate{footline}
+   {
+     \leavevmode%
+     \hline
+     box{%
+       \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{footlinecolor}%
+%         \insertframenumber  \hspace*{2ex} 
+       \end{beamercolorbox}}%
+     \vskip0pt%
+   }
+ }
+\newcommand{\backupend}{
+   \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumbervorappendix}} 
+}
+
+
+\usepackage{graphicx}
+\usepackage[space]{grffile}
+\usepackage{booktabs}
+
+% These are my colors -- there are many like them, but these ones are mine.
+\definecolor{blue}{RGB}{0,114,178}
+\definecolor{red}{RGB}{213,94,0}
+\definecolor{yellow}{RGB}{240,228,66}
+\definecolor{green}{RGB}{0,158,115}
+
+\hypersetup{
+  colorlinks=false,
+  linkbordercolor = {white},
+  linkcolor = {blue}
+}
+
+
+%% I use a beige off white for my background
+\definecolor{MyBackground}{RGB}{255,253,218}
+
+%% Uncomment this if you want to change the background color to something else
+%\setbeamercolor{background canvas}{bg=MyBackground}
+
+%% Change the bg color to adjust your transition slide background color!
+\newenvironment{transitionframe}{
+  \setbeamercolor{background canvas}{bg=white}
+  \begin{frame}}{
+    \end{frame}
+}
+
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=black}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{} 
+\setbeamertemplate{itemize items}{-}
+\setbeamercolor{itemize item}{fg=blue}
+\setbeamercolor{itemize subitem}{fg=blue}
+\setbeamercolor{enumerate item}{fg=blue}
+\setbeamercolor{enumerate subitem}{fg=blue}
+\setbeamercolor{button}{bg=MyBackground,fg=blue,}
+
+
+
+% If you like road maps, rather than having clutter at the top, have a roadmap show up at the end of each section 
+% (and after your introduction)
+% Uncomment this is if you want the roadmap!
+% \AtBeginSection[]
+% {
+%    \begin{frame}
+%        \frametitle{Roadmap of Talk}
+%        \tableofcontents[currentsection]
+%    \end{frame}
+% }
+\setbeamercolor{section in toc}{fg=blue}
+\setbeamercolor{subsection in toc}{fg=red}
+\setbeamersize{text margin left=1em,text margin right=1em} 
+
+\newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
+\newenvironment{wideenumerate}{\enumerate\addtolength{\itemsep}{10pt}}{\endenumerate}
+
+\usepackage{environ}
+\NewEnviron{videoframe}[1]{
+  \begin{frame}
+    \vspace{-8pt}
+    \begin{columns}[onlytextwidth, T] % align columns
+      \begin{column}{.58\textwidth}
+        \begin{minipage}[t][\textheight][t]
+          {\dimexpr\textwidth}
+          \vspace{8pt}
+          \hspace{4pt} {\Large \sc \textcolor{blue}{#1}}
+          \vspace{8pt}
+          
+          \BODY
+        \end{minipage}
+      \end{column}%
+      \hfill%
+      \begin{column}{.42\textwidth}
+        \colorbox{green!20}{\begin{minipage}[t][1.2\textheight][t]
+            {\dimexpr\textwidth}
+            Face goes here
+          \end{minipage}}
+      \end{column}%
+    \end{columns}
+  \end{frame}
+}
+
+\title[]{\textcolor{blue}{Entry and Exit 1 \\ PhD Industrial Organization}}
+\author[PGP]{}
+\institute[FRBNY]{\small{\begin{tabular}{c c c}
+Nicholas Vreugdenhil \\
+\end{tabular}}}
+\date{} 
+
+\begin{document}
+
+%%% TIKZ STUFF
+\tikzset{   
+        every picture/.style={remember picture,baseline},
+        every node/.style={anchor=base,align=center,outer sep=1.5pt},
+        every path/.style={thick},
+        }
+\newcommand\marktopleft[1]{%
+    \tikz[overlay,remember picture] 
+        \node (marker-#1-a) at (-.3em,.3em) {};%
+}
+\newcommand\markbottomright[2]{%
+    \tikz[overlay,remember picture] 
+        \node (marker-#1-b) at (0em,0em) {};%
+}
+\tikzstyle{every picture}+=[remember picture] 
+\tikzstyle{mybox} =[draw=black, very thick, rectangle, inner sep=10pt, inner ysep=20pt]
+\tikzstyle{fancytitle} =[draw=black,fill=red, text=white]
+%%%% END TIKZ STUFF
+
+% Title Slide
+\begin{frame}
+\maketitle
+  \centering
+\end{frame}
+
+\begin{frame}{Motivation}
+	\begin{wideitemize}
+		\item So far, we have studied models where the \textbf{market structure is fixed}.
+		\begin{wideitemize}
+			\item Market structure: number of firms, types of products, firm size etc
+			\item Example of what we have implicitly assumed so far: demand estimation took characteristics of products as fixed, supply side: profit maximization given product characteristics 
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Motivation}
+	\begin{wideitemize}
+		\item Now, we will take a step back and start to think about \textbf{endogenous market structure}.
+		\begin{wideitemize}
+			\item Fundamental IO question: why exactly does market structure vary across industries?
+			\item Clear implications for policy:
+			\item \underline{Example 1}: Effects of a merger
+			\item \underline{Example 2}: Increasing costs due to environmental regulation
+			\item \underline{Example 3}: Bailout of the truck manufacturing industry
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+
+\begin{frame}{Motivation}
+	\begin{wideitemize}
+		\item We will start by looking at some simple models of firm entry and exit.
+		\item Theoretical model as a starting point:
+		\item \textbf{Stage 1}: Potential entrants decide whether to enter
+		\item \textbf{Stage 2}: Firms compete given entry
+		\item Later on in the course we will study dynamic games which contain strategic interactions between firms, investment, entry, and exit, over time.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Motivation}
+	\begin{wideitemize}
+		\item \textbf{Today:} we will look at some earlier work attempting to estimate entry models.
+		\item As we will see, although these paper are creative, influential, and important, they often require some strong assumptions in order to take the model to data.
+		\item Next time we will see a new strand of literature that resolves a key assumption of these papers.
+		\begin{wideitemize}
+			\item Key assumption: uniqueness of equilibrium
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item Bresnahan and Reiss (1991)
+		\item Mazzeo (2002)
+		\item Seim (2006)
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item \textbf{Bresnahan and Reiss (1991)}
+		\item Mazzeo (2002)
+		\item Seim (2006)
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Bresnahan and Reiss (1991): Research Questions}
+	\begin{wideitemize}
+		\item 1. How do profits change with the number of firms?
+		\item 2. How many firms need to enter before an oligopoly market becomes competitive?
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Bresnahan and Reiss (1991): Data}
+	\begin{wideitemize}
+		\item Isolated markets $M$ (202 markets)
+		\begin{wideitemize}
+			\item Isolated since it is easier to define a `market' and `entry into a market'. I.e. these markets are independent in terms of demand, competition, etc.
+			\item Pre-internet, they got this data through the phonebook and also by driving (or maybe getting their RA to drive) around small towns in Western USA (!)
+		\end{wideitemize}
+		\item Look at retail/professional services e.g. doctors, dentists, plumbers
+		\item For each market $m$: observe active firms $n_m$, market size $s_m$, and some exogenous market characteristics that may affect demand/costs $x_m$
+	\end{wideitemize}
+\end{frame}
+
+
+\begin{frame}{Bresnahan and Reiss (1991): Model}
+	\begin{wideitemize}
+		\item Homogeneous firms. N potential entrants.
+		\item Equilibrium number of firms $n_m$ satisfies:
+		\begin{align*}
+			\Pi_m(n_m) \geq 0 \\
+			\Pi_m(n_m + 1) < 0 
+		\end{align*}
+		\item That is, each firm is playing a best respose to the other firms: all active firms stay in the market, all inactive firms stay out.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Bresnahan and Reiss (1991): Model}
+	\begin{wideitemize}
+		\item Parameterize profit as follows:
+		\begin{align*}
+			\Pi_m(n_m) = V_m(n) - F_m (n)
+		\end{align*}
+		\item Where $V_m(n)$ is variable profit:
+		\begin{align*}
+			V_m(n) = s_m v_m (n) = s_m (x_m^D \beta - \alpha (n))
+		\end{align*}
+		\item $s_m$: market size
+		\item $v_m(n)$: variable profit per-capita
+		\item $x_m^D$: vector of market characteristics that may affect demand (e.g. per-capita income)
+		\item $\beta$: parameter vector
+		\item $\alpha(n)$: parameter that captures degree of competition (strictly increasing in n).
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Bresnahan and Reiss (1991): Model}
+	\begin{wideitemize}
+		\item Here, $F_m(n)$ is fixed cost:
+		\begin{align*}
+			F_m (n) = x_m^C \gamma + \delta(n) + \epsilon_m
+		\end{align*}
+		\item $x_m^C$: vector of observable market characteristics that could affect fixed costs (e.g. rental price)
+		\item $\epsilon_m$: unobservable (to the econometrician) market characteristic
+		\item $\delta(1), ..., \delta(N)$: parameters (note: a bit odd that fixed cost depends on n) 
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Bresnahan and Reiss (1991): Model}
+	\begin{wideitemize}
+		\item Since $\alpha(n)$ and $\delta(n)$ increase with $n$, can show that profit decreases with $n$.
+		\item Can also show that the model has a unique equilibrium $n_m$ (given exogenous variables) due to strictly decreasing $\Pi_m(n)$.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Bresnahan and Reiss (1991): Estimation}
+	\begin{wideitemize}
+		\item Assume that unobserved component of entry costs $\epsilon_m$ is independent of market shares and market characteristics, and is distributed $N(0,\sigma)$. 
+		\begin{wideitemize}
+			\item Also, normalize scale $\sigma=1$.
+		\end{wideitemize}
+		\item Rearrange equilibrium number of firms condition (i.e $\Pi_m(n_m) \geq 0$ and $\Pi_m(n_m + 1) < 0$) in terms of thresholds for $\epsilon_m$:
+		\begin{align*}
+			T_m (n+1) < \epsilon_m \leq T_m (n)
+		\end{align*}
+			\item Where:
+		\begin{align*}
+			T_m(n) = s_m x_m^D \beta - x_m^C \gamma - \alpha(n) s_m - \delta(n)
+		\end{align*}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Bresnahan and Reiss (1991): Estimation}
+	\begin{wideitemize}
+		\item Estimate model using an \underline{ordered probit}:
+		\begin{align*}
+			Pr(n_m=n \vert s_m, x_m) = \Phi(T_m(n)) -  \Phi(T_m(n+1))
+		\end{align*}
+		\item Can estimate with maximum likelihood.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Bresnahan and Reiss (1991): Results}
+	\begin{wideitemize}
+			\item Get market size entry thresholds.
+			\begin{align*}
+				S(n)=\frac{x_m^C \gamma + \delta(n)}{x_m^D \beta - \alpha(n)}
+			\end{align*}
+			\item Note that these don't depend in the normalization $\sigma=1$.
+			\item These are the minimum market size to sustain $n$ firms in the market.
+			\item Compute entry threshold ratios e.g. $S_2/S_1 =\frac{S(2)}{2}/\frac{S(1)}{1}$
+			\begin{wideitemize}
+				\item E.g. as number of firms increases by 1, does market double (ratio $= 1$) or need to more than double (ratio $> 1$)?
+			\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Bresnahan and Reiss (1991)}
+	\begin{figure}
+		\includegraphics[scale=0.6]{entry_ratios.jpeg}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Bresnahan and Reiss (1991): Main Findings}
+	\begin{wideitemize}
+		\item Monopoly to duopoly (for most of the industries studied) requires more than double the market size
+		\begin{wideitemize}
+			\item Their data do not allow them to say why. 
+			\item One explanation: barriers to entry change with $N$ (cost story). 
+			\item Another explanation: markups change with $N$ (e.g. consistent with a Cournot model).
+		\end{wideitemize}
+		\item When number of firms $>4$: double market size implies double the number of firms. (Consistent with `contestable market hypothesis': if barriers to entry are low then market behaves in a competitive way.)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item Bresnahan and Reiss (1991)
+		\item \textbf{Mazzeo (2002)}
+		\item Seim (2006)
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Mazzeo (2002)}
+	\begin{columns}
+		\begin{column}{0.6\textwidth}
+			\begin{wideitemize}
+				\item \textbf{Question:}
+				\item What drives the product-type decisions of firms in oligopoly markets?
+				\item \textbf{Approach}
+				\item Similar assumptions in the model to Bresnahan and Reiss (1991)
+				\begin{wideitemize}
+					\item Complete information
+					\item No dynamics, no spatial differentiation
+				\end{wideitemize}
+				\item Endogenizes \textbf{firm product choice}
+				\item Data from the motel industry (use local markets along US highway exits)
+			\end{wideitemize}
+	\end{column}
+	\begin{column}{0.4\textwidth}
+		\includegraphics[scale=0.25]{exit.jpeg}
+	\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Mazzeo (2002): Model}
+\begin{wideitemize}
+	\item Different types of hotels (H: high-quality, E: economy hotel)
+	\item Hotels choose their type and also whether to enter
+	\item Profit of an active hotel of type $T \in \{E, H \}$ is:
+	\begin{align*}
+		\pi_T(n_E, n_H) = s V_T (x, n_E, n_H) - EC_T (x) - \epsilon_T
+	\end{align*}
+	\item Here, $n_E$ and $n_H$ represent the number of active hotels of low and high quality in the market.
+	\item $V_T$: variable profit (per-capita)
+	\item $EC_T (x) + \epsilon_T$: entry cost for type $T$ hotels (where $ \epsilon_T$ is unobservable to the researcher).
+\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Mazzeo (2002): Model}
+	\begin{wideitemize}
+		\item Paper uses alternative two solution concepts: 
+		\item 1. Stackelberg 
+		\begin{wideitemize}
+			\item Specifically, employs the \textbf{equilibrium selection rule} that firms enter sequentially with high-quality firms moving first
+		\end{wideitemize}
+		\item 2. A `two-stage game': firms choose whether to enter and their type
+		\begin{wideitemize}
+			\item We will now talk more about this alternative
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Mazzeo (2002): Model}
+	\begin{wideitemize}
+		\item In the \textbf{first-stage} the total number of active hotels $n=n_E+n_H$ is determined similarly to the Bresnahan-Reiss model.
+		\item That is, hotels continue to enter the market so long as there is some configuration $(n_E, n_H)$ where both low-quality and high-quality hotels make positive profits.
+		\begin{align*}
+			\Pi(n) = \max_{n_E, n_H: n_E + n_H=n} \min [\pi_E(n_E, n_H), \pi_H (n_E, n_H)]
+		\end{align*}
+		\item Then, the equilibrium number of hotels in the first-stage is $n^*$ where $\Pi(n^*) \geq 0$ and $\Pi(n^*+1) < 0$)
+		\item If $\pi_E$ and $\pi_H$ are strictly decreasing in the number of active firms then $\Pi(n)$ is also strictly decreasing $\rightarrow$ $n^*$ is \textbf{unique}.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Mazzeo (2002): Model}
+	\begin{wideitemize}
+		\item In the \textbf{second-stage} active hotels simultaneously choose their type or quality level.
+		\item Here, equilibrium is a pair $(n^*_E, n^*_H)$ such that every firm chooses the type that maximizes its profit given the choices of the other firms.
+		\begin{wideitemize}
+			\item So, low-quality firms are not better off switching to high-quality etc...
+		\end{wideitemize}
+		\begin{align*}
+			\pi_E(n_E^*, n_H^*) &\geq \pi_H (n^*_E-1, n^*_H+1) \\
+			\pi_H(n_E^*, n_H^*) &\geq \pi_E (n^*_E+1, n^*_E-1) 
+		\end{align*}
+		\item Mazzeo shows that the equilibrium pair given in the above equations is also unique.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Mazzeo (2002): Estimation}
+	\begin{wideitemize}
+		\item Using the equilibrium conditions, possible to obtain a closed-form expression for the region of unobservables $(\epsilon_E, \epsilon_H)$ that generate a particular value of $(n^*_E, n^*_H)$. 
+		\item Let $R_E (n_E, n_H;s,x)$ be the region associated with $n_E,n_H$ and $F$ be the CDF of the unobservable variables. Then:
+		\begin{align*}
+			Pr(n_E^*=n_E, n^*_H=n_H \vert s,x) = \int 1\{(\epsilon_E, \epsilon_H) \in R_E (n_E, n_H;s,x)\} dF(\epsilon_E, \epsilon_H)
+		\end{align*}
+		\item Can the process similarly to Bresnahan and Reiss (1991): parameterize the payoff function and estimate using observed number of firms in each market using maximum likelihood.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Mazzeo (2002): Results (not time to go into these in detail)}
+	\begin{wideitemize}
+		\item Overall, finds evidence that firms have strong incentives to offer different products to their competitors. 
+		\item Specifically,``the negative effect that a competitor has on firm payoffs is up to twice as large
+		if that competitor is the same product type''.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item Bresnahan and Reiss (1991)
+		\item Mazzeo (2002)
+		\item \textbf{Seim (2006)}
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Seim 2006}
+	\begin{wideitemize}
+		\item  \textbf{Question:} How important is spatial differentiation in explaining market power?
+		\item Example: think of two grocery stores located in a city.
+		\begin{wideitemize}
+			\item Differences in demand between locations
+			\item Positioning compared to competitors
+			\item Other factors like rent
+		\end{wideitemize}
+		\item Importantly: relaxes the `isolated market' assumption. 
+		\item Application: video-rental industry
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Seim 2006}
+	\begin{figure}
+		\includegraphics[scale=0.2]{city.jpeg}
+		\caption{New firm locates in position 7.}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Seim 2006: \underline{Very} Brief Overview}
+\begin{wideitemize}
+	\item $N$ potential entrants choose whether to enter a market. If enter they choose their location.
+	\item Challenges:
+	\begin{wideitemize}
+		\item Computation complexity (many choices and configurations of firms)
+		\item Multiple equilibria
+	\end{wideitemize}
+	\item Key assumption: rivals have (some) private information about profitability. Hence, when each firm enters, they do not know for sure where their rivals will enter.
+	\item Then, the choice to enter is made on the expected value of profits taken over the probability that other firms will enter other locations.
+	\item She shows in the paper this makes it easier to compute an equilibrium. Uniqueness is tricky (she has some simulations for simple cases). 
+
+\end{wideitemize}
+\end{frame}
+
+\end{document}
+

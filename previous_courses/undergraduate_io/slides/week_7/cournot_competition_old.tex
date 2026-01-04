@@ -1,0 +1,512 @@
+\documentclass[notes,11pt, aspectratio=169]{beamer}
+
+\usepackage{pgfpages}
+% These slides also contain speaker notes. You can print just the slides,
+% just the notes, or both, depending on the setting below. Comment out the want
+% you want.
+\setbeameroption{hide notes} % Only slide
+%\setbeameroption{show only notes} % Only notes
+%\setbeameroption{show notes on second screen=right} % Both
+
+%\usepackage[scaled=1.0]{helvet}
+\usepackage{array}
+
+
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{matrix}
+\usetikzlibrary{positioning}
+
+\newcommand{\payoff}[4][below]{\node[#1]at(#2){$(#3,#4)$};}
+\usepackage{verbatim}
+\setbeamertemplate{note page}{\pagecolor{gray!5}\insertnote}
+\usetikzlibrary{positioning}
+\usetikzlibrary{snakes}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{matrix,shapes,arrows,fit,tikzmark}
+\usepackage{amsmath}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{multimedia}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{dcolumn}
+\usepackage{bbm}
+\newcolumntype{d}[0]{D{.}{.}{5}}
+
+\usepackage{changepage}
+\usepackage{appendixnumberbeamer}
+\newcommand{\beginbackup}{
+   \newcounter{framenumbervorappendix}
+   \setcounter{framenumbervorappendix}{\value{framenumber}}
+   \setbeamertemplate{footline}
+   {
+     \leavevmode%
+     \hline
+     box{%
+       \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{footlinecolor}%
+%         \insertframenumber  \hspace*{2ex} 
+       \end{beamercolorbox}}%
+     \vskip0pt%
+   }
+ }
+\newcommand{\backupend}{
+   \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumbervorappendix}} 
+}
+
+
+\usepackage{graphicx}
+\usepackage[space]{grffile}
+\usepackage{booktabs}
+
+% These are my colors -- there are many like them, but these ones are mine.
+\definecolor{blue}{RGB}{0,114,178}
+\definecolor{red}{RGB}{213,94,0}
+\definecolor{yellow}{RGB}{240,228,66}
+\definecolor{green}{RGB}{0,158,115}
+
+\hypersetup{
+  colorlinks=false,
+  linkbordercolor = {white},
+  linkcolor = {blue}
+}
+
+\usepackage{graphicx,stackengine,xcolor}
+\newcommand\Circle[1]{%
+	\def\useanchorwidth{T}%
+	\def\stacktype{L}%
+	\stackon[0pt]{#1}{\scalebox{2.0}[1.15]{\textcolor{red}{$\bigcirc$}}}%
+}
+
+%% I use a beige off white for my background
+\definecolor{MyBackground}{RGB}{255,253,218}
+
+%% Uncomment this if you want to change the background color to something else
+%\setbeamercolor{background canvas}{bg=MyBackground}
+
+%% Change the bg color to adjust your transition slide background color!
+\newenvironment{transitionframe}{
+  \setbeamercolor{background canvas}{bg=white}
+  \begin{frame}}{
+    \end{frame}
+}
+
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=black}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{} 
+\setbeamertemplate{itemize items}{-}
+\setbeamercolor{itemize item}{fg=blue}
+\setbeamercolor{itemize subitem}{fg=blue}
+\setbeamercolor{enumerate item}{fg=blue}
+\setbeamercolor{enumerate subitem}{fg=blue}
+\setbeamercolor{button}{bg=MyBackground,fg=blue,}
+
+%%% TIKZ STUFF
+\tikzset{   
+	every picture/.style={remember picture,baseline},
+	every node/.style={anchor=base,align=center,outer sep=1.5pt},
+	every path/.style={thick},
+}
+\newcommand\marktopleft[1]{%
+	\tikz[overlay,remember picture] 
+	\node (marker-#1-a) at (-.3em,.3em) {};%
+}
+\newcommand\markbottomright[2]{%
+	\tikz[overlay,remember picture] 
+	\node (marker-#1-b) at (0em,0em) {};%
+}
+\tikzstyle{every picture}+=[remember picture] 
+\tikzstyle{mybox} =[draw=black, very thick, rectangle, inner sep=10pt, inner ysep=20pt]
+\tikzstyle{fancytitle} =[draw=black,fill=red, text=white]
+%%%% END TIKZ STUFF
+
+
+% If you like road maps, rather than having clutter at the top, have a roadmap show up at the end of each section 
+% (and after your introduction)
+% Uncomment this is if you want the roadmap!
+% \AtBeginSection[]
+% {
+%    \begin{frame}
+%        \frametitle{Roadmap of Talk}
+%        \tableofcontents[currentsection]
+%    \end{frame}
+% }
+\setbeamercolor{section in toc}{fg=blue}
+\setbeamercolor{subsection in toc}{fg=red}
+\setbeamersize{text margin left=1em,text margin right=1em} 
+
+\newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
+\newenvironment{wideenumerate}{\enumerate\addtolength{\itemsep}{10pt}}{\endenumerate}
+
+\usepackage{environ}
+\NewEnviron{videoframe}[1]{
+  \begin{frame}
+    \vspace{-8pt}
+    \begin{columns}[onlytextwidth, T] % align columns
+      \begin{column}{.58\textwidth}
+        \begin{minipage}[t][\textheight][t]
+          {\dimexpr\textwidth}
+          \vspace{8pt}
+          \hspace{4pt} {\Large \sc \textcolor{blue}{#1}}
+          \vspace{8pt}
+          
+          \BODY
+        \end{minipage}
+      \end{column}%
+      \hfill%
+      \begin{column}{.42\textwidth}
+        \colorbox{green!20}{\begin{minipage}[t][1.2\textheight][t]
+            {\dimexpr\textwidth}
+            Face goes here
+          \end{minipage}}
+      \end{column}%
+    \end{columns}
+  \end{frame}
+}
+
+\title[]{\textcolor{blue}{ECN 453: Cournot Competition}}
+\author[PGP]{}
+\institute[FRBNY]{\small{\begin{tabular}{c c c}
+Nicholas Vreugdenhil \\
+\end{tabular}}}
+\date{} 
+
+\begin{document}
+
+% Title Slide
+\begin{frame}
+\maketitle
+  \centering
+\end{frame}
+
+% INTRO
+
+\begin{frame}{Static Models of Oligopoly: Cournot Competition}
+\begin{wideitemize}
+	\item Last time we studied Bertrand competition (competition where firms choose \textbf{prices})
+	\item Today we will study Cournot competition (competition when firms choose \textbf{quantities})
+\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item Cournot competition: setup
+		\item Cournot competition: solution using a graph
+		\item Cournot competition: solution using math
+		\item Connection between Bertrand competition and Cournot competition
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item \textbf{Cournot competition: setup}
+		\item Cournot competition: solution using a graph
+		\item Cournot competition: solution using math
+		\item Connection between Bertrand competition and Cournot competition
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Cournot competition: setup}
+	\begin{wideitemize}
+		\item \textbf{Players}: Two firms (denote each by i where i = 1 or 2)
+		\item \textbf{Strategies}: Each firm chooses output level $q_1$, $q_2$
+		\begin{wideitemize}
+			\item Sell homogeneous (identical) products
+		\end{wideitemize}
+		\item \textbf{Payoffs:}  Each firm $i$'s payoff is profit: $\pi_i = q_i(P(q_1+q_2) - c)$
+		\begin{wideitemize}
+			\item Prices are determined by a demand curve $P(Q)$ where $Q=q_1+q_2$.
+			\item Marginal cost is $c$
+			\item Note: observe that the price that firm 1 gets $P(q_1+q_2)$ is not just dependent on how much firm 1 produces $q_1$, but also how much firm 2 produces $q_2$
+		\end{wideitemize}
+		\item Observe that the setup is the same as Bertrand \underline{except} that firms now choose quantities.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Cournot competition: solution overview}
+	\begin{wideitemize}
+		\item We will follow our `usual steps' to find the equilibrium in Cournot competition:
+	\end{wideitemize}
+	\begin{wideenumerate}
+		\vspace{11pt}
+		\item Find the best response of firm 1 to firm 2's choice (denote this $q_1^*(q_2)$)
+		\item Find the best response of firm 2 to firm 1's choice (denote this $q_2^*(q_1)$)
+		\item Find where the two best reponse curves cross: this is the Nash equilibrium
+	\end{wideenumerate}
+	\begin{wideitemize}
+		\vspace{11pt}
+		\item We will now see two equivalent ways of doing these three steps: a solution using a graph and a solution using math.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item Cournot competition: setup
+		\item \textbf{Cournot competition: solution using a graph}
+		\item Cournot competition: solution using math
+		\item Connection between Bertrand competition and Cournot competition
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Cournot competition: solution using a graph - preliminaries}
+	\begin{wideitemize}
+		\item Suppose that firm 2 is producing $q_2$. How can we find firm 1's best response $q_1^*(q_2)$?
+		\item Start by defining the \textbf{residual demand curve}.
+		\begin{wideitemize}
+			\item This is denoted $d_1(q_2)$: defined as all possible combinations of Firm 1's quantity and price for \textit{a given value of $q_2$}.
+			\item Idea: suppose that firm 2 produces $q_2$. The demand `left over' for firm 1 is the residual demand curve.
+			\item Example: residual demand curve at $q_2=0$ is $P(q_1+0)=P(q_1)$.
+		\end{wideitemize}
+		\item The residual demand curve has a \textbf{residual marginal revenue curve}: $r_1(q_2)$.
+		\item The optimal quantity is then found by applying the monopoly solution \textit{on the marginal revenue curve}: i.e. set $r_1(q_2)=MC$.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Cournot competition: solution using a graph - best responses}
+\begin{wideitemize}
+	\item Let's find the best responses of Firm 1 at two extremes. These two extremes will allow us to `trace out' the best response curve for Firm 1. (Graphical version of this slide is on the next slide.)
+	\item \underline{Case 1:} Firm 2 produces $q_2=0$. We can show $q_1^*(0)=q^M$
+	\begin{wideitemize}
+
+		\item If Firm 2 produces $q_2=0$ then the residual demand curve for Firm 1 is $P(0+q_2)=P(q_2)$.
+		\item So, Firm 1's demand curve is the entire market demand. Thus, this is equivalent to when Firm 1 is a monopolist and the optimal quantity is the monopoly quantity.
+	\end{wideitemize}
+	\item \underline{Case 2:} Firm 2 produces $q_2=q^c$ (the perfect competition quantity). We can show $q_1^*(q^c)=0$
+	\begin{wideitemize}
+		\item On the following slide I draw the residual demand curve $d_1(q^c)$ (along with some other points).
+		\item This residual demand curve intersects marginal cost at $q_1=0$; since the marginal revenue curve has the same vertical intercept it also intersects marginal cost at $q_1=0$. Hence $q_1=0$ is the optimal quantity.
+	\end{wideitemize}
+\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Cournot competition: solution using a graph - best responses}
+	\begin{figure}
+		\centering
+	\includegraphics[scale=0.52]{firm_1_optimum.pdf}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Cournot competition: solution using a graph - best responses and Nash equilibrium}
+	\begin{wideitemize}
+		\item On the next slide I plot all of Firm 1's best responses $q_1^*(q_2)$ by drawing a line between these two extreme cases.
+		\item By the same arguments for Firm 1, on the next slide I also trace out Firm 2's best responses  $q_2^*(q_1)$.
+		\item Finally, on the next slide, I plot the point where the curves cross: this is the Nash equilibrium (denoted ($\hat{q}_2$,$\hat{q}_1)$)
+\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Cournot competition: solution using a graph - Nash equilibrium}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.52]{best_responses.pdf}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Cournot competition: any initial solution converges to Nash equilibrium}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.38]{convergence.pdf}
+	\end{figure}
+\end{frame}
+
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item Cournot competition: setup
+		\item Cournot competition: solution using a graph
+		\item \textbf{Cournot competition: solution using math}
+		\item Connection between Bertrand competition and Cournot competition
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Warm up: maximizing profit with calculus for a monopolist}
+		\begin{wideitemize}
+			\item 1. Write down profit (profit=TR-TC)
+			\item 2. Take the derivative of profit with respect to $q$
+			\item 3. Set the derivative equal to 0
+			\item 4. Solve for $q$
+		\end{wideitemize}
+	\end{frame}
+	
+	\begin{frame}{Warm up: example from calculus.pdf}
+		\begin{wideitemize}
+			\item To remember how to use these steps, let's do the example from the calculus practice material.
+			\item \textbf{Question:} Suppose that demand is $q=10-2p$ and marginal cost is $2$.
+			\item 1. What is the firms profit?
+			\item 2. What level of output maximizes profit?
+		\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Cournot competition: solution using math}
+	\begin{wideitemize}
+		\item \textbf{Question:} Suppose that we have the Cournot competition setup. Assume that demand is $Q=10-2p$ where $Q=q_1+q_2$ and marginal cost is $2$.
+		\item 1. What is the profit of Firm 1 and Firm 2? 
+		\item 2. What are the best responses of Firm 1 and  Firm 2?
+		\item 3. What is the Nash equilibrium?
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Cournot competition: solution using math}
+	\begin{wideitemize}
+		\item \textbf{Solution:} 1. What is the profit of Firm 1 and Firm 2? 
+		\item \underline{Firm 1:}
+		\item $\pi_1 = q_1(P(q_1+q_2)-c))=q_1 (5-0.5(q_1+q_2) - 2)=q_1(3-0.5(q_1+q_2))$
+		\item \underline{Firm 1:}
+		\item $\pi_2 = q_2(P(q_1+q_2)-c))=q_2 (5-0.5(q_1+q_2) - 2)=q_2(3-0.5(q_1+q_2))$
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Cournot competition: solution using math}
+	\begin{wideitemize}
+		\item \textbf{Solution:} 2. What are the best responses of Firm 1 and  Firm 2?
+		\item Start with Firm 1 and follow the `maximizing profit' steps from before. 
+		\item Note that when maximizing profit for Firm 1, treat Firm 2's quantity choice $q_2$ \underline{as a constant}.
+		\item First, take the derivative:
+	\begin{align*}
+		\frac{d \pi_1}{d q_1} = 3 - q_1- 0.5q_2
+	\end{align*}
+		\item Set the derivative = 0 to maximize profit:
+	\begin{align*}
+		0 = 3 - q_1- 0.5q_2
+	\end{align*}
+		\item Rearrange for $q_1$: this is Firm 1's best response to $q_2$.
+		\begin{align*}
+		q_1^*(q_2)=3- 0.5q_2
+	\end{align*}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Cournot competition: solution using math}
+	\begin{wideitemize}
+		\item \textbf{Solution:} 2. What are the best responses of Firm 1 and  Firm 2?
+		\item Use exactly the same arguments to get Firm 2's best response:
+		\begin{align*}
+			q_2^*(q_1)=3- 0.5q_1
+		\end{align*}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Cournot competition: solution using math}
+	\begin{wideitemize}
+		\item \textbf{Solution:} 3. What is the Nash equilibrium?
+		\item We now have two equations (the best responses) and two unknowns (the Nash equilibrium quantities $q_1$, $q_2$)
+		\item Substitute Firm 2's best response equation into Firm 1's best response equation:
+		\begin{align*}
+			q_1=3- 0.5(3-0.5q_1)
+		\end{align*}
+		\item Rearranging for $q_1$ (and substituting this $q_1$ into Firm 2's best response to get $q_2$)
+		\begin{align*}
+			q_1&=2 \\
+			q_2&=2
+		\end{align*} 
+		\item So, $(q_1,q_2) = (2,2)$ is the Nash equilibrium.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Cournot competition: solution reprinted with more math sub-steps}
+	\begin{wideenumerate}
+		\item Find the best response of firm 1 to firm 2's choice (denote this $q_1^*(q_2)$)
+		\begin{wideenumerate}
+			\item Write down Firm 1's profit.
+			\item Take the derivative of Firm 1's profit with respect to $q_1$ and set this derivative = 0.
+			\item Rearrange for $q_1$
+		\end{wideenumerate}
+		\item Find the best response of firm 2 to firm 1's choice (denote this $q_2^*(q_1)$)
+		\begin{wideenumerate}
+			\item Write down Firm 2's profit.
+			\item Take the derivative of Firm 2's profit with respect to $q_2$ and set this derivative = 0.
+			\item Rearrange for $q_2$
+		\end{wideenumerate}
+		\item Find where the two best reponse curves cross: this is the Nash equilibrium
+		\begin{wideenumerate}
+			\item We have two equations (the two best response curves) and two unknowns (the Nash equilibrium $q_1$ and $q_2$). 
+			\item Solve these two equations for $q_1$ and $q_2$: this is the Nash equilibrium.
+		\end{wideenumerate}
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Cournot competition: general solution with two \underline{identical} firms; p196}
+	\begin{wideitemize}
+		\item \textbf{Setup:}
+		\item Two identical firms with (inverse) demand $P(Q)=a-bQ$ where $Q=q_1+q_2$ and $a,b$ are constants. Marginal cost = $c$. 
+		\item \textbf{Solution:}
+		\item Best responses:
+		\begin{align*}
+			q_1^*(q_2)= \frac{a-c}{2b} - \frac{q_2}{2} \\
+			q_2^*(q_1)= \frac{a-c}{2b} - \frac{q_1}{2} \\
+		\end{align*}
+		\item Nash equilibrium:
+		\begin{align*}
+			q_1=q_2=\frac{a-c}{3b} 
+		\end{align*}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item Cournot competition: setup
+		\item Cournot competition: solution using a graph
+		\item Cournot competition: solution using math
+		\item \textbf{Connection between Bertrand competition and Cournot competition}
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Cournot competition: Cournot vs Bertrand}
+	\begin{wideitemize}
+		\item How is Cournot competition related to Bertrand competition?
+		\item Remember the capacity constrained Bertrand competition from last week?
+		\begin{wideitemize}
+			\item Then, we argued that if capacity constraints were $q_1$ and $q_2$ then the price under Bertrand competition was $p_1=p_2=P(q_1+q_2)$.
+			\item (Note: before, we denoted the capacity constraints by $k_i$ but now I'm denoting them by $q_i$)
+		\end{wideitemize} 
+		\item So, the setup to Cournot competition is equivalent to the choice of capacity in the following two stage game:
+		\begin{wideenumerate}
+			\item Choose capacity constraints $q_1$ and $q_2$
+			\item Given these capacity constraints, compete under Bertrand competition
+		\end{wideenumerate}
+		\item The above relationship between Bertrand and Cournot competition is known as the \textbf{Kreps and Scheinkman (1983)} result.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Cournot competition: Cournot vs Bertrand}
+	\begin{wideitemize}
+		\item As economists, we choose which model best fits a particular industry.
+		\item \underline{General way to choose between Cournot vs Bertrand}:
+		\begin{wideitemize}
+			\item If capacity/output can be adjusted easily $\rightarrow$ Bertrand
+			\item If capacity/output are hard to adjust $\rightarrow$ Cournot
+		\end{wideitemize}
+		\item Markets more suited to modeling with Bertrand competition:
+		\begin{wideitemize}
+			\item Software, insurance, banking
+		\end{wideitemize}
+		\item Markets more suited to modeling with Cournot competition:
+		\begin{wideitemize}
+			\item Airlines
+			\item Many other industries that manufacture physical goods e.g. wheat, cement, steel, cars etc
+			\item Idea: capacity investments are long-run choices in these industries
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+
+\begin{frame}{Summary of key points*}
+	%\vspace{-20pt}
+	\begin{wideitemize}
+		\item Know the assumptions behind Cournot competition (quantity competition)
+		\item Know how to solve a Cournot model using a graph
+		\item \underline{Very important!} Know how to solve a Cournot model using math (including: take derivative of profit, get the best responses, get the Nash equilibrium etc)
+		\item Know the connection between Cournot and Bertrand competition and know how to choose between the two models to fit a particular industry.
+	\end{wideitemize}
+	\vspace{20pt}
+	*To clarify, all the material in the slides, problem sets, etc is assessable unless stated otherwise, but I hope this summary might be a useful place to start when studying the material.
+\end{frame}
+
+
+\end{document}

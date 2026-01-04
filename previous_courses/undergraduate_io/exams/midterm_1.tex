@@ -1,0 +1,222 @@
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\usepackage[left=1.0in,top=1.0in,right=1.0in,bottom=1.0in,headheight=3ex,headsep=3ex]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{adjustbox}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{matrix}
+\usetikzlibrary{positioning}
+
+\tikzset{   
+	every picture/.style={remember picture,baseline},
+	every node/.style={anchor=base,align=center,outer sep=1.5pt},
+	every path/.style={thick},
+}
+\newcommand\marktopleft[1]{%
+	\tikz[overlay,remember picture] 
+	\node (marker-#1-a) at (-.3em,.3em) {};%
+}
+\newcommand\markbottomright[2]{%
+	\tikz[overlay,remember picture] 
+	\node (marker-#1-b) at (0em,0em) {};%
+}
+\tikzstyle{every picture}+=[remember picture] 
+\tikzstyle{mybox} =[draw=black, very thick, rectangle, inner sep=10pt, inner ysep=20pt]
+\tikzstyle{fancytitle} =[draw=black,fill=red, text=white]
+
+
+\usepackage{graphicx,stackengine,xcolor}
+\newcommand\Circle[1]{%
+	\def\useanchorwidth{T}%
+	\def\stacktype{L}%
+	\stackon[0pt]{#1}{\scalebox{2.0}[1.15]{\textcolor{red}{$\bigcirc$}}}%
+}
+\newcommand{\blankline}{\quad\pagebreak[2]}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Modify Course title, instructor name, semester here %%%%%%%%
+
+\title{ECN 453: Mid-term Exam 1}
+%\date{Fall, 2021}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage[sc]{mathpazo}
+\linespread{1.3} % Palatino needs more leading (space between lines)
+\usepackage[T1]{fontenc}
+\usepackage[mmddyyyy]{datetime}% http://ctan.org/pkg/datetime
+\usepackage{advdate}% http://ctan.org/pkg/advdate
+%\newdateformat{syldate}{\twodigit{\THEMONTH}/\twodigit{\THEDAY}}
+\newsavebox{\MONDAY}\savebox{\MONDAY}{Mon}% Mon
+\newcommand{\week}[1]{%
+%  \cleardate{mydate}% Clear date
+% \newdate{mydate}{\the\day}{\the\month}{\the\year}% Store date
+  \paragraph*{\kern-2ex\quad #1, \syldate{\today} - \AdvanceDate[4]\syldate{\today}:}% Set heading  \quad #1
+%  \setbox1=\hbox{\shortdayofweekname{\getdateday{mydate}}{\getdatemonth{mydate}}{\getdateyear{mydate}}}%
+  \ifdim\wd1=\wd\MONDAY
+    \AdvanceDate[7]
+  \else
+    \AdvanceDate[7]
+  \fi%
+}
+\usepackage{setspace}
+\usepackage{multicol}
+%\usepackage{indentfirst}
+\usepackage{fancyhdr,lastpage}
+\usepackage{url}
+\pagestyle{fancy}
+\usepackage{hyperref}
+\usepackage{lastpage}
+\usepackage{amsmath}
+\usepackage{layout}
+%\renewcommand{\theenumi}{\alph{enumi}}
+
+
+\lhead{}
+\chead{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Modify header here %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\rhead{\footnotesize ECN 453: Mid-term Exam 1}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\lfoot{}
+\cfoot{\small \thepage/\pageref*{LastPage}}
+\rfoot{}
+
+\usepackage{array, xcolor}
+\usepackage{color,hyperref}
+\definecolor{clemsonorange}{HTML}{EA6A20}
+\hypersetup{colorlinks,breaklinks,linkcolor=clemsonorange,urlcolor=clemsonorange,anchorcolor=clemsonorange,citecolor=black}
+
+\date{} 
+
+\begin{document}
+\maketitle
+
+\paragraph{Instructions} Please neatly write your answers, if the work is too messy/hard to read it will not be graded. You have 60 minutes and may bring a calculator and notes on a two-sided cheat-sheet on letter-size paper. Good luck!
+
+\subsection*{1. Short answer questions (30 points)}
+Depending on the question, write either: a number; one of True, False, or Not Enough Information; a definition (i.e. a few words).
+\begin{enumerate}
+	\item (3 points) A monopolist faces a constant elasticity demand curve with elasticity -2 and has a constant marginal cost = 5. What is the optimal price?
+	\item Name two policy solutions to monopoly power:
+	\begin{enumerate}
+		\item (3 points) Solution 1:
+		\item (3 points) Solution 2:
+	\end{enumerate}
+	\item (3 points) True, False, or Not Enough Information: given two markets, a monopolist will always charge a higher \textit{price} in a market with more inelastic demand.
+	\item (3 points) True, False, or Not Enough Information: there is a unique Nash equilibrium in every simultaneous game.
+	\item (3 points) True, False, or Not Enough Information: there is no dead-weight-loss under perfect price discrimination.
+	\item (3 points) Suppose that a monopolist has the cost $C(q)= 10+5q^2$ and the perfect competition price and quantity is at $p_{pc} = 10, q_{pc} = 1$. What subsidy will the regulator need to provide the monopolist to ensure it does not shutdown under \textit{marginal cost pricing}?
+	\item (3 points) True, False, or Not Enough Information: consumers are always worse-off under price discrimination.
+	\item (3 points) True, False, or Not Enough Information: if there is a dominant strategy in a simultaneous game with two strategies and two players, then there is also a dominated strategy.
+	\item (3 points) True, False, or Not Enough Information: suppose that there are two strategies $A$ and $B$ in a simultaneous game, and two players. If player 1 has a best response to $B$ of $A$, then player 2 has a best response of $B$ to $A$ as well.
+\end{enumerate}
+\newpage
+\subsection*{2. Price discrimination by indicators (30 points)}
+Suppose you are the owner of a movie theater. Assume that the marginal cost of a seat is \$20. There are two types of customers: students (denoted `s') and non-students (denoted `ns'). You know if a customer is a student or non-student and so you could potentially use price discrimination with \textit{selection by indicators}. The demand for movie seats for each of these segments is:
+\begin{align*}
+	\text{Student: } &q_{s} = 50 - p_{s} \\
+	\text{Non-student: }& q_{ns} = 100 - p_{ns}
+\end{align*}
+\begin{enumerate}
+	\item Assume that you cannot distinguish between students and non-students, and so you can only set a single \textit{uniform price} for all consumers.
+	\begin{enumerate}
+		\item (4 points) What is the total demand for movie seats under uniform pricing?
+		\item (4 points) What is the marginal revenue for movie seats under uniform pricing?
+		\item (8 points) What is the optimal uniform price? (Hint: plot marginal revenue.)
+		\item (2 points) What is the consumer surplus under uniform pricing?
+		%\item (2 points) What is the profit under uniform pricing?
+	\end{enumerate}
+	\item Assume that you \underline{can} distinguish between students and non-students, and so you can do \textit{price discrimination by indicators}.
+	\begin{enumerate}
+		\item (4 points) What are the optimal prices for students and non-students?
+		\item (2 points) What is the consumer surplus?
+	\end{enumerate}
+	\item (6 points) Suppose that there are only (identical) students in the market, and that the interpretation of the demand curve for students is now \textit{how many} tickets each student demands. What is the optimal two-part-tariff for students?
+\end{enumerate}
+
+\newpage
+\subsection*{3. Pricing airline tickets (30 points)}
+Suppose you are the CEO of an airline and there are two segments of airline ticket consumers: business and tourists. \underline{Marginal cost = \$30 per seat.} 
+
+There are two types of tickets: standard and restricted, where a restricted ticket has limitations about when/where it can be used (and so we can think of it as a `damaged' good). The number of consumers and willingness-to-pay for each consumer is given in the following table:
+
+\begin{centering}
+	\begin{table}[h]
+		\centering
+		\begin{tabular}{|l|c|c|c|}
+			\hline
+			\textbf{Consumer type}&  \textbf{Number of consumers} & \multicolumn{2}{c}{\textbf{Willingness to pay (\$)}} \\
+			%\hline
+			& & Standard & Restricted  \\
+			\hline
+			Business & 10 & 180 & 80  \\
+			\hline
+			Tourist & 30  & 60 & 50  \\
+			\hline
+		\end{tabular}
+	\end{table}
+\end{centering}
+
+\begin{enumerate}
+	\item (5 points) What is the profit under perfect price discrimination?
+	\item Assume that you cannot distinguish between business and tourist consumers.
+	\begin{enumerate}
+		\item (5 points) If you can only offer the standard ticket, what is the optimal uniform price?
+		\item (5 points) Suppose that you charge $\$180$ for the standard ticket and $\$50$ for the restricted ticket. What is the airline's profit?
+		\item (5 points) Suppose that you charge $\$90$ for the restricted ticket. What is the optimal price for the standard ticket?
+		\item (10 points) Suppose that you charge $\$50$ for the restricted ticket. What is the optimal price for the standard ticket?
+	\end{enumerate}
+\end{enumerate}
+
+\newpage
+\subsection*{4. Game theory (30 points)}
+Consider the following game (where `x' stands for a number).
+
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+		\matrix[matrix of math nodes,every odd row/.style={align=right},every evenrow/.style={align=left},every node/.style={text width=1.5cm},row sep=0.2cm,column sep=0.2cm,ampersand replacement=\&] (m) {
+			50 \& 50 - x \\
+			0 \phantom{---------} \& 0 \phantom{--------} \\
+			20 \& -20\\
+			10 \phantom{--------} \& -20 \phantom{------}  \\
+		};
+		\draw (m.north east) rectangle (m.south west);
+		\draw (m.north) -- (m.south);
+		\draw (m.east) -- (m.west);
+		
+		% Player 1
+		\coordinate (c) at ($(m.north west)!0.25!(m.south west)$);
+		\coordinate (d) at ($(m.north west)!0.75!(m.south west)$);
+		\node[left=2pt of c,text width=1cm]  {T};
+		\node[left=2pt of d,text width=1cm]  {B};
+		
+		% Player 2
+		\coordinate (a) at ($(m.north west)!0.25!(m.north east)$);
+		\coordinate (b) at ($(m.north west)!0.75!(m.north east)$);
+		\node[above=5pt of a,anchor=base] {L};
+		\node[above=5pt of b,anchor=base] {R};
+		
+		\node[above=18pt of m.north] (firm b) {Player 2};
+		\node[left=1.6cm of m.west,rotate=90,align=center,anchor=center] {Player 1};
+		
+		%\node[above=5pt of firm b]  {Payoff Matrix};
+	\end{tikzpicture}
+\end{figure}
+
+\begin{enumerate}
+	\item (5 points) Assume that $x=0$. What are all the Nash equilibria?
+	\item (5 points) Provide a value of $x$ where (B,L) is the \textit{unique} Nash equilibrium?
+	\item (10 points) Assume that $x=0$ and that the players play (B,L) in the simultaneous game. How much would player 2 pay to commit to moving first? (Hint: it might be helpful to write out the sequential game.)
+	\item (10 points) Assume that player 2 moves first. Provide a value of $x$ to ensure that $(B,L)$ is the unique subgame-perfect equilibrium.
+\end{enumerate}
+
+\end{document}

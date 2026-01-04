@@ -1,0 +1,299 @@
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\usepackage[left=0.9in,top=0.9in,right=0.9in,bottom=0.9in,headheight=3ex,headsep=3ex]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{adjustbox}
+
+
+\newcommand{\blankline}{\quad\pagebreak[2]}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Modify Course title, instructor name, semester here %%%%%%%%
+
+\title{ECN 453: Homework 2}
+\author{\textbf{Due: Start of class Monday 25th October.} \\
+\textbf{You can work in groups of up to 3 people (hand in one solution per group).} }
+%\date{Fall, 2021}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage[sc]{mathpazo}
+\linespread{1.3} % Palatino needs more leading (space between lines)
+\usepackage[T1]{fontenc}
+\usepackage[mmddyyyy]{datetime}% http://ctan.org/pkg/datetime
+\usepackage{advdate}% http://ctan.org/pkg/advdate
+%\newdateformat{syldate}{\twodigit{\THEMONTH}/\twodigit{\THEDAY}}
+\newsavebox{\MONDAY}\savebox{\MONDAY}{Mon}% Mon
+\newcommand{\week}[1]{%
+%  \cleardate{mydate}% Clear date
+% \newdate{mydate}{\the\day}{\the\month}{\the\year}% Store date
+  \paragraph*{\kern-2ex\quad #1, \syldate{\today} - \AdvanceDate[4]\syldate{\today}:}% Set heading  \quad #1
+%  \setbox1=\hbox{\shortdayofweekname{\getdateday{mydate}}{\getdatemonth{mydate}}{\getdateyear{mydate}}}%
+  \ifdim\wd1=\wd\MONDAY
+    \AdvanceDate[7]
+  \else
+    \AdvanceDate[7]
+  \fi%
+}
+\usepackage{setspace}
+\usepackage{multicol}
+%\usepackage{indentfirst}
+\usepackage{fancyhdr,lastpage}
+\usepackage{url}
+\pagestyle{fancy}
+\usepackage{hyperref}
+\usepackage{lastpage}
+\usepackage{amsmath}
+\usepackage{layout}
+\renewcommand{\theenumi}{\alph{enumi}}
+
+
+\lhead{}
+\chead{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Modify header here %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\rhead{\footnotesize ECN 453: Homework 2}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\lfoot{}
+\cfoot{\small \thepage/\pageref*{LastPage}}
+\rfoot{}
+
+\usepackage{array, xcolor}
+\usepackage{color,hyperref}
+\definecolor{clemsonorange}{HTML}{EA6A20}
+\hypersetup{colorlinks,breaklinks,linkcolor=clemsonorange,urlcolor=clemsonorange,anchorcolor=clemsonorange,citecolor=black}
+
+\date{} 
+
+\begin{document}
+\maketitle
+
+
+
+\subsection*{1. Bertrand Competition (20 points)}
+
+Given:
+\begin{align*}
+	Q = 90 - 3p \\
+	p = min\{p_1,p_2\} \\
+	c_1 = 15 \\
+	c_2 = 10
+\end{align*}
+
+\begin{enumerate}
+	\item 
+	
+	Let's find monopoly price of firm 2 ($p^M_2$):
+	\begin{align*}
+		\pi_2 = (30-\frac{Q}{3}Q)-10Q \\
+		\frac{d\pi_2}{dQ} = 0 \implies \\
+		30 - \frac{2Q}{3}-10 = 0 \implies Q^M_2 = 30 \implies p^M_2 = 20 
+	\end{align*}
+	
+	So, we have a case of $p_1^M > p^M_2 > c_1 > c_2$
+	
+	Then NE will be such that: $p_1 = c_1$, $p_2 = c_1 - \epsilon \approx c_1$, where $c_1 = 15$
+	
+	Profits of Firm 1 = 0 as $q_1 = 0$
+	
+	Quantity of firm 2:
+	$q_2 = 90 - 3\times 15 = 45$
+	
+	Profts of firm 2:
+	$\pi_2 = (15-10)\times 45=225$
+		
+	
+	
+	
+	\item Let the firm with marginal cost of 20 be denoted as Firm 1, and the other two firms as Firm 2 and 3. Now we have the following case:
+	\begin{equation*}
+		p_1^M > \underbrace{p_2^M = p_3^M = c_1}_{20} > \underbrace{c_2=c_3}_{10} 
+	\end{equation*}
+	
+	In this case Firm 2 and 3 will drive down their price to their marginal cost, i.e. $p = 10$
+	
+	Why? Suppose not, such that $p_2 \in (10,20]$. Then firm 3 can set a price $p_3 - \epsilon$ such that Firm 3 captures the whole demand. Notice that at $p_2 = p_3 = 10$, both firms have no incentive to deviate.
+	
+	\item Price competition will not necessarily drive down prices to marginal costs.
+\end{enumerate}
+
+\subsection*{2. Cournot Competition With Increasing Marginal Costs (25 points)}
+
+Given:
+\begin{align*}
+\underbrace{Q}_{q_1+q_2} = 10-0.5p \implies \\
+p = 20-2(q_1+q_2) \\ 
+c(q_i) = 10 + q_i^2
+\end{align*}
+\begin{enumerate}
+	\item 
+	
+	\begin{align*}
+		\pi_1 = p(Q)q_1 -c(q_1) \implies \\
+		\pi_1 = (20-2q_1-2q_2)q_1 - 10 -q_1^2 \\
+		\frac{d \pi_1}{dq_1} = 0 \implies \\
+		20 - 4q_1 - 2q_2 - 2q_1 = 0 \implies \\
+		q_1(q_2) = \frac{10 - q_2}{3}
+	\end{align*}
+	
+	By symmetry:
+	\begin{align*}
+q_2(q_1) = \frac{10 - q_1}{3}
+	\end{align*}
+	
+	In equilibrium, $q_1 = q_2$, so:
+	\begin{align*}
+	q_1 = \frac{10 - q_1}{3} \implies\\
+	q_1 = 2.5 = q_2 \implies\\
+	p = 20 - 2(5) = 10 \implies \\
+	\pi_i = 10\times 2.5 - 10 - 2.5^2 = 8.75
+	\end{align*}
+	
+	
+	
+	\item 
+	Now:
+	\begin{align*}
+		\underbrace{Q}_{q_1+q_2+q_3} = 10 - 0.5p \implies\\
+		p = 20-2(q_1+q_2+q_3) \\
+		c(q_1) = c(q_2) = 10 + q_i^2 \\
+		c(q_3) = 10+2q_3^2
+	\end{align*}
+	Solving for Firm 1 (Analogous for Firm 2):
+	\begin{align*}
+		\pi_1 = (20-2q_1 - 2q_2 - 2q_3)q_1 - 10 - q_1^2 \\
+		\frac{d\pi_1}{dq_1} = 0 \implies \\
+		6q_1(q_2,q_3) = 20-2q_2 - 2q_3
+	\end{align*}
+	By symmetry:
+	\begin{align*}
+		6q_2(q_1,q_3) = 20-2q_1 - 2q_3
+	\end{align*}
+	Solving for Firm 3:
+	\begin{align*}
+	\pi_3 = (20-2q_1 - 2q_2 - 2q_3)q_3 - 10 - 2q_3^2 \\
+	\frac{d\pi_3}{dq_3} = 0 \implies \\
+	8q_3(q_1,q_2) = 20-2q_1 - 2q_2
+	\end{align*}
+	Since the problems of Firm 1 and 2 are identical, we can substitute $q_1 = q_2$ for the $q_1(q_2,q_3)$ equation:
+	\begin{align*}
+		6q_1 = 20 - 2q_1 - 2q_3 \implies \\
+		q_1 = 2.5 - 0.25q_3 \implies \\
+		q_2 = 2.5 - 0.25q_3
+	\end{align*}
+	Plugging $q_1 = q_2$ into the $q_3(q_1,q_2)$ equation:
+	\begin{align*}
+		8q_3 = 20 - 4q_1 \implies\\
+		q_3 = 2.5 - 0.5q_1
+	\end{align*}
+	Plugging this into $q_1$:
+	\begin{align*}
+		q_1 = q_2=2.1428 \\
+		q_3=1.429
+	\end{align*}
+	
+\end{enumerate}
+
+\subsection*{3. Cournot Competition With Asymmetric Marginal Costs (30 points)}
+
+Given:
+
+\begin{align*}
+\underbrace{Q}_{q_1 + q_2} = 450 - 2p \implies \\
+p = 225 - \frac{(q_1 + q_2)}{2} \\
+c_1 = 50 \\
+c_2 = 40
+\end{align*}
+
+\begin{enumerate}
+	\item 
+	
+	In order to find the best responses, we can equate MR = MC for both firms:
+	
+	\begin{align*}
+		MR_i(q_i) = 225 - q_i - \frac{q_{-i}}{2} \implies \\
+		q_1(q_2) = 175 - \frac{q_2}{2} \\
+		q_2(q_1) = 185 - \frac{q_1}{2}
+	\end{align*}
+	
+	
+			
+	\begin{figure}[!htb] 
+		\centering
+		\includegraphics[width=\textwidth]{hw2f1.png}		
+	\end{figure}
+
+\pagebreak 
+	
+	
+	\item Equate the two best response functions ($q_1(q_2)$ and $q_2(q_1)$) to find equilibrium quantities of 110 and 130 for Firm 1 and 2 respectively
+	\item Refer to dashed lines in the graph above. Formed by adjusting the MR = MC condition for Firm 1 with the new marginal cost. 
+	\item Firm 1's best response (after accounting for technological innovation):
+	
+	\begin{align*}
+		q_1(q_2) = 181 - \frac{q_2}{2}
+	\end{align*}
+	Firm 2's best response (same as old one):
+		\begin{align*}
+	q_2(q_1) = 185 - \frac{q_1}{2}
+	\end{align*}
+	
+	By equation the two best responses, we get equilibrium quantities of:
+	\begin{align*}
+		q_1 = 118 \\
+		q_2 = 126 \\
+		p = 225 - \frac{118 + 126}{2} = 103
+	\end{align*}
+	
+	Therefore, Firm 1's profits (under new tech):
+	\begin{align*}
+		\pi_1^{new} = (p-c_1)\times q_1 = (103-44)118 = 6962 
+	\end{align*}
+	
+	Firm 1's profits (under old tech):
+	\begin{align*}
+	\pi_1^{old} = (p-c_1)\times q_1 = (105-50)110 = 6050 
+	\end{align*}
+	where $p = 225 - \frac{110+130}{2} = 105$
+\end{enumerate}
+
+Therefore, Firm 1 would be willing to pay up to $\pi_1^{new} - \pi_1^{old} = 912$
+
+\subsection*{4. Stackelberg Competition (25 points)}
+
+Given:
+\begin{align*}
+	p = 100 - 4 \underbrace{Q}_{q_1 + q_2} \\
+	c_1 = c_2 = 20
+\end{align*}
+
+\begin{enumerate}
+	\item Solve problem backwards. Firm 2 solves problem taking Firm 1's output as given:
+	
+	\begin{align*}
+		\pi_2 = (100 - 4q_1 - 4q_2)q_2 - 20q_2 \\
+		\frac{d\pi_2}{dq_2} = 0 \implies \\
+		100 - 4q_1 - 8q_2 - 20 = 0 \implies \\
+		4q_2(q_1) = 40 - 2q_1
+	\end{align*}
+	
+	Now let's look at Firm 1's problem. Firm 1 now solves the problem taking Firm 2's best response into account:
+	
+	\begin{align*}
+\pi_1 = (100 - 4q_1 - 4q_2(q_1))q_1 - 20q_1 \\
+\pi_1 = (60-2q_1)q_1 - 20q_1 \\
+\frac{d\pi_1}{dq_1} = 0 \implies \\
+60 - 4q_1 - 20 = 0 \implies \\
+q_1 = 10 \implies q_2(q_1) = 5 
+\end{align*}
+	
+\end{enumerate}
+
+
+\end{document}

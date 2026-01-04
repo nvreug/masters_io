@@ -1,0 +1,123 @@
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[addpoints]{exam}
+\usepackage{fullpage}
+\usepackage[left=1.0in,top=1.0in,right=1.0in,bottom=1.0in,headheight=3ex,headsep=3ex]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{adjustbox}
+\usepackage{comment}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{matrix}
+\usetikzlibrary{positioning}
+\usepackage{amsmath}
+
+\tikzset{   
+	every picture/.style={remember picture,baseline},
+	every node/.style={anchor=base,align=center,outer sep=1.5pt},
+	every path/.style={thick},
+}
+\newcommand\marktopleft[1]{%
+	\tikz[overlay,remember picture] 
+	\node (marker-#1-a) at (-.3em,.3em) {};%
+}
+\newcommand\markbottomright[2]{%
+	\tikz[overlay,remember picture] 
+	\node (marker-#1-b) at (0em,0em) {};%
+}
+\tikzstyle{every picture}+=[remember picture] 
+\tikzstyle{mybox} =[draw=black, very thick, rectangle, inner sep=10pt, inner ysep=20pt]
+\tikzstyle{fancytitle} =[draw=black,fill=red, text=white]
+
+
+\usepackage{graphicx,stackengine,xcolor}
+\newcommand\Circle[1]{%
+	\def\useanchorwidth{T}%
+	\def\stacktype{L}%
+	\stackon[0pt]{#1}{\scalebox{2.0}[1.15]{\textcolor{red}{$\bigcirc$}}}%
+}
+\newcommand{\blankline}{\quad\pagebreak[2]}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Modify Course title, instructor name, semester here %%%%%%%%
+
+\title{ECN 453: Static Oligopoly Practice Problems}
+% Modify header here %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\rhead{\footnotesize ECN 453: Mid-term Exam 1: Practice}
+
+\date{} 
+
+\begin{document}
+	\maketitle
+
+\section*{Question 1\footnote{Question based on Pepall-Richards-Norman (2014)}}
+	Suppose that total demand is given by $P=100-Q$ where $Q=q_1+q_2$ and there are two firms  Firm 1 has a constant marginal cost equal to 20 and Firm 2 has a constant marginal cost equal to $10$.
+\begin{enumerate}
+	\item What is the Bertrand equilibrium?
+	\item What is the Cournot equilbrium?
+	\item What is the Stackelberg equilibrium if Firm 1 moves first and Firm 2 moves second?
+	\begin{comment}
+	\item In the Stackelberg equilibrium, what value would $c$ have to be so that in equilibrium the two firms have the same market share?
+	\end{comment}
+\end{enumerate}
+
+\section*{Question 2\footnote{Question based on Pepall-Richards-Norman (2014)}}
+In Tuftsville, everyone lives along Main Street, which is 10 miles long. There are 1000 people uniformly spread up and down Main Street, and every day the each buy a fruit smoothie from one of the two stores located at either end of Main Street. 
+
+Store 1 is located at the west end and Store 2 is located at the east end. Customers ride their scooters to and from the store using \$0.50 worth of gas per mile. Consumers buy smoothies from the store with the lowest price plus travel expenses.
+\begin{enumerate}
+	\item What is the demand for smoothies for each store if Store 1 charges the price $p_1$ and Store 2 charges the price $p_2$?
+	\item Assume that marginal cost is constant and equal to $\$1$. Find the equilibrium prices.
+	\begin{comment}
+	\item Suppose that Store 3 enters halfway along Main street and that Store 1 and Store 2 do not change their prices. What is the optimal price for Store 3?
+	\end{comment}
+\end{enumerate}
+
+\begin{comment}
+\section*{Question 3\footnote{Based on 8.12 from Cabral textbook}}
+Suppose there are two producers of wolframium in the world. Wolframium is a homogenous product. The two producers compete on quantities (Cournot competition) and have constant marginal costs of \$900 per tonne. One producer is in the US, another in Mexico. Demand for wolframium is found exclusively in the US. It is estimated that, at $p=\$1000$, world demand for Wolframium is 130000 metric tons per year, and demand elasticity is $\epsilon=-0.5$.
+\begin{enumerate}
+	\item Suppose the US government imposes an import tax of 20\% on wolframium imports. What are equilibrium price and profits?
+	\item Suppose a third producer enters the industry. It is located in China and has a marginal cost of \$600 per metric ton. What impact does this have on equilibrium price and profits?
+\end{enumerate}
+\end{comment}
+
+\section*{Question 3}
+ Suppose that consumers are distributed uniformly between $0$ and $1$. Firm 1 is located at $0$ and Firm 2 is located at $0.75$. Marginal costs are equal for both firms and equal to $c$. Constant transport costs equal to $0.5d$ where $d$ is distance. Firms choose prices and compete under Hotelling competition.
+	\begin{enumerate}
+		\item Find the demand for each firm
+		\item Find the best responses
+		\item Find the Nash equilibrium prices
+	\end{enumerate}
+
+\section*{Question 4}
+Suppose that there are two firms that compute on quantities. Firm 1 is the incumbent and moves first and Firm 2 is a potential entrant and moves second (so this is a Stackelberg oligopoly). Market demand is given by $P=40-Q$. The marginal cost is $c=10$.
+\begin{enumerate}
+	\item What is the optimal price that Firm 1 should charge if it is a monopolist? 
+	\item What is Firm 1's profit if Firm 2 enters?
+	\item Suppose that Firm 2 must pay an entry cost of \$100 to enter. What value of $q_1$ deters Firm 2's entry?
+	\item Should the incumbent firm deter entry?
+\end{enumerate}
+
+\begin{comment}
+\section*{Question 4}
+Suppose that there are two supermarkets located exactly one mile away from each other. Between the two supermarkets live 500 people uniformly spread apart. Each person has a transport cost of going to the supermarket of $2 d$ where $d$ is the distance between the person's address and the supermarket.
+\begin{enumerate}
+	\item What are the payoffs to choosing each store for each consumer?
+	\item What is the demand for each supermarket given they set prices denoted $p_1$ and $p_2$?
+	\item What are the best response functions?
+	\item What are the equilibrium profits both firms charge?
+	\item Suppose these firms were forced to charge the prices above, but could now choose their locations. Would the firms want to relocate? Explain your answer.
+\end{enumerate}
+
+\section*{Question 5\footnote{Based on 8.10 from the Cabral textbook.}}
+In the ethanol industry, each firm chooses what output to produce and price is determined by aggregate output. Market demand is given by $Q=1500-2p$, where Q is millions/tons and $p$ is in \$/ton. There are two producers and their marginal costs are constant and given by $c_1=340, c_2=420$ (in \$/ton). 
+\begin{enumerate}
+	\item Determine equilibrium price, output, and market shares.
+	\item Firm 2 is considering a public opinion campaign that would cost \$1.14 billion and shift demand curve to $Q=1520-2p$. Is this investment worthwhile?
+	\item Firm 2 is considering a capital investment of \$4.9 billion that would reduce marginal cost $c_2$ to 400
+	\$/ton. Is this investment worthwhile?
+\end{enumerate}
+\end{comment}
+
+\end{document}

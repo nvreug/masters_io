@@ -1,0 +1,170 @@
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[addpoints]{exam}
+\usepackage{fullpage}
+\usepackage[left=1.0in,top=1.0in,right=1.0in,bottom=1.0in,headheight=3ex,headsep=3ex]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{adjustbox}
+\usepackage{comment}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{matrix}
+\usetikzlibrary{positioning}
+\usepackage{amsmath}
+
+\tikzset{   
+	every picture/.style={remember picture,baseline},
+	every node/.style={anchor=base,align=center,outer sep=1.5pt},
+	every path/.style={thick},
+}
+\newcommand\marktopleft[1]{%
+	\tikz[overlay,remember picture] 
+	\node (marker-#1-a) at (-.3em,.3em) {};%
+}
+\newcommand\markbottomright[2]{%
+	\tikz[overlay,remember picture] 
+	\node (marker-#1-b) at (0em,0em) {};%
+}
+\tikzstyle{every picture}+=[remember picture] 
+\tikzstyle{mybox} =[draw=black, very thick, rectangle, inner sep=10pt, inner ysep=20pt]
+\tikzstyle{fancytitle} =[draw=black,fill=red, text=white]
+
+
+\usepackage{graphicx,stackengine,xcolor}
+\newcommand\Circle[1]{%
+	\def\useanchorwidth{T}%
+	\def\stacktype{L}%
+	\stackon[0pt]{#1}{\scalebox{2.0}[1.15]{\textcolor{red}{$\bigcirc$}}}%
+}
+\newcommand{\blankline}{\quad\pagebreak[2]}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Modify Course title, instructor name, semester here %%%%%%%%
+
+\title{ECN 453: Mid-term Exam 2}
+% Modify header here %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\rhead{\footnotesize ECN 453: Mid-term Exam 2}
+
+\date{} 
+
+\begin{document}
+	\maketitle
+	\begin{center}
+		\fbox{\fbox{\parbox{6in}{\centering\
+					\textbf{Instructions}:
+					\begin{itemize}
+					\item You have \textbf{70 minutes}
+					\item Please write your final answer in the underlined section provided. 
+					\item You may bring a calculator and notes on a two-sided cheat-sheet on letter-size paper. 
+					\item Please be neat. If your work is too messy it will not be graded.
+					\item Be sure to show your working.
+					\item This is a long exam, so there are lots of ways to get points. If you get stuck, move on!
+					\item Good luck!
+					\end{itemize}	
+			}}}
+	\end{center}
+	
+	\vspace{5mm}
+	\makebox[0.75\textwidth]{Name: \enspace\hrulefill}
+	\vspace{50pt}
+	\begin{center}
+		\gradetable[h][questions]
+	\end{center}
+	
+	\newpage
+	
+\begin{questions}
+	\subsection*{Short Answer Questions (30 points)}
+	\vspace{11pt}
+	\question Depending on the question, write either: 
+	\begin{itemize}
+		\item a number 
+		\item one of: True, False, or NEI (Not Enough Information)
+		\item a definition (i.e. one or a few words)
+	\end{itemize}
+	\vspace{11pt}
+	\begin{parts}
+		\part[3] True, False, or Not Enough Information: The entry deterrence model discussed in class predicts that the incumbent's capacity choice increases and then decreases as the entry cost increases.
+		
+		\answerline[answer]
+		
+		\part[3] Consider a two-firm Bertrand model where each firm has the same (constant) marginal cost (=\$10) and the monopoly price = \$200. If Firm 1 plays $p_1=\$50$, what is Firm 2's best response?
+		
+		\answerline[answer]
+		
+		\part[3] Consider a two-firm Bertrand model where each firm has the same (constant) marginal cost (=\$10) and the monopoly price = \$200. If Firm 1 plays $p_1=\$250$, what is Firm 2's best response?
+		
+		\answerline[answer]
+		
+		\part[3] True, False, or Not Enough Information: Consider the Cournot duopoly model with linear demand and constant marginal costs where a new technology shock decreases the marginal cost of Firm 1. Then, on the best-response diagram, Firm 1's best response curve shifts outwards.
+		
+		\answerline[answer]
+		
+		\part[3] Consider the Cournot model with $n$ identical firms, constant marginal cost, and linear demand. As the number of firm $n \rightarrow \infty$, what value does the price converge to?
+		\answerline[answer]
+		
+		\part[3] In the cement industry, firms make a capacity choice (for example, they choose how much machinery to invest in) and then compete on price. Which form of competition  - out of the ones discussed in class - would be best suited to modeling this market?
+		
+		\answerline[answer]
+		
+		\part[3] Suppose there are 100 firms competing under Bertrand competition with demand curve $Q=500-p$. Of these firms, 99 have a marginal cost of \$200 and one has a marginal cost of \$90. What is the equilibrium price?
+		
+		\answerline[answer]
+		
+		\part[3] Name one solution to the `Bertrand Trap'.
+		
+		\answerline[answer]
+		
+		%\part[3] True, False, or Not Enough Information: If firms have the same constant marginal cost, the `follower' firm in Stackelberg competition makes a higher profit than the `leader' firm.
+		\part[3] The Hotelling model with transport costs equal to zero (t=0) is equivalent to which form of competition?
+		
+		\answerline[answer]
+		
+		\part[3] Suppose two firms are capacity constrained with capacities $k_1=k_2=20$, and total demand is $Q=200-p$. What is the equilibrium total quantity under Bertrand competition?
+		
+		\answerline[answer]
+		
+
+	\end{parts}
+	
+	\subsection*{2. Cournot Competition (30 points)}
+	\question Suppose that total demand in the market for cement is $p=100-3Q$. Firm 1 and Firm 2 are identical with constant marginal cost = 40. The firms compete on quantities (Cournot competition).
+	\begin{parts}
+		\part[15] If Firm 1 chooses $q_1=2$, what is Firm 2's best response?
+		\vspace{250pt}
+		\answerline[answer]
+		\part[15] Determine the equilibrium quantity choices in the Cournot equilibrium.
+		\vspace{250pt}
+		\answerline[answer]
+		%\part[15] Draw the best response curves for Firm 1 and Firm 2 (on the same graph as Part (a)) if there is a input cost shock that increases marginal costs of both firms by \$10.
+		%\part[10] What is the equilibrium production choice of Firm 1 if there are two additional firms who enter (Firm 3 and Firm 4) who have identical marginal costs to Firm 1 (i.e. marginal cost = \$40)?
+	\end{parts}
+
+	\subsection*{3. Stackelberg Competition (30 points)}
+	\question There are two firms in a market with total demand $p=200-2Q$. Firm 1 moves first and Firm 2 moves second. Firm 1's total cost is $C(q_1)=3q_1^2$.  Firm 2's total cost is $C(q_2)=0$. 
+	\vspace{11pt}
+\begin{parts}
+	\part[30] Suppose that the firms compete in a Stackelberg equilibrium. What is the equilibrium quantity for \underline{Firm 1}?
+	\vspace{500pt}
+	\answerline[answer]
+	%\part[15] Suppose now that Firm 2 (the potential entrant) now chooses whether to enter after Firm 1 makes its production decision. If Firm 2 enters then it pays an entry cost $E=16$. Which values of $q_1$ deter Firm 2's entry?
+\end{parts}
+
+	\subsection*{4. Hotelling Model (30 points)}
+\question Suppose 100 consumers are uniformly distributed on a 1 mile stretch of road. There are two supermarkets on the road: Supermarket 1 is located at the west end of the road (at location = 0), and Supermarket 2 is part way along the road (at location = 0.8). Transport costs for consumers are \$0.50 per mile. The supermarkets' marginal costs are 0. The supermarkets compete on prices: denote Supermarket 1's price $p_1$ and Supermarket 2's price $p_2$.
+\begin{parts}
+	\part[15] What is the demand for each supermarket?\footnote{When computing consumer choices, only consider the transport costs to get to the supermarket, don't worry about the return journey.}
+	\vspace{500pt}
+	\answerline[answer]
+	\newpage
+	\part[10] If Firm 2 chooses a price $p_2=0.1$, what is Firm 1's best response $p_1$?
+	\vspace{400pt}
+	\answerline[answer]
+	\part[5] In \underline{one sentence} explain: if prices are fixed and the supermarkets could relocate, would you expect the supermarkets to move location or to remain in their current locations?
+\end{parts}
+
+
+\end{questions}
+
+
+\end{document}

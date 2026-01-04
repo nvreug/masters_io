@@ -1,0 +1,579 @@
+\documentclass[notes,11pt, aspectratio=169]{beamer}
+
+\usepackage{pgfpages}
+% These slides also contain speaker notes. You can print just the slides,
+% just the notes, or both, depending on the setting below. Comment out the want
+% you want.
+\setbeameroption{hide notes} % Only slide
+%\setbeameroption{show only notes} % Only notes
+%\setbeameroption{show notes on second screen=right} % Both
+
+%\usepackage[scaled=1.0]{helvet}
+\usepackage{array}
+
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{matrix}
+\usetikzlibrary{positioning}
+
+\newcommand{\payoff}[4][below]{\node[#1]at(#2){$(#3,#4)$};}
+\usepackage{verbatim}
+\setbeamertemplate{note page}{\pagecolor{gray!5}\insertnote}
+\usetikzlibrary{positioning}
+\usetikzlibrary{snakes}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{matrix,shapes,arrows,fit,tikzmark}
+\usepackage{amsmath}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{multimedia}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{dcolumn}
+\usepackage{bbm}
+\newcolumntype{d}[0]{D{.}{.}{5}}
+
+\usepackage{changepage}
+\usepackage{appendixnumberbeamer}
+\newcommand{\beginbackup}{
+   \newcounter{framenumbervorappendix}
+   \setcounter{framenumbervorappendix}{\value{framenumber}}
+   \setbeamertemplate{footline}
+   {
+     \leavevmode%
+     \hline
+     box{%
+       \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{footlinecolor}%
+%         \insertframenumber  \hspace*{2ex} 
+       \end{beamercolorbox}}%
+     \vskip0pt%
+   }
+ }
+\newcommand{\backupend}{
+   \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumbervorappendix}} 
+}
+
+
+\usepackage{graphicx}
+\usepackage[space]{grffile}
+\usepackage{booktabs}
+
+% These are my colors -- there are many like them, but these ones are mine.
+\definecolor{blue}{RGB}{0,114,178}
+\definecolor{red}{RGB}{213,94,0}
+\definecolor{yellow}{RGB}{240,228,66}
+\definecolor{green}{RGB}{0,158,115}
+
+\hypersetup{
+  colorlinks=false,
+  linkbordercolor = {white},
+  linkcolor = {blue}
+}
+
+\usepackage{graphicx,stackengine,xcolor}
+\newcommand\Circle[1]{%
+	\def\useanchorwidth{T}%
+	\def\stacktype{L}%
+	\stackon[0pt]{#1}{\scalebox{2.0}[1.15]{\textcolor{red}{$\bigcirc$}}}%
+}
+
+%% I use a beige off white for my background
+\definecolor{MyBackground}{RGB}{255,253,218}
+
+%% Uncomment this if you want to change the background color to something else
+%\setbeamercolor{background canvas}{bg=MyBackground}
+
+%% Change the bg color to adjust your transition slide background color!
+\newenvironment{transitionframe}{
+  \setbeamercolor{background canvas}{bg=white}
+  \begin{frame}}{
+    \end{frame}
+}
+
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=black}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{} 
+\setbeamertemplate{itemize items}{-}
+\setbeamercolor{itemize item}{fg=blue}
+\setbeamercolor{itemize subitem}{fg=blue}
+\setbeamercolor{enumerate item}{fg=blue}
+\setbeamercolor{enumerate subitem}{fg=blue}
+\setbeamercolor{button}{bg=MyBackground,fg=blue,}
+
+%%% TIKZ STUFF
+\tikzset{   
+	every picture/.style={remember picture,baseline},
+	every node/.style={anchor=base,align=center,outer sep=1.5pt},
+	every path/.style={thick},
+}
+\newcommand\marktopleft[1]{%
+	\tikz[overlay,remember picture] 
+	\node (marker-#1-a) at (-.3em,.3em) {};%
+}
+\newcommand\markbottomright[2]{%
+	\tikz[overlay,remember picture] 
+	\node (marker-#1-b) at (0em,0em) {};%
+}
+\tikzstyle{every picture}+=[remember picture] 
+\tikzstyle{mybox} =[draw=black, very thick, rectangle, inner sep=10pt, inner ysep=20pt]
+\tikzstyle{fancytitle} =[draw=black,fill=red, text=white]
+%%%% END TIKZ STUFF
+
+
+% If you like road maps, rather than having clutter at the top, have a roadmap show up at the end of each section 
+% (and after your introduction)
+% Uncomment this is if you want the roadmap!
+% \AtBeginSection[]
+% {
+%    \begin{frame}
+%        \frametitle{Roadmap of Talk}
+%        \tableofcontents[currentsection]
+%    \end{frame}
+% }
+\setbeamercolor{section in toc}{fg=blue}
+\setbeamercolor{subsection in toc}{fg=red}
+\setbeamersize{text margin left=1em,text margin right=1em} 
+
+\newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
+\newenvironment{wideenumerate}{\enumerate\addtolength{\itemsep}{10pt}}{\endenumerate}
+
+\usepackage{environ}
+\NewEnviron{videoframe}[1]{
+  \begin{frame}
+    \vspace{-8pt}
+    \begin{columns}[onlytextwidth, T] % align columns
+      \begin{column}{.58\textwidth}
+        \begin{minipage}[t][\textheight][t]
+          {\dimexpr\textwidth}
+          \vspace{8pt}
+          \hspace{4pt} {\Large \sc \textcolor{blue}{#1}}
+          \vspace{8pt}
+          
+          \BODY
+        \end{minipage}
+      \end{column}%
+      \hfill%
+      \begin{column}{.42\textwidth}
+        \colorbox{green!20}{\begin{minipage}[t][1.2\textheight][t]
+            {\dimexpr\textwidth}
+            Face goes here
+          \end{minipage}}
+      \end{column}%
+    \end{columns}
+  \end{frame}
+}
+
+\title[]{\textcolor{blue}{ECN 453: Stackelberg Competition}}
+\author[PGP]{}
+\institute[FRBNY]{\small{\begin{tabular}{c c c}
+Nicholas Vreugdenhil \\
+\end{tabular}}}
+\date{} 
+
+\begin{document}
+
+% Title Slide
+\begin{frame}
+\maketitle
+  \centering
+\end{frame}
+
+% INTRO
+
+\begin{frame}{Static Models of Oligopoly: Stackelberg Competition}
+\begin{wideitemize}
+	\item Today we will study a third static model of oligopoly: \textbf{Stackelberg Competition}.
+	\item What is this model and how does this model of competition compare to the ones we have studied so far?
+	\item \underline{Bertrand competition}:
+	\begin{wideitemize}
+		\item Homogeneous product, simultaneous move, firms choose prices
+	\end{wideitemize}
+	\item \underline{Cournot competition}:
+	\begin{wideitemize}
+		\item Homogeneous product, simultaneous move, competition on quantities
+	\end{wideitemize}
+	\item \underline{Stackelberg competition}:
+	\begin{wideitemize}
+		\item Homogeneous product, \textbf{sequential move}, competition on \textbf{quantities}
+	\end{wideitemize}
+\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Stackelberg Competition: Typical Applications}
+	\begin{wideitemize}
+		\item Industries with a 'leader' firm and a 'follower' firm
+		\item Incumbent (chooses first) and entrant (chooses second)
+		\begin{wideitemize}
+			\item We will use this application of the model to study \textit{entry deterrence by capacity expansion}
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item Stackelberg Competition: Setup
+		\item Stackelberg Competition: Solution
+		\item Stackelberg Competition: Entry Deterrence
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item \textbf{Stackelberg Competition: Setup}
+		\item Stackelberg Competition: Solution
+		\item Stackelberg Competition: Entry Deterrence
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Stackelberg Competition: Setup}
+	\begin{wideitemize}
+		\item \textbf{Players}: Two firms (denote each by i where i = 1 or 2)
+		\item \textbf{Strategies}: Each firm chooses output level $q_1$, $q_2$
+		\begin{wideitemize}
+			\item Sell homogeneous (identical) products
+			\item \textbf{Sequential moves:}
+			\begin{wideitemize}
+				\item Firm 1 (the 'leader') moves first
+				\item Firm 2 (the 'follower') moves second
+			\end{wideitemize}
+		\end{wideitemize}
+		\item \textbf{Payoffs:}  Each firm $i$'s payoff is profit: $\pi_i = q_iP(Q) - C_i(q_i)$
+		\begin{wideitemize}
+			\item Prices are determined by a demand curve $P(Q)$ where $Q=q_1+q_2$.
+			\item Total cost is $C_i(q_i)$
+		\end{wideitemize}
+		\item Observe that the setup is the same as Cournot \underline{except} the timing.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item Stackelberg Competition: Setup
+		\item \textbf{Stackelberg Competition: Solution}
+		\item Stackelberg Competition: Entry Deterrence
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Stackelberg Competition: Solution outline}
+	\begin{wideitemize}
+		\item Solve with the 'usual steps' (same steps as for Cournot except for computing the best responses)
+		\item 1. Write down the payoffs for both firms
+		\item 2. Get the best responses 
+		\begin{wideitemize}
+			\item Key difference in the steps vs Cournot: solve the game backwards:
+			\item Start with Firm 2's best response
+			\item Then, given Firm 2's best response, solve Firm 1's best response.
+		\end{wideitemize}
+		\item 3. Using the best responses, find the (subgame-perfect) Nash equilibrium
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Stackelberg Competition: Solution}
+	\begin{wideitemize}
+		\item \textbf{Setup:}
+		\item Consider a Stackelberg game of quantity competition between two firms. Firm 1 moves first and Firm 2 moves second. 
+		\item Market demand is $p=50-2Q$ where $Q=q_1+q_2$
+		\item Each firm has a marginal cost of production equal to 10.
+		\item \textbf{Questions:} 
+		\item 1. Solve for the equilibrium quantities.
+		\item 2. What are the firms' profits?
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Stackelberg Competition: Solution}
+	\begin{wideitemize}
+		\item \textbf{Solution (Part 1):}
+		\item Get the payoffs:
+		\begin{align*}
+			\pi_1 &= q_1 (50-2Q-10)=q_1  (40-2q_1-2q_2) \\
+			\pi_2 &= q_2 (50-2Q-10)=q_2  (40-2q_1-2q_2)
+		\end{align*}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Stackelberg Competition: Solution}
+	\begin{wideitemize}
+		\item Get the best responses (solving the game backwards):
+		\item \underline{Firm 2}:
+		\begin{align*}
+			\frac{d \pi_2}{d q_2} &= 40-2q_1-2q_2 -2q_2
+		\end{align*}
+		\item Set derivative = 0 (profit maximization):
+		\begin{align*}
+			q_2 = \frac{40-2q_1}{4}= 10-\frac{1}{2}q_1
+		\end{align*}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Stackelberg Competition: Solution}
+	\begin{wideitemize}
+		\item Get the best responses (solving the game backwards):
+		\item \underline{Firm 1}: (\textbf{Trick}: unlike Cournot, plug firm 2's choice into firm 1's payoff \underline{before} solving for the best response)
+		\begin{align*}
+			\pi_1 = q_1  (40-2q_1-2q_2) = q_1  (40-2q_1-2(10-\frac{1}{2}q_1))=q_1(20-q_1)=20q_1-q_1^2
+		\end{align*}
+		\item Now, get derivative and set it = 0:
+		\begin{align*}
+			\frac{d \pi_1}{d q_1} = 20 - 2q_1 = 0
+		\end{align*}
+		\item So: $q_1 = 10$ (and plugging back into Firm 2's best response, $q_2=5$)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Stackelberg Competition: Solution}
+	\begin{wideitemize}
+		\item \textbf{Solution (Part 2):}
+		\item Profits:
+		\begin{align*}
+			\pi_1 &= q_1  (40-2q_1-2q_2) = 10 (40- 20-10) = 100\\
+			\pi_2 &= q_2  (40-2q_1-2q_2) = 5 (40 - 20 - 10) = 50
+		\end{align*}
+		\item Firm 1 has a \textbf{first mover advantage}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Stackelberg Competition: Solution}
+	\begin{wideitemize}
+		\item Given the more general setup of Stackelberg Competition (where Firm 1 moves first):
+		\item Demand: $p=a-bQ$
+		\item Marginal costs: $c_1, c_2$
+		\item General solution for optimal quantities (following exactly the same steps as before) is:
+		\begin{align*}
+			q_1 &= \frac{a+c_2-2c_1}{2b} \\
+			q_2 &= \frac{a-3c_2+2c_1}{4b}
+		\end{align*}
+		\item (Same caution as in the 'general solutions' in previous weeks: make sure the assumptions are satisfied before applying the formula)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item Stackelberg Competition: Setup
+		\item Stackelberg Competition: Solution
+		\item \textbf{Stackelberg Competition: Entry Deterrence}
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Stackelberg Competition: Entry Deterrence}
+	\begin{wideitemize}
+		\item The standard Stackelberg model (detailed in the previous slides) is a model of \textbf{entry accommodation}.
+		\begin{wideitemize}
+			\item Essentially, if Firm 1 is the incumbent and Firm 2 the entrant, what should Firm 1 do knowing that Firm 2 will enter?
+		\end{wideitemize}
+		\item But what if Firm 2 \textit{chooses} whether to enter?
+		\item Can Firm 1 choose a capacity level so large that it deters entry? (And is this profitable?)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Stackelberg Competition: Entry Deterrence - Dupont Example p305}
+	\begin{columns}
+		\begin{column}{0.7\textwidth}
+			\begin{wideitemize}
+				\item Titanium dioxide: pigment used in paint, paper, etc to make them white
+				\item In 1970: 7 firms. Dupont (main one) and 6 smaller firms
+				\item In 1972, by chance, Dupont found itself with three unforseen competitive advantages:
+				\begin{wideitemize}
+					\item 1. Production process was using a cheaper input than its rivals (and rivals' input suffered a cost shock)
+					\item 2. Dupont complied better with newly imposed environmental standards
+					\item 3. Firm was in better financial shape (due to 1.)
+				\end{wideitemize}
+			\end{wideitemize}
+		\end{column}
+		\begin{column}{0.3\textwidth}
+			\includegraphics[scale=0.5]{dupont.png}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Stackelberg Competition: Entry Deterrence - Dupont Example p305}
+	\begin{columns}
+		\begin{column}{0.6\textwidth}
+			\begin{wideitemize}
+				\item Dupont task force: how to leverage these advantages?
+				\item Strategy: \textit{expand capacity and discourage expansion or entry by rivals}
+				\item Task force: deterrence to establish a dominant position
+			\end{wideitemize}
+		\end{column}
+		\begin{column}{0.4\textwidth}
+			\includegraphics[scale=0.25]{titanium.jpg}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Stackelberg Competition: Entry Deterrence - Dupont Example p305}
+	\begin{figure}
+	\centering
+	\begin{tabular}{|c|c|c|c|c|c|c|c|}
+		\hline
+		&  1972 &  1973& 1974 & 1975 & 1976 & 1977 & 1982  \\
+		\hline
+		Dupont & 265 &354  &367  &421  & 425 &425  & 520 \\
+		\hline
+		Rival firms & 504 & 545  & 549  & 560  & 562  & 489  & 409  \\
+		\hline
+	\end{tabular}
+	\caption{Titanium dioxide US capacity}
+	\end{figure}
+	\begin{wideitemize}
+		\item \textbf{Outcome}: 5 of the firms competing with Dupont had exited by 1985
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Stackelberg Competition: Entry Deterrence}
+	\begin{wideitemize}
+		\item \textbf{Example:} Let's use the same numbers as in the previous example (demand is $p=50-2Q$ and both firms have a constant marginal cost of 10)
+		\item Except for this example change the timing to add an entry choice:
+		\begin{wideitemize}
+			\item 1. Firm 1 chooses capacity/output $q_1$
+			\item 2. Firm 2 chooses whether to enter; entering costs $E>0$
+			\item 3. Firm 2 chooses capacity/output $q_2$
+		\end{wideitemize}.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Stackelberg Competition: Entry Deterrence}
+	\begin{wideitemize}
+		\item Solving the game backwards:
+		\begin{wideitemize}
+			\item 3. Firm 2 has the same best response as before:
+			\begin{align*}
+				q_2 = 10-\frac{1}{2}q_1
+			\end{align*}
+			\item After some rearranging, profits are:
+			\begin{align*}
+				\pi_2 = \frac{1}{8}(40-2q_1)^2
+			\end{align*}
+			\item 2. Firm 2 does not enter if:
+			\begin{align*}
+				E \geq \frac{1}{8}(40-2q_1)^2
+			\end{align*}
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Stackelberg Competition: Entry Deterrence}
+	\begin{wideitemize}
+		\item Continuing to solve the game backwards:
+		\begin{wideitemize}
+			\item 1. The minimum capacity level of Firm 1 that deters entry $q_1^D$ is where the previous `Firm 2 does not enter' equation holds with equality:
+			\begin{align*}
+				q_1^D = \frac{1}{2}(40-2 \sqrt{2 E})
+			\end{align*}
+			\item Firm 1's profit is (noting that we can show $p=10+2 \sqrt{2E}$):
+			\begin{align*}
+				\pi_1^D = 0.5(40-2 \sqrt{2E})(\sqrt{2E})=20 \sqrt{2E}-2E
+			\end{align*}
+			\item Note that profits $\pi_1^D$ are increasing in $E$ (unless E is really large - in which case we will be in the 'blockaded entry' case on the next slide anyway)
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Stackelberg Competition: Entry Deterrence - Summary p308}
+	\begin{wideitemize}
+		\item An incumbent's optimal capacity choice depends on the level of entry costs:
+		\begin{wideitemize}
+			\item If entry costs are very low: \textbf{accommodate entry}
+			\begin{wideitemize}
+				\item choose moderate $q$ - the Stackelberg quantity
+			\end{wideitemize}
+			\item If entry costs are intermediate: \textbf{entry deterrence} (i.e. with capacity preemption)
+			\begin{wideitemize}
+				\item choose high $q$
+			\end{wideitemize} 
+			\item If entry costs are high: set monopoly capacity and ignore entry threat - \textbf{blockaded entry}
+			\begin{wideitemize}
+				\item choose low $q$ - monopoly quantity
+			\end{wideitemize} 
+		\end{wideitemize}
+		\item Note: quantity is \textbf{non-monotonic} (it goes up then goes down) as the entry cost increases.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Stackelberg Competition: Entry Deterrence - 'Games Hospitals Play'}
+	\begin{wideitemize}
+		\item Previous non-monotonicity of quantity choice (i.e. capacity investment) in entry costs suggests an empirical test:
+		\item \textbf{`Monotonicity Test':} Capacity investment should vary non-monotonically in the probability of entry.
+		\vspace{11pt}
+		\begin{columns}
+			\begin{column}{0.5\textwidth}
+				\begin{wideitemize}
+					\item \textbf{Application:} Medicare
+					\item Increased reimbursement for a procedure
+					\item Announcement made 1 year prior, so firms had a chance to prepare for possible entry
+					\item How did investment change with number of 'potential entrants'? (i.e. nearby firms) 
+				\end{wideitemize}
+			\end{column}
+			\begin{column}{0.5\textwidth}
+				\includegraphics[scale=0.2]{medicare.jpg}
+			\end{column}
+		\end{columns}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Stackelberg Competition: Entry Deterrence - 'Games Hospitals Play'}
+	\begin{figure}
+		\includegraphics[scale=0.35]{games_hospitals_play.pdf}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Stackelberg Competition: Entry Deterrence - Implicit Assumptions}
+	\begin{wideitemize}
+		\item Running assumption in the previous analysis: firms choose capacity and then set output at the capacity levels.
+		\begin{wideitemize}
+			\item How reasonable is this assumption? (Ok if marginal cost is low)
+		\end{wideitemize}
+		\item Another assumption: incumbent commits to capacity and does not change it even if potential entrant stays out
+		\begin{wideitemize}
+			\item What if capacity investment is reversible? (We are implicitly assuming that capacity investment is irreversible)
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Related entry deterrence strategies}
+	\begin{wideitemize}
+		\item In differentiated product markets:
+		\item \textbf{Proliferation strategies}
+		\begin{wideitemize}
+			\item Produce lots of different varieties so there are no 'market holes' to position their product
+		\end{wideitemize}
+		\item Example: breakfast cereals (Kellogg, General Mills, General Foods, Quaker Oats)
+		\begin{wideitemize}
+			\item High profits, (probably) easy to enter since making cereal doesn't involve much technology
+			\item But: no firm entry in 1950s-1970s!
+			\item However: huge entry of \textit{brands} (\textbf{product proliferation})$\rightarrow$ can deter entry without lowering prices
+		\end{wideitemize}
+		\item Another example (geographical proliferation): Staples
+		\begin{wideitemize}
+			\item Staples CEO: \textit{Staples was trying to build a critical mass of stores in the Northeast to shut out competitors}
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Summary of key points*}
+	%\vspace{-20pt}
+	\begin{wideitemize}
+		\item Know how to solve Stackelberg models of competition (i.e. use backwards induction etc)
+		\item Apply the Stackelberg model to an entry deterrence application
+		\item Know the 'monotonicity test' to check for entry deterrence motives in real-world data
+	\end{wideitemize}
+	\vspace{20pt}
+	*To clarify, all the material in the slides, problem sets, etc is assessable unless stated otherwise, but I hope this summary might be a useful place to start when studying the material.
+\end{frame}
+
+\begin{frame}{Question}
+	%\vspace{-20pt}
+	\begin{wideitemize}
+		\item Suppose that two firms compete under Stackelberg competition with $p= 90-3Q$. Firm 1 moves first and the marginal costs are given by $c_1=10$ and $c_2=20$.
+		\item \textbf{Question:} What are the Stackelberg equilibrium quantities?
+	\end{wideitemize}
+\end{frame}
+
+\end{document}

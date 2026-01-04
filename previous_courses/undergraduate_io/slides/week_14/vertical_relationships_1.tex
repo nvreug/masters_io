@@ -1,0 +1,478 @@
+\documentclass[notes,11pt, aspectratio=169]{beamer}
+
+\usepackage{pgfpages}
+% These slides also contain speaker notes. You can print just the slides,
+% just the notes, or both, depending on the setting below. Comment out the want
+% you want.
+\setbeameroption{hide notes} % Only slide
+%\setbeameroption{show only notes} % Only notes
+%\setbeameroption{show notes on second screen=right} % Both
+
+%\usepackage[scaled=1.0]{helvet}
+\usepackage{array}
+
+\usepackage{graphicx}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{matrix}
+\usetikzlibrary{positioning}
+
+\newcommand{\payoff}[4][below]{\node[#1]at(#2){$(#3,#4)$};}
+\usepackage{verbatim}
+\setbeamertemplate{note page}{\pagecolor{gray!5}\insertnote}
+\usetikzlibrary{positioning}
+\usetikzlibrary{snakes}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{matrix,shapes,arrows,fit,tikzmark}
+\usepackage{amsmath}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{multimedia}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{graphicx}
+\usepackage{dcolumn}
+\usepackage{bbm}
+\newcolumntype{d}[0]{D{.}{.}{5}}
+
+\usepackage{changepage}
+\usepackage{appendixnumberbeamer}
+\newcommand{\beginbackup}{
+   \newcounter{framenumbervorappendix}
+   \setcounter{framenumbervorappendix}{\value{framenumber}}
+   \setbeamertemplate{footline}
+   {
+     \leavevmode%
+     \hline
+     box{%
+       \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{footlinecolor}%
+%         \insertframenumber  \hspace*{2ex} 
+       \end{beamercolorbox}}%
+     \vskip0pt%
+   }
+ }
+\newcommand{\backupend}{
+   \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumbervorappendix}} 
+}
+
+
+\usepackage{graphicx}
+\usepackage[space]{grffile}
+\usepackage{booktabs}
+
+% These are my colors -- there are many like them, but these ones are mine.
+\definecolor{blue}{RGB}{0,114,178}
+\definecolor{red}{RGB}{213,94,0}
+\definecolor{yellow}{RGB}{240,228,66}
+\definecolor{green}{RGB}{0,158,115}
+
+\hypersetup{
+  colorlinks=false,
+  linkbordercolor = {white},
+  linkcolor = {blue}
+}
+
+\usepackage{graphicx,stackengine,xcolor}
+\newcommand\Circle[1]{%
+	\def\useanchorwidth{T}%
+	\def\stacktype{L}%
+	\stackon[0pt]{#1}{\scalebox{2.0}[1.15]{\textcolor{red}{$\bigcirc$}}}%
+}
+
+%% I use a beige off white for my background
+\definecolor{MyBackground}{RGB}{255,253,218}
+
+%% Uncomment this if you want to change the background color to something else
+%\setbeamercolor{background canvas}{bg=MyBackground}
+
+%% Change the bg color to adjust your transition slide background color!
+\newenvironment{transitionframe}{
+  \setbeamercolor{background canvas}{bg=white}
+  \begin{frame}}{
+    \end{frame}
+}
+
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=black}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{} 
+\setbeamertemplate{itemize items}{-}
+\setbeamercolor{itemize item}{fg=blue}
+\setbeamercolor{itemize subitem}{fg=blue}
+\setbeamercolor{enumerate item}{fg=blue}
+\setbeamercolor{enumerate subitem}{fg=blue}
+\setbeamercolor{button}{bg=MyBackground,fg=blue,}
+
+%%% TIKZ STUFF
+\tikzset{   
+	every picture/.style={remember picture,baseline},
+	every node/.style={anchor=base,align=center,outer sep=1.5pt},
+	every path/.style={thick},
+}
+\newcommand\marktopleft[1]{%
+	\tikz[overlay,remember picture] 
+	\node (marker-#1-a) at (-.3em,.3em) {};%
+}
+\newcommand\markbottomright[2]{%
+	\tikz[overlay,remember picture] 
+	\node (marker-#1-b) at (0em,0em) {};%
+}
+\tikzstyle{every picture}+=[remember picture] 
+\tikzstyle{mybox} =[draw=black, very thick, rectangle, inner sep=10pt, inner ysep=20pt]
+\tikzstyle{fancytitle} =[draw=black,fill=red, text=white]
+%%%% END TIKZ STUFF
+
+
+% If you like road maps, rather than having clutter at the top, have a roadmap show up at the end of each section 
+% (and after your introduction)
+% Uncomment this is if you want the roadmap!
+% \AtBeginSection[]
+% {
+%    \begin{frame}
+%        \frametitle{Roadmap of Talk}
+%        \tableofcontents[currentsection]
+%    \end{frame}
+% }
+\setbeamercolor{section in toc}{fg=blue}
+\setbeamercolor{subsection in toc}{fg=red}
+\setbeamersize{text margin left=1em,text margin right=1em} 
+
+\newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
+\newenvironment{wideenumerate}{\enumerate\addtolength{\itemsep}{10pt}}{\endenumerate}
+
+\usepackage{environ}
+\NewEnviron{videoframe}[1]{
+  \begin{frame}
+    \vspace{-8pt}
+    \begin{columns}[onlytextwidth, T] % align columns
+      \begin{column}{.58\textwidth}
+        \begin{minipage}[t][\textheight][t]
+          {\dimexpr\textwidth}
+          \vspace{8pt}
+          \hspace{4pt} {\Large \sc \textcolor{blue}{#1}}
+          \vspace{8pt}
+          
+          \BODY
+        \end{minipage}
+      \end{column}%
+      \hfill%
+      \begin{column}{.42\textwidth}
+        \colorbox{green!20}{\begin{minipage}[t][1.2\textheight][t]
+            {\dimexpr\textwidth}
+            Face goes here
+          \end{minipage}}
+      \end{column}%
+    \end{columns}
+  \end{frame}
+}
+
+\title[]{\textcolor{blue}{ECN 453: Vertical Relationships 1}}
+\author[PGP]{}
+\institute[FRBNY]{\small{\begin{tabular}{c c c}
+Nicholas Vreugdenhil \\
+\end{tabular}}}
+\date{} 
+
+\begin{document}
+
+% Title Slide
+\begin{frame}
+\maketitle
+  \centering
+\end{frame}
+
+% INTRO
+
+\begin{frame}{Vertical relationships between firms}
+\begin{wideitemize}
+	\item \textbf{Vertical relationships}:  relationships between two firms in a sequence along the value chain.
+	\item  \textbf{Examples}:
+	\begin{wideitemize}
+		\item Cement producers $\rightarrow$ sell cement to concrete producers $\rightarrow$ sell concrete to construction firms.
+		\item Commodities $\rightarrow$ car parts $\rightarrow$ assembled into cars
+		\item Manufacturer-retailer relationships
+	\end{wideitemize}
+	\begin{figure}
+		\centering
+	\includegraphics[scale=0.15]{retailer.jpeg}
+	\end{figure}
+\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Motivation: how might vertical relationships be different to firm-consumer relationships?}
+	\begin{wideitemize}
+		\item Demand faced by a manufacturer depends not just on the price it sets
+		\begin{wideitemize}
+			\item ...but also on a host of other factors most of which is doesn't directly control (e.g. the retail price is set by the retailer)
+		\end{wideitemize}
+		\item Manufacturers are selling to retailers who are competing with each other.
+		\begin{wideitemize}
+			\item consumers usually do not compete with each other
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Some jargon}
+	\begin{wideitemize}
+		\item In this section of the course, we will usually simplify to the situation of a single manufacturer selling to one or several retailers.
+		\item \textbf{Upstream firm}: the manufacturer e.g. cement producer, flour producer
+		\item \textbf{Downstream firm}: the retailer e.g. concrete producer, bakery
+		\item \textbf{Vertical integration}: when an upstream firm and a downstream firm are a single firm (e.g. through a merger, or just because that is the way the industry has evolved)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item Vertical integration: graphical version
+		\item Vertical integration: math version
+		\item Alternative solutions to double marginalization
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item \textbf{Vertical integration: graphical version}
+		\item Vertical integration: math version
+		\item Alternative solutions to double marginalization
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Vertical integration: setup}
+	\begin{wideitemize}
+		\item Consider an upstream firm (M) selling inputs to a downstream firm (R) which produces output.
+		\begin{wideitemize}
+			\item e.g. M is an oil refiner and R is a gas station.
+		\end{wideitemize} 
+		\item Demand for final product: $D(p)$
+		\begin{wideitemize}
+			\item Assume to produce one unit of output $R$ needs one unit of input.
+		\end{wideitemize} 
+		\item Costs:
+		\begin{wideitemize}
+			\item  $R$ pays the wholesale price $w$ to its supplier (assume it has no other costs)
+			\item Assume $M$ has constant marginal cost $c$
+		\end{wideitemize} 
+		\item \textbf{Questions:}
+		\item What are the joint profits of the firms if $M$ and $R$ are \textbf{vertically integrated}?
+		\item What are the joint profits of the firms if $M$ and $R$ are \textbf{vertically separated}?
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Vertical integration: graphical version}
+	\begin{wideitemize}
+		\item What are the joint profits of the firms if $M$ and $R$ are \textbf{vertically integrated}?
+		\item Here the firm maximizes total profit:
+		\begin{align*} 
+			\pi = (\underbrace{w-c}_{\text{what M gets}} + \underbrace{p-w}_{\text{what R gets}}) D(p) = (p-c)D(p)
+		\end{align*}
+		\item Maximize profit $\rightarrow$ our typical monopoly solution
+		\item Denote $p^M$ the price that maximizes total profit here (and $q^M$ the resulting quantity)
+		\item Then, $\pi_M = (p^M-c)q^M$
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Vertical integration: graphical version}
+	\begin{wideitemize}
+		\item What are the joint profits of the firms if $M$ and $R$ are \textbf{vertically separated}?
+		\item R chooses $p$ to maximize:
+		\begin{align*} 
+			\pi =(p - w) D(p) 
+		\end{align*}
+		\item Here, $w$ is effectively R's marginal cost.
+		\item To replicate the solution under vertical integration, $M$ would need to set $w=c$.
+		\begin{wideitemize}
+			\item But, $w=c$ would result in $M$'s profit = 0. 
+		\end{wideitemize}
+			\item Instead, $M$ sets $w$ above marginal cost. 
+		\begin{wideitemize}
+			\item But then, $R$ sets a price \textit{greater} than the optimal price $p_M$ (call this price $p^R$).
+		\end{wideitemize}
+		\item On the graph on the following page, see graphically that the total profit for both firms under vertical separation $(\pi^M + \pi^R)$ is smaller than under vertical integration.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Vertical integration: graphical version}
+	\begin{figure}
+		\includegraphics[scale=0.3]{double_marginalization.jpeg}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item Vertical integration: graphical version
+		\item \textbf{Vertical integration: math version}
+		\item Alternative solutions to double marginalization
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Vertical integration: math version}
+	\begin{wideitemize}
+		\item \textbf{Setup:} 		
+		\item 1. Manufacturer has a constant marginal cost $c=1$ and sets input price $w$ to maximize profit.
+		\item 2. Retailer buys input from manufacturer for price $w$. Retailer sets price $p$ to maximize profit with demand $D(p)= 9-p$.
+		\item \textbf{Question:}
+		\item 1. What are the total profits (i.e. the joint profits of both firms) under vertical integration?
+		\item 2. What are the total profits (i.e. the joint profits of both firms) under vertical separation?
+		\item 3. Are profits higher under vertical integration or vertical separation?
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Vertical integration: math version - solution}
+	\begin{wideitemize}
+		\item  1. What are the total profits (i.e. the joint profits of both firms) under vertical integration?
+		\item Here, $MR=9-2q$. Set $MR=MC$:
+		\item Then, $q^M=4$, $p^M=5$
+		\item Profit = $16$.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Vertical integration: math version - solution}
+	\begin{wideitemize}
+		\item  2. What are the total profits (i.e. the joint profits of both firms) under vertical separation?
+		\item Start with retailer's problem.
+			\begin{wideitemize}
+				\item Optimal price: $MR=9-2q$. $MC=w$.
+				\item So, $q = \frac{9-w}{2}$, $p=\frac{9+w}{2}$.
+			\end{wideitemize}
+		\item Now consider the manufacturer:
+			\begin{wideitemize}
+				\item Manufacturer's profit: $\pi_m = (w-c)q = (w-c)\frac{9-w}{2}$.
+				\item Take derivative of profit with respect to $w$ and set to 0 to find the optimal wholesale price $w$.
+				\item Solving for $w$ and then substituting $w$ into the retailer's problem: $w=5, p^R=7,q^M=2$.
+			\end{wideitemize}
+		\item Total profits: $W$ gets 8, $R$ gets 4. Total profits = 12.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Vertical integration: math version - solution}
+	\begin{wideitemize}
+		\item   3. Are profits higher under vertical integration or vertical separation?
+		\item Profits are higher under vertical integration. Under vertical separation the retailer's price is too high due to \textit{double marginalization}.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Solving double marginalization problems: math steps}
+	\begin{wideitemize}
+		\item \underline{Vertical separation}:
+		\item 1. Begin with retailer's problem. Find the price and quantity that maximizes profit given the wholesale price $w$ is the retailer's marginal cost.
+		\item 2. Next, solve the (upstream) manufacturer's problem. Find the wholesale price $w$ which maximizes profit given the retailer's optimal choice.
+		\item \underline{Vertical integration}: 
+		\item Solve using the standard monopoly solution.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Double marginalization: example - regional sport networks}
+	\begin{wideitemize}
+		\item Regional sport networks: $90\%$ of the 116.4 million television households subscribe to multichannel TV.
+		\item Content providers like Disney and ESPN sell to Distributors like Comcast and TimeWarner. 
+		\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Double marginalization: example - regional sport networks}
+	\begin{wideitemize}
+		\item Regional sports networks: variation in ownership.
+		\begin{wideitemize}
+			\item  E.g. in 2007 Comcast Sport Northwest (owned by Comcast) was carried by Comcast but not DirectTV and Disk.
+			\item Independently owned YES (Yankees Entertainment and Sports) was carried by TimeWarner and DirectTV but not by Disk.
+		\end{wideitemize}
+		\begin{figure}
+			\centering
+			\includegraphics[scale=0.25]{comcast.png}
+		\end{figure}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Double marginalization: example - regional sport networks}
+	\begin{wideitemize}
+		\item In this market, when there is vertical integration:
+		\item 1. Price paid by consumers is lower
+		\item 2. Likelihood that a RSN is carried by a distributor is higher
+		\item 3. Likelihood that RSN is carried by rival distributor is lower
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan}
+	\begin{wideenumerate}
+		\item Vertical integration: graphical version
+		\item Vertical integration: math version
+		\item  \textbf{Alternative solutions to double marginalization}
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Alternative solutions to the double marginalization problem: nonlinear contracts}
+	\begin{wideitemize}
+		\item  Strong assumption in the previous analysis: payment between the firms is given by a single wholesale price $w$.
+		\item What if the firms can write a more complicated contract? Recall, a two-part tariff looks like:
+		\begin{align*}
+			\text{tariff} = f + w q
+		\end{align*}
+		\begin{wideitemize}
+			\item Fixed fee: f
+			\item Wholesale price: w
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Alternative solutions to the double marginalization problem: nonlinear contracts}
+	\begin{wideitemize}
+		\item Consider the following nonlinear contract (which the retailer pays to the manufacturer):
+		\begin{wideitemize}
+			\item $w=c$
+			\item $f=\pi^M$ (the monopoly profit of an integrated firm)
+		\end{wideitemize}
+		\item Three things:
+		\begin{enumerate}
+			\item This contract maximizes joint profits of the firms (i.e. achieves the monopoly outcome). Why? \pause This is because the wholesale price equals marginal cost which induces the retailer $R$ to set the monopoly price.
+			\item The retailer $R$ will enter the contract. Why? \pause The retailer receives gross profits $\pi^M$ so is willing to pay a fixed fee up to $\pi^M$.
+			\item The manufacturer receives 0 in terms of variable profit (since $w=c$) but is able to recover monopoly profit through the fixed fee.
+		\end{enumerate}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Alternative solutions to the double marginalization problem: nonlinear contracts}
+	\begin{wideitemize}
+		\item Bottom line of previous discussion:
+		\item \textbf{If nonlinear contracts are possible, then the optimal solution under vertical separation is identical to that under vertical integration.}
+		\item \underline{Qualification}: assumed no competition at either stage.
+	\end{wideitemize}
+\end{frame}
+
+\begin{comment}
+\begin{frame}{Alternative solutions to the double marginalization problem: maximum retail price}
+	\begin{wideitemize}
+		\item \textbf{Maximium retail price}: 
+		\item Manufacturer $M$ imposes $p^M$ as the maximum retail price and sells to the retailer at $w=p^M$.
+		\item Here, no need to collect a fixed fee, but will still get the optimal `vertical integration' solution.
+	\end{wideitemize}
+\end{frame}
+\end{comment}
+
+\begin{frame}{Summary of key points*}
+	%\vspace{-20pt}
+	\begin{wideitemize}
+		\item Know how to compute the profit under vertical integration and also under vertical separation
+		\item Understand that vertical separation may result in a \textit{double marginalization problem}
+		\item Know that an alternative solution to vertical separation that eliminates double marginalization is a correctly specific two-part tariff.
+	\end{wideitemize}
+	\vspace{20pt}
+	*To clarify, all the material in the slides, problem sets, etc is assessable unless stated otherwise, but I hope this summary might be a useful place to start when studying the material.
+\end{frame}
+
+\begin{comment}
+\begin{frame}{Practice question}
+	\begin{wideitemize}
+		\item Suppose that there is a manufacturer who sells to a retailer at a wholesale price $w$. The retailer then sells to consumers at price $p$ with demand curve $q=10-2p$.
+		\begin{wideitemize}
+			\item 1. Compute the increase in profit moving from vertical separation to vertical integration (i.e. quantify the costs of double marginalizaton).
+			\item 2. Provide a two-part tariff that would achieve the profit of a vertically integrated firm.
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+\end{comment}
+
+\end{document}

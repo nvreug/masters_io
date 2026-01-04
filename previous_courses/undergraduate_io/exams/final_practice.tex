@@ -1,0 +1,234 @@
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[addpoints]{exam}
+\usepackage{fullpage}
+\usepackage[left=1.0in,top=1.0in,right=1.0in,bottom=1.0in,headheight=3ex,headsep=3ex]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{adjustbox}
+\usepackage{comment}
+\usepackage{tikz}
+\usetikzlibrary{calc}
+\usetikzlibrary{matrix}
+\usetikzlibrary{positioning}
+\usepackage{amsmath}
+
+\tikzset{   
+	every picture/.style={remember picture,baseline},
+	every node/.style={anchor=base,align=center,outer sep=1.5pt},
+	every path/.style={thick},
+}
+\newcommand\marktopleft[1]{%
+	\tikz[overlay,remember picture] 
+	\node (marker-#1-a) at (-.3em,.3em) {};%
+}
+\newcommand\markbottomright[2]{%
+	\tikz[overlay,remember picture] 
+	\node (marker-#1-b) at (0em,0em) {};%
+}
+\tikzstyle{every picture}+=[remember picture] 
+\tikzstyle{mybox} =[draw=black, very thick, rectangle, inner sep=10pt, inner ysep=20pt]
+\tikzstyle{fancytitle} =[draw=black,fill=red, text=white]
+
+
+\usepackage{graphicx,stackengine,xcolor}
+\newcommand\Circle[1]{%
+	\def\useanchorwidth{T}%
+	\def\stacktype{L}%
+	\stackon[0pt]{#1}{\scalebox{2.0}[1.15]{\textcolor{red}{$\bigcirc$}}}%
+}
+\newcommand{\blankline}{\quad\pagebreak[2]}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Modify Course title, instructor name, semester here %%%%%%%%
+
+\title{ECN 453: Final Exam (Practice)}
+% Modify header here %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\rhead{\footnotesize ECN 453: Final Exam (Practice)}
+
+\date{} 
+
+\begin{document}
+	\maketitle
+	\begin{center}
+		\fbox{\fbox{\parbox{6in}{\centering\
+					\textbf{Instructions}:
+					\begin{itemize}
+					\item You have \textbf{110 minutes}
+					\item Please write your final answer in the underlined section provided. 
+					\item You may bring a calculator and notes on two, two-sided cheat-sheets, on letter-size paper. 
+					\item Please be neat. If your work is too messy it will not be graded.
+					\item Be sure to show your working.
+					\item This is a long exam, so there are lots of ways to get points. If you get stuck, move on!
+					\item Good luck!
+					\end{itemize}	
+			}}}
+	\end{center}
+	
+	\vspace{5mm}
+	\makebox[0.75\textwidth]{Name: \enspace\hrulefill}
+	\vspace{50pt}
+	\begin{center}
+		\gradetable[h][questions]
+	\end{center}
+	
+	\newpage
+	
+\begin{questions}
+	\subsection*{Short Answer Questions (45 points)}
+	\vspace{11pt}
+	\question Depending on the question, write either: 
+	\begin{itemize}
+		\item a number 
+		\item one of: True, False, or NEI (Not Enough Information)
+		\item a definition (i.e. one or a few words)
+	\end{itemize}
+	\vspace{11pt}
+	\begin{parts}
+		\part[3] What `problem' can occur in vertical relationships if one firm needs to make a relationship-specific investment, but the other firm cannot commit to pay them until after the investment has been made?
+		
+		\answerline[answer]
+		
+		\part[3] What is one \textit{benefit} (that we discussed in class) from vertical integration?
+		
+		\answerline[answer]
+		
+		\part[3] Suppose there is an upstream manufacturer $M$ selling an input to two downstream retailers $R_1$ and $R_2$ (and these downstream retailers are competing against each other). If the manufacturer merges with $R_1$, would you expect the wholesale price between $M$ and $R_1$ to increase or decrease, compared to vertical separation?
+		
+		\answerline[answer]
+		
+		%\part[3] True, False, or Not Enough Information: If firms have the same constant marginal cost, the `follower' firm in Stackelberg competition makes a higher profit than the `leader' firm.
+		\part[3] Consider again the merger in the previous question. Would you expect the wholesale price between $M$ and $R_2$ to increase or decrease, compared to vertical separation?
+		
+		\answerline[answer]
+		
+		\part[3] True, False, or Not Enough Information: If price cuts are difficult to observe, then occasional price wars may be necessary
+		to discipline collusive agreements.
+		
+		\answerline[answer]
+		
+		\part[3] True, False, or Not Enough Information: As the number of firms in a market increases it \textit{typically} makes it \textit{harder} for firms to form a collusive agreement.
+		
+		\answerline[answer]
+		
+		\part[3] Suppose there are three firms in a market with market shares 0.5, 0.25, and, 0.25, respectively. Compute the Herfindahl-Hirschman Index.
+
+		\answerline[answer]
+		
+		\part[3] What is the value of the Lerner index in a monopoly market?
+		
+		\answerline[answer]
+		
+		\part[3] What is the value of the Herfindahl–Hirschman Index under perfect competition?
+
+		\answerline[answer]
+				
+		\part[3] Consider an identical n-firm Cournot market with market size $S=1$, total demand $p=10-Q$ (where Q is the total market quantity), and the total cost for each firm is $C(q)=1+q$. Assuming that firms continue to enter so long as profit is not negative, how many firms will enter the market in equilibrium?
+		\answerline[answer]
+
+		\part[3] Give the reason (discussed in class) why the beer market in the US has approximately the same number of firms as the beer market in Portugal, despite being 30x-50x its size.
+		\answerline[answer]
+		
+		\part[3] What is the value of the `four-firm concentration index' if there are three firms in a market?
+		\answerline[answer]
+		
+		\part[3] True, False, or Not Enough Information: If barriers to entry are not very high, then mergers tend to be followed by new
+		firm entry.
+		\answerline[answer]
+
+		\part[3] True, False, or Not Enough Information: Provide one concern (that we discussed in class) that a regulator might have when deciding whether to approve a merger.
+		\answerline[answer]
+		
+		\part[3] True, False, or Not Enough Information: Provide one benefit (that we discussed in class) that a regulator might consider when deciding whether to approve a merger.
+		\answerline[answer]
+
+	\end{parts}
+	
+	\subsection*{Movie Theater Question (30 points)}
+	\question Suppose you are the owner of a movie theater. There are two types of customers: students (denoted `s') and non-students (denoted `ns'). The demand for movie seats for each of these segments is:
+	\begin{align*}
+		\text{Student: } &q_{s} = 75 - 2p_{s} \\
+		\text{Non-student: }& q_{ns} = 80 - p_{ns}
+	\end{align*}
+	\begin{parts}
+		\part [30] Assume that you cannot distinguish between students and non-students, and so you can only set a single \textit{uniform price} for all consumers. Assume that the marginal cost of a seat is \$15. What is the optimal uniform price? 
+		%\vspace{500pt}
+		%\answerline[answer] 
+	\end{parts}
+	
+	\subsection*{Stackelberg Competition (30 points)}
+	\question There are two firms in a market with total demand $p=100-2Q$. Firm 1 moves first and Firm 2 moves second. Firm 1's total cost is $C(q_1)=1+2q_1^2$.  Firm 2's total cost is $C(q_2)=0$. 
+	\vspace{11pt}
+\begin{parts}
+	\part[30] Suppose that the firms compete in a Stackelberg equilibrium. What is the equilibrium quantity for \underline{Firm 1}?
+	%\vspace{500pt}
+	%\answerline[answer]
+	%\part[15] Suppose now that Firm 2 (the potential entrant) now chooses whether to enter after Firm 1 makes its production decision. If Firm 2 enters then it pays an entry cost $E=16$. Which values of $q_1$ deter Firm 2's entry?
+\end{parts}
+
+	\subsection*{Hotelling Model (30 points)}
+\question Suppose 100 consumers are uniformly distributed on a 1 mile stretch of road. There are two supermarkets on the road: Supermarket 1 is located at the west end of the road (at location = 0), and Supermarket 2 is part way along the road (at location = 0.3). Transport costs for consumers are \underline{\$1.0 per mile}. The supermarkets' marginal costs are 0. The supermarkets compete on prices: denote Supermarket 1's price $p_1$ and Supermarket 2's price $p_2$.
+\begin{parts}
+	\part[20] What is the demand for each supermarket?\footnote{When computing consumer choices, only consider the transport costs to get to the supermarket, don't worry about the return journey.}
+	%\vspace{500pt}
+	%\answerline[answer]
+	%\newpage
+	\part[10] If Firm 2 chooses a price $p_2=0.2$, what is Firm 1's best response $p_1$?
+\end{parts}
+
+	\subsection*{Collusion (30 points)}
+\question Consider the following game and suppose that it is repeated an infinite number of times. Players have a discount value of $\delta$. 
+\begin{figure}[h]
+	\centering
+	\begin{tikzpicture}
+		\matrix[matrix of math nodes,
+		every odd row/.style={align=right},every evenrow/.style={align=left},every node/.style={text width=1.5cm},row sep=0.2cm,column sep=0.2cm,ampersand replacement=\&] (m) {
+			8\&9 \\
+			8\&0 \\
+			0 \&1 \\
+			9 \&1\\
+		};
+		\draw (m.north east) rectangle (m.south west);
+		\draw (m.north) -- (m.south);
+		\draw (m.east) -- (m.west);
+		
+		% Player 1
+		\coordinate (c) at ($(m.north west)!0.25!(m.south west)$);
+		\coordinate (d) at ($(m.north west)!0.75!(m.south west)$);
+		\node[left=2pt of c,text width=1cm]  {T};
+		\node[left=2pt of d,text width=1cm]  {B};
+		
+		% Player 2
+		\coordinate (a) at ($(m.north west)!0.25!(m.north east)$);
+		\coordinate (b) at ($(m.north west)!0.75!(m.north east)$);
+		\node[above=5pt of a,anchor=base] {L};
+		\node[above=5pt of b,anchor=base] {R};
+		
+		\node[above=18pt of m.north] (firm b) {Player 2};
+		\node[left=1.6cm of m.west,rotate=90,align=center,anchor=center] {Player 1};
+		
+		%\node[above=5pt of firm b]  {Payoff Matrix};
+	\end{tikzpicture}
+\end{figure}
+
+\begin{parts}
+	\part[30] For what values of $\delta$ can collusion on (T,L) be sustained under the following grim trigger strategy:
+	\begin{itemize}
+		\item Play (T,L) if (T,L) has been played in all previous periods
+		\item Otherwise play (B,R).
+	\end{itemize}
+\end{parts}
+
+	\subsection*{Vertical Relationships (30 points)}
+\question Suppose that there are two firms in a supply chain: a manufacturer who sells to a retailer. The timing is as follows:
+
+\begin{enumerate}
+	\item Manufacturer has a constant marginal cost $c=1$ and sets input price $w$ to maximize profit.
+	\item Retailer buys input from manufacturer for price $w$. Retailer sets price $p$ to maximize profit with demand $D(p)= 8-p$.
+\end{enumerate}
+\begin{parts}
+	\part[20] What are the joint profits of the firms (i.e. the sum of the profit of the manufacturer and the retailer) under vertical separation?
+	\part[10] Explain in one to two sentences why the joint profits will be higher under vertical integration than under vertical separation.
+\end{parts}
+\end{questions}
+
+\end{document}

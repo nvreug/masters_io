@@ -1,0 +1,282 @@
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\usepackage[left=1.0in,top=1.0in,right=1.0in,bottom=1.0in,headheight=3ex,headsep=3ex]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{adjustbox}
+
+
+\newcommand{\blankline}{\quad\pagebreak[2]}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Modify Course title, instructor name, semester here %%%%%%%%
+
+\title{\Large ECN 453: Competition Policy, Business Strategy, and Industrial Organization}
+\author{Nicholas Vreugdenhil}
+\date{Fall, 2025}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage[sc]{mathpazo}
+\linespread{1.3} % Palatino needs more leading (space between lines)
+\usepackage[T1]{fontenc}
+\usepackage[mmddyyyy]{datetime}% http://ctan.org/pkg/datetime
+\usepackage{advdate}% http://ctan.org/pkg/advdate
+\newdateformat{syldate}{\twodigit{\THEMONTH}/\twodigit{\THEDAY}}
+\newsavebox{\MONDAY}\savebox{\MONDAY}{Mon}% Mon
+\newcommand{\week}[1]{%
+%  \cleardate{mydate}% Clear date
+% \newdate{mydate}{\the\day}{\the\month}{\the\year}% Store date
+  \paragraph*{\kern-2ex\quad #1, \syldate{\today} - \AdvanceDate[4]\syldate{\today}:}% Set heading  \quad #1
+%  \setbox1=\hbox{\shortdayofweekname{\getdateday{mydate}}{\getdatemonth{mydate}}{\getdateyear{mydate}}}%
+  \ifdim\wd1=\wd\MONDAY
+    \AdvanceDate[7]
+  \else
+    \AdvanceDate[7]
+  \fi%
+}
+\usepackage{setspace}
+\usepackage{multicol}
+%\usepackage{indentfirst}
+\usepackage{fancyhdr,lastpage}
+\usepackage{url}
+\pagestyle{fancy}
+\usepackage{hyperref}
+\usepackage{lastpage}
+\usepackage{amsmath}
+\usepackage{layout}
+
+\lhead{}
+\chead{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Modify header here %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\rhead{\footnotesize ECN 453: Competition Policy, Business Strategy, and Industrial Organization}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\lfoot{}
+\cfoot{\small \thepage/\pageref*{LastPage}}
+\rfoot{}
+
+\usepackage{array, xcolor}
+\usepackage{color,hyperref}
+\definecolor{clemsonorange}{HTML}{EA6A20}
+\hypersetup{colorlinks,breaklinks,linkcolor=clemsonorange,urlcolor=clemsonorange,anchorcolor=clemsonorange,citecolor=black}
+
+\begin{document}
+
+\maketitle
+
+\blankline
+
+\begin{tabular*}{.93\textwidth}{@{\extracolsep{\fill}}lr}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Modify information %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+E-mail:* \texttt{nvreugde@asu.edu} & Website: Canvas \\
+
+Zoom Office Hours: **Tuesday 3:00-4:00pm&  Class Hours: Monday/Wednesday 4:30-5:45pm \\
+
+ Office: Economics Department; 455G & Classroom: Tempe BA 286\\
+  \hspace{11pt}*Use `ECN 453: [email reason]' in the subject. \\
+ \hspace{11pt}**Use Zoom meeting: \href{https://asu.zoom.us/j/6639396226}{663 939 6226}
+  & \\
+\hline
+\end{tabular*} \
+\\
+
+\bigskip
+\section*{Course Description}
+This is a course in ``Industrial Organization'', which is the study of firm and consumer behavior with a particular focus on competition. It is a field that answers fundamental questions about when markets benefit society, and, alternatively, where there might be scope for regulation. In addition, industrial organization economists work within businesses (particularly in tech) to design pricing and online marketplaces; while not a central focus of this course I will occasionally mention these applications.
+
+Overall, this is an ideal course to take if you are interested in a career in consulting, data science/tech, corporate law, marketing, or public policy.
+
+The course is mainly theoretical and conceptual. However, I will often use real-world case studies and sometimes discuss common empirical challenges.
+
+\section*{W. P. Carey School of Business Learning Goals}
+The Undergraduate Program of the W.P. Carey School of Business has established the following learning goals for its graduates: 
+
+\begin{enumerate}
+	\item \textbf{Critical Thinking}
+	\item Communication 
+	\item \textbf{Discipline Specific Knowledge }
+	\item Ethical Awareness and Reasoning
+	\item Global Awareness
+\end{enumerate}
+
+Items in \textbf{bold} have coverage in this course.
+
+\section*{Teaching Philosophy, Course Objectives, and Course Learning Outcomes}
+\begin{enumerate}
+	\item Learn and apply key models of firm competition and behavior in industrial organization
+	\item Connect the economic models we study to real-world applications
+	\item Evaluate and explain the tradeoffs policymakers face when regulating markets
+\end{enumerate}
+
+\section*{Required Textbook}
+
+\begin{itemize}
+\item The required textbook is \textit{`Introduction to Industrial Organization, Second Edition'} by Luis Cabral. 
+\end{itemize}
+
+% Third Section %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section*{Prerequisites}
+ECN 214 or 312 with C or better OR Visiting University Student
+
+In terms of your mathematical background, the main thing required is a basic knowledge of calculus (e.g. how to take a derivative).
+
+\section*{Homework}
+There will be three homework assignments. Your solutions must be written neatly and legible otherwise they will not be graded. The homework assignments will be due at the start of class on the due dates (which are to be determined). \textbf{Late assignments will not be accepted and will receive a grade of 0.} I will count the best two homework assignments for your grade. 
+
+You should work in groups of \textbf{two to three} on the homework assignments and hand in one version of the homework solutions per group. (Note: I \underline{will accept} homework solutions if you hand them in individually, but in previous years students have done much better when working in groups. So it is probably in your interest to work together with your colleagues.)
+
+\section*{Examinations}
+There will be three exams: two mid-terms and one final exam. The dates are as follows:
+\begin{itemize}
+	\item Mid-term exam 1 (in class, \textbf{September 29})
+	\item Mid-term exam 2 (in class, \textbf{November 3})
+	\item Final exam (in finals week - see schedule)
+\end{itemize}
+Please make sure that you are able to attend the exams - if you know you have a conflict then I encourage you to take the course in a different semester. 
+
+\textbf{Important:} There will be \underline{no make up exams} without a university sanctioned excuse: if you find out you cannot take an exam you must 1. let me know at least 48 hours before the exam 2. provide documentation for your university sanctioned excuse. If you do not do both 1. and 2. then you will receive 0 points in your exam.
+
+\section*{Grading Policy}
+Your final grade will be determined as follows:
+\begin{itemize}
+	\item \underline{\textbf{20\%}} Best 2 out of 3 homework assignments
+	\item \underline{\textbf{22.5\%}} Mid-term exam 1 
+	\item \underline{\textbf{22.5\%}} Mid-term exam 2
+	\item \underline{\textbf{35\%}} Final exam 
+\end{itemize}
+All of the exams and homework assignments will be in points. To determine your final grade I will first scale the maximum point grade of each exam and homework assignment to 100.\footnote{So, for example, if you get 40/50 on a mid-term exam I will first scale your score to 80/100.} I will then take the above weighted average over all of your assessments.
+
+Your final grade will be converted into a letter grade using the following intervals:
+
+\begin{center}
+	\centering
+	\begin{tabular}{|l|l|}
+		\hline
+		A+& Above 99  \\
+		A& [94,99) \\
+		A-&[90,94)  \\
+		B+&[87,90) \\
+		B& [84,87) \\
+		B-&[80, 84)  \\
+		C+&[70,80)  \\
+		C&[60,70)  \\
+		D& [50,60) \\
+		E& Below 50 \\
+		\hline
+	\end{tabular}
+\end{center}
+
+For \textbf{regrades} please attach a note to the front of the assessment with the reason why you want the assessment regraded. The entire assessment will be regraded so if you request a regrade \underline{your grade could decrease}. 
+
+\section*{Class Dates}
+We will meet except for university holidays or if otherwise announced.
+
+\section*{Attendance Policy}
+I won't be taking attendance. 
+
+\section*{Generative AI}
+Please don't use it to solve the homework (the homework are meant to prepare you for the exams, so it's in your interest to solve it yourself).
+
+\section*{Zoom Link}
+The department policy is: ``for campus immersion (on campus, in-person) courses, we will be able to accommodate students who have COVID or are not feeling well by enabling them to use Sync and join class via Zoom''. Email me if you require the Zoom link and the reason why (and please do this some time before the lecture so I don't miss your email). I strongly encourage you to stay home if you are feeling unwell. Note that exams and other assessment \textbf{do} require you to attend in-person or provide proof for your absence (and the exact policies are detailed elsewhere in the syllabus).
+
+\section*{Academic Integrity and Ethical Behavior}
+The W. P. Carey School takes academic integrity very seriously.  Therefore, unless otherwise specified, it is imperative that you do your own work.  Any suspected violations of academic integrity will be taken seriously and result in the following sanctions:
+\begin{itemize}
+	\item A minimum of zero on the assignment AND
+	\item A reduced grade in the course OR
+	\item A failure in the course OR
+	\item An XE which denotes failure due to academic dishonesty on the transcript OR
+	\item Removal from the W. P. Carey School of Business
+\end{itemize}
+Additional information on ASU’s academic integrity policy may be found at \url{http://provost.asu.edu/academicintegrity}.
+
+\section*{Grade of incomplete}
+A grade of incomplete for a course may be granted by permission of the instructor under the following conditions:
+\begin{itemize}
+\item The student is in good standing academically at ASU.
+\item The student has attended and completed a majority of the course assignments and exams (typically 70-80\%).
+\item The student has experienced extenuating circumstances at the end of the semester, preventing completion of the course.
+\end{itemize}
+
+ To request a grade of incomplete, please download the \href{https://registrar.asu.edu/forms/incomplete-grade-request}{Incomplete Grade Request form}, complete the top portion of the form, and contact me as soon as possible regarding the request. Note: students who miss a large portion of the course due to unforeseen events that impact their ability to succeed may qualify for a Medical/Compassionate Withdrawal.  
+
+\section*{Final Exam Rescheduling Policy}
+Per university policy, all requests to reschedule a final exam must be approved at the Dean level.  If you have more than three finals scheduled in one day or have an extenuating circumstance, please contact Michele.Pfund@asu.edu for more information.  
+
+\section*{Important Dates for ASU}
+The academic calendar has key dates including drop/add, course withdrawal, and complete withdrawal deadlines.  Click the link below for this term’s dates:
+\begin{itemize}
+	\item ASU Academic Calendar: https://students.asu.edu/academic-calendar
+	\item ASU Final Exam Schedule: https://students.asu.edu/final-exam-schedule
+\end{itemize}
+
+
+\section*{Syllabus Changes}
+The information in the syllabus, other than grade and absence policies, may be subject to change with reasonable advance notice.
+
+\newpage
+\section*{Schedule}
+\normalsize
+
+\textbf{Note:} This schedule may be subject to change. The course is split up into three parts. I have included the approximate sections that the material will draw from in the book (however, the sections in the book are often quite broad, so only material covered in class is assessable). 
+
+\begin{enumerate}
+	\item \textbf{Monopoly, price discrimination, and an introduction to game theory}
+	\begin{itemize}
+		\item Introduction and review of basic micro (Chapter 2)
+		\item Pricing and monopoly (Chapters 3.1, 3.2, 5)
+		\item Pricing and price discrimination (Chapter 6)
+		\item Game theory (simultaneous and sequential games) (Chapter 7.1, 7.2, and 8.1 if time permits)
+		\item Potentially begin material from Part 2 of the course.
+		\item \underline{Note: Mid-term exam 1 will cover material on this section}
+	\end{itemize}
+	\item \textbf{Models of static competition}
+	\begin{itemize}
+		\item Bertrand and Cournot competition (Chapter 8)
+		\item Stackelberg competition and entry deterrence (Chapter 12.1)
+		\item Hotelling model (Chapter 14., if time permits)
+		\item Potentially begin material from Part 3 of the course.
+		\item \underline{Note: Mid-term exam 2 will \textit{mainly} cover material on this section,  but will build on} 
+		
+		\underline{concepts from Part 1 of the course.}
+	\end{itemize} 
+	\item \textbf{Models of dynamic competition; horizontal and vertical relationships}
+		\begin{itemize}
+			\item Unfinished material from Part 2 of the course.
+			\item Market structure (Chapter 10)
+			\item Dynamic oligopoly and collusion (Chapter 7.3, 9)
+			\item Horizontal mergers (Chapter 11)
+			\item Vertical relationships (Chapter 13 - if time permits)
+			\item Recent developments in the field (No textbook link - if time permits)
+			\item \underline{Note: The final exam will be cumulative.} 
+		\end{itemize}
+\end{enumerate}
+
+\newpage
+\section*{Other policies}
+Several important W. P. Carey and ASU Policies for the course can we be found \href{https://docs.google.com/document/d/1o28FnvL6UJR6lYQ7U5V-aV6ise0jWuBDuQWQchv7URU/edit}{here}, including:
+\begin{itemize}
+	\item Honor Code and Professionalism Policy
+	\item Prohibition Against Discrimination, Harassment, and Retaliation  
+	\item Instructor Absence Policy
+	\item Religious Accommodations
+	\item University-Sanctioned Activities
+	\item Tutoring Support
+	\item Threatening Behavior Policy
+	\item Disability Accommodations
+	\item Offensive Material
+	\item Copyright Material
+\end{itemize}
+
+\end{document}
