@@ -20,6 +20,13 @@
 
 *Course Description (for syllabus/materials)*
 This is an advanced course in "Industrial Organization", which is the study of firm and consumer behavior with a particular focus on competition. The field addresses fundamental questions about when markets benefit society and where there may be scope for regulation. In addition, industrial organization economists work within businesses (particularly in tech) to design pricing and online marketplaces; while not a central focus of this course, I will occasionally mention these applications. Overall, the course will equip you with tools and concepts essential for analyzing firm strategy and for designing effective public policy.
+
+*Course Structure: Theory + Empirical*
+- This course has both **theoretical** and **empirical** components
+- Empirical components (demand estimation, merger simulation) are mainly at PhD level, but are so useful in practice that we cover them here
+- Theory: pricing, oligopoly models, entry, mergers, vertical relationships
+- Empirical: demand estimation, merger simulation
+- Mention this in the intro lecture (Lecture 1 Part 1)
  
 *Key items (read or copy but don't change directly)*
 - Previous versions of an undergraduate course and phd course are in `previous_courses/`.

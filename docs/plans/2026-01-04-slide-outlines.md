@@ -31,6 +31,12 @@ Main topics:
   - Study of firm behavior, market structure, competition
   - Policy applications: antitrust, regulation
   - Business applications: pricing, platform design
+- **Course structure: Theory + Empirical**
+  - This course has both theoretical and empirical components
+  - Empirical components (demand estimation) are mainly at PhD level
+  - But they are so useful in practice that we will cover them here
+  - Theory: pricing, oligopoly models, entry, mergers, vertical relationships
+  - Empirical: demand estimation, merger simulation
 - Why study IO? Real-world examples
   - Tech industry concentration (Google, Amazon, Apple)
   - Merger policy (recent cases)
