@@ -67,6 +67,12 @@ Main topics:
   - Consumer i chooses product j to maximize utility
   - uᵢⱼ = Vᵢⱼ + εᵢⱼ (deterministic + random)
   - Choice probability: P(choose j) = P(uᵢⱼ > uᵢₖ for all k)
+- **Why isn't income in the utility function?**
+  - Quasi-linear utility: U = u(goods) + income
+  - When comparing alternatives, income cancels out (only differences matter)
+  - Price coefficient α captures marginal utility of income
+  - This is why we can write uᵢⱼ = xⱼβ - αpⱼ + εᵢⱼ without income
+  - Good intuition check for understanding the model
 - From individual choice to market demand
   - Aggregate shares from individual probabilities
   - Market-level data vs individual-level data
