@@ -51,7 +51,13 @@ This is an advanced course in "Industrial Organization", which is the study of f
   - `external/cabral_solutions_summary.md` - Solutions manual index by chapter
 
 *Format*
-- Follow the .tex format that I use in `previous_courses/undergraduate_io` for new slides or syllabus 
+- Follow the .tex format that I use in `previous_courses/undergraduate_io` for new slides or syllabus
+
+*Pedagogical Style (VERY IMPORTANT)*
+- **Match tone and format** from previous slides in `previous_courses/undergraduate_io/slides/`
+- **Worked examples:** After explaining a concept, give students a few minutes to try a worked example themselves. This is a core part of the teaching style.
+- **Reveal-style questions:** Pose a question on a slide, discuss with students, then reveal the answer on the next slide (or after a pause). This keeps students engaged.
+- Slides should follow this pattern: Concept → Question/Example for students to try → Reveal/Solution 
 
 *Structure*
 - Structure of the course is `Masters IO dates.xlsx`.

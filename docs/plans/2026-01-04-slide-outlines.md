@@ -739,7 +739,37 @@ Main topics:
 
 1. Each Part = 60-75 minutes, 20-30 slides
 2. Use LaTeX format from `previous_courses/undergraduate_io/`
-3. Include worked examples and practice problems
-4. Reference Cabral chapter numbers for student reading
-5. For demand estimation: adapt PhD content to masters level (less math rigor, more intuition)
-6. Quick refreshers OK for game theory topics (students know from ECN 532)
+3. Reference Cabral chapter numbers for student reading
+4. For demand estimation: adapt PhD content to masters level (less math rigor, more intuition)
+5. Quick refreshers OK for game theory topics (students know from ECN 532)
+
+## Pedagogical Style (CRITICAL)
+
+**Match tone and format from previous slides in `previous_courses/undergraduate_io/slides/`**
+
+Each lecture part should follow this pattern:
+
+1. **Concept explanation** - Introduce the concept clearly
+2. **Worked example for students** - Give students a few minutes to try a problem themselves
+   - Pose the question on a slide
+   - Let students work on it (2-5 minutes)
+   - This is a CORE part of the teaching style - do NOT skip this
+3. **Reveal/Solution** - Show the answer, discuss common mistakes
+
+**Reveal-style questions:**
+- Pose a thought-provoking question on one slide
+- Discuss with students / let them think
+- Reveal the answer on the next slide (or after a pause)
+- This keeps students engaged and tests understanding
+
+**Example structure for a topic:**
+```
+Slide: Concept - Lerner Index definition
+Slide: Question - "A firm has elasticity -2 and MC = 5. What is the optimal price?"
+[Students work for 2-3 minutes]
+Slide: Solution - Show derivation and answer (p = 10)
+Slide: Discussion - "What happens as demand becomes more elastic?"
+Slide: Reveal - Price approaches marginal cost
+```
+
+This interactive pattern should appear multiple times in each 60-75 minute part.
