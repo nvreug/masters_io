@@ -12,3 +12,14 @@ __pycache__/
 # UV default file
 main.py
 README.md
+
+# LaTeX auxiliary files
+*.aux
+*.log
+*.out
+*.toc
+*.synctex.gz
+
+# Utility scripts
+split_pdfs.py
+convert_chunks_to_markdown.py

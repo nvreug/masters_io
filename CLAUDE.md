@@ -14,9 +14,12 @@
 - No finals week in the MS program — final exam is during the last lecture (March 4)
 
 *Objective*
-- This is a master's level course in industrial organization (economics). I am the professor and when you create stuff think about it form this perspective!
-- However, the students are at the advanced undergraduate (but with potentially some average undergraduate level ones). Keep this is mind when making content.
+- This is a master's level course in industrial organization (economics). I am the professor and when you create stuff think about it from this perspective!
+- However, the students are at the advanced undergraduate level (but with potentially some average undergraduate level ones). Keep this in mind when making content.
 - Claude will help with designing course architecture, slides, homework
+
+*Course Description (for syllabus/materials)*
+This is an advanced course in "Industrial Organization", which is the study of firm and consumer behavior with a particular focus on competition. The field addresses fundamental questions about when markets benefit society and where there may be scope for regulation. In addition, industrial organization economists work within businesses (particularly in tech) to design pricing and online marketplaces; while not a central focus of this course, I will occasionally mention these applications. Overall, the course will equip you with tools and concepts essential for analyzing firm strategy and for designing effective public policy.
  
 *Key items (read or copy but don't change directly)*
 - Previous versions of an undergraduate course and phd course are in `previous_courses/`.
@@ -29,13 +32,29 @@
 - The undergraduate course ALSO uses the cabral textbook as its basis. This is useful to remember when making new content!
 - The PhD demand slides mainly rely on `handbook of industrial organization vol 4 chapter 2`
 
+*CRITICAL: How to read textbooks in external/*
+- **NEVER read the original PDFs directly** (e.g., `external/cabral_solutions.pdf`, `external/train_textbook.pdf`). These are too large and will fail.
+- Textbooks are split into 25-page chunks in `external/<name>_chunks/` folders
+- Each chunk folder contains:
+  - `markdown/` - **Search and read these FIRST**. Contains `.md` files with extracted text + `_images/` subfolders with figures
+  - `pdfs/` - Original PDF chunks (25 pages each). Read these if markdown is insufficient (e.g., complex equations, tables, or layout issues)
+- Workflow: Search `.md` files first for content, fall back to PDF chunks only when needed
+- Available textbook chunks:
+  - `cabral_solutions_chunks/` - Solutions manual (89 pages, 4 chunks)
+  - `hio4_chapter2_chunks/` - Handbook of IO Vol 4 Ch 2 (96 pages, 4 chunks)
+  - `peppall_textbook_chunks/` - Peppall IO textbook (725 pages, 29 chunks)
+  - `train_textbook_chunks/` - Train discrete choice (388 pages, 16 chunks)
+
 *Format*
 - Follow the .tex format that I use in `previous_courses/undergraduate_io` for new slides or syllabus 
 
 *Structure*
-- Structure of the course is `Masters IO dates.xlsx`. 
-- Each lecture has two parts. *Each* part will go for 60-75 minutes. This should be the length of time for each slide deck (20-30 slides). 
+- Structure of the course is `Masters IO dates.xlsx`.
+- Each lecture has two parts. *Each* part will go for 60-75 minutes. This should be the length of time for each slide deck (20-30 slides).
 - Homework will be similar to the phd_io course, but simpler in that there are not random effects. It will also be completed using statsmodels and the pyblp package in python.
+
+*Course Materials*
+- Syllabus: `syllabus/syllabus.tex` (compile with pdflatex)
 
 * Environment *
 

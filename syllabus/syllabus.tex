@@ -1,0 +1,206 @@
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\usepackage[left=1.0in,top=1.0in,right=1.0in,bottom=1.0in,headheight=3ex,headsep=3ex]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{adjustbox}
+
+
+\newcommand{\blankline}{\quad\pagebreak[2]}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Modify Course title, instructor name, semester here %%%%%%%%
+
+\title{\Large ECN 594: Advanced Topics in Competition Policy \& Business Strategy}
+\author{Nicholas Vreugdenhil}
+\date{Spring, 2026}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%\usepackage[sc]{mathpazo}
+\linespread{1.3} % Palatino needs more leading (space between lines)
+\usepackage[T1]{fontenc}
+\usepackage[mmddyyyy]{datetime}% http://ctan.org/pkg/datetime
+\usepackage{advdate}% http://ctan.org/pkg/advdate
+\newdateformat{syldate}{\twodigit{\THEMONTH}/\twodigit{\THEDAY}}
+\newsavebox{\MONDAY}\savebox{\MONDAY}{Mon}% Mon
+\newcommand{\week}[1]{%
+%  \cleardate{mydate}% Clear date
+% \newdate{mydate}{\the\day}{\the\month}{\the\year}% Store date
+  \paragraph*{\kern-2ex\quad #1, \syldate{\today} - \AdvanceDate[4]\syldate{\today}:}% Set heading  \quad #1
+%  \setbox1=\hbox{\shortdayofweekname{\getdateday{mydate}}{\getdatemonth{mydate}}{\getdateyear{mydate}}}%
+  \ifdim\wd1=\wd\MONDAY
+    \AdvanceDate[7]
+  \else
+    \AdvanceDate[7]
+  \fi%
+}
+\usepackage{setspace}
+\usepackage{multicol}
+%\usepackage{indentfirst}
+\usepackage{fancyhdr,lastpage}
+\usepackage{url}
+\pagestyle{fancy}
+\usepackage{hyperref}
+\usepackage{lastpage}
+\usepackage{amsmath}
+\usepackage{layout}
+
+\lhead{}
+\chead{}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Modify header here %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\rhead{\footnotesize ECN 594: Advanced Topics in Competition Policy \& Business Strategy}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% Don't touch this %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\lfoot{}
+\cfoot{\small \thepage/\pageref*{LastPage}}
+\rfoot{}
+
+\usepackage{array, xcolor}
+\usepackage{color,hyperref}
+\definecolor{clemsonorange}{HTML}{EA6A20}
+\hypersetup{colorlinks,breaklinks,linkcolor=clemsonorange,urlcolor=clemsonorange,anchorcolor=clemsonorange,citecolor=black}
+
+\begin{document}
+
+\maketitle
+
+\blankline
+
+\begin{tabular*}{.93\textwidth}{@{\extracolsep{\fill}}lr}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+% Modify information %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+E-mail: \texttt{nvreugde@asu.edu} & Website: Canvas \\
+
+Office Hours: By appointment &  Class Hours: Monday/Wednesday 8:00-10:30am \\
+
+ Office: CPCOM 455G & Classroom: Tempe MCRD 250\\
+\hline
+\end{tabular*} \
+\\
+
+\bigskip
+\section*{Course Description}
+This is an advanced course in ``Industrial Organization'', which is the study of firm and consumer behavior with a particular focus on competition. The field addresses fundamental questions about when markets benefit society and where there may be scope for regulation. In addition, industrial organization economists work within businesses (particularly in tech) to design pricing and online marketplaces; while not a central focus of this course, I will occasionally mention these applications. Overall, the course will equip you with tools and concepts essential for analyzing firm strategy and for designing effective public policy.
+
+\section*{Prerequisites}
+Enrollment in the MS program.
+
+\section*{Required Textbook}
+
+\begin{itemize}
+\item \textit{Introduction to Industrial Organization, Second Edition} by Luis M. B. Cabral (MIT Press, 2017)
+\end{itemize}
+
+\section*{Supplementary References}
+
+\begin{itemize}
+\item \textit{Discrete Choice Methods with Simulation} by Kenneth E. Train (Cambridge University Press) --- free PDF available online
+\item \textit{Handbook of Industrial Organization, Volume 4} edited by Ho, Hortacsu, and Lizzeri (North-Holland, 2021), Chapter 2
+\end{itemize}
+
+\section*{Homework}
+There will be two homework assignments. You may work in groups of up to two, but ensure you understand all the work. To both learn the methods and ensure your solutions are accurate, it may be best to work individually and then check that you get the same results.
+
+Late assignments will not be accepted and will receive a grade of 0.
+
+\section*{Examinations}
+There will be two exams:
+\begin{itemize}
+	\item Midterm Exam (in class, \textbf{February 9})
+	\item Final Exam (in class, \textbf{March 4})
+\end{itemize}
+
+\textbf{Important:} There will be \underline{no makeup exams} without a university-sanctioned excuse. If you cannot take an exam, you must: 1) let me know at least 48 hours before the exam, and 2) provide documentation for your university-sanctioned excuse. If you do not do both, you will receive 0 points on the exam.
+
+\section*{Grading Policy}
+Your final grade will be determined as follows:
+\begin{itemize}
+	\item \underline{\textbf{20\%}} Homework 1
+	\item \underline{\textbf{20\%}} Homework 2
+	\item \underline{\textbf{30\%}} Midterm Exam
+	\item \underline{\textbf{30\%}} Final Exam
+\end{itemize}
+All assessments will be in points. To determine your final grade, I will first scale the maximum point grade of each assessment to 100. I will then take the above weighted average over all of your assessments.
+
+Your final grade will be converted into a letter grade using the following intervals:
+
+\begin{center}
+	\centering
+	\begin{tabular}{|l|l|}
+		\hline
+		A+& Above 99  \\
+		A& [94,99) \\
+		A-&[90,94)  \\
+		B+&[87,90) \\
+		B& [84,87) \\
+		B-&[80, 84)  \\
+		C+&[70,80)  \\
+		C&[60,70)  \\
+		D& [50,60) \\
+		E& Below 50 \\
+		\hline
+	\end{tabular}
+\end{center}
+
+For \textbf{regrades}, please attach a note to the front of the assessment with the reason why you want the assessment regraded. The entire assessment will be regraded, so if you request a regrade \underline{your grade could decrease}.
+
+\section*{Attendance}
+I won't be taking attendance. If you are unable to attend class due to illness or other reasons, email me for the Zoom link. I strongly encourage you to stay home if you are feeling unwell.
+
+\section*{Generative AI}
+AI tools like ChatGPT or Copilot may be used for minor tasks such as fixing typos or understanding error messages. However, AI should not be used to write code, derive solutions, or answer conceptual questions. You must be able to explain and reproduce your work.
+
+\section*{Syllabus Changes}
+The information in the syllabus may be subject to change.
+
+\newpage
+\section*{Schedule}
+\normalsize
+
+\textbf{Note:} This schedule may be subject to change. Only material covered in class is assessable.
+
+\begin{enumerate}
+	\item \textbf{Part 1: Demand Estimation and Pricing}
+	\begin{itemize}
+		\item Introduction and pricing (Cabral Chapters 3, 5)
+		\item Utility models and estimating demand (Train; HIO Vol.\ 4, Chapter 2)
+		\item Price discrimination (Cabral Chapter 6)
+		\item Review and practice questions
+		\item \underline{Note: Midterm Exam will cover material from Part 1}
+	\end{itemize}
+	\item \textbf{Part 2: Models of Competition and Industry Structure}
+	\begin{itemize}
+		\item Cournot competition (Cabral Chapter 8)
+		\item Hotelling model (Cabral Chapter 14)
+		\item Entry and market structure (Cabral Chapters 10, 12)
+		\item Horizontal relationships and mergers (Cabral Chapter 11)
+		\item Vertical relationships (Cabral Chapter 13)
+		\item Review and practice questions
+		\item \underline{Note: Final Exam will be cumulative}
+	\end{itemize}
+\end{enumerate}
+
+\section*{Other Policies}
+Several important W. P. Carey and ASU Policies for the course can be found \href{https://docs.google.com/document/d/1o28FnvL6UJR6lYQ7U5V-aV6ise0jWuBDuQWQchv7URU/edit}{here}, including:
+\begin{itemize}
+	\item Honor Code and Professionalism Policy
+	\item Prohibition Against Discrimination, Harassment, and Retaliation
+	\item Instructor Absence Policy
+	\item Religious Accommodations
+	\item University-Sanctioned Activities
+	\item Tutoring Support
+	\item Threatening Behavior Policy
+	\item Disability Accommodations
+	\item Offensive Material
+	\item Copyright Material
+\end{itemize}
+
+\end{document}
