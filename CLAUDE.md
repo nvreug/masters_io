@@ -60,6 +60,9 @@ This is an advanced course in "Industrial Organization", which is the study of f
 
 *Homework Notes*
 - **HW1:** Demand estimation only (Python) - due before midterm
+  - Based on `previous_courses/phd_io/` homework 1, adapted for masters level
+  - Key difference: uses **pyblp** package instead of custom code
+  - Slides should prepare students for this homework
 - **HW2:** Covers Part 2 topics (competition models). Includes a merger simulation module where students are given the demand system and compute post-merger prices/welfare effects
 
 *Exam Notes*
