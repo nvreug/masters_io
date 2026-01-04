@@ -44,6 +44,11 @@ This is an advanced course in "Industrial Organization", which is the study of f
   - `hio4_chapter2_chunks/` - Handbook of IO Vol 4 Ch 2 (96 pages, 4 chunks)
   - `peppall_textbook_chunks/` - Peppall IO textbook (725 pages, 29 chunks)
   - `train_textbook_chunks/` - Train discrete choice (388 pages, 16 chunks)
+- **Textbook summaries** (read these first to locate relevant chunks):
+  - `external/peppall_textbook_summary.md` - Full chapter/topic index with key equations
+  - `external/hio4_chapter2_summary.md` - Demand estimation methods summary
+  - `external/train_textbook_summary.md` - Discrete choice models summary
+  - `external/cabral_solutions_summary.md` - Solutions manual index by chapter
 
 *Format*
 - Follow the .tex format that I use in `previous_courses/undergraduate_io` for new slides or syllabus 
@@ -54,8 +59,16 @@ This is an advanced course in "Industrial Organization", which is the study of f
 - Homework will be similar to the phd_io course, but simpler in that there are not random effects. It will also be completed using statsmodels and the pyblp package in python.
 
 *Homework Notes*
-- **HW1:** Demand estimation (to be specified)
-- **HW2:** Should include a merger simulation module where students are given the demand system and compute post-merger prices/welfare effects
+- **HW1:** Demand estimation only (Python) - due before midterm
+- **HW2:** Covers Part 2 topics (competition models). Includes a merger simulation module where students are given the demand system and compute post-merger prices/welfare effects
+
+*Exam Notes*
+- **Format:** Same as undergraduate IO course exams (see `previous_courses/undergraduate_io/exams/`)
+- **Duration:** 70 minutes
+- **Allowed:** Calculator + two-sided cheat sheet (letter-size paper)
+- **Structure:** Mix of short answer (T/F/NEI, quick calculations, definitions) and longer problems (derivations, pricing, game theory)
+- **Midterm (Feb 9):** Covers Part 1 - pricing topics tested on exam only (not HW1), demand estimation tested on both HW1 and exam
+- **Final (Mar 4):** Cumulative
 
 *Student Background (from prior MS courses)*
 - From **ECN 565** (Alvin Murphy): Discrete choice econometrics (logit, probit, MLE)
