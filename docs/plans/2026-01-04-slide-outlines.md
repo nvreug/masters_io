@@ -201,27 +201,33 @@ Main topics:
 **Part 1: Demand Estimation Applications** (HIO Vol 4 Ch 2 Section 5)
 
 Main topics:
-- From demand to supply
-  - Nash-Bertrand pricing: firms maximize profits given competitors' prices
-  - First-order condition: qⱼ + Σₖ∈Fⱼ (pₖ - mcₖ)(∂qₖ/∂pⱼ) = 0
-  - Matrix form: p = mc + Ω⁻¹q(p)
+- From demand to supply: monopolist pricing FOC
+  - Start simple: monopolist maximizes profit
+  - FOC: q + (p - mc)(∂q/∂p) = 0
+  - Rearranges to Lerner index: (p - mc)/p = 1/|ε|
+  - **Note:** We're NOT introducing the conduct matrix yet - keep it simple
+  - We'll return to multi-firm pricing and merger simulation later in the course
 - Recovering marginal costs
-  - mc = p - Ω⁻¹q(p)
-  - Use estimated demand derivatives
+  - mc = p - q/(∂q/∂p)
+  - Use estimated demand elasticities
   - Markups: p - mc
 - Market power measurement
   - Lerner indices by product
-  - Aggregate measures
-  - Comparison across markets
-- Merger simulation preview
-  - Change ownership matrix → new equilibrium prices
-  - Will cover in detail in Part 2 of course
-- Case study: Nevo (2001) cereal market
-  - High margins explained by differentiation, not collusion
-  - Importance of demand estimation for policy
+  - What do high markups tell us?
+  - Preview: later we'll extend this to oligopoly and mergers
+- **Worked Example: pyblp car data (logit without random effects)**
+  - Walk through the pyblp package step by step
+  - Use the BLP automobile data
+  - Estimate simple logit (no random coefficients)
+  - Show all the modules: data setup, problem definition, estimation
+  - Compute elasticities and markups from results
+  - **This prepares students for HW1**
+  - Simulate and show results in Python on slides
 
-*Source:* Adapt from `previous_courses/phd_io/demand_estimation/`
-*Reference:* HIO Vol 4 Ch 2 Section 5, Nevo (2001)
+*Source:* Adapt from `previous_courses/phd_io/demand_estimation/`, pyblp documentation
+*Reference:* HIO Vol 4 Ch 2 Section 5, pyblp package (Conlon & Gortmaker)
+
+**Implementation note:** Need to run pyblp with BLP car data (logit only), capture output, and include code + results on slides as worked example.
 
 ---
 
