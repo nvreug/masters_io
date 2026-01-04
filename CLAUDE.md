@@ -90,6 +90,18 @@ This is an advanced course in "Industrial Organization", which is the study of f
 - **Structure:** Mix of short answer (T/F/NEI, quick calculations, definitions) and longer problems (derivations, pricing, game theory)
 - **Midterm (Feb 9):** Covers Part 1 - pricing topics tested on exam only (not HW1), demand estimation tested on both HW1 and exam
 - **Final (Mar 4):** Cumulative
+- **Practice exams:** Need to produce practice midterm and practice final
+  - Should be very similar to actual exams (same question types, different numbers)
+
+*Assessment Integration Principle (CORE)*
+- **Everything should be tightly integrated** - no surprises
+- Exam questions should mirror worked examples done in class
+- Homework problems should feed into exam questions
+- If it's on the exam, students should have seen something very similar in:
+  1. Lecture slides (worked examples)
+  2. Homework assignments
+  3. Practice exams
+- This means: when creating slides, think about what exam questions will look like
 
 *Student Background (from prior MS courses)*
 - From **ECN 565** (Alvin Murphy): Discrete choice econometrics (logit, probit, MLE)

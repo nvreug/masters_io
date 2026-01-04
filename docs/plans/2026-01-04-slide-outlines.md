@@ -751,6 +751,24 @@ Main topics:
 | HW1 | Demand estimation (Python/pyblp): estimate logit, compute elasticities | Feb 4 (Lecture 6) | 20% |
 | HW2 | Part 2 topics + merger simulation (demand given, compute post-merger equilibrium) | Mar 2 (Lecture 13) | 20% |
 
+## Practice Exams
+
+- **Practice Midterm:** Very similar to actual midterm (same question types, different numbers)
+- **Practice Final:** Very similar to actual final (same question types, different numbers)
+
+## Assessment Integration Principle (CORE)
+
+**Everything should be tightly integrated - no surprises on exams.**
+
+- Exam questions should mirror worked examples done in class
+- Homework problems should feed into exam questions
+- If it's on the exam, students should have seen something very similar in:
+  1. Lecture slides (worked examples)
+  2. Homework assignments
+  3. Practice exams
+
+**Implication for slide creation:** When designing worked examples, think about what exam questions will look like. The worked examples ARE the exam prep.
+
 ---
 
 ## Implementation Notes
