@@ -1,12 +1,33 @@
+*Course Details*
+- **Course Code:** ECN 594
+- **Title:** Advanced Topics in Competition Policy & Business Strategy
+- **Instructor:** Nicholas Vreugdenhil
+- **Days:** Monday & Wednesday
+- **Times:** 8:00 AM - 10:30 AM
+- **Dates:** January 21 - March 4, 2026
+- **Location:** Tempe MCRD 250
+
+*MS Program Schedule Notes*
+- The MS program starts one week after undergraduate classes (first class is Wed, Jan 21)
+- MLK Day (Mon, Jan 19) means a makeup lecture is scheduled for **Friday, January 23rd**
+- 14 lectures total across 7 weeks
+- No finals week in the MS program — final exam is during the last lecture (March 4)
+
 *Objective*
 - This is a master's level course in industrial organization (economics). I am the professor and when you create stuff think about it form this perspective!
 - However, the students are at the advanced undergraduate (but with potentially some average undergraduate level ones). Keep this is mind when making content.
 - Claude will help with designing course architecture, slides, homework
  
-*Key external items (read or copy but don't change directly)*
+*Key items (read or copy but don't change directly)*
 - Previous versions of an undergraduate course and phd course are in `previous_courses/`.
 - `Slides/alvins_course` contains slides for a course I didn't teach, but that they should know from last semester
 - I intend to reuse *a lot* of previous content from these courses (updated to an advanced undergraduate/empirical industrial organization level). The empirical demand estimation content will draw from the PhD course. Everything else will draw from the undergraduate level.
+
+*Textbooks and external reference material*
+- `external/` contains textbooks and other reference material
+- The main textbooks for this master's course are: the cabral `intro to industrial organization` textbook, and the `handbook of industrial organization vol 4 chapter 2` plus the `train, discrete choice` textbook.
+- The undergraduate course ALSO uses the cabral textbook as its basis. This is useful to remember when making new content!
+- The PhD demand slides mainly rely on `handbook of industrial organization vol 4 chapter 2`
 
 *Format*
 - Follow the .tex format that I use in `previous_courses/undergraduate_io` for new slides or syllabus 
@@ -15,3 +36,26 @@
 - Structure of the course is `Masters IO dates.xlsx`. 
 - Each lecture has two parts. *Each* part will go for 60-75 minutes. This should be the length of time for each slide deck (20-30 slides). 
 - Homework will be similar to the phd_io course, but simpler in that there are not random effects. It will also be completed using statsmodels and the pyblp package in python.
+
+* Environment *
+
+This project uses **UV** for Python environment management. All Python commands must be run through UV to ensure the correct virtual environment and dependencies are used.
+
+* Required Commands *
+
+```bash
+# Run tests
+uv run pytest tests/ -v
+
+# Run Python scripts
+uv run python script.py
+
+# Add dependencies
+uv add package_name        # production
+uv add --dev package_name  # development
+
+# Sync environment after pulling changes
+uv sync --all-extras
+```
+
+**Do not use bare `python` or `pytest` commands.** Always prefix with `uv run`.
