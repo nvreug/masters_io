@@ -53,6 +53,15 @@ This is an advanced course in "Industrial Organization", which is the study of f
 - Each lecture has two parts. *Each* part will go for 60-75 minutes. This should be the length of time for each slide deck (20-30 slides).
 - Homework will be similar to the phd_io course, but simpler in that there are not random effects. It will also be completed using statsmodels and the pyblp package in python.
 
+*Homework Notes*
+- **HW1:** Demand estimation (to be specified)
+- **HW2:** Should include a merger simulation module where students are given the demand system and compute post-merger prices/welfare effects
+
+*Student Background (from prior MS courses)*
+- From **ECN 565** (Alvin Murphy): Discrete choice econometrics (logit, probit, MLE)
+- From **ECN 532** (Hector Chade): Game theory including Nash equilibrium, Cournot, Bertrand, Stackelberg, repeated games, collusion
+- This means: Can do refreshers quickly in IO notation; demand estimation can focus on IO applications rather than MLE mechanics
+
 *Course Materials*
 - Syllabus: `syllabus/syllabus.tex` (compile with pdflatex)
 
