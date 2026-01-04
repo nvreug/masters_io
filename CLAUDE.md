@@ -55,9 +55,13 @@ This is an advanced course in "Industrial Organization", which is the study of f
 
 *Pedagogical Style (VERY IMPORTANT)*
 - **Match tone and format** from previous slides in `previous_courses/undergraduate_io/slides/`
-- **Worked examples:** After explaining a concept, give students a few minutes to try a worked example themselves. This is a core part of the teaching style.
+- **Worked examples (select topics, not everything):**
+  - After explaining a key concept, include a worked example ON THE SLIDES
+  - Give students a few minutes to try it themselves
+  - The solution is also on the slides - professor goes through it with students
+  - This is a core part of the teaching style
 - **Reveal-style questions:** Pose a question on a slide, discuss with students, then reveal the answer on the next slide (or after a pause). This keeps students engaged.
-- Slides should follow this pattern: Concept → Question/Example for students to try → Reveal/Solution 
+- Pattern for key topics: Concept → Worked example (question on slide) → Students try → Solution slide (professor walks through) 
 
 *Structure*
 - Structure of the course is `Masters IO dates.xlsx`.

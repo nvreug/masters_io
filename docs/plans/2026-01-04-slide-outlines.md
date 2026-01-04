@@ -747,29 +747,32 @@ Main topics:
 
 **Match tone and format from previous slides in `previous_courses/undergraduate_io/slides/`**
 
-Each lecture part should follow this pattern:
+### Worked Examples (for select key topics, NOT everything)
+
+For important concepts, include worked examples directly ON THE SLIDES:
 
 1. **Concept explanation** - Introduce the concept clearly
-2. **Worked example for students** - Give students a few minutes to try a problem themselves
-   - Pose the question on a slide
-   - Let students work on it (2-5 minutes)
-   - This is a CORE part of the teaching style - do NOT skip this
-3. **Reveal/Solution** - Show the answer, discuss common mistakes
+2. **Worked example slide** - Pose a question/problem on a slide
+3. **Students try** - Give students a few minutes to work on it (2-5 minutes)
+4. **Solution slide** - Professor goes through the solution with students
 
-**Reveal-style questions:**
+**Important:** Both the question AND the solution must be on the slides. The professor walks through the solution - students don't just see the answer.
+
+### Reveal-style Questions
+
 - Pose a thought-provoking question on one slide
 - Discuss with students / let them think
 - Reveal the answer on the next slide (or after a pause)
 - This keeps students engaged and tests understanding
 
-**Example structure for a topic:**
+### Example structure for a key topic:
 ```
 Slide: Concept - Lerner Index definition
-Slide: Question - "A firm has elasticity -2 and MC = 5. What is the optimal price?"
-[Students work for 2-3 minutes]
-Slide: Solution - Show derivation and answer (p = 10)
-Slide: Discussion - "What happens as demand becomes more elastic?"
+Slide: Worked Example - "A firm has elasticity -2 and MC = 5. What is the optimal price?"
+       [Students work for 2-3 minutes]
+Slide: Solution - Show derivation step by step, professor walks through (p = 10)
+Slide: Discussion question - "What happens as demand becomes more elastic?"
 Slide: Reveal - Price approaches marginal cost
 ```
 
-This interactive pattern should appear multiple times in each 60-75 minute part.
+This interactive pattern should appear for KEY topics in each lecture part - not every single concept.
