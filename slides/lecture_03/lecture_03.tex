@@ -156,10 +156,15 @@ Nicholas Vreugdenhil \\
   \centering
 \end{frame}
 
-\begin{frame}{Plan}
+\begin{frame}{Plan for today}
   \begin{wideenumerate}
-    \item \textbf{Demand with Demographic Interactions}
-    \item Estimation with pyblp
+    \item \textbf{Recap: endogeneity and IVs}
+    \item The demographic interaction model
+    \item Why demographics help with IIA
+    \item[] \rule{0.5\textwidth}{0.4pt}
+    \item Introduction to pyblp
+    \item Worked example: car demand
+    \item Interpreting output
   \end{wideenumerate}
 \end{frame}
 
@@ -208,6 +213,18 @@ Nicholas Vreugdenhil \\
 		\item Problem: doesn't capture that different consumers value characteristics differently
 		\item \textbf{Solution:} Let preferences vary with observed demographics
 	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan for today}
+  \begin{wideenumerate}
+    \item Recap: endogeneity and IVs
+    \item \textbf{The demographic interaction model}
+    \item Why demographics help with IIA
+    \item[] \rule{0.5\textwidth}{0.4pt}
+    \item Introduction to pyblp
+    \item Worked example: car demand
+    \item Interpreting output
+  \end{wideenumerate}
 \end{frame}
 
 \begin{frame}{The demographic interaction model}
@@ -328,6 +345,18 @@ Nicholas Vreugdenhil \\
 	\end{wideitemize}
 \end{frame}
 
+\begin{frame}{Plan for today}
+  \begin{wideenumerate}
+    \item Recap: endogeneity and IVs
+    \item The demographic interaction model
+    \item \textbf{Why demographics help with IIA}
+    \item[] \rule{0.5\textwidth}{0.4pt}
+    \item Introduction to pyblp
+    \item Worked example: car demand
+    \item Interpreting output
+  \end{wideenumerate}
+\end{frame}
+
 \begin{frame}{Demographics and IIA (preview)}
 	\begin{wideitemize}
 		\item Recall: basic logit has IIA problem
@@ -372,10 +401,15 @@ Nicholas Vreugdenhil \\
 % pyblp ESTIMATION
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Plan}
+\begin{frame}{Plan for today}
   \begin{wideenumerate}
-    \item Demand with Demographic Interactions
-    \item \textbf{Estimation with pyblp}
+    \item Recap: endogeneity and IVs
+    \item The demographic interaction model
+    \item Why demographics help with IIA
+    \item[] \rule{0.5\textwidth}{0.4pt}
+    \item \textbf{Introduction to pyblp}
+    \item Worked example: car demand
+    \item Interpreting output
   \end{wideenumerate}
 \end{frame}
 
@@ -444,6 +478,18 @@ product_data = pd.read_csv(pyblp.data.BLP_PRODUCTS_LOCATION)
 			\item Or micro-level survey data
 		\end{wideitemize}
 	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan for today}
+  \begin{wideenumerate}
+    \item Recap: endogeneity and IVs
+    \item The demographic interaction model
+    \item Why demographics help with IIA
+    \item[] \rule{0.5\textwidth}{0.4pt}
+    \item Introduction to pyblp
+    \item \textbf{Worked example: car demand}
+    \item Interpreting output
+  \end{wideenumerate}
 \end{frame}
 
 \begin{frame}{The BLP automobile data}
@@ -570,6 +616,18 @@ print(f"Mean own-price elasticity: {own_elasticities.mean():.2f}")
 		\item Price coefficient is \textbf{negative} (as expected)
 		\item All characteristics positive: consumers prefer more HP, air conditioning, fuel efficiency, space
 	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan for today}
+  \begin{wideenumerate}
+    \item Recap: endogeneity and IVs
+    \item The demographic interaction model
+    \item Why demographics help with IIA
+    \item[] \rule{0.5\textwidth}{0.4pt}
+    \item Introduction to pyblp
+    \item Worked example: car demand
+    \item \textbf{Interpreting output}
+  \end{wideenumerate}
 \end{frame}
 
 \begin{frame}{Interpreting pyblp output}

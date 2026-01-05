@@ -76,9 +76,11 @@ This is an advanced course in "Industrial Organization", which is the study of f
 
 *Plan Slides (Section Navigation)*
 - Use `\begin{frame}{Plan}` slides to show lecture structure - NOT `\transitionframe{}`
+- Each lecture should have **6-8 topics** (typically 3-4 per Part, with a horizontal rule separator)
 - Pattern (from undergraduate slides):
-  1. After the title slide, add a Plan slide listing all main topics with the **first topic in bold**
+  1. After the title slide, add a Plan slide listing all topics with the **first topic in bold**
   2. Before each subsequent major section, repeat the Plan slide with the **current topic in bold**
+  3. Use `\item[] \rule{0.5\textwidth}{0.4pt}` as a separator between Part 1 and Part 2 topics
 - These Plan slides help students track where they are in the lecture
 - Plan slides do NOT count toward the ~40 slide target
 - Example:
@@ -88,6 +90,9 @@ This is an advanced course in "Industrial Organization", which is the study of f
       \item \textbf{Topic 1}  % Current section in bold
       \item Topic 2
       \item Topic 3
+      \item[] \rule{0.5\textwidth}{0.4pt}  % Separator between Part 1 and Part 2
+      \item Topic 4
+      \item Topic 5
     \end{wideenumerate}
   \end{frame}
   ```
