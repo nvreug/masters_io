@@ -476,7 +476,7 @@ These diagrams don't exist in previous courses but would be valuable:
 | Identification problem | L2 | Supply/demand with multiple equilibrium points, showing we can't identify either curve |
 | Surge pricing endogeneity | L2 | Show surge responds to BOTH supply shocks (fewer drivers) AND demand shocks (concert ends) → price is endogenous |
 | Uber price wiggle experiment | L2 | **KEY DIAGRAM:** Fixed supply curve, price "wiggles" up/down randomly, tracing out points ON the demand curve. Shows how randomization identifies demand by moving along curve while holding supply fixed |
-| Red bus / blue bus | L4 | Three circles (Car, Red Bus, Blue Bus) showing IIA substitution problem |
+| Red bus / blue bus | L4 | Simple icons: 🚗 Car, 🚌 Red Bus, 🚌 Blue Bus - show substitution arrows. Pre: Car↔Red Bus (50/50). Post: Logit predicts Car↔Red Bus↔Blue Bus (33/33/33) but reality is Car stays 50%, buses split the other 50% |
 | Log-sum CS formula | L4 | Visual showing how expected utility aggregates across options |
 
 ### Competition Models (L8-L10)
@@ -505,6 +505,87 @@ These diagrams don't exist in previous courses but would be valuable:
 - **Microsoft/Activision merger news** - for L10 merger policy
 - **Amazon vertical integration diagram** - for L11 vertical relationships
 - **Airline yield management screen** - for L5 price discrimination
+
+---
+
+## Additional Real-World Examples to Sprinkle In
+
+### Demand Estimation (L2-L4)
+| Example | Lecture | Description |
+|---------|---------|-------------|
+| Smartphone choice | L2 | iPhone vs Android vs budget phones - relatable discrete choice |
+| Netflix vs streaming | L3 | Subscription choice with demographics (income affects Netflix vs free options) |
+| College choice | L4 | Students choosing colleges - good IIA discussion (Harvard vs Yale vs ASU) |
+
+### Price Discrimination (L4-L5)
+| Example | Lecture | Description |
+|---------|---------|-------------|
+| Spotify/Netflix tiers | L5 | Classic versioning - Basic/Standard/Premium |
+| Happy hour pricing | L4 | Time-based selection by indicators |
+| Amazon dynamic pricing | L4 | Prices change based on demand signals |
+| Senior citizen discounts | L4 | Age-based selection by indicators - why do seniors get discounts? (more elastic!) |
+| Black Friday sales | L4 | Selection by indicators - patient vs impatient consumers |
+| Costco membership | L5 | Two-part tariff: annual fee + low prices |
+| Theme park passes | L5 | Two-part tariff: admission + per-ride or unlimited |
+
+### Cournot/Bertrand (L8)
+| Example | Lecture | Description |
+|---------|---------|-------------|
+| OPEC oil production | L8 | Classic Cournot - countries choose output levels |
+| Gas stations on same corner | L8 | Bertrand - identical product, price competition |
+| Airline price wars | L8 | Bertrand dynamics - undercutting |
+| Semiconductor fabs | L8 | Cournot - capacity takes years to build, commit to quantity |
+
+### Hotelling (L8)
+| Example | Lecture | Description |
+|---------|---------|-------------|
+| Ice cream vendors on beach | L8 | Classic textbook example |
+| Political parties | L8 | Moving toward the "median voter" - Hotelling in ideology space |
+| Cereal shelf positioning | L8 | Products differentiated on sweetness, healthiness |
+| Fast food clustering | L8 | Why are McDonald's and Burger King often near each other? |
+
+### Entry (L9)
+| Example | Lecture | Description |
+|---------|---------|-------------|
+| Walmart entering small towns | L9 | Entry deterrence - established retailers couldn't stop Walmart |
+| Starbucks saturation | L9 | Excess entry? So many coffee shops in some areas |
+| Amazon entering new markets | L9 | "Your margin is my opportunity" - entry threat |
+| Pharmacy chains | L9 | CVS/Walgreens - how many can a town support? |
+
+### Mergers (L10)
+| Example | Lecture | Description |
+|---------|---------|-------------|
+| T-Mobile/Sprint | L10 | Horizontal merger - 4 carriers to 3 |
+| Disney/Fox | L10 | Content consolidation |
+| Amazon/Whole Foods | L10 | Vertical? Platform entry? |
+| Ticketmaster/Live Nation | L10 | Vertical integration - venues + ticketing |
+| "The Informant!" movie clip | L12 | Lysine cartel - entertaining way to introduce collusion |
+
+### Collusion (L12)
+| Example | Lecture | Description |
+|---------|---------|-------------|
+| Lysine cartel (ADM) | L12 | "The Informant!" movie - FBI recordings of price-fixing meetings |
+| Vitamin cartel | L12 | Global vitamin price-fixing in 1990s |
+| LCD price-fixing | L12 | Tech industry collusion |
+| College financial aid | L12 | Overlap group - colleges coordinating aid offers (antitrust exemption!) |
+| Real estate commissions | L12 | Recent DOJ case - 6% standard commission |
+
+### Vertical Relationships (L11)
+| Example | Lecture | Description |
+|---------|---------|-------------|
+| Apple vertical integration | L11 | Design → chips → software → retail stores |
+| Netflix producing content | L11 | Streaming + production - avoid double marginalization with studios |
+| Amazon private labels | L11 | Platform + competing products - vertical concern |
+| Tesla direct sales | L11 | Why can't Tesla sell direct? Dealer laws as vertical restraint |
+| Beer distribution laws | L11 | Three-tier system - manufacturer → distributor → retailer |
+
+### Modern/Tech Examples (sprinkle throughout)
+| Example | Lecture | Description |
+|---------|---------|-------------|
+| Google search auction | L1 | Platform pricing - intro teaser |
+| App Store 30% fee | L11 | Vertical relationship - Apple as gatekeeper |
+| Algorithmic pricing | L12 | Can algorithms learn to collude without explicit communication? |
+| Two-sided markets | L1 | Uber, Airbnb - brief mention of platform economics |
 
 ---
 
