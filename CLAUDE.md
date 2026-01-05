@@ -75,6 +75,16 @@ This is an advanced course in "Industrial Organization", which is the study of f
 - Each lecture has two parts. *Each* part will go for 60-75 minutes. This should be the length of time for each slide deck (20-30 slides).
 - Homework will be similar to the phd_io course, but simpler in that there are not random effects. It will also be completed using statsmodels and the pyblp package in python.
 
+*Timing and Slide Counts (IMPORTANT)*
+- **Class duration:** 8:00 AM - 10:30 AM (2.5 hours total)
+- **Break:** 15 minutes (typically between Part 1 and Part 2)
+- **Active teaching time:** ~2 hours 15 minutes (135 minutes)
+- **Target slides per lecture:** ~40 slides total (both parts combined)
+  - Part 1: ~20-22 slides (60-70 minutes)
+  - Part 2: ~18-20 slides (55-65 minutes)
+- **Pacing:** ~3 minutes per slide average (allows for discussion, questions, worked examples)
+- **Worked examples:** Budget extra time (5-8 minutes) for slides with worked examples where students try problems
+
 *Homework Notes*
 - **HW1:** Demand estimation (Python) - due before midterm
   - Based on `previous_courses/phd_io/` homework 1, adapted for masters level
