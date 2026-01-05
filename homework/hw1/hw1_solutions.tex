@@ -71,9 +71,9 @@ This is a linear regression with dependent variable $\ln(s_j) - \ln(s_0)$ and er
 \toprule
 Parameter & OLS Estimate \\
 \midrule
-$\hat{\beta}_0$ (constant) & $-2.967$ \\
-$\hat{\beta}_1$ (sugar) & $0.046$ \\
-$\hat{\alpha}$ (price) & $-10.20$ \\
+$\hat{\beta}_0$ (constant) & $-2.9665$ \\
+$\hat{\beta}_1$ (sugar) & $0.0463$ \\
+$\hat{\alpha}$ (price) & $-10.2036$ \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -99,9 +99,9 @@ OLS is likely biased because prices are \textbf{endogenous}:
 \toprule
 Parameter & OLS & 2SLS \\
 \midrule
-$\hat{\beta}_0$ (constant) & $-2.967$ & $-2.891$ \\
-$\hat{\beta}_1$ (sugar) & $0.046$ & $0.048$ \\
-$\hat{\alpha}$ (price) & $-10.20$ & $-10.94$ \\
+$\hat{\beta}_0$ (constant) & $-2.9665$ & $-2.8915$ \\
+$\hat{\beta}_1$ (sugar) & $0.0463$ & $0.0483$ \\
+$\hat{\alpha}$ (price) & $-10.2036$ & $-10.9449$ \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -111,7 +111,13 @@ As expected, OLS is \textbf{less negative} than 2SLS ($-10.20$ vs $-10.94$), con
 \vspace{1em}
 \textbf{(e) Own-Price Elasticities}
 
-See Figure 1. There is a \textbf{negative linear relationship} between prices and elasticities.
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{q1e_elasticities_logit.png}
+\caption{Own-price elasticities vs.\ prices for basic logit model (market C01Q1)}
+\end{figure}
+
+There is a \textbf{negative linear relationship} between prices and elasticities.
 
 This is a \textbf{bug} (limitation) of the logit model. The formula $\eta_{jj} = \alpha \cdot p_j \cdot (1-s_j)$ mechanically ties elasticity to price. Since $\alpha < 0$ and $(1-s_j) \approx 1$ for small shares, elasticity is roughly proportional to price.
 
@@ -149,11 +155,11 @@ Example: If $\alpha_0 = -5$ and $\alpha_{inc} = 2$:
 \toprule
 Parameter & Estimate \\
 \midrule
-$\hat{\beta}_0$ (constant) & $-3.80$ \\
-$\hat{\alpha}_0$ (price) & $-2.93$ \\
-$\hat{\beta}_{0,inc}$ (constant $\times$ income) & $4.87$ \\
-$\hat{\alpha}_{inc}$ (price $\times$ income) & $-36.6$ \\
-$\hat{\beta}_1$ (sugar $\times$ income) & $0.13$ \\
+$\hat{\beta}_0$ (constant) & $-3.7933$ \\
+$\hat{\alpha}_0$ (price) & $-3.1154$ \\
+$\hat{\beta}_{0,inc}$ (constant $\times$ income) & $4.9601$ \\
+$\hat{\alpha}_{inc}$ (price $\times$ income) & $-37.9653$ \\
+$\hat{\beta}_1$ (sugar $\times$ income) & $0.1336$ \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -163,7 +169,13 @@ Note: The large negative $\alpha_{inc}$ is an artifact of how income is scaled i
 \vspace{1em}
 \textbf{(c) Elasticities with Demographics}
 
-See Figure 2. The tight linear relationship is now \textbf{broken}---the pattern is scattered.
+\begin{figure}[H]
+\centering
+\includegraphics[width=\textwidth]{q2c_comparison.png}
+\caption{Own-price elasticities: basic logit (left) vs.\ logit with demographics (right)}
+\end{figure}
+
+The tight linear relationship is now \textbf{broken}---the pattern is scattered.
 
 \textbf{Why?}
 \begin{itemize}
@@ -222,15 +234,15 @@ Notes:
 \vspace{1em}
 \textbf{(b) CS Calculation for C01Q1}
 
-Using 2SLS estimates with $\hat{\alpha} = -10.94$:
+Using 2SLS estimates with $\hat{\alpha} = -10.9449$:
 
 \begin{center}
 \begin{tabular}{lc}
 \toprule
 Scenario & Expected CS per Consumer \\
 \midrule
-All products available & \$0.1547 \\
-Without F1B04 & \$0.1536 \\
+All products available & \$0.0538 \\
+Without F1B04 & \$0.0526 \\
 \midrule
 \textbf{Change from removing F1B04} & \textbf{$-\$0.0011$} \\
 \bottomrule
@@ -242,9 +254,15 @@ Consumers lose about \$0.0011 per person when F1B04 is removed.
 \vspace{1em}
 \textbf{(c) Products with Largest/Smallest Impact}
 
-\textbf{Product whose removal most harms consumers:} Typically the product with highest market share (highest $\delta$).
+\begin{figure}[H]
+\centering
+\includegraphics[width=0.8\textwidth]{q3c_cs_vs_share.png}
+\caption{Consumer surplus impact vs.\ market share}
+\end{figure}
 
-\textbf{Product whose removal least harms consumers:} Typically the product with lowest market share (lowest $\delta$).
+\textbf{Product whose removal most harms consumers:} F2B19 (market share 10.0\%, CS change $-\$0.0096$).
+
+\textbf{Product whose removal least harms consumers:} F4B10 (market share 0.07\%, CS change $-\$0.0001$).
 
 \textbf{Intuition:} From the log-sum formula, products with high $\exp(\delta)$ have larger impact on inclusive value. High $\delta$ means:
 \begin{itemize}

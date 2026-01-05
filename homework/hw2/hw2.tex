@@ -91,7 +91,6 @@ Consider a market with 4 differentiated products, each owned by a separate firm.
 \begin{itemize}
 \item Price coefficient: $\alpha = -2.0$
 \item Product-specific mean utilities (deltas): $\delta = (-0.5, -0.3, -0.2, -0.4)$
-\item Pre-merger prices: $p^0 = (2.0, 2.5, 3.0, 2.2)$
 \item Marginal costs: $c = (1.0, 1.2, 1.5, 1.1)$
 \end{itemize}
 
@@ -100,17 +99,20 @@ The market size is $M = 1000$ consumers. The outside option has $\delta_0 = 0$.
 \subsection*{Question 4: Pre-Merger Equilibrium (20 points)}
 
 \begin{enumerate}
-\item \textbf{(5 points)} Compute the market shares for each product and the outside option under the pre-merger prices.
+\item \textbf{(5 points)} Solve for the pre-merger equilibrium prices. Each firm owns one product and sets price to maximize profit. Use the first-order condition:
+\[
+s_j + (p_j - c_j) \frac{\partial s_j}{\partial p_j} = 0
+\]
+Solve this system numerically in Python starting from initial guess $p = c + 0.5$.
 
-\textit{Hint:} Use the logit formula: $s_j = \frac{\exp(\delta_j + \alpha p_j)}{1 + \sum_k \exp(\delta_k + \alpha p_k)}$
+\item \textbf{(5 points)} Using your equilibrium prices, compute market shares for each product and the outside option.
 
 \item \textbf{(5 points)} Compute the own-price elasticity for each product. Verify that all products have elastic demand ($|\eta_{jj}| > 1$).
 
-\item \textbf{(5 points)} For product 1, verify the first-order condition for profit maximization:
+\item \textbf{(5 points)} Verify that your prices satisfy the FOC by checking that:
 \[
-p_j - c_j = -\frac{s_j}{\partial s_j / \partial p_j} = \frac{1}{|\alpha|(1-s_j)}
+p_j - c_j = \frac{1}{|\alpha|(1-s_j)}
 \]
-Note: There may be small numerical differences due to rounding.
 
 \item \textbf{(5 points)} Compute the HHI (Herfindahl-Hirschman Index) for this market. Would the DOJ/FTC consider this market concentrated?
 \end{enumerate}

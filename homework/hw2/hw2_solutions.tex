@@ -133,22 +133,38 @@ Collusion sustainable if $\delta \geq 0.57$--0.64 (depending on exact specificat
 
 \subsection*{Question 4: Pre-Merger Equilibrium}
 
-\textbf{(a) Market shares:}
+\textbf{(a) Pre-merger equilibrium prices:}
+
+Solving the FOC system $s_j + (p_j - c_j) \frac{\partial s_j}{\partial p_j} = 0$ with initial guess $p = c + 0.5$:
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+Product & Equilibrium Price & Markup \\
+\midrule
+1 & \$1.51 & \$0.51 \\
+2 & \$1.71 & \$0.51 \\
+3 & \$2.01 & \$0.51 \\
+4 & \$1.61 & \$0.51 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{(b) Market shares:}
 \begin{center}
 \begin{tabular}{lcc}
 \toprule
 Product & Share & Percentage \\
 \midrule
-1 & 0.0639 & 6.39\% \\
-2 & 0.0423 & 4.23\% \\
-3 & 0.0226 & 2.26\% \\
-4 & 0.0520 & 5.20\% \\
-Outside & 0.8191 & 81.91\% \\
+1 & 0.0268 & 2.68\% \\
+2 & 0.0221 & 2.21\% \\
+3 & 0.0135 & 1.35\% \\
+4 & 0.0243 & 2.43\% \\
+Outside & 0.9133 & 91.33\% \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-\textbf{(b) Own-price elasticities:}
+\textbf{(c) Own-price elasticities:}
 
 Using $\eta_{jj} = \alpha p_j (1 - s_j)$:
 \begin{center}
@@ -156,25 +172,25 @@ Using $\eta_{jj} = \alpha p_j (1 - s_j)$:
 \toprule
 Product & Elasticity & Status \\
 \midrule
-1 & $-3.74$ & Elastic \\
-2 & $-4.78$ & Elastic \\
-3 & $-5.86$ & Elastic \\
-4 & $-4.16$ & Elastic \\
+1 & $-2.95$ & Elastic \\
+2 & $-3.35$ & Elastic \\
+3 & $-3.96$ & Elastic \\
+4 & $-3.15$ & Elastic \\
 \bottomrule
 \end{tabular}
 \end{center}
 
 All products have $|\eta| > 1$, confirming elastic demand.
 
-\textbf{(c) FOC verification for product 1:}
+\textbf{(d) FOC verification for product 1:}
 
-Actual markup: $p_1 - c_1 = 2.0 - 1.0 = \$1.00$
+Actual markup: $p_1 - c_1 = 1.51 - 1.0 = \$0.51$
 
-FOC markup: $\frac{1}{|\alpha|(1-s_1)} = \frac{1}{2 \times 0.936} = \$0.534$
+FOC markup: $\frac{1}{|\alpha|(1-s_1)} = \frac{1}{2 \times 0.973} = \$0.51$
 
-(Small difference due to rounding in given parameters---prices may not be exact equilibrium.)
+The FOC is satisfied (difference $< \$0.001$).
 
-\textbf{(d) HHI:}
+\textbf{(e) HHI:}
 
 Using inside shares: HHI $\approx 2,634$ (highly concentrated, $>2,500$).
 
@@ -196,15 +212,15 @@ $$\mathcal{O} = \begin{pmatrix} 1 & 1 & 0 & 0 \\ 1 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 
 \toprule
 Product & Pre-merger & Post-merger & Change \\
 \midrule
-1 & \$2.00 & \$2.15 & $+7.5\%$ \\
-2 & \$2.50 & \$2.67 & $+6.8\%$ \\
-3 & \$3.00 & \$3.02 & $+0.7\%$ \\
-4 & \$2.20 & \$2.22 & $+0.9\%$ \\
+1 & \$1.51 & \$1.53 & $+0.75\%$ \\
+2 & \$1.71 & \$1.73 & $+0.81\%$ \\
+3 & \$2.01 & \$2.01 & $+0.00\%$ \\
+4 & \$1.61 & \$1.61 & $+0.00\%$ \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-Merging firms raise prices more; non-merging firms also raise prices slightly (less competitive pressure).
+Merging firms raise prices; non-merging firms see negligible changes (logit with small shares leads to limited strategic interaction).
 
 \subsection*{Question 6: Welfare Analysis}
 
@@ -214,25 +230,27 @@ Merging firms raise prices more; non-merging firms also raise prices slightly (l
 \toprule
  & Pre-merger & Post-merger \\
 \midrule
-CS & \$99.29 & \$97.42 \\
-Change & \multicolumn{2}{c}{$-\$1.87$ ($-1.9\%$)} \\
+CS & \$45.37 & \$44.77 \\
+Change & \multicolumn{2}{c}{$-\$0.60$ ($-1.3\%$)} \\
 \bottomrule
 \end{tabular}
 \end{center}
 
 \textbf{(b) Producer profits:}
 
-Merged firm: Pre $\$64 + \$55 = \$119$ $\to$ Post $\$74 + \$62 = \$136$ (+14\%)
+Merged firm: Pre $\$13.78 + \$11.29 = \$25.07$ $\to$ Post $\$25.08$ (+0.04\%)
 
-Non-merging firms also gain slightly from higher prices.
+Non-merging firms see negligible changes (Firm 3: $+\$0.01$, Firm 4: $+\$0.01$).
+
+Total PS: Pre $\$44.39$ $\to$ Post $\$44.42$ ($+\$0.03$)
 
 \textbf{(c) Total welfare:}
 
-TW falls by $\approx\$0.50$. The merger is \textbf{welfare-reducing}---consumer harm exceeds producer gain.
+TW falls by $\$0.57$ ($-0.63\%$). The merger is \textbf{welfare-reducing}---consumer harm exceeds producer gain.
 
 \textbf{(d) Efficiency defense:}
 
-With 10\% cost reductions, prices rise less and welfare change becomes positive. The efficiency defense \textbf{succeeds}---sufficient cost savings can offset anticompetitive price increases.
+With 10\% cost reductions on products 1 and 2, welfare change becomes $+\$10.44$ ($+11.6\%$). The efficiency defense \textbf{succeeds}---sufficient cost savings offset anticompetitive price increases.
 
 \textit{Policy implication:} Merging parties must demonstrate credible efficiency gains to offset consumer harm.
 

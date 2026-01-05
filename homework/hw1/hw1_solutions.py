@@ -3,6 +3,9 @@ ECN 594: Homework 1 Solutions
 Demand Estimation with pyblp
 """
 
+import matplotlib
+matplotlib.use('Agg')  # Non-interactive backend
+
 import pyblp
 import numpy as np
 import pandas as pd
@@ -151,7 +154,7 @@ plt.axhline(y=-1, color='red', linestyle='--', alpha=0.5, label='Unit elastic')
 plt.legend()
 plt.tight_layout()
 plt.savefig('q1e_elasticities_logit.png', dpi=150)
-plt.show()
+plt.close()
 
 print("""
 Pattern observed: There is a NEGATIVE linear relationship between prices
@@ -283,7 +286,7 @@ plt.axhline(y=-1, color='red', linestyle='--', alpha=0.5, label='Unit elastic')
 plt.legend()
 plt.tight_layout()
 plt.savefig('q2c_elasticities_demo.png', dpi=150)
-plt.show()
+plt.close()
 
 # Comparison plot
 fig, axes = plt.subplots(1, 2, figsize=(14, 5))
@@ -302,7 +305,7 @@ axes[1].axhline(y=-1, color='red', linestyle='--', alpha=0.5)
 
 plt.tight_layout()
 plt.savefig('q2c_comparison.png', dpi=150)
-plt.show()
+plt.close()
 
 print("""
 Comparison with Basic Logit:
@@ -537,7 +540,7 @@ plt.title('Consumer Surplus Impact vs Market Share', fontsize=14)
 plt.axhline(y=0, color='red', linestyle='--', alpha=0.3)
 plt.tight_layout()
 plt.savefig('q3c_cs_vs_share.png', dpi=150)
-plt.show()
+plt.close()
 
 print("\n" + "="*70)
 print("END OF SOLUTIONS")
