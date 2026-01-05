@@ -1,0 +1,120 @@
+% Shared packages and settings for ECN 594 slides
+% Advanced Topics in Competition Policy & Business Strategy
+% Spring 2026 - Nicholas Vreugdenhil
+
+\usepackage{pgfpages}
+\setbeameroption{hide notes} % Only slide
+
+\usepackage{array}
+\usepackage{tikz}
+\usepackage{verbatim}
+\setbeamertemplate{note page}{\pagecolor{gray!5}\insertnote}
+\usetikzlibrary{positioning}
+\usetikzlibrary{snakes}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{matrix,shapes,arrows,fit,tikzmark}
+\usepackage{amsmath}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{multimedia}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{dcolumn}
+\usepackage{bbm}
+\newcolumntype{d}[0]{D{.}{.}{5}}
+
+\usepackage{changepage}
+\usepackage{appendixnumberbeamer}
+\newcommand{\beginbackup}{
+   \newcounter{framenumbervorappendix}
+   \setcounter{framenumbervorappendix}{\value{framenumber}}
+   \setbeamertemplate{footline}
+   {
+     \leavevmode%
+     \hline
+     box{%
+       \begin{beamercolorbox}[wd=\paperwidth,ht=2.25ex,dp=1ex,right]{footlinecolor}%
+       \end{beamercolorbox}}%
+     \vskip0pt%
+   }
+ }
+\newcommand{\backupend}{
+   \addtocounter{framenumbervorappendix}{-\value{framenumber}}
+   \addtocounter{framenumber}{\value{framenumbervorappendix}}
+}
+
+\usepackage[space]{grffile}
+\usepackage{booktabs}
+
+% Colors
+\definecolor{blue}{RGB}{0,114,178}
+\definecolor{red}{RGB}{213,94,0}
+\definecolor{yellow}{RGB}{240,228,66}
+\definecolor{green}{RGB}{0,158,115}
+
+\hypersetup{
+  colorlinks=false,
+  linkbordercolor = {white},
+  linkcolor = {blue}
+}
+
+% Background color
+\definecolor{MyBackground}{RGB}{255,253,218}
+
+% Transition frame environment
+\newenvironment{transitionframe}{
+  \setbeamercolor{background canvas}{bg=white}
+  \begin{frame}}{
+    \end{frame}
+}
+
+% Beamer settings
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=black}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize items}{-}
+\setbeamercolor{itemize item}{fg=blue}
+\setbeamercolor{itemize subitem}{fg=blue}
+\setbeamercolor{enumerate item}{fg=blue}
+\setbeamercolor{enumerate subitem}{fg=blue}
+\setbeamercolor{button}{bg=MyBackground,fg=blue,}
+
+\setbeamercolor{section in toc}{fg=blue}
+\setbeamercolor{subsection in toc}{fg=red}
+\setbeamersize{text margin left=1em,text margin right=1em}
+
+% Wide itemize/enumerate with more spacing
+\newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
+\newenvironment{wideenumerate}{\enumerate\addtolength{\itemsep}{10pt}}{\endenumerate}
+
+% Video frame environment
+\usepackage{environ}
+\NewEnviron{videoframe}[1]{
+  \begin{frame}
+    \vspace{-8pt}
+    \begin{columns}[onlytextwidth, T]
+      \begin{column}{.58\textwidth}
+        \begin{minipage}[t][\textheight][t]
+          {\dimexpr\textwidth}
+          \vspace{8pt}
+          \hspace{4pt} {\Large \sc \textcolor{blue}{#1}}
+          \vspace{8pt}
+
+          \BODY
+        \end{minipage}
+      \end{column}%
+      \hfill%
+      \begin{column}{.42\textwidth}
+        \colorbox{green!20}{\begin{minipage}[t][1.2\textheight][t]
+            {\dimexpr\textwidth}
+            Face goes here
+          \end{minipage}}
+      \end{column}%
+    \end{columns}
+  \end{frame}
+}

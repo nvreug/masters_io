@@ -1,0 +1,295 @@
+% ECN 594: Final Exam Solutions
+\documentclass[addpoints,answers]{exam}
+\usepackage{fullpage}
+\usepackage[left=1.0in,top=1.0in,right=1.0in,bottom=1.0in,headheight=3ex,headsep=3ex]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{adjustbox}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+
+\title{ECN 594: Final Exam - SOLUTIONS}
+\rhead{\footnotesize ECN 594: Final Solutions}
+
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{questions}
+
+\subsection*{1. Short Answer Questions (30 points)}
+\question
+\begin{parts}
+	\part[3] Cournot equilibrium with 4 firms:
+	\begin{solution}
+	$q^* = \frac{a - c}{N + 1} = \frac{80 - 20}{5} = 12$
+
+	$Q^* = 4 \times 12 = 48$
+
+	$P^* = 80 - 48 = \boxed{\$32}$
+	\end{solution}
+
+	\part[3] Lerner Index formula:
+	\begin{solution}
+	$\boxed{L = \frac{P - MC}{P} = \frac{s_j}{|\varepsilon|}}$
+
+	where $s_j$ is firm $j$'s market share and $\varepsilon$ is the market price elasticity.
+	\end{solution}
+
+	\part[3] Adding third firm in Bertrand:
+	\begin{solution}
+	\textbf{False.} In Bertrand with homogeneous products, $P = MC$ with just 2 firms. Adding more firms doesn't change this---prices are already at the competitive level.
+	\end{solution}
+
+	\part[3] Recapture effect:
+	\begin{solution}
+	When a merged firm raises the price of one of its products, some customers switch to other products owned by the same firm rather than leaving entirely. This ``recaptured'' demand makes the merged firm face less elastic residual demand, leading to higher optimal prices.
+	\end{solution}
+
+	\part[3] Demographics and substitution:
+	\begin{solution}
+	\textbf{True.} With demographic interactions, consumers with different demographics (e.g., income) have different price sensitivities. When a product is removed, different consumer types substitute differently based on their preferences.
+	\end{solution}
+
+	\part[3] Most-favored-customer clause:
+	\begin{solution}
+	A contract promising to give a customer the best price offered to any customer. \textbf{Facilitates collusion} by making price cuts costly (must extend to all existing customers), effectively raising the cost of deviating from collusive prices.
+	\end{solution}
+
+	\part[3] Entry deterrence credibility:
+	\begin{solution}
+	\textbf{False.} The threat is only credible if the incumbent has committed to capacity that is costly to reduce. Without commitment, it may be optimal for the incumbent to accommodate entry rather than maintain high output post-entry.
+	\end{solution}
+
+	\part[3] Free-rider problem in vertical restraints:
+	\begin{solution}
+	When retailers provide costly services (demos, training, showrooms), consumers may use these services at one retailer then buy from a discount retailer. This reduces incentives to provide services. RPM or exclusive territories can solve this.
+	\end{solution}
+
+	\part[3] Two-part tariff with heterogeneous consumers:
+	\begin{solution}
+	\textbf{False.} With heterogeneous consumers, setting $p = MC$ requires a high fee $F$ that may exclude low-value customers. The optimal $p > MC$ may be preferred to include more customers while still capturing surplus through a moderate fee.
+	\end{solution}
+
+	\part[3] Factors making collusion harder:
+	\begin{solution}
+	Any of: more firms, asymmetric costs, volatile demand, infrequent transactions, difficulty observing rivals' prices/quantities, product differentiation, capacity constraints, new entry, antitrust enforcement, short-run focus (low $\delta$).
+	\end{solution}
+\end{parts}
+
+\newpage
+\subsection*{2. Entry and Market Structure (25 points)}
+\question
+\begin{parts}
+	\part[6] Free entry equilibrium number of firms:
+	\begin{solution}
+	With $N$ firms: $q^* = \frac{a - c}{b(N+1)} = \frac{150 - 50}{2(N+1)} = \frac{50}{N+1}$
+
+	$Q^* = \frac{50N}{N+1}$, $P^* = 150 - \frac{100N}{N+1} = \frac{150 + 50N - 100N}{N+1} = \frac{150 - 50N}{N+1}$
+
+	Wait, let me redo: $P = 150 - 2Q = 150 - 2 \cdot \frac{50N}{N+1} = 150 - \frac{100N}{N+1}$
+
+	$\pi = (P - 50)q - 100 = \left(\frac{150 - 50N}{N+1} - 50 + 50\right) \cdot \frac{50}{N+1} - 100$
+
+	Hmm, let me be more careful:
+
+	$P - c = 150 - \frac{100N}{N+1} - 50 = 100 - \frac{100N}{N+1} = \frac{100(N+1) - 100N}{N+1} = \frac{100}{N+1}$
+
+	$\pi = \frac{100}{N+1} \cdot \frac{50}{N+1} - 100 = \frac{5000}{(N+1)^2} - 100$
+
+	Set $\pi \geq 0$: $\frac{5000}{(N+1)^2} \geq 100 \Rightarrow (N+1)^2 \leq 50 \Rightarrow N+1 \leq 7.07$
+
+	So $N^* = 6$ (with $N = 7$, profit is negative).
+
+	Check: $N = 6$: $\pi = \frac{5000}{49} - 100 = 102 - 100 = \$2 > 0$ \checkmark
+
+	$N = 7$: $\pi = \frac{5000}{64} - 100 = 78 - 100 = -\$22 < 0$ \checkmark
+
+	$\boxed{N^* = 6}$ firms enter.
+	\end{solution}
+
+	\part[6] Socially optimal number:
+	\begin{solution}
+	Free entry leads to \textbf{excessive entry} (business stealing effect). Each entrant ignores negative externality on incumbents' profits. Social optimum balances consumer gains against duplication of fixed costs.
+
+	Socially optimal $N$ minimizes total cost (or maximizes welfare) subject to meeting demand. With Cournot, firms produce less than socially optimal, but entry dissipates profits through fixed cost duplication.
+	\end{solution}
+
+	\part[6] Asymmetric Cournot:
+	\begin{solution}
+	FOC incumbent: $150 - 4q_1 - 2q_2 = 30 \Rightarrow 120 = 4q_1 + 2q_2$
+
+	FOC entrant: $150 - 2q_1 - 4q_2 = 50 \Rightarrow 100 = 2q_1 + 4q_2$
+
+	From first: $q_2 = 60 - 2q_1$
+
+	Substitute: $100 = 2q_1 + 4(60 - 2q_1) = 2q_1 + 240 - 8q_1 = 240 - 6q_1$
+
+	$q_1 = \frac{140}{6} = 23.33$, $q_2 = 60 - 46.67 = 13.33$
+
+	$Q = 36.67$, $P = 150 - 73.33 = \$76.67$
+
+	$\pi_1 = (76.67 - 30)(23.33) - 100 = 1,089 - 100 = \$989$
+
+	$\pi_2 = (76.67 - 50)(13.33) - 100 = 356 - 100 = \$256$
+	\end{solution}
+
+	\part[7] Entry deterrence:
+	\begin{solution}
+	Entrant earns $\pi_2 = 256 > 0$, so entry occurs in (c). To deter:
+
+	Entrant's best response: $q_2 = \frac{150 - 50 - 2q_1}{4} = 25 - 0.5q_1$
+
+	$\pi_2 = (P - 50)q_2 - 100 = 2(25 - 0.5q_1)^2 - 100$
+
+	Set $\pi_2 = 0$: $(25 - 0.5q_1)^2 = 50$
+
+	$25 - 0.5q_1 = 7.07 \Rightarrow q_1 = 35.86$
+
+	At $q_1 = 36$, entrant is deterred.
+
+	Incumbent's profit as monopolist at $q_1 = 36$:
+
+	$P = 150 - 72 = \$78$, $\pi = (78 - 30)(36) - 100 = 1,728 - 100 = \$1,628$
+
+	Monopoly profit (optimal): $q_m = 30$, $P_m = 90$, $\pi_m = (90-30)(30) - 100 = 1,700$
+
+	Deterrence profit (\$1,628) < Monopoly profit (\$1,700) but > Duopoly profit (\$989).
+
+	\textbf{Yes, entry deterrence is profitable} if incumbent can commit to $q_1 = 36$.
+	\end{solution}
+\end{parts}
+
+\newpage
+\subsection*{3. Merger Simulation (25 points)}
+\question
+\begin{parts}
+	\part[5] Verify FOC for product 1:
+	\begin{solution}
+	FOC markup: $p - c = \frac{1}{|\alpha|(1 - s)} = \frac{1}{0.5(1 - 0.15)} = \frac{1}{0.5 \times 0.85} = \frac{1}{0.425} = \$2.35$
+
+	Actual markup: $20 - 12 = \$8$
+
+	These don't match exactly---the given prices may not be equilibrium, or there's measurement error. (In practice, we estimate $\alpha$ to fit the data.)
+	\end{solution}
+
+	\part[5] Own-price elasticities:
+	\begin{solution}
+	$\eta_{jj} = \alpha p_j (1 - s_j)$
+
+	$\eta_{11} = (-0.5)(20)(0.85) = -8.5$
+
+	$\eta_{22} = (-0.5)(22)(0.88) = -9.68$
+
+	$\eta_{33} = (-0.5)(18)(0.90) = -8.1$
+
+	All $|\eta| > 1$: \textbf{Yes, all products have elastic demand.}
+	\end{solution}
+
+	\part[8] Merger effects and new FOCs:
+	\begin{solution}
+	\textbf{Intuition:} Pre-merger, Firm 1 ignores that raising $p_1$ diverts customers to product 2 (a competitor). Post-merger, those diverted customers are ``recaptured''---they still buy from the merged firm. This makes demand appear less elastic, leading to higher prices.
+
+	\textbf{New FOCs with ownership matrix $\mathcal{O}$:}
+
+	$s_1 + (p_1 - c_1)\frac{\partial s_1}{\partial p_1} + (p_2 - c_2)\frac{\partial s_2}{\partial p_1} = 0$
+
+	$s_2 + (p_2 - c_2)\frac{\partial s_2}{\partial p_2} + (p_1 - c_1)\frac{\partial s_1}{\partial p_2} = 0$
+
+	In logit: $\frac{\partial s_j}{\partial p_k} = -\alpha s_j s_k$ for $j \neq k$
+
+	So merged firm's FOC for product 1:
+
+	$s_1 + (p_1 - c_1)\alpha s_1(1-s_1) - (p_2 - c_2)\alpha s_1 s_2 = 0$
+	\end{solution}
+
+	\part[7] HHI calculation:
+	\begin{solution}
+	Pre-merger HHI (inside market shares):
+
+	Total inside share = 15 + 12 + 10 = 37\%
+
+	Normalized: $s_1 = 15/37 = 40.5\%$, $s_2 = 32.4\%$, $s_3 = 27.0\%$
+
+	$HHI = 40.5^2 + 32.4^2 + 27.0^2 = 1,640 + 1,050 + 729 = 3,419$
+
+	Post-merger: $HHI = 3,419 + 360 = \boxed{3,779}$
+
+	(Or using raw shares: HHI = $15^2 + 12^2 + 10^2 = 469$, post = 829)
+
+	\textbf{Challenge likely?} Both pre-merger HHI $> 2,500$ and $\Delta$HHI $> 200$ (if using normalized). The merger would likely face antitrust scrutiny.
+	\end{solution}
+\end{parts}
+
+\newpage
+\subsection*{4. Collusion and Detection (20 points)}
+\question
+\begin{parts}
+	\part[5] Cournot-Nash and collusive outcomes:
+	\begin{solution}
+	\textbf{Cournot ($N = 2$):}
+
+	$q^* = \frac{100 - 10}{3} = 30$, $Q^* = 60$, $P^* = \$40$
+
+	$\pi^* = (40 - 10)(30) = \$900$ per firm
+
+	\textbf{Collusion (monopoly):}
+
+	$Q_m = 45$, $P_m = \$55$, $\pi_m = \$2,025$ total
+
+	Per firm: $q = 22.5$, $\pi = \$1,012.50$
+	\end{solution}
+
+	\part[5] Critical discount factor:
+	\begin{solution}
+	Deviation: $q_{dev} = \frac{100 - 10 - 22.5}{2} = 33.75$
+
+	$Q_{dev} = 56.25$, $P_{dev} = \$43.75$
+
+	$\pi_{dev} = (43.75 - 10)(33.75) = \$1,139$
+
+	$\delta^* = \frac{\pi_{dev} - \pi_{coll}}{\pi_{dev} - \pi_{Nash}} = \frac{1,139 - 1,012.5}{1,139 - 900} = \frac{126.5}{239} = \boxed{0.529}$
+
+	Or formula: $\delta^* = \frac{9}{4 + 9} = 0.692$ (for $N = 2$)
+	\end{solution}
+
+	\part[5] Effect of fines:
+	\begin{solution}
+	With probability $p$ of detection and fine $F$:
+
+	Collusion payoff: $\pi_{coll} - pF$ per period
+
+	New sustainability condition: discount factor must be high enough that:
+
+	$\frac{\pi_{coll} - pF}{1 - \delta} \geq \pi_{dev} + \frac{\delta(\pi_{Nash} - pF)}{1 - \delta}$
+
+	For $\delta = 0.8$, need collusion unsustainable:
+
+	$1012.5 - pF < $ threshold. If $p = 1$ (certain detection):
+
+	From earlier, need $\pi_{coll} < 900 + (1139 - 900) \cdot \frac{1 - 0.8}{0.8} = 900 + 60 = 960$
+
+	So $1012.5 - F < 960 \Rightarrow F > \$52.50$
+
+	Fine of at least \$52.50 per period makes collusion unsustainable at $\delta = 0.8$.
+	\end{solution}
+
+	\part[5] Empirical smoking guns:
+	\begin{solution}
+	\textbf{1. Parallel pricing:} Prices move together in lockstep, especially without obvious cost shocks. Sudden, simultaneous price increases.
+
+	\textbf{2. Price rigidity:} Prices don't respond to cost or demand changes as much as competitive markets would predict.
+
+	\textbf{3. Communication evidence:} Records of meetings, calls, emails between competitors discussing prices or market allocation.
+
+	\textbf{4. Plus factors:} Actions against self-interest (raising prices when should cut), lack of competitive response to rivals' promotions.
+
+	\textbf{5. Market allocation:} Geographic or customer divisions that suggest coordination.
+	\end{solution}
+\end{parts}
+
+\end{questions}
+
+\end{document}

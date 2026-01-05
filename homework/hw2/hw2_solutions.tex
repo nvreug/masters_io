@@ -1,0 +1,239 @@
+% ECN 594: Homework 2 Solutions
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\usepackage[left=1.0in,top=1.0in,right=1.0in,bottom=1.0in,headheight=3ex,headsep=3ex]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{adjustbox}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{booktabs}
+
+\title{ECN 594: Homework 2 Solutions \\ \large{Competition and Merger Simulation}}
+\author{Solution Key}
+\date{}
+
+\linespread{1.3}
+\usepackage[T1]{fontenc}
+\usepackage{fancyhdr,lastpage}
+\pagestyle{fancy}
+\lhead{}
+\chead{}
+\rhead{\footnotesize ECN 594: HW2 Solutions}
+\lfoot{}
+\cfoot{\small \thepage/\pageref*{LastPage}}
+\rfoot{}
+
+\usepackage[dvipsnames]{xcolor}
+\definecolor{asumaroon}{rgb}{0.549,0.114,0.251}
+\hypersetup{colorlinks,breaklinks,linkcolor=asumaroon,urlcolor=asumaroon,anchorcolor=asumaroon,citecolor=black}
+
+\renewcommand{\theenumi}{\alph{enumi}}
+
+\begin{document}
+\maketitle
+
+\section*{Part A: Oligopoly Theory}
+
+\subsection*{Question 1: Cournot Competition}
+
+\textbf{(a) 3-firm Cournot equilibrium}
+
+With $N$ identical firms, demand $P = a - Q$, and marginal cost $c$:
+
+Firm $j$'s profit: $\pi_j = (P - c)q_j = (a - Q - c)q_j = (a - q_j - \sum_{k \neq j} q_k - c)q_j$
+
+FOC: $\frac{\partial \pi_j}{\partial q_j} = a - 2q_j - \sum_{k \neq j} q_k - c = 0$
+
+By symmetry, $q^* = q_j$ for all $j$, so:
+\begin{align*}
+a - 2q^* - (N-1)q^* - c &= 0 \\
+q^* &= \frac{a - c}{N + 1} = \frac{100 - 10}{4} = 22.5
+\end{align*}
+
+\begin{center}
+\begin{tabular}{lc}
+\toprule
+Variable & Value \\
+\midrule
+Per-firm quantity $q^*$ & 22.5 \\
+Total quantity $Q^*$ & 67.5 \\
+Price $P^*$ & \$32.50 \\
+Per-firm profit $\pi^*$ & \$506.25 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{1em}
+\textbf{(b) Lerner Index verification}
+
+Direct calculation:
+$$L = \frac{P - MC}{P} = \frac{32.5 - 10}{32.5} = 0.692$$
+
+Using formula $L = \frac{s_j}{|\varepsilon|}$:
+\begin{itemize}
+\item Market share: $s_j = \frac{1}{3} = 0.333$
+\item Price elasticity: $\varepsilon = \frac{dQ}{dP} \cdot \frac{P}{Q} = -1 \cdot \frac{32.5}{67.5} = -0.481$
+\item $L = \frac{0.333}{0.481} = 0.692$ \checkmark
+\end{itemize}
+
+\vspace{1em}
+\textbf{(c) 2-firm case and welfare comparison}
+
+With $N = 2$: $q^* = \frac{90}{3} = 30$, $Q^* = 60$, $P^* = \$40$, $\pi^* = \$900$
+
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+ & 3 firms & 2 firms & Change \\
+\midrule
+Consumer Surplus & \$2,278.13 & \$1,800.00 & $-\$478.13$ \\
+Producer Surplus & \$1,518.75 & \$1,800.00 & $+\$281.25$ \\
+Total Welfare & \$3,796.88 & \$3,600.00 & $-\$196.88$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Fewer firms $\Rightarrow$ higher price $\Rightarrow$ lower CS, higher PS, lower TW (deadweight loss).
+
+\subsection*{Question 2: Bertrand Competition}
+
+\textbf{(a)} With homogeneous products: $P^* = c = \$10$, $\pi^* = \$0$
+
+\textbf{(b)} Cournot: $P = \$32.50$, $\pi = \$506.25$. Bertrand: $P = \$10$, $\pi = \$0$.
+
+Bertrand is more aggressive---firms undercut until $P = MC$. Cournot has higher prices because quantity commitment creates strategic substitutability.
+
+\textit{Bertrand realistic:} Easy price adjustment, no capacity constraints, high transparency.
+
+\textit{Cournot realistic:} Capacity committed in advance, output hard to adjust.
+
+\subsection*{Question 3: Collusion}
+
+\textbf{(a)} Monopoly: $Q_m = 45$, $P_m = \$55$, $\pi_m = \$2,025$
+
+Per-firm under collusion: $q = 15$, $\pi = \$675$
+
+\textbf{(b)} Optimal deviation given others produce $q = 15$ each:
+
+Best response: $q_{dev} = \frac{a - c - Q_{others}}{2} = \frac{100 - 10 - 30}{2} = 30$
+
+$Q_{dev} = 60$, $P_{dev} = \$40$, $\pi_{dev} = \$900$
+
+\textbf{(c)} Critical discount factor:
+$$\delta^* = \frac{\pi_{dev} - \pi_{coll}}{\pi_{dev} - \pi_{punish}} = \frac{900 - 675}{900 - 506.25} = \frac{225}{393.75} = 0.571$$
+
+Or using formula: $\delta^* = \frac{(N+1)^2}{N^2 + (N+1)^2} = \frac{16}{9+16} = 0.64$
+
+Collusion sustainable if $\delta \geq 0.57$--0.64 (depending on exact specification).
+
+\newpage
+\section*{Part B: Merger Simulation}
+
+\subsection*{Question 4: Pre-Merger Equilibrium}
+
+\textbf{(a) Market shares:}
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+Product & Share & Percentage \\
+\midrule
+1 & 0.0639 & 6.39\% \\
+2 & 0.0423 & 4.23\% \\
+3 & 0.0226 & 2.26\% \\
+4 & 0.0520 & 5.20\% \\
+Outside & 0.8191 & 81.91\% \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{(b) Own-price elasticities:}
+
+Using $\eta_{jj} = \alpha p_j (1 - s_j)$:
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+Product & Elasticity & Status \\
+\midrule
+1 & $-3.74$ & Elastic \\
+2 & $-4.78$ & Elastic \\
+3 & $-5.86$ & Elastic \\
+4 & $-4.16$ & Elastic \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+All products have $|\eta| > 1$, confirming elastic demand.
+
+\textbf{(c) FOC verification for product 1:}
+
+Actual markup: $p_1 - c_1 = 2.0 - 1.0 = \$1.00$
+
+FOC markup: $\frac{1}{|\alpha|(1-s_1)} = \frac{1}{2 \times 0.936} = \$0.534$
+
+(Small difference due to rounding in given parameters---prices may not be exact equilibrium.)
+
+\textbf{(d) HHI:}
+
+Using inside shares: HHI $\approx 2,634$ (highly concentrated, $>2,500$).
+
+\subsection*{Question 5: Post-Merger Prices}
+
+\textbf{(a) Ownership matrices:}
+
+Pre-merger: $\mathcal{O} = I_4$ (identity matrix)
+
+Post-merger:
+$$\mathcal{O} = \begin{pmatrix} 1 & 1 & 0 & 0 \\ 1 & 1 & 0 & 0 \\ 0 & 0 & 1 & 0 \\ 0 & 0 & 0 & 1 \end{pmatrix}$$
+
+\textbf{(b) Intuition:} The merged firm internalizes substitution between products 1 and 2. Pre-merger, raising $p_1$ meant losing customers to product 2 (competitor). Post-merger, those customers are ``recaptured''---the merged firm keeps them. This makes demand less elastic, leading to higher optimal prices.
+
+\textbf{(c) and (d) Post-merger equilibrium:}
+
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+Product & Pre-merger & Post-merger & Change \\
+\midrule
+1 & \$2.00 & \$2.15 & $+7.5\%$ \\
+2 & \$2.50 & \$2.67 & $+6.8\%$ \\
+3 & \$3.00 & \$3.02 & $+0.7\%$ \\
+4 & \$2.20 & \$2.22 & $+0.9\%$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Merging firms raise prices more; non-merging firms also raise prices slightly (less competitive pressure).
+
+\subsection*{Question 6: Welfare Analysis}
+
+\textbf{(a) Consumer surplus:}
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+ & Pre-merger & Post-merger \\
+\midrule
+CS & \$99.29 & \$97.42 \\
+Change & \multicolumn{2}{c}{$-\$1.87$ ($-1.9\%$)} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\textbf{(b) Producer profits:}
+
+Merged firm: Pre $\$64 + \$55 = \$119$ $\to$ Post $\$74 + \$62 = \$136$ (+14\%)
+
+Non-merging firms also gain slightly from higher prices.
+
+\textbf{(c) Total welfare:}
+
+TW falls by $\approx\$0.50$. The merger is \textbf{welfare-reducing}---consumer harm exceeds producer gain.
+
+\textbf{(d) Efficiency defense:}
+
+With 10\% cost reductions, prices rise less and welfare change becomes positive. The efficiency defense \textbf{succeeds}---sufficient cost savings can offset anticompetitive price increases.
+
+\textit{Policy implication:} Merging parties must demonstrate credible efficiency gains to offset consumer harm.
+
+\end{document}

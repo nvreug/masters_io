@@ -1,0 +1,297 @@
+% ECN 594: Midterm Exam Solutions
+\documentclass[addpoints,answers]{exam}
+\usepackage{fullpage}
+\usepackage[left=1.0in,top=1.0in,right=1.0in,bottom=1.0in,headheight=3ex,headsep=3ex]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{adjustbox}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+
+\title{ECN 594: Midterm Exam - SOLUTIONS}
+\rhead{\footnotesize ECN 594: Midterm Solutions}
+
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{questions}
+
+\subsection*{1. Short Answer Questions (30 points)}
+\question
+\begin{parts}
+	\part[3] Optimal price with $\varepsilon = -4$, $c = 15$:
+	\begin{solution}
+	$\frac{P - MC}{P} = \frac{1}{|\varepsilon|} = \frac{1}{4}$
+
+	$4(P - 15) = P$
+
+	$4P - 60 = P$
+
+	$3P = 60$
+
+	$\boxed{P = \$20}$
+	\end{solution}
+
+	\part[3] Berry inversion formula:
+	\begin{solution}
+	$\boxed{\ln(s_j) - \ln(s_0) = \delta_j + \alpha p_j}$
+
+	Or equivalently: $\delta_j = \ln(s_j) - \ln(s_0) - \alpha p_j$
+	\end{solution}
+
+	\part[3] Demographics and IIA:
+	\begin{solution}
+	\textbf{False.} Demographics help at the aggregate level by creating different consumer segments, but for any individual consumer type, IIA still holds. Only random coefficients (mixed logit) fully address IIA by allowing idiosyncratic preferences.
+	\end{solution}
+
+	\part[3] Interpretation of $\alpha$:
+	\begin{solution}
+	$\alpha$ is the marginal disutility of price (negative because higher prices reduce utility). It can be interpreted as the negative of the marginal utility of income, relating utils to dollars. It determines price sensitivity and is used to convert utility changes to dollar-equivalent consumer surplus.
+	\end{solution}
+
+	\part[3] Cost pass-through with linear demand:
+	\begin{solution}
+	\textbf{False.} With linear demand $P = a - bQ$, the monopolist passes through only 50\% of cost increases. If $MC$ increases by \$1, the optimal price increases by \$0.50.
+
+	(FOC: $MR = a - 2bQ = MC$, so $Q = \frac{a - MC}{2b}$ and $P = \frac{a + MC}{2}$)
+	\end{solution}
+
+	\part[3] Two-part tariff efficiency:
+	\begin{solution}
+	\textbf{True.} With $p = MC$, consumers face efficient prices and consume the efficient quantity (where $MB = MC$). The fee $F$ is a lump-sum transfer that doesn't distort consumption decisions, so total surplus is maximized.
+	\end{solution}
+
+	\part[3] Why BLP instruments work:
+	\begin{solution}
+	BLP instruments (characteristics of other products) affect the firm's competitive environment, which shifts the firm's pricing behavior. Products facing more similar competitors charge lower prices. These characteristics are correlated with price (relevance) but uncorrelated with unobserved demand shocks (exclusion)---other products' characteristics don't directly affect own-product demand.
+	\end{solution}
+
+	\part[3] Extracting surplus from low types:
+	\begin{solution}
+	\textbf{True.} In the standard self-selection model, the low-type consumer's individual rationality (IR) constraint binds, meaning they get zero surplus. The firm extracts all surplus from low types and leaves only enough surplus for high types to prevent them from mimicking low types.
+	\end{solution}
+
+	\part[3] Versioning:
+	\begin{solution}
+	\textbf{Versioning} is creating multiple versions of a product at different quality levels to induce consumer self-selection. Often involves ``damaging'' a product (adding restrictions, removing features) to make it less attractive to high-value consumers. Examples: software lite vs. pro, airline economy vs. business, paperback vs. hardcover timing.
+	\end{solution}
+
+	\part[3] Consumer surplus formula:
+	\begin{solution}
+	\textbf{True.} $CS = \frac{1}{|\alpha|} \ln(1 + \sum_j \exp(\delta_j + \alpha p_j))$
+
+	The inclusive value is $IV = \ln(1 + \sum_j \exp(v_j))$, and $CS = IV / |\alpha|$.
+	\end{solution}
+\end{parts}
+
+\newpage
+\subsection*{2. Demand Estimation (30 points)}
+\question
+\begin{parts}
+	\part[8] Compute $v_j$ and market shares:
+	\begin{solution}
+	$v_j = \delta_j + \alpha p_j$ with $\alpha = -0.4$:
+
+	$v_1 = 3.0 + (-0.4)(15) = 3.0 - 6.0 = -3.0$
+
+	$v_2 = 2.5 + (-0.4)(12) = 2.5 - 4.8 = -2.3$
+
+	$v_3 = 3.5 + (-0.4)(18) = 3.5 - 7.2 = -3.7$
+
+	$v_4 = 2.0 + (-0.4)(10) = 2.0 - 4.0 = -2.0$
+
+	$\exp(v_j)$: $e^{-3.0} = 0.0498$, $e^{-2.3} = 0.1003$, $e^{-3.7} = 0.0247$, $e^{-2.0} = 0.1353$
+
+	Denominator: $1 + 0.0498 + 0.1003 + 0.0247 + 0.1353 = 1.3101$
+
+	Market shares:
+
+	$s_1 = 0.0498 / 1.3101 = \boxed{0.038}$ (3.8\%)
+
+	$s_2 = 0.1003 / 1.3101 = \boxed{0.077}$ (7.7\%)
+
+	$s_3 = 0.0247 / 1.3101 = \boxed{0.019}$ (1.9\%)
+
+	$s_4 = 0.1353 / 1.3101 = \boxed{0.103}$ (10.3\%)
+
+	$s_0 = 1 / 1.3101 = 0.763$ (76.3\%)
+	\end{solution}
+
+	\part[6] Own-price elasticities:
+	\begin{solution}
+	$\eta_{jj} = \alpha p_j (1 - s_j)$
+
+	$\eta_{11} = (-0.4)(15)(1 - 0.038) = (-0.4)(15)(0.962) = -5.77$
+
+	$\eta_{22} = (-0.4)(12)(1 - 0.077) = (-0.4)(12)(0.923) = -4.43$
+
+	$\eta_{33} = (-0.4)(18)(1 - 0.019) = (-0.4)(18)(0.981) = -7.06$
+
+	$\eta_{44} = (-0.4)(10)(1 - 0.103) = (-0.4)(10)(0.897) = -3.59$
+
+	\textbf{Product 4 has the most inelastic demand} ($|\eta_{44}| = 3.59$), driven by its lower price.
+	\end{solution}
+
+	\part[6] OLS bias:
+	\begin{solution}
+	OLS is biased because price $p_j$ is correlated with the error term (unobserved quality $\xi_j$).
+
+	\textbf{Mechanism:} Firms with higher unobserved quality (better brand, taste, advertising) can charge higher prices. This creates positive correlation: $\text{Cov}(p_j, \xi_j) > 0$.
+
+	\textbf{Direction:} Upward bias (less negative $\alpha$). OLS interprets high prices with high shares as ``consumers aren't price sensitive'' when really high $\xi_j$ is driving both.
+
+	\textbf{Solution:} Use instrumental variables (cost shifters, BLP instruments) that are correlated with price but uncorrelated with $\xi_j$.
+	\end{solution}
+
+	\part[10] Consumer surplus calculation:
+	\begin{solution}
+	$IV = \ln(1 + \sum_j \exp(v_j)) = \ln(1.3101) = 0.270$
+
+	$CS = \frac{IV}{|\alpha|} = \frac{0.270}{0.4} = \boxed{\$0.675}$ per consumer
+
+	\textbf{Without product 1:}
+
+	$IV' = \ln(1 + e^{-2.3} + e^{-3.7} + e^{-2.0}) = \ln(1 + 0.1003 + 0.0247 + 0.1353) = \ln(1.2603) = 0.232$
+
+	$CS' = \frac{0.232}{0.4} = \$0.580$
+
+	$\Delta CS = 0.580 - 0.675 = \boxed{-\$0.095}$ per consumer
+
+	Consumers lose about 9.5 cents per person from removing product 1.
+	\end{solution}
+\end{parts}
+
+\newpage
+\subsection*{3. Price Discrimination (20 points)}
+\question
+\begin{parts}
+	\part[6] Optimal prices under discrimination:
+	\begin{solution}
+	\textbf{Binge watchers:} $Q_B = 200 - 10P_B \Rightarrow P_B = 20 - 0.1Q_B$
+
+	$\pi_B = (P_B - 2)Q_B = (20 - 0.1Q_B - 2)Q_B = (18 - 0.1Q_B)Q_B$
+
+	FOC: $18 - 0.2Q_B = 0 \Rightarrow Q_B = 90$, $P_B = 20 - 9 = \$11$
+
+	\textbf{Casual viewers:} $Q_C = 100 - 10P_C \Rightarrow P_C = 10 - 0.1Q_C$
+
+	$\pi_C = (P_C - 2)Q_C = (10 - 0.1Q_C - 2)Q_C = (8 - 0.1Q_C)Q_C$
+
+	FOC: $8 - 0.2Q_C = 0 \Rightarrow Q_C = 40$, $P_C = 10 - 4 = \$6$
+
+	$\boxed{P_B = \$11, \quad P_C = \$6}$
+	\end{solution}
+
+	\part[4] Profit under discrimination:
+	\begin{solution}
+	$\pi_B = (11 - 2)(90) = 9 \times 90 = \$810$
+
+	$\pi_C = (6 - 2)(40) = 4 \times 40 = \$160$
+
+	$\boxed{\pi_{total} = 810 + 160 = \$970}$
+	\end{solution}
+
+	\part[6] Uniform pricing:
+	\begin{solution}
+	Total demand: $Q = Q_B + Q_C = (200 - 10P) + (100 - 10P) = 300 - 20P$
+
+	Inverse: $P = 15 - 0.05Q$
+
+	$\pi = (P - 2)Q = (15 - 0.05Q - 2)Q = (13 - 0.05Q)Q$
+
+	FOC: $13 - 0.1Q = 0 \Rightarrow Q = 130$
+
+	$P = 15 - 6.5 = \$8.50$
+
+	Check: $Q_B = 200 - 85 = 115$, $Q_C = 100 - 85 = 15$ (both positive)
+
+	$\boxed{P^* = \$8.50}$, $\pi = (8.50 - 2)(130) = \$845$
+	\end{solution}
+
+	\part[4] Who benefits from discrimination:
+	\begin{solution}
+	Under discrimination: $P_B = \$11$, $P_C = \$6$
+
+	Under uniform: $P = \$8.50$
+
+	\textbf{Casual viewers benefit} from discrimination: they pay \$6 instead of \$8.50.
+
+	\textbf{Binge watchers are worse off}: they pay \$11 instead of \$8.50.
+
+	Price discrimination allows the firm to lower prices for price-sensitive customers (casual) while raising prices for less price-sensitive customers (binge).
+	\end{solution}
+\end{parts}
+
+\newpage
+\subsection*{4. Self-Selection (20 points)}
+\question
+\begin{parts}
+	\part[4] Perfect price discrimination:
+	\begin{solution}
+	Charge each type their full WTP for their preferred class:
+
+	Executives: $P_B = \$500$, sell business class
+
+	Students: $P_E = \$120$, sell economy class
+
+	Profit: $50(500 - 100) + 100(120 - 50) = 50(400) + 100(70) = 20,000 + 7,000 = \boxed{\$27,000}$
+	\end{solution}
+
+	\part[4] IC constraint for executives:
+	\begin{solution}
+	Executives must prefer business to economy:
+
+	$WTP_B^{Exec} - P_B \geq WTP_E^{Exec} - P_E$
+
+	$500 - P_B \geq 200 - P_E$
+
+	$\boxed{P_B - P_E \leq 300}$
+
+	(Or equivalently: $P_B \leq P_E + 300$)
+	\end{solution}
+
+	\part[6] Self-selection prices:
+	\begin{solution}
+	We need:
+	\begin{itemize}
+	\item IC for executives: $500 - P_B \geq 200 - P_E$, i.e., $P_B \leq P_E + 300$
+	\item IC for students: $120 - P_E \geq 150 - P_B$, i.e., $P_B \geq P_E + 30$
+	\item IR for students: $P_E \leq 120$
+	\item IR for executives: $P_B \leq 500$
+	\end{itemize}
+
+	The binding constraints are typically:
+	- Student IR: $P_E = 120$
+	- Executive IC: $P_B = P_E + 300 = 420$
+
+	Check student IC: $120 - 120 = 0 \geq 150 - 420 = -270$ \checkmark
+
+	Profit: $50(420 - 100) + 100(120 - 50) = 50(320) + 100(70) = 16,000 + 7,000 = \boxed{\$23,000}$
+
+	(Compared to \$27,000 under perfect discrimination---\$4,000 lost due to executive IC constraint)
+	\end{solution}
+
+	\part[6] Effect of ``damaging'' economy:
+	\begin{solution}
+	Damaging economy (adding restrictions) \textbf{lowers executives' WTP for economy}.
+
+	Suppose restrictions reduce executive WTP for economy from \$200 to \$100.
+
+	New executive IC: $500 - P_B \geq 100 - P_E$, i.e., $P_B \leq P_E + 400$
+
+	Now the firm can charge $P_B = 120 + 400 = \$520$... but this exceeds executive WTP of \$500.
+
+	So charge $P_B = \$500$ (binding IR), $P_E = \$120$
+
+	Profit: $50(500 - 100) + 100(120 - 50) = 20,000 + 7,000 = \$27,000$
+
+	\textbf{Economic logic:} By making economy less attractive to high-value customers, the firm relaxes the IC constraint and can charge executives closer to their full WTP. This is why airlines deliberately make economy uncomfortable---it's not cost-cutting, it's strategic product degradation to enable price discrimination.
+	\end{solution}
+\end{parts}
+
+\end{questions}
+
+\end{document}

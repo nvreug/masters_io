@@ -1,0 +1,11 @@
+\frametitle{Step 5: Extract results}
+\begin{lstlisting}
+# Print coefficient estimates
+print(results)
+
+# Get elasticities
+elasticities = results.compute_elasticities()
+
+# Get markups (assuming Nash-Bertrand)
+markups = results.compute_markups()
+\end{lstlisting}

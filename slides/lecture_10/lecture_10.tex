@@ -1,0 +1,492 @@
+\documentclass[notes,11pt, aspectratio=169]{beamer}
+
+\usepackage{pgfpages}
+\setbeameroption{hide notes} % Only slide
+
+\usepackage{array}
+\usepackage{tikz}
+\usepackage{verbatim}
+\setbeamertemplate{note page}{\pagecolor{gray!5}\insertnote}
+\usetikzlibrary{positioning}
+\usetikzlibrary{snakes}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{matrix,shapes,arrows,fit,tikzmark}
+\usepackage{amsmath}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{multimedia}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{dcolumn}
+\usepackage{bbm}
+\newcolumntype{d}[0]{D{.}{.}{5}}
+
+\usepackage{changepage}
+\usepackage{appendixnumberbeamer}
+
+\usepackage[space]{grffile}
+\usepackage{booktabs}
+
+% Colors
+\definecolor{blue}{RGB}{0,114,178}
+\definecolor{red}{RGB}{213,94,0}
+\definecolor{yellow}{RGB}{240,228,66}
+\definecolor{green}{RGB}{0,158,115}
+
+\hypersetup{
+  colorlinks=false,
+  linkbordercolor = {white},
+  linkcolor = {blue}
+}
+
+\definecolor{MyBackground}{RGB}{255,253,218}
+
+\newenvironment{transitionframe}{
+  \setbeamercolor{background canvas}{bg=white}
+  \begin{frame}}{
+    \end{frame}
+}
+
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=black}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize items}{-}
+\setbeamercolor{itemize item}{fg=blue}
+\setbeamercolor{itemize subitem}{fg=blue}
+\setbeamercolor{enumerate item}{fg=blue}
+\setbeamercolor{enumerate subitem}{fg=blue}
+\setbeamercolor{button}{bg=MyBackground,fg=blue,}
+
+\setbeamercolor{section in toc}{fg=blue}
+\setbeamercolor{subsection in toc}{fg=red}
+\setbeamersize{text margin left=1em,text margin right=1em}
+
+\newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
+\newenvironment{wideenumerate}{\enumerate\addtolength{\itemsep}{10pt}}{\endenumerate}
+
+\title[]{\textcolor{blue}{ECN 594: Mergers and Merger Policy}}
+\author[PGP]{}
+\institute[FRBNY]{\small{\begin{tabular}{c c c}
+Nicholas Vreugdenhil \\
+\end{tabular}}}
+\date{\today}
+
+\begin{document}
+
+% Title Slide
+\begin{frame}
+\maketitle
+  \centering
+\end{frame}
+
+\begin{frame}{Plan for today}
+  \begin{wideenumerate}
+    \item Horizontal mergers: effects on prices
+    \item Merger simulation (connects Part 1 to Part 2!)
+    \item Worked example: simple merger simulation
+    \item[] \rule{0.5\textwidth}{0.4pt}
+    \item Antitrust and merger review
+    \item Market definition and HHI
+    \item Efficiency defense
+  \end{wideenumerate}
+\end{frame}
+
+\begin{frame}{HW2 released}
+	\begin{wideitemize}
+		\item \textbf{HW2:} Merger simulation exercise
+		\item You will be given a demand system (estimated in Part 1 style)
+		\item Your task: simulate price effects of a merger
+		\item This lecture explains the methodology
+	\end{wideitemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PART 1: MERGER EFFECTS AND SIMULATION
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{transitionframe}
+	\begin{center}
+		{\Huge Part 1: Merger Effects and Simulation}
+	\end{center}
+\end{transitionframe}
+
+\begin{frame}{Horizontal mergers}
+	\begin{wideitemize}
+		\item \textbf{Horizontal merger:} Competitors combine
+		\item \textbf{Key concern:} Market power
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Fewer firms $\rightarrow$ less competition
+			\item Higher prices for consumers
+		\end{wideitemize}
+		\item \textbf{But also:} Potential efficiencies
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Economies of scale
+			\item Elimination of duplicated costs
+		\end{wideitemize}
+		\item Trade-off: market power vs efficiency
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Why do prices increase after a merger?}
+	\begin{wideitemize}
+		\item \textbf{Before merger:} Firm A and Firm B compete
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item If A raises price, loses customers to B
+			\item This constrains A's pricing
+		\end{wideitemize}
+		\item \textbf{After merger:} Single firm owns both A and B
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item If A raises price, some customers go to B
+			\item But merged firm also owns B!
+			\item Lost customers are ``recaptured''
+		\end{wideitemize}
+		\item Merger \textbf{internalizes substitution} between products
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Merger simulation: the idea}
+	\begin{wideitemize}
+		\item \textbf{Goal:} Predict post-merger prices
+		\item \textbf{Ingredients:}
+		\begin{wideenumerate}
+			\vspace{5pt}
+			\item Demand estimates (from Part 1!)
+			\item Pre-merger prices and market structure
+			\item The merger (which firms combine)
+		\end{wideenumerate}
+		\item \textbf{Method:}
+		\begin{wideenumerate}
+			\vspace{5pt}
+			\item Write down firms' pricing FOCs
+			\item Change ownership structure
+			\item Solve for new equilibrium prices
+		\end{wideenumerate}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{The ownership matrix}
+	\begin{wideitemize}
+		\item Define ownership matrix $\mathbf{H}$ where:
+		\begin{align*}
+			H_{jk} = \begin{cases} 1 & \text{if products } j \text{ and } k \text{ have same owner} \\ 0 & \text{otherwise} \end{cases}
+		\end{align*}
+		\item \textbf{Pre-merger} (products 1, 2 owned separately):
+		\begin{align*}
+			\mathbf{H}^{pre} = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}
+		\end{align*}
+		\item \textbf{Post-merger} (same owner):
+		\begin{align*}
+			\mathbf{H}^{post} = \begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix}
+		\end{align*}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Pricing FOC with ownership}
+	\begin{wideitemize}
+		\item Owner of products in set $\mathcal{F}$ maximizes:
+		\begin{align*}
+			\sum_{j \in \mathcal{F}} (p_j - mc_j) q_j(p)
+		\end{align*}
+		\item FOC for product $j$:
+		\begin{align*}
+			q_j + \sum_{k \in \mathcal{F}} (p_k - mc_k) \frac{\partial q_k}{\partial p_j} = 0
+		\end{align*}
+		\item Using ownership matrix, in vector form:
+		\begin{align*}
+			\mathbf{q} + (\mathbf{H} \odot \mathbf{\Omega}^T) (\mathbf{p} - \mathbf{mc}) = 0
+		\end{align*}
+		\item where $\Omega_{jk} = \frac{\partial q_j}{\partial p_k}$ (demand derivatives)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{How the merger changes things}
+	\begin{wideitemize}
+		\item \textbf{Pre-merger:} Each firm only cares about own products
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item $H_{jk} = 0$ for $j \neq k$ (different owners)
+			\item Cross-price effects ignored
+		\end{wideitemize}
+		\item \textbf{Post-merger:} Merged firm cares about both products
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item $H_{jk} = 1$ for merged products
+			\item Cross-price effects internalized
+		\end{wideitemize}
+		\item When $H_{jk}$ changes from 0 to 1:
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Firm now ``counts'' sales diverted to product $k$
+			\item Less incentive to keep price low
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: Simple merger simulation}
+	\begin{wideitemize}
+		\item Two firms, each with one product
+		\item Demand: $q_j = 100 - 3p_j + p_k$ (products are substitutes)
+		\item $MC = 10$ for both products
+		\item \textbf{Questions:}
+		\item (a) Find pre-merger equilibrium prices
+		\item (b) Find post-merger equilibrium prices
+		\item (c) Calculate price increase from merger
+	\end{wideitemize}
+	\vspace{10pt}
+	\centering
+	\textit{Take 7 minutes.}
+\end{frame}
+
+\begin{frame}{Worked example: Pre-merger (solution)}
+	\begin{wideitemize}
+		\item \textbf{Pre-merger:} Each firm maximizes own profit
+		\item Firm 1: $\max_{p_1} (p_1 - 10)(100 - 3p_1 + p_2)$
+		\item FOC: $100 - 6p_1 + p_2 + 30 = 0$
+		\item Symmetric: $p_1 = p_2 = p$, so:
+		\begin{align*}
+			100 - 6p + p + 30 = 0 \Rightarrow p = 26
+		\end{align*}
+		\item Pre-merger: $p_1^{pre} = p_2^{pre} = 26$
+		\item Quantity: $q = 100 - 3(26) + 26 = 48$
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: Post-merger (solution)}
+	\begin{wideitemize}
+		\item \textbf{Post-merger:} Merged firm maximizes joint profit
+		\item $\max_{p_1, p_2} (p_1 - 10)q_1 + (p_2 - 10)q_2$
+		\item FOC for $p_1$:
+		\begin{align*}
+			q_1 + (p_1 - 10)(-3) + (p_2 - 10)(1) = 0
+		\end{align*}
+		\item Note: now includes $\frac{\partial q_2}{\partial p_1} = 1$ term!
+		\item Symmetric: $p_1 = p_2 = p$:
+		\begin{align*}
+			100 - 3p + p - 3(p - 10) + (p - 10) = 0 \\
+			100 - 3p + p - 3p + 30 + p - 10 = 0 \\
+			120 - 4p = 0 \Rightarrow p = 30
+		\end{align*}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: Results}
+	\begin{wideitemize}
+		\item \textbf{Pre-merger price:} $p = 26$
+		\item \textbf{Post-merger price:} $p = 30$
+		\item \textbf{Price increase:} $\frac{30 - 26}{26} = 15.4\%$
+		\item \textbf{Why?}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Before: raising $p_1$ loses customers to product 2
+			\item After: those ``lost'' customers still buy from merged firm
+			\item Less competitive pressure $\rightarrow$ higher prices
+		\end{wideitemize}
+		\item This is on HW2 (with more products)!
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Merger simulation in practice}
+	\begin{wideitemize}
+		\item \textbf{Step 1:} Estimate demand (logit, nested logit, etc.)
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Get elasticities and demand derivatives
+		\end{wideitemize}
+		\item \textbf{Step 2:} Recover marginal costs
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Use pre-merger FOC: $mc_j = p_j - \frac{q_j}{\partial q_j / \partial p_j}$
+		\end{wideitemize}
+		\item \textbf{Step 3:} Change ownership matrix
+		\item \textbf{Step 4:} Solve for new equilibrium prices
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Often requires numerical solution
+		\end{wideitemize}
+		\item \textbf{Step 5:} Calculate welfare effects
+	\end{wideitemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PART 2: MERGER POLICY
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{transitionframe}
+	\begin{center}
+		{\Huge Part 2: Merger Policy}
+	\end{center}
+\end{transitionframe}
+
+\begin{frame}{Antitrust and merger review}
+	\begin{wideitemize}
+		\item \textbf{In the US:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Department of Justice (DOJ) Antitrust Division
+			\item Federal Trade Commission (FTC)
+		\end{wideitemize}
+		\item Large mergers must be reported (Hart-Scott-Rodino Act)
+		\item Agencies review and can challenge mergers
+		\item \textbf{Horizontal Merger Guidelines:} Framework for analysis
+		\item Similar agencies in EU, UK, and other jurisdictions
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Market definition}
+	\begin{wideitemize}
+		\item First step: define the relevant market
+		\item \textbf{SSNIP test:} Small but Significant Non-transitory Increase in Price
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Would a hypothetical monopolist raise price 5\%?
+			\item If yes: products are in same market
+			\item If no (too much substitution): market is too narrow
+		\end{wideitemize}
+		\item Market definition is often contentious
+		\item Broader market $\rightarrow$ lower market shares $\rightarrow$ merger more likely approved
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{HHI: Herfindahl-Hirschman Index}
+	\begin{wideitemize}
+		\item \textbf{Definition:}
+		\begin{align*}
+			HHI = \sum_{i=1}^N s_i^2 \times 10000
+		\end{align*}
+		\item where $s_i$ is firm $i$'s market share (as decimal)
+		\item Ranges from 0 to 10,000
+		\item \textbf{Interpretation:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item $HHI < 1500$: Unconcentrated
+			\item $1500 \leq HHI < 2500$: Moderately concentrated
+			\item $HHI \geq 2500$: Highly concentrated
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{HHI and merger guidelines}
+	\begin{wideitemize}
+		\item Agencies look at $\Delta HHI$ from merger
+		\item \textbf{Merger thresholds (approx):}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item $\Delta HHI < 100$: Unlikely to raise concerns
+			\item Post-merger $HHI < 1500$: Unlikely to raise concerns
+			\item Post-merger $HHI > 2500$ AND $\Delta HHI > 200$: Likely scrutiny
+		\end{wideitemize}
+		\item HHI is a screen, not definitive
+		\item Real analysis uses merger simulation, efficiencies, etc.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: HHI calculation}
+	\begin{wideitemize}
+		\item \textbf{Question:} Market has 4 firms with shares: 40\%, 30\%, 20\%, 10\%.
+		\item Firm 1 (40\%) merges with Firm 4 (10\%).
+		\item (a) Calculate pre-merger HHI
+		\item (b) Calculate post-merger HHI and $\Delta HHI$
+	\end{wideitemize}
+	\vspace{10pt}
+	\centering
+	\textit{Take 3 minutes.}
+\end{frame}
+
+\begin{frame}{Worked example: HHI (solution)}
+	\begin{wideitemize}
+		\item \textbf{(a) Pre-merger:}
+		\begin{align*}
+			HHI = (0.40)^2 + (0.30)^2 + (0.20)^2 + (0.10)^2 = 0.30
+		\end{align*}
+		\item $HHI = 3000$ (highly concentrated)
+		\item \textbf{(b) Post-merger:}
+		\begin{align*}
+			HHI = (0.50)^2 + (0.30)^2 + (0.20)^2 = 0.38
+		\end{align*}
+		\item $HHI = 3800$, $\Delta HHI = 800$
+		\item \textbf{Shortcut:} $\Delta HHI = 2 \times s_1 \times s_4 \times 10000 = 2 \times 0.4 \times 0.1 \times 10000 = 800$
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Efficiency defense}
+	\begin{wideitemize}
+		\item Mergers can create efficiencies:
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Economies of scale
+			\item Elimination of duplicated fixed costs
+			\item Better management
+		\end{wideitemize}
+		\item \textbf{Williamson trade-off:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Market power effect: prices rise, deadweight loss
+			\item Efficiency effect: costs fall, resource savings
+		\end{wideitemize}
+		\item Merger approved if efficiency gains outweigh market power harms
+		\item In practice: high bar for efficiency claims
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Recent merger cases}
+	\begin{wideitemize}
+		\item \textbf{Tech mergers:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Google/Fitbit: wearables and data
+			\item Microsoft/Activision: gaming
+		\end{wideitemize}
+		\item \textbf{Healthcare:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Hospital mergers: quality vs price concerns
+		\end{wideitemize}
+		\item \textbf{Key issues in modern cases:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Data as competitive asset
+			\item Potential competition (would target have grown into competitor?)
+			\item Vertical concerns (platforms buying content)
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% KEY POINTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Key Points}
+	\vspace{11pt}
+	\begin{wideenumerate}
+		\item Mergers reduce competition by \textbf{internalizing substitution}
+		\item \textbf{Merger simulation:} Use demand + ownership change to predict prices
+		\item Key: ownership matrix $\mathbf{H}$ changes from 0 to 1 for merged products
+		\item FOC changes: merged firm counts cross-price effects
+		\item \textbf{SSNIP test:} Would hypothetical monopolist raise price 5\%?
+		\item \textbf{HHI} = $\Sigma s_i^2 \times 10000$; $\Delta HHI$ screens mergers
+		\item \textbf{Efficiency defense:} Cost savings may offset price effects
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Next time}
+	\begin{wideitemize}
+		\item \textbf{Lecture 11:} Vertical Relationships
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Double marginalization
+			\item Vertical integration
+			\item Vertical restraints (RPM, exclusive dealing)
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\end{document}

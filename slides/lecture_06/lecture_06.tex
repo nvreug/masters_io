@@ -1,0 +1,508 @@
+\documentclass[notes,11pt, aspectratio=169]{beamer}
+
+\usepackage{pgfpages}
+\setbeameroption{hide notes} % Only slide
+
+\usepackage{array}
+\usepackage{tikz}
+\usepackage{verbatim}
+\setbeamertemplate{note page}{\pagecolor{gray!5}\insertnote}
+\usetikzlibrary{positioning}
+\usetikzlibrary{snakes}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{matrix,shapes,arrows,fit,tikzmark}
+\usepackage{amsmath}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{multimedia}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{dcolumn}
+\usepackage{bbm}
+\newcolumntype{d}[0]{D{.}{.}{5}}
+
+\usepackage{changepage}
+\usepackage{appendixnumberbeamer}
+
+\usepackage[space]{grffile}
+\usepackage{booktabs}
+
+% Colors
+\definecolor{blue}{RGB}{0,114,178}
+\definecolor{red}{RGB}{213,94,0}
+\definecolor{yellow}{RGB}{240,228,66}
+\definecolor{green}{RGB}{0,158,115}
+
+\hypersetup{
+  colorlinks=false,
+  linkbordercolor = {white},
+  linkcolor = {blue}
+}
+
+\definecolor{MyBackground}{RGB}{255,253,218}
+
+\newenvironment{transitionframe}{
+  \setbeamercolor{background canvas}{bg=white}
+  \begin{frame}}{
+    \end{frame}
+}
+
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=black}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize items}{-}
+\setbeamercolor{itemize item}{fg=blue}
+\setbeamercolor{itemize subitem}{fg=blue}
+\setbeamercolor{enumerate item}{fg=blue}
+\setbeamercolor{enumerate subitem}{fg=blue}
+\setbeamercolor{button}{bg=MyBackground,fg=blue,}
+
+\setbeamercolor{section in toc}{fg=blue}
+\setbeamercolor{subsection in toc}{fg=red}
+\setbeamersize{text margin left=1em,text margin right=1em}
+
+\newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
+\newenvironment{wideenumerate}{\enumerate\addtolength{\itemsep}{10pt}}{\endenumerate}
+
+\title[]{\textcolor{blue}{ECN 594: Midterm Review}}
+\author[PGP]{}
+\institute[FRBNY]{\small{\begin{tabular}{c c c}
+Nicholas Vreugdenhil \\
+\end{tabular}}}
+\date{\today}
+
+\begin{document}
+
+% Title Slide
+\begin{frame}
+\maketitle
+  \centering
+\end{frame}
+
+\begin{frame}{Plan for today}
+  \begin{wideenumerate}
+    \item Review: Demand estimation
+    \item Practice problems: Demand
+    \item[] \rule{0.5\textwidth}{0.4pt}
+    \item Review: Pricing and price discrimination
+    \item Practice problems: Pricing
+    \item Exam logistics
+  \end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Midterm format}
+	\begin{wideitemize}
+		\item \textbf{Duration:} 70 minutes
+		\item \textbf{Allowed:} Calculator + two-sided cheat sheet (letter-size paper)
+		\item \textbf{Coverage:} Lectures 1-5 (all of Part 1)
+		\item \textbf{Structure:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Short answer questions (T/F/NEI, definitions, quick calculations)
+			\item Longer problems (derivations, pricing, elasticity calculations)
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PART 1: DEMAND ESTIMATION REVIEW
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{transitionframe}
+	\begin{center}
+		{\Huge Part 1: Demand Estimation Review}
+	\end{center}
+\end{transitionframe}
+
+\begin{frame}{Why demand estimation?}
+	\begin{wideitemize}
+		\item We need demand models to:
+		\begin{wideenumerate}
+			\vspace{5pt}
+			\item Measure substitution patterns between products
+			\item Compute price elasticities
+			\item Evaluate policy (mergers, new products, price changes)
+			\item Calculate consumer welfare
+		\end{wideenumerate}
+		\item The dimensionality problem: $J$ products $\rightarrow$ $J^2$ elasticities
+		\item Solution: characteristics-based models (Lancaster, BLP)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{The logit model: key equations}
+	\begin{wideitemize}
+		\item Utility: $u_{ij} = \delta_j + \varepsilon_{ij}$ where $\delta_j = x_j\beta + \alpha p_j + \xi_j$
+		\item Choice probability (market share):
+		\begin{align*}
+			s_j = \frac{\exp(\delta_j)}{1 + \sum_{k=1}^J \exp(\delta_k)}
+		\end{align*}
+		\item Outside option: $s_0 = \frac{1}{1 + \sum_{k=1}^J \exp(\delta_k)}$
+		\item \textbf{Berry inversion:}
+		\begin{align*}
+			\ln(s_j) - \ln(s_0) = \delta_j
+		\end{align*}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Logit elasticities}
+	\begin{wideitemize}
+		\item \textbf{Own-price elasticity:}
+		\begin{align*}
+			\eta_{jj} = \frac{\partial s_j}{\partial p_j} \cdot \frac{p_j}{s_j} = \alpha p_j (1 - s_j)
+		\end{align*}
+		\item \textbf{Cross-price elasticity:}
+		\begin{align*}
+			\eta_{jk} = \frac{\partial s_j}{\partial p_k} \cdot \frac{p_k}{s_j} = -\alpha p_k s_k
+		\end{align*}
+		\item Note: $\alpha < 0$ so own-price elasticity is negative
+		\item \textbf{IIA problem:} Cross-elasticity depends only on $k$, not on similarity to $j$
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Practice: Elasticity calculation}
+	\begin{wideitemize}
+		\item \textbf{Question:} Suppose $\alpha = -0.5$, product A has price $p_A = 20$ and share $s_A = 0.1$.
+		\item (a) Calculate the own-price elasticity of product A.
+		\item (b) If product B has $p_B = 25$ and $s_B = 0.15$, what is the cross-price elasticity of A with respect to B's price?
+	\end{wideitemize}
+	\vspace{15pt}
+	\centering
+	\textit{Take 3 minutes.}
+\end{frame}
+
+\begin{frame}{Practice: Elasticity calculation (solution)}
+	\begin{wideitemize}
+		\item \textbf{(a) Own-price elasticity:}
+		\begin{align*}
+			\eta_{AA} = \alpha p_A (1 - s_A) = (-0.5)(20)(1 - 0.1) = -9
+		\end{align*}
+		\item Demand is elastic (a 1\% price increase reduces quantity by 9\%)
+		\item \textbf{(b) Cross-price elasticity:}
+		\begin{align*}
+			\eta_{AB} = -\alpha p_B s_B = -(-0.5)(25)(0.15) = 1.875
+		\end{align*}
+		\item A 1\% increase in B's price increases A's share by 1.875\%
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{The identification problem}
+	\begin{wideitemize}
+		\item \textbf{Problem:} We observe equilibrium $(p, q)$ pairs
+		\item Can't tell if demand shifted or supply shifted
+		\item \textbf{Price endogeneity:} High unobserved quality $\xi_j \rightarrow$ high price
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item OLS sees: high price, still high demand
+			\item Concludes: price doesn't matter much
+			\item Result: $\hat{\alpha}$ biased toward zero
+		\end{wideitemize}
+		\item \textbf{Solution:} Instrumental variables
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Need: correlated with price, uncorrelated with $\xi$
+			\item Examples: Hausman IVs, BLP IVs, cost shifters
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Practice: Identification}
+	\begin{wideitemize}
+		\item \textbf{True, False, or Not Enough Information:}
+		\item (a) OLS estimation of demand typically underestimates the price coefficient (in absolute value).
+		\item (b) Using prices of the same product in other geographic markets as an IV is valid because prices in other markets don't affect local demand.
+		\item (c) The logit model solves the dimensionality problem by assuming all products are equally substitutable.
+	\end{wideitemize}
+	\vspace{10pt}
+	\centering
+	\textit{Take 3 minutes.}
+\end{frame}
+
+\begin{frame}{Practice: Identification (solutions)}
+	\begin{wideitemize}
+		\item \textbf{(a) TRUE.} Price endogeneity biases $\alpha$ toward zero. Since $\alpha < 0$, this means $|\hat{\alpha}_{OLS}| < |\alpha_{true}|$.
+		\item \textbf{(b) TRUE (with caveat).} Hausman IVs work because common cost shocks affect prices in all markets (relevance), but other markets' prices don't directly affect local demand (exclusion). Caveat: requires no common demand shocks.
+		\item \textbf{(c) FALSE.} Logit solves dimensionality by using product characteristics. But the IIA problem means substitution is proportional to share, not similarity.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Consumer surplus: log-sum formula}
+	\begin{wideitemize}
+		\item Expected utility for consumer $i$:
+		\begin{align*}
+			E[\max_j u_{ij}] = \ln\left[\sum_{j=0}^J \exp(\delta_j)\right] + \text{constant}
+		\end{align*}
+		\item Consumer surplus (in dollars):
+		\begin{align*}
+			CS = \frac{1}{|\alpha|} \ln\left[\sum_{j=0}^J \exp(\delta_j)\right]
+		\end{align*}
+		\item Divide by $|\alpha|$ to convert utils to dollars
+		\item \textbf{Application:} Welfare change from adding/removing products
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{The IIA problem}
+	\begin{wideitemize}
+		\item \textbf{IIA:} Ratio of choice probabilities doesn't depend on other options
+		\begin{align*}
+			\frac{s_j}{s_k} = \frac{\exp(\delta_j)}{\exp(\delta_k)} = \exp(\delta_j - \delta_k)
+		\end{align*}
+		\item \textbf{Red Bus / Blue Bus:} Adding identical bus option incorrectly increases welfare
+		\item \textbf{Problem:} Logit doesn't know similar products are close substitutes
+		\item \textbf{Solutions:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Demographic interactions (partial fix)
+			\item Mixed logit / random coefficients (full fix, beyond scope)
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PART 2: PRICING REVIEW
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{transitionframe}
+	\begin{center}
+		{\Huge Part 2: Pricing Review}
+	\end{center}
+\end{transitionframe}
+
+\begin{frame}{Monopoly pricing: key equations}
+	\begin{wideitemize}
+		\item Profit maximization: $\max_q \pi = p(q) \cdot q - c(q)$
+		\item First-order condition: $MR = MC$
+		\item \textbf{Lerner index:}
+		\begin{align*}
+			L = \frac{p - MC}{p} = \frac{1}{|\varepsilon|}
+		\end{align*}
+		\item \textbf{Interpretation:} Markup is inversely related to elasticity
+		\item Equivalently: $p = \frac{MC}{1 - 1/|\varepsilon|}$
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Practice: Lerner index}
+	\begin{wideitemize}
+		\item \textbf{Question:} A monopolist faces demand $p = 100 - 2q$ and has constant marginal cost $MC = 20$.
+		\item (a) Find the profit-maximizing price and quantity.
+		\item (b) Calculate the Lerner index.
+		\item (c) Verify using the elasticity formula.
+	\end{wideitemize}
+	\vspace{15pt}
+	\centering
+	\textit{Take 4 minutes.}
+\end{frame}
+
+\begin{frame}{Practice: Lerner index (solution)}
+	\begin{wideitemize}
+		\item \textbf{(a)} $MR = 100 - 4q$. Set $MR = MC$: $100 - 4q = 20 \Rightarrow q = 20$
+		\item Price: $p = 100 - 2(20) = 60$
+		\item \textbf{(b)} Lerner index: $L = \frac{60 - 20}{60} = \frac{40}{60} = \frac{2}{3}$
+		\item \textbf{(c)} Elasticity: $\varepsilon = \frac{dq}{dp} \cdot \frac{p}{q} = -\frac{1}{2} \cdot \frac{60}{20} = -1.5$
+		\item Check: $L = \frac{1}{|\varepsilon|} = \frac{1}{1.5} = \frac{2}{3}$ $\checkmark$
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Types of price discrimination}
+	\begin{wideenumerate}
+		\item \textbf{Perfect price discrimination}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Charge each consumer their exact WTP
+			\item Benchmark; rarely feasible
+		\end{wideitemize}
+		\item \textbf{Selection by indicators}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Different prices for observable groups
+			\item Example: student discounts, geographic pricing
+		\end{wideitemize}
+		\item \textbf{Self-selection}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Design menu to induce type revelation
+			\item Example: versioning, bundling
+		\end{wideitemize}
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Selection by indicators: inverse elasticity rule}
+	\begin{wideitemize}
+		\item Two markets with different elasticities
+		\item Apply Lerner in each market:
+		\begin{align*}
+			\frac{p_1 - MC}{p_1} = \frac{1}{|\varepsilon_1|} \quad \text{and} \quad \frac{p_2 - MC}{p_2} = \frac{1}{|\varepsilon_2|}
+		\end{align*}
+		\item \textbf{Key insight:} Charge higher price in more inelastic market
+		\item Rearranging: $p = \frac{MC}{1 - 1/|\varepsilon|}$
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Practice: Selection by indicators}
+	\begin{wideitemize}
+		\item \textbf{Question:} A firm sells in two markets. Market A has $\varepsilon_A = -3$. Market B has $\varepsilon_B = -5$. Marginal cost is $MC = 10$.
+		\item Find the optimal price in each market.
+	\end{wideitemize}
+	\vspace{15pt}
+	\centering
+	\textit{Take 3 minutes.}
+\end{frame}
+
+\begin{frame}{Practice: Selection by indicators (solution)}
+	\begin{wideitemize}
+		\item Using $p = \frac{MC}{1 - 1/|\varepsilon|}$:
+		\item \textbf{Market A:}
+		\begin{align*}
+			p_A = \frac{10}{1 - 1/3} = \frac{10}{2/3} = 15
+		\end{align*}
+		\item \textbf{Market B:}
+		\begin{align*}
+			p_B = \frac{10}{1 - 1/5} = \frac{10}{4/5} = 12.50
+		\end{align*}
+		\item Higher price in more inelastic market (A)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Two-part tariffs}
+	\begin{wideitemize}
+		\item Structure: $\text{Payment} = F + p \cdot q$
+		\item \textbf{Optimal (homogeneous consumers):}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Set $p = MC$ (maximize total surplus)
+			\item Set $F = CS(p = MC)$ (extract all surplus)
+		\end{wideitemize}
+		\item \textbf{Result:} Firm captures entire surplus; efficient but inequitable
+		\item \textbf{Heterogeneous consumers:} Tradeoff between extraction and participation
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Self-selection: IC and IR constraints}
+	\begin{wideitemize}
+		\item \textbf{IC (Incentive Compatibility):} Each type prefers their option
+		\begin{align*}
+			\text{IC}_H: \quad v_H^F - p_F &\geq v_H^S - p_S
+		\end{align*}
+		\item \textbf{IR (Individual Rationality):} Each type willing to participate
+		\begin{align*}
+			\text{IR}_L: \quad v_L^S - p_S &\geq 0
+		\end{align*}
+		\item \textbf{Optimal menu:} IC binds for H, IR binds for L
+		\item H gets ``information rent''; L gets zero surplus
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Practice: Self-selection}
+	\begin{wideitemize}
+		\item \textbf{Question:} Two products (Premium, Basic), two consumer types.
+		\begin{center}
+			\begin{tabular}{|c|c|c|}
+				\hline
+				& Premium & Basic \\
+				\hline
+				High type & 100 & 60 \\
+				Low type & 50 & 40 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		\item $MC = 20$ for both. Equal numbers of each type.
+		\item A firm considers: $p_P = 100$, $p_B = 40$.
+		\item (a) What does each type buy?
+		\item (b) Is this menu optimal? If not, what should change?
+	\end{wideitemize}
+	\vspace{10pt}
+	\centering
+	\textit{Take 4 minutes.}
+\end{frame}
+
+\begin{frame}{Practice: Self-selection (solution)}
+	\begin{wideitemize}
+		\item \textbf{(a) Consumer choices:}
+		\item High type: $CS_P = 100 - 100 = 0$, $CS_B = 60 - 40 = 20$
+		\item High type buys Basic! (IC violated)
+		\item Low type: $CS_P = 50 - 100 = -50$, $CS_B = 40 - 40 = 0$
+		\item Low type buys Basic
+		\item \textbf{(b) Not optimal.} Need to lower $p_P$ so IC binds.
+		\item IC binds when: $100 - p_P = 60 - 40 = 20 \Rightarrow p_P = 80$
+		\item Optimal menu: $p_P = 80$, $p_B = 40$
+	\end{wideitemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% EXAM LOGISTICS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{transitionframe}
+	\begin{center}
+		{\Huge Exam Logistics}
+	\end{center}
+\end{transitionframe}
+
+\begin{frame}{Exam format reminder}
+	\begin{wideitemize}
+		\item \textbf{Date:} Monday, Feb 9 (Lecture 7)
+		\item \textbf{Duration:} 70 minutes
+		\item \textbf{Allowed:} Calculator + two-sided cheat sheet
+		\item \textbf{Coverage:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Demand: logit, Berry inversion, elasticities, IVs, IIA, CS
+			\item Pricing: monopoly, Lerner index, price discrimination
+			\item Two-part tariffs, self-selection (IC/IR)
+		\end{wideitemize}
+		\item \textbf{Format:} Mix of T/F/NEI, short answer, and problems
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{What to put on your cheat sheet}
+	\begin{wideitemize}
+		\item \textbf{Key formulas:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Logit share, Berry inversion
+			\item Own and cross elasticities
+			\item Log-sum formula for CS
+			\item Lerner index
+			\item Two-part tariff optimal conditions
+		\end{wideitemize}
+		\item \textbf{Worked examples:} Similar to practice problems
+		\item \textbf{Key intuitions:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Why price endogeneity biases $\alpha$ toward zero
+			\item Why IC binds for high type, IR for low type
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% KEY POINTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Key Points}
+	\vspace{11pt}
+	\begin{wideenumerate}
+		\item \textbf{Logit:} $s_j = \exp(\delta_j)/[1 + \Sigma\exp(\delta_k)]$
+		\item \textbf{Berry inversion:} $\ln(s_j) - \ln(s_0) = \delta_j$
+		\item \textbf{Elasticities:} Own: $\alpha p_j(1-s_j)$; Cross: $-\alpha p_k s_k$
+		\item \textbf{IVs needed} because $E[p_j \xi_j] \neq 0$; bias toward zero
+		\item \textbf{Lerner:} $L = (p-MC)/p = 1/|\varepsilon|$
+		\item \textbf{Selection by indicators:} Higher price in inelastic market
+		\item \textbf{Two-part tariff:} $p = MC$, $F = CS$
+		\item \textbf{Self-selection:} IC binds for high type, IR for low type
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Good luck on the midterm!}
+	\begin{wideitemize}
+		\item \textbf{Office hours:} [TBD]
+		\item \textbf{Practice exam:} Posted on course website
+		\item Questions?
+	\end{wideitemize}
+\end{frame}
+
+\end{document}

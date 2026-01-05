@@ -1,0 +1,573 @@
+\documentclass[notes,11pt, aspectratio=169]{beamer}
+
+\usepackage{pgfpages}
+\setbeameroption{hide notes} % Only slide
+
+\usepackage{array}
+\usepackage{tikz}
+\usepackage{verbatim}
+\setbeamertemplate{note page}{\pagecolor{gray!5}\insertnote}
+\usetikzlibrary{positioning}
+\usetikzlibrary{snakes}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{matrix,shapes,arrows,fit,tikzmark}
+\usepackage{amsmath}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{multimedia}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{dcolumn}
+\usepackage{bbm}
+\newcolumntype{d}[0]{D{.}{.}{5}}
+
+\usepackage{changepage}
+\usepackage{appendixnumberbeamer}
+
+\usepackage[space]{grffile}
+\usepackage{booktabs}
+
+% Colors
+\definecolor{blue}{RGB}{0,114,178}
+\definecolor{red}{RGB}{213,94,0}
+\definecolor{yellow}{RGB}{240,228,66}
+\definecolor{green}{RGB}{0,158,115}
+
+\hypersetup{
+  colorlinks=false,
+  linkbordercolor = {white},
+  linkcolor = {blue}
+}
+
+\definecolor{MyBackground}{RGB}{255,253,218}
+
+\newenvironment{transitionframe}{
+  \setbeamercolor{background canvas}{bg=white}
+  \begin{frame}}{
+    \end{frame}
+}
+
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=black}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize items}{-}
+\setbeamercolor{itemize item}{fg=blue}
+\setbeamercolor{itemize subitem}{fg=blue}
+\setbeamercolor{enumerate item}{fg=blue}
+\setbeamercolor{enumerate subitem}{fg=blue}
+\setbeamercolor{button}{bg=MyBackground,fg=blue,}
+
+\setbeamercolor{section in toc}{fg=blue}
+\setbeamercolor{subsection in toc}{fg=red}
+\setbeamersize{text margin left=1em,text margin right=1em}
+
+\newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
+\newenvironment{wideenumerate}{\enumerate\addtolength{\itemsep}{10pt}}{\endenumerate}
+
+\title[]{\textcolor{blue}{ECN 594: Two-Part Tariffs and Self-Selection}}
+\author[PGP]{}
+\institute[FRBNY]{\small{\begin{tabular}{c c c}
+Nicholas Vreugdenhil \\
+\end{tabular}}}
+\date{\today}
+
+\begin{document}
+
+% Title Slide
+\begin{frame}
+\maketitle
+  \centering
+\end{frame}
+
+\begin{frame}{Plan for today}
+  \begin{wideenumerate}
+    \item Two-part tariffs: structure and intuition
+    \item Optimal two-part tariff (homogeneous consumers)
+    \item Heterogeneous consumers (brief)
+    \item[] \rule{0.5\textwidth}{0.4pt}
+    \item Self-selection: versioning and menu design
+    \item Incentive compatibility and individual rationality
+    \item Worked example: optimal menu
+  \end{wideenumerate}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PART 1: TWO-PART TARIFFS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{transitionframe}
+	\begin{center}
+		{\Huge Part 1: Two-Part Tariffs}
+	\end{center}
+\end{transitionframe}
+
+\begin{frame}{Non-linear pricing}
+	\begin{wideitemize}
+		\item So far: price discrimination by \textbf{selection by indicators}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Requires observable characteristics (student ID, location, etc.)
+		\end{wideitemize}
+		\item Now: \textbf{non-linear pricing}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Price per unit depends on quantity purchased
+			\item Consumers \textit{self-select} into how much to buy
+		\end{wideitemize}
+		\item Key example: \textbf{two-part tariffs}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Two-part tariff structure}
+	\begin{wideitemize}
+		\item A two-part tariff has the form:
+		\begin{align*}
+			\text{Total payment} = F + p \times q
+		\end{align*}
+		\item $F$: fixed fee (membership, connection charge)
+		\item $p$: per-unit price (price per unit consumed)
+		\item $q$: quantity consumed
+		\item \textbf{Examples:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Golf club: membership fee + greens fee per round
+			\item Phone plan: monthly fee + per-minute charges
+			\item Costco: annual membership + price per item
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Why is this ``non-linear''?}
+	\begin{wideitemize}
+		\item Average price per unit: $\frac{F + pq}{q} = p + \frac{F}{q}$
+		\item As $q$ increases, average price \textbf{decreases}
+		\item This is a quantity discount!
+		\item The pricing is ``non-linear'' because total payment is not proportional to quantity
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Why use two-part tariffs?}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\begin{figure}
+				\begin{tikzpicture}[scale=0.45]
+					\fill [darkgray!60] (0,1) -- (0,5.5) -- (4.5,5.5) -- (5.5,1) -- cycle;
+					\fill [blue!60] (0,5.5) -- (4.5,5.5) -- (0,10) -- cycle;
+					\fill [orange!60] (4.5,1) -- (4.5,5.5) -- (9,1) -- cycle;
+
+					\draw [->] (0,0) to (0,11) node [left] {$p$};
+					\draw [->] (0,0) to (11,0) node [below] {$q$};
+					\draw [thick] (0,10)  to  (10,0)  node [above right] {$D$};
+					\draw [thick] (0,1)  to  (11,1)  node [right] {$MC$};
+
+					\draw [dashed] (0,5.5) node [left] {$p_m$} to (4.55,5.5);
+					\draw [dashed] (4.5,5.5) to (4.5,0) node [below] {$q_m$};
+
+					\node [above right] at (1.5,6.5) {$A$};
+					\node [above right] at (5,2) {$C$};
+					\node [above right] at (1.5,2) {$B$};
+				\end{tikzpicture}
+			\end{figure}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\begin{wideitemize}
+				\item Under uniform pricing at $p_m$:
+				\begin{wideitemize}
+					\vspace{5pt}
+					\item CS = Area $A$
+					\item Profit = Area $B$
+					\item DWL = Area $C$
+				\end{wideitemize}
+				\item Monopolist ``leaves money on the table''
+				\item Can we do better?
+			\end{wideitemize}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Optimal two-part tariff: homogeneous consumers}
+	\begin{wideitemize}
+		\item Assume all consumers are identical (same demand curve)
+		\item \textbf{Key insight:} Use $F$ to extract surplus, use $p$ to maximize total surplus
+		\item \textbf{Step 1:} Set $p = MC$
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item This maximizes total surplus (eliminates DWL)
+		\end{wideitemize}
+		\item \textbf{Step 2:} Set $F = CS(p = MC)$
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Extract all consumer surplus through the fixed fee
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Optimal two-part tariff: graphically}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\begin{figure}
+				\begin{tikzpicture}[scale=0.45]
+					\fill [green!40] (0,1) -- (0,10) -- (9,1) -- cycle;
+
+					\draw [->] (0,0) to (0,11) node [left] {$p$};
+					\draw [->] (0,0) to (11,0) node [below] {$q$};
+					\draw [thick] (0,10)  to  (10,0)  node [above right] {$D$};
+					\draw [thick] (0,1)  to  (11,1)  node [right] {$MC$};
+
+					\draw [dashed] (9,1) to (9,0) node [below] {$q^*$};
+
+					\node [above right] at (2,4) {$F^* = CS$};
+					\node [left] at (0,1) {$p^*=MC$};
+				\end{tikzpicture}
+			\end{figure}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\begin{wideitemize}
+				\item Set $p^* = MC$
+				\item Consumers buy $q^*$ (efficient quantity)
+				\item Set $F^* = $ entire green triangle
+				\item Profit = $F^* - 0 = F^*$
+				\item \textbf{Result:} Firm captures ALL surplus
+			\end{wideitemize}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Worked example: Two-part tariff}
+	\begin{wideitemize}
+		\item \textbf{Question:} Individual demand is $q = 15 - 2.5p$. Marginal cost is $MC = 0$.
+		\item (a) What is the optimal uniform price and profit per consumer?
+		\item (b) What is the optimal two-part tariff and profit per consumer?
+	\end{wideitemize}
+	\vspace{15pt}
+	\centering
+	\textit{Take 5 minutes to solve this.}
+\end{frame}
+
+\begin{frame}{Worked example: Two-part tariff (solution)}
+	\begin{wideitemize}
+		\item \textbf{(a) Uniform pricing:}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Inverse demand: $p = 6 - q/2.5$
+			\item $MR = 6 - 2q/2.5 = 6 - 0.8q$
+			\item Set $MR = MC$: $6 - 0.8q = 0 \Rightarrow q = 7.5$
+			\item Price: $p = 6 - 7.5/2.5 = 3$
+			\item Profit: $\pi = 3 \times 7.5 = 22.5$ per consumer
+		\end{wideitemize}
+		\item \textbf{(b) Two-part tariff:}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Set $p = MC = 0$
+			\item At $p = 0$: $q = 15$
+			\item $CS = \frac{1}{2} \times 15 \times 6 = 45$
+			\item Set $F = 45$
+			\item Profit: $\pi = 45$ per consumer (double the uniform price!)
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Welfare effects of two-part tariffs}
+	\begin{wideitemize}
+		\item Compared to uniform monopoly pricing:
+		\item \textbf{Producer surplus:} Increases (captures all surplus)
+		\item \textbf{Consumer surplus:} Decreases to zero
+		\item \textbf{Total surplus:} Increases (DWL eliminated!)
+		\item \textbf{Efficiency vs equity tradeoff:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item More efficient (no DWL)
+			\item Less equitable (consumers get nothing)
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{What about heterogeneous consumers?}
+	\begin{wideitemize}
+		\item Reality: consumers have different demand curves
+		\item Problem: if $F$ is too high, some consumers don't participate
+		\item \textbf{Tradeoff:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item High $F$: extract more from high-value consumers, but lose low-value ones
+			\item Low $F$: serve more consumers, but extract less per consumer
+		\end{wideitemize}
+		\item Optimal $F$ balances these effects
+		\item Often: $p > MC$ (to extract more from high-demand consumers through variable pricing)
+	\end{wideitemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PART 2: SELF-SELECTION
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{transitionframe}
+	\begin{center}
+		{\Huge Part 2: Self-Selection}
+	\end{center}
+\end{transitionframe}
+
+\begin{frame}{Self-selection: the idea}
+	\begin{wideitemize}
+		\item \textbf{Problem:} Seller cannot directly observe consumer types
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Can't tell who has high vs low willingness to pay
+		\end{wideitemize}
+		\item \textbf{Solution:} Design a \textbf{menu} of options
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Different options appeal to different types
+			\item Consumers ``self-select'' into revealing their type
+		\end{wideitemize}
+		\item Also called: screening, menu design, second-degree price discrimination
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Self-selection: versioning}
+	\begin{wideitemize}
+		\item \textbf{Versioning:} Offer different ``versions'' of a product
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item High-quality version for high-value consumers
+			\item Low-quality version for low-value consumers
+		\end{wideitemize}
+		\item \textbf{Examples:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Airline tickets: business class vs economy
+			\item Software: Pro vs Basic editions
+			\item iPhone Pro vs iPhone
+		\end{wideitemize}
+		\item \textbf{Damaged goods:} Sometimes firms deliberately reduce quality
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Tesla: software-limited battery range
+			\item 19th century French rail: roofless third-class cars
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{The menu design problem: setup}
+	\begin{wideitemize}
+		\item Two consumer types: H (high-value) and L (low-value)
+		\item Two product versions: Full and Stripped-down
+		\item Willingness to pay:
+		\begin{center}
+			\begin{tabular}{|c|c|c|}
+				\hline
+				& Full & Stripped-down \\
+				\hline
+				Type H & $v_H^F$ & $v_H^S$ \\
+				Type L & $v_L^F$ & $v_L^S$ \\
+				\hline
+			\end{tabular}
+		\end{center}
+		\item Assume: $v_H^F > v_L^F$ and $v_H^S > v_L^S$ (H values both more)
+		\item Also: $v_H^F - v_H^S > v_L^F - v_L^S$ (H values upgrade more)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Consumer choice: self-selection}
+	\begin{wideitemize}
+		\item Consumer surplus from each option:
+		\begin{align*}
+			CS_{\text{Full}} &= v^F - p_F \\
+			CS_{\text{Stripped}} &= v^S - p_S
+		\end{align*}
+		\item Each consumer chooses the option with highest CS
+		\item (If both negative, consumer doesn't buy)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Constraints on pricing}
+	\begin{wideitemize}
+		\item \textbf{Incentive Compatibility (IC):} Each type prefers ``their'' option
+		\begin{align*}
+			\text{IC}_H: \quad v_H^F - p_F &\geq v_H^S - p_S \\
+			\text{IC}_L: \quad v_L^S - p_S &\geq v_L^F - p_F
+		\end{align*}
+		\item \textbf{Individual Rationality (IR):} Each type is willing to participate
+		\begin{align*}
+			\text{IR}_H: \quad v_H^F - p_F &\geq 0 \\
+			\text{IR}_L: \quad v_L^S - p_S &\geq 0
+		\end{align*}
+		\item Also called: participation constraints
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Key insight: which constraints bind?}
+	\begin{wideitemize}
+		\item In the optimal menu:
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item $\text{IC}_H$ binds: H is just indifferent between Full and Stripped
+			\item $\text{IR}_L$ binds: L gets zero surplus from Stripped
+		\end{wideitemize}
+		\item \textbf{Intuition:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Extract all surplus from L (low type has no ``outside option'')
+			\item H gets some surplus (to prevent them from mimicking L)
+		\end{wideitemize}
+		\item This is called: ``no distortion at the top''
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: Versioning}
+	\begin{wideitemize}
+		\item Two product versions. $MC = 300$ for both.
+		\item 1 million type H consumers; 2 million type L consumers
+		\item Willingness to pay:
+		\begin{center}
+			\begin{tabular}{|c|c|c|}
+				\hline
+				& Full & Stripped \\
+				\hline
+				Type H & 1500 & 800 \\
+				Type L & 600 & 500 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		\item \textbf{Questions:}
+		\item (a) Profit from selling only Full at $p_F = 1500$?
+		\item (b) Profit from $p_F = 1500$, $p_S = 500$?
+		\item (c) Profit from $p_F = 1200$, $p_S = 500$?
+	\end{wideitemize}
+	\vspace{10pt}
+	\centering
+	\textit{Take 5 minutes to solve this.}
+\end{frame}
+
+\begin{frame}{Worked example: Versioning (solution part a)}
+	\begin{wideitemize}
+		\item \textbf{(a) Only Full at $p_F = 1500$:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Type H: $CS = 1500 - 1500 = 0 \geq 0$ $\checkmark$ (buys)
+			\item Type L: $CS = 600 - 1500 = -900 < 0$ (doesn't buy)
+		\end{wideitemize}
+		\item Only H buys
+		\item Profit $= (1500 - 300) \times 1\text{M} = \$1.2\text{B}$
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: Versioning (solution part b)}
+	\begin{wideitemize}
+		\item \textbf{(b) $p_F = 1500$, $p_S = 500$:}
+		\item Type H:
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item $CS_F = 1500 - 1500 = 0$
+			\item $CS_S = 800 - 500 = 300$ $\leftarrow$ \textbf{higher!}
+		\end{wideitemize}
+		\item Type H buys Stripped! (IC violated)
+		\item Type L: $CS_S = 500 - 500 = 0$ (buys Stripped)
+		\item Everyone buys Stripped
+		\item Profit $= (500 - 300) \times 3\text{M} = \$600\text{M}$
+		\item \textbf{Worse than (a)!} The menu is poorly designed.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: Versioning (solution part c)}
+	\begin{wideitemize}
+		\item \textbf{(c) $p_F = 1200$, $p_S = 500$:}
+		\item Type H:
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item $CS_F = 1500 - 1200 = 300$
+			\item $CS_S = 800 - 500 = 300$
+		\end{wideitemize}
+		\item H is indifferent $\rightarrow$ buys Full (IC binds!)
+		\item Type L: $CS_F = 600 - 1200 = -600$, $CS_S = 500 - 500 = 0$
+		\item L buys Stripped (IR binds!)
+		\item Profit $= (1200 - 300) \times 1\text{M} + (500 - 300) \times 2\text{M} = \$1.3\text{B}$
+		\item \textbf{Best of the three!}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Lessons from the example}
+	\begin{wideitemize}
+		\item The optimal menu satisfies:
+		\begin{wideenumerate}
+			\vspace{5pt}
+			\item IC for H binds: H just willing to buy Full over Stripped
+			\item IR for L binds: L gets exactly zero surplus
+		\end{wideenumerate}
+		\item H gets ``information rent'' (surplus of 300)
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item This is the cost of preventing H from mimicking L
+		\end{wideitemize}
+		\item Price gap $p_F - p_S$ must be $\leq v_H^F - v_H^S$ (otherwise H switches)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Why ``damaged goods''?}
+	\begin{wideitemize}
+		\item Sometimes the low-quality version costs \textit{more} to produce!
+		\item Example: Tesla battery-limited car
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Same car, same battery, just software restriction
+			\item \textbf{Why?} To prevent high-value buyers from choosing the cheap option
+		\end{wideitemize}
+		\item By making the low-quality version less attractive to H types, the firm can:
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Charge more for the high-quality version
+			\item Still serve the low-value market
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Self-selection: cookbook summary}
+	\begin{wideenumerate}
+		\item Compute consumer surplus for each type, for each option:
+		\begin{align*}
+			CS = WTP - price
+		\end{align*}
+		\item For each type, find the option with highest CS
+		\item Check that CS $\geq 0$ (otherwise they don't buy)
+		\item Compute profit given consumer choices
+		\item To find optimal prices: set IC for H and IR for L to bind
+	\end{wideenumerate}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% KEY POINTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Key Points}
+	\vspace{11pt}
+	\begin{wideenumerate}
+		\item \textbf{Two-part tariff:} $F + p \times q$ (fixed fee + per-unit price)
+		\item \textbf{Optimal (homogeneous):} Set $p = MC$, $F = CS$ at that price
+		\item Two-part tariffs increase efficiency but reduce consumer surplus to zero
+		\item \textbf{Self-selection:} Design menu so types reveal themselves
+		\item \textbf{IC constraint:} Each type prefers ``their'' option
+		\item \textbf{IR constraint:} Each type willing to participate (CS $\geq 0$)
+		\item Optimal menu: IC binds for high type, IR binds for low type
+		\item High type gets ``information rent''; low type gets zero surplus
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Next time}
+	\begin{wideitemize}
+		\item \textbf{Lecture 6:} Review for Midterm
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Demand estimation: logit, Berry inversion, IVs
+			\item Pricing: monopoly, price discrimination, two-part tariffs
+			\item Practice problems
+		\end{wideitemize}
+		\item \textbf{HW1 due before Lecture 6}
+	\end{wideitemize}
+\end{frame}
+
+\end{document}

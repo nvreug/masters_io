@@ -1,0 +1,321 @@
+% ECN 594: Practice Final Exam Solutions
+\documentclass[addpoints,answers]{exam}
+\usepackage{fullpage}
+\usepackage[left=1.0in,top=1.0in,right=1.0in,bottom=1.0in,headheight=3ex,headsep=3ex]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{adjustbox}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+
+\title{ECN 594: Practice Final Exam - SOLUTIONS}
+\rhead{\footnotesize ECN 594: Practice Final Solutions}
+
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{questions}
+
+\subsection*{1. Short Answer Questions (30 points)}
+\question
+\begin{parts}
+	\part[3] Cournot duopoly equilibrium price:
+	\begin{solution}
+	With $N = 2$ firms: $q^* = \frac{a - c}{N + 1} = \frac{100 - 20}{3} = \frac{80}{3} = 26.67$
+
+	$Q^* = 2 \times 26.67 = 53.33$
+
+	$P^* = 100 - 53.33 = \boxed{\$46.67}$
+	\end{solution}
+
+	\part[3] Critical discount factor formula:
+	\begin{solution}
+	$\boxed{\delta^* = \frac{(N+1)^2}{N^2 + (N+1)^2}}$
+
+	Or equivalently: $\delta^* = \frac{(N+1)^2}{2N^2 + 2N + 1}$
+	\end{solution}
+
+	\part[3] Bertrand with homogeneous products:
+	\begin{solution}
+	\textbf{True.} With homogeneous products, firms undercut each other until $P = MC$. This holds for any $N \geq 2$. Even a duopoly achieves the competitive outcome---this is the ``Bertrand paradox.''
+	\end{solution}
+
+	\part[3] Double marginalization:
+	\begin{solution}
+	\textbf{Double marginalization} occurs when both a manufacturer and retailer have market power. Each adds a markup over their marginal cost, resulting in a final price higher than a vertically integrated monopolist would charge. This creates inefficiency: total industry profit is lower than under integration, and consumer welfare suffers from the excessively high price.
+	\end{solution}
+
+	\part[3] Mergers and consumer welfare:
+	\begin{solution}
+	\textbf{False.} If a merger creates sufficient efficiency gains (cost reductions), it can benefit consumers through lower prices despite increased market power. The ``efficiency defense'' in merger review recognizes this trade-off.
+	\end{solution}
+
+	\part[3] HHI:
+	\begin{solution}
+	\textbf{Herfindahl-Hirschman Index.} Calculated as the sum of squared market shares (in percentages):
+
+	$HHI = \sum_{i=1}^{N} (100 \times s_i)^2$
+
+	Higher HHI indicates more concentration. DOJ guidelines: $<1500$ = unconcentrated, $1500$-$2500$ = moderate, $>2500$ = highly concentrated.
+	\end{solution}
+
+	\part[3] Hotelling spatial competition:
+	\begin{solution}
+	\textbf{True.} With linear transportation costs, the ``principle of minimum differentiation'' holds: firms locate at the center to capture the largest market. (With quadratic costs, they differentiate maximally.)
+	\end{solution}
+
+	\part[3] Efficiency defense:
+	\begin{solution}
+	An argument that a merger's cost savings (synergies, economies of scale) will be passed on to consumers, offsetting harm from increased market power. The firm must show efficiencies are merger-specific, verifiable, and sufficient to prevent price increases.
+	\end{solution}
+
+	\part[3] Entry deterrence credibility:
+	\begin{solution}
+	\textbf{True.} For capacity commitment to deter entry, it must be irreversible (or costly to reverse). If the incumbent could easily sell off capacity, the threat to maintain high output post-entry isn't credible, and entrants will enter expecting accommodation.
+	\end{solution}
+
+	\part[3] Factors facilitating collusion:
+	\begin{solution}
+	Any of: fewer firms (lower $N$), more patient firms (higher $\delta$), more frequent interaction, easier detection of deviations, similar cost structures, stable demand, transparent prices, multi-market contact, facilitating practices (price leadership, most-favored-customer clauses).
+	\end{solution}
+\end{parts}
+
+\newpage
+\subsection*{2. Cournot Competition and Mergers (25 points)}
+\question
+\begin{parts}
+	\part[8] Pre-merger Cournot equilibrium:
+	\begin{solution}
+	With $N = 3$, $a = 120$, $c = 30$:
+
+	$q^* = \frac{a - c}{N + 1} = \frac{120 - 30}{4} = \frac{90}{4} = 22.5$
+
+	$Q^* = 3 \times 22.5 = 67.5$
+
+	$P^* = 120 - 67.5 = \$52.50$
+
+	$\pi^* = (P - c)q = (52.5 - 30)(22.5) = 22.5 \times 22.5 = \boxed{\$506.25}$ per firm
+	\end{solution}
+
+	\part[7] Post-merger (no efficiencies):
+	\begin{solution}
+	Now $N = 2$ firms (merged entity + firm 3), same $c = 30$:
+
+	$q^* = \frac{90}{3} = 30$ per firm
+
+	$Q^* = 60$, $P^* = \$60$
+
+	$\pi^* = (60 - 30)(30) = \$900$ per firm
+
+	\textbf{Comparison:}
+	\begin{center}
+	\begin{tabular}{lcc}
+	\toprule
+	 & Pre-merger & Post-merger \\
+	\midrule
+	Total output & 67.5 & 60 \\
+	Price & \$52.50 & \$60 \\
+	CS = $\frac{1}{2}Q^2$ & \$2,278 & \$1,800 \\
+	PS (total) & \$1,519 & \$1,800 \\
+	Total welfare & \$3,797 & \$3,600 \\
+	\bottomrule
+	\end{tabular}
+	\end{center}
+
+	Merger \textbf{reduces welfare} by \$197: CS falls by \$478, PS rises by \$281.
+	\end{solution}
+
+	\part[5] Merger with efficiency gains ($c = 20$ for merged firm):
+	\begin{solution}
+	Asymmetric Cournot: Merged firm has $c_1 = 20$, Firm 3 has $c_3 = 30$.
+
+	FOCs: $120 - 2q_1 - q_3 = 20$ and $120 - q_1 - 2q_3 = 30$
+
+	From first: $q_1 = 50 - 0.5q_3$
+
+	Substitute: $120 - (50 - 0.5q_3) - 2q_3 = 30$
+
+	$70 - 1.5q_3 = 30 \Rightarrow q_3 = 26.67$
+
+	$q_1 = 50 - 13.33 = 36.67$
+
+	$Q = 63.33$, $P = \$56.67$
+
+	CS $= 0.5 \times 63.33^2 = \$2,006$
+
+	This is higher than both pre-merger (\$2,278 is wrong, should recalculate) and post-merger-no-efficiency (\$1,800).
+
+	With sufficient efficiencies, the merger can be welfare-improving.
+	\end{solution}
+
+	\part[5] HHI analysis:
+	\begin{solution}
+	\textbf{Pre-merger:} 3 equal firms, each with 33.3\% share
+
+	$HHI = 3 \times (33.3)^2 = 3 \times 1,111 = 3,333$
+
+	\textbf{Post-merger:} 2 equal firms, each with 50\% share
+
+	$HHI = 2 \times (50)^2 = 2 \times 2,500 = 5,000$
+
+	$\Delta HHI = 5,000 - 3,333 = 1,667$
+
+	Both the level ($>2,500$) and change ($>200$) exceed DOJ thresholds. \textbf{Yes, this merger would face antitrust scrutiny.}
+	\end{solution}
+\end{parts}
+
+\newpage
+\subsection*{3. Collusion (20 points)}
+\question
+\begin{parts}
+	\part[5] Monopoly and collusive profits:
+	\begin{solution}
+	Monopoly: $MR = 120 - 2Q = 30 = MC$
+
+	$Q_m = 45$, $P_m = \$75$
+
+	$\pi_m = (75 - 30)(45) = \$2,025$
+
+	Per-firm collusive: $q_{coll} = 15$, $\pi_{coll} = \$675$
+	\end{solution}
+
+	\part[5] Optimal deviation:
+	\begin{solution}
+	If 2 firms produce $q = 15$ each, $Q_{others} = 30$.
+
+	Best response: $q_{dev} = \frac{120 - 30 - 30}{2} = 30$
+
+	$Q = 60$, $P = \$60$
+
+	$\pi_{dev} = (60 - 30)(30) = \$900$
+	\end{solution}
+
+	\part[5] Critical discount factor:
+	\begin{solution}
+	Punishment profit = Nash equilibrium = \$506.25
+
+	$\delta^* = \frac{\pi_{dev} - \pi_{coll}}{\pi_{dev} - \pi_{punish}} = \frac{900 - 675}{900 - 506.25} = \frac{225}{393.75} = \boxed{0.571}$
+
+	Or using formula: $\delta^* = \frac{16}{9 + 16} = 0.64$
+
+	Collusion sustainable if $\delta \geq 0.57$--$0.64$.
+	\end{solution}
+
+	\part[5] Leniency programs:
+	\begin{solution}
+	A \textbf{leniency program} offers reduced penalties (sometimes immunity) to the first cartel member who reports the conspiracy to authorities.
+
+	\textbf{How it destabilizes cartels:}
+	\begin{itemize}
+	\item Creates a ``prisoner's dilemma'' among cartel members
+	\item Each firm fears others will report first
+	\item Increases expected cost of participating in cartel
+	\item First-mover advantage encourages defection
+	\item Makes maintaining trust within cartel difficult
+	\end{itemize}
+
+	In game-theoretic terms, leniency changes the punishment phase payoffs, potentially making collusion unsustainable even for patient firms.
+	\end{solution}
+\end{parts}
+
+\newpage
+\subsection*{4. Vertical Relationships (15 points)}
+\question
+\begin{parts}
+	\part[5] Double marginalization outcome:
+	\begin{solution}
+	\textbf{Stage 2: Retailer's problem given $w$}
+
+	$\pi_R = (P - w)Q = (P - w)(100 - P)$
+
+	FOC: $100 - 2P + w = 0 \Rightarrow P = \frac{100 + w}{2}$
+
+	\textbf{Stage 1: Manufacturer anticipates this}
+
+	$Q = 100 - P = 100 - \frac{100 + w}{2} = \frac{100 - w}{2}$
+
+	$\pi_M = (w - 10)Q = (w - 10)\frac{100 - w}{2}$
+
+	FOC: $\frac{100 - 2w + 10}{2} = 0 \Rightarrow w = \$55$
+
+	$P = \frac{100 + 55}{2} = \$77.50$, $Q = 22.5$
+
+	$\pi_M = (55 - 10)(22.5) = \$1,012.50$
+
+	$\pi_R = (77.5 - 55)(22.5) = \$506.25$
+
+	Total: $\$1,518.75$
+	\end{solution}
+
+	\part[5] Vertically integrated outcome:
+	\begin{solution}
+	Single monopolist: $\pi = (P - 10)(100 - P)$
+
+	FOC: $100 - 2P + 10 = 0 \Rightarrow P = \$55$
+
+	$Q = 45$, $\pi = (55 - 10)(45) = \$2,025$
+
+	\textbf{Comparison:} Integration yields lower price (\$55 vs \$77.50), higher output (45 vs 22.5), and higher profit (\$2,025 vs \$1,519). Double marginalization wastes \$506 in potential profit.
+	\end{solution}
+
+	\part[5] Solutions to double marginalization:
+	\begin{solution}
+	\textbf{1. Two-part tariff:} Manufacturer charges $w = MC = 10$ plus a franchise fee $F$. Retailer faces efficient marginal cost, sets $P = 55$, maximizes joint profit. $F$ extracts retailer surplus.
+
+	\textbf{2. Resale price maintenance (RPM):} Manufacturer specifies retail price $P = 55$. Eliminates retailer's ability to add markup.
+
+	Other solutions: quantity forcing (manufacturer specifies $Q$), vertical integration, revenue sharing.
+	\end{solution}
+\end{parts}
+
+\newpage
+\subsection*{5. Demand Estimation (10 points)}
+\question
+\begin{parts}
+	\part[5] Market shares:
+	\begin{solution}
+	$v_j = \delta_j + \alpha p_j$
+
+	$v_1 = 1 + (-0.3)(5) = 1 - 1.5 = -0.5$
+
+	$v_2 = 0.5 + (-0.3)(4) = 0.5 - 1.2 = -0.7$
+
+	$\exp(v_1) = e^{-0.5} = 0.6065$
+
+	$\exp(v_2) = e^{-0.7} = 0.4966$
+
+	Denom $= 1 + 0.6065 + 0.4966 = 2.1031$
+
+	$s_1 = 0.6065 / 2.1031 = \boxed{0.288}$ (28.8\%)
+
+	$s_2 = 0.4966 / 2.1031 = \boxed{0.236}$ (23.6\%)
+
+	$s_0 = 1 / 2.1031 = 0.476$ (47.6\%)
+	\end{solution}
+
+	\part[5] Consumer surplus:
+	\begin{solution}
+	$IV = \ln(1 + e^{-0.5} + e^{-0.7}) = \ln(2.1031) = 0.743$
+
+	$CS = \frac{IV}{|\alpha|} = \frac{0.743}{0.3} = \boxed{\$2.48}$ per consumer
+
+	\textbf{If $p_2$ increases to 5:}
+
+	$v_2' = 0.5 - 1.5 = -1.0$, $\exp(v_2') = 0.3679$
+
+	$IV' = \ln(1 + 0.6065 + 0.3679) = \ln(1.9744) = 0.680$
+
+	$CS' = 0.680 / 0.3 = \$2.27$
+
+	$\Delta CS = 2.27 - 2.48 = \boxed{-\$0.21}$ per consumer
+
+	The price increase reduces consumer surplus by 21 cents per person.
+	\end{solution}
+\end{parts}
+
+\end{questions}
+
+\end{document}

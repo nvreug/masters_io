@@ -1,0 +1,446 @@
+\documentclass[notes,11pt, aspectratio=169]{beamer}
+
+\usepackage{pgfpages}
+\setbeameroption{hide notes} % Only slide
+
+\usepackage{array}
+\usepackage{tikz}
+\usepackage{verbatim}
+\setbeamertemplate{note page}{\pagecolor{gray!5}\insertnote}
+\usetikzlibrary{positioning}
+\usetikzlibrary{snakes}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{matrix,shapes,arrows,fit,tikzmark}
+\usepackage{amsmath}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{multimedia}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{dcolumn}
+\usepackage{bbm}
+\newcolumntype{d}[0]{D{.}{.}{5}}
+
+\usepackage{changepage}
+\usepackage{appendixnumberbeamer}
+
+\usepackage[space]{grffile}
+\usepackage{booktabs}
+
+% Colors
+\definecolor{blue}{RGB}{0,114,178}
+\definecolor{red}{RGB}{213,94,0}
+\definecolor{yellow}{RGB}{240,228,66}
+\definecolor{green}{RGB}{0,158,115}
+
+\hypersetup{
+  colorlinks=false,
+  linkbordercolor = {white},
+  linkcolor = {blue}
+}
+
+\definecolor{MyBackground}{RGB}{255,253,218}
+
+\newenvironment{transitionframe}{
+  \setbeamercolor{background canvas}{bg=white}
+  \begin{frame}}{
+    \end{frame}
+}
+
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=black}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize items}{-}
+\setbeamercolor{itemize item}{fg=blue}
+\setbeamercolor{itemize subitem}{fg=blue}
+\setbeamercolor{enumerate item}{fg=blue}
+\setbeamercolor{enumerate subitem}{fg=blue}
+\setbeamercolor{button}{bg=MyBackground,fg=blue,}
+
+\setbeamercolor{section in toc}{fg=blue}
+\setbeamercolor{subsection in toc}{fg=red}
+\setbeamersize{text margin left=1em,text margin right=1em}
+
+\newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
+\newenvironment{wideenumerate}{\enumerate\addtolength{\itemsep}{10pt}}{\endenumerate}
+
+\title[]{\textcolor{blue}{ECN 594: Collusion}}
+\author[PGP]{}
+\institute[FRBNY]{\small{\begin{tabular}{c c c}
+Nicholas Vreugdenhil \\
+\end{tabular}}}
+\date{\today}
+
+\begin{document}
+
+% Title Slide
+\begin{frame}
+\maketitle
+  \centering
+\end{frame}
+
+\begin{frame}{Plan for today}
+  \begin{wideenumerate}
+    \item Collusion refresher (from ECN 532)
+    \item Critical discount factor with $N$ firms
+    \item Cournot vs Bertrand collusion
+    \item[] \rule{0.5\textwidth}{0.4pt}
+    \item Detection and fines
+    \item Leniency programs
+    \item Antitrust enforcement
+  \end{wideenumerate}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PART 1: COLLUSION THEORY
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{transitionframe}
+	\begin{center}
+		{\Huge Part 1: Collusion Theory}
+	\end{center}
+\end{transitionframe}
+
+\begin{frame}{From ECN 532: Collusion basics}
+	\begin{wideitemize}
+		\item \textbf{Collusion:} Firms coordinate to raise prices/restrict output
+		\item Problem: each firm has incentive to deviate (undercut)
+		\item \textbf{Solution:} Repeated game with punishment
+		\item \textbf{Grim trigger strategy:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Collude as long as everyone colludes
+			\item If anyone deviates $\rightarrow$ Nash forever
+		\end{wideitemize}
+		\item You derived this in Hector's class
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{The collusion condition}
+	\begin{wideitemize}
+		\item \textbf{Three profit levels:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item $\pi^C$: Collusive profit (per period)
+			\item $\pi^D$: Deviation profit (one-shot gain)
+			\item $\pi^{NE}$: Nash equilibrium profit (punishment)
+		\end{wideitemize}
+		\item \textbf{Collusion sustained if:}
+		\begin{align*}
+			\frac{\pi^C}{1 - \delta} \geq \pi^D + \frac{\delta \pi^{NE}}{1 - \delta}
+		\end{align*}
+		\item Rearranging:
+		\begin{align*}
+			\delta \geq \delta^* = \frac{\pi^D - \pi^C}{\pi^D - \pi^{NE}}
+		\end{align*}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Critical discount factor: intuition}
+	\begin{wideitemize}
+		\item $\delta^* = \frac{\pi^D - \pi^C}{\pi^D - \pi^{NE}}$
+		\item \textbf{Numerator:} Gain from deviating ($\pi^D - \pi^C$)
+		\item \textbf{Denominator:} Total loss from punishment ($\pi^D - \pi^{NE}$)
+		\item \textbf{Higher $\delta^*$ means collusion is harder}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Need more patient firms
+			\item More frequent interaction helps (reduces effective $\delta$)
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Cournot collusion with $N$ firms}
+	\begin{wideitemize}
+		\item Linear demand: $P = a - bQ$, symmetric firms with $MC = c$
+		\item \textbf{Collusive profit per firm:}
+		\begin{align*}
+			\pi^C = \frac{\pi^M}{N} = \frac{(a-c)^2}{4bN}
+		\end{align*}
+		\item \textbf{Nash profit per firm:}
+		\begin{align*}
+			\pi^{NE} = \frac{(a-c)^2}{b(N+1)^2}
+		\end{align*}
+		\item \textbf{Deviation profit:} Best response to $N-1$ firms playing $q^C$
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Critical discount factor: Cournot formula}
+	\begin{wideitemize}
+		\item For symmetric linear Cournot with $N$ firms:
+		\begin{align*}
+			\delta^* = \frac{(N+1)^2}{N^2 + (N+1)^2}
+		\end{align*}
+		\item \textbf{Examples:}
+		\begin{center}
+			\begin{tabular}{|c|c|}
+				\hline
+				$N$ & $\delta^*$ \\
+				\hline
+				2 & $9/17 \approx 0.53$ \\
+				3 & $16/25 = 0.64$ \\
+				4 & $25/41 \approx 0.61$ \\
+				10 & $121/221 \approx 0.55$ \\
+				\hline
+			\end{tabular}
+		\end{center}
+		\item Key insight: Collusion harder with more firms
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: Cournot collusion}
+	\begin{wideitemize}
+		\item \textbf{Question:} 3 symmetric Cournot firms. $P = 100 - Q$, $MC = 10$.
+		\item (a) Calculate $\pi^C$, $\pi^{NE}$, and $\pi^D$ for each firm.
+		\item (b) Find the minimum $\delta$ for collusion.
+	\end{wideitemize}
+	\vspace{10pt}
+	\centering
+	\textit{Take 7 minutes.}
+\end{frame}
+
+\begin{frame}{Worked example: Cournot collusion (solution)}
+	\begin{wideitemize}
+		\item \textbf{(a) Profit calculations:}
+		\item $\pi^M = (90)^2/4 = 2025$, so $\pi^C = 2025/3 = 675$
+		\item $q^C = 45/3 = 15$ per firm (monopoly quantity split)
+		\item Nash: $q^{NE} = 90/4 = 22.5$, $\pi^{NE} = 90^2/16 = 506.25$
+		\item Deviation: BR to $2 \times 15 = 30$ is $q^D = (90-30)/2 = 30$
+		\item $P = 100 - 60 = 40$, $\pi^D = (40-10) \times 30 = 900$
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: Cournot collusion (solution cont.)}
+	\begin{wideitemize}
+		\item \textbf{(b) Critical discount factor:}
+		\begin{align*}
+			\delta^* = \frac{\pi^D - \pi^C}{\pi^D - \pi^{NE}} = \frac{900 - 675}{900 - 506.25} = \frac{225}{393.75} = 0.571
+		\end{align*}
+		\item Or use formula: $\delta^* = \frac{(3+1)^2}{3^2 + (3+1)^2} = \frac{16}{9+16} = \frac{16}{25} = 0.64$
+		\item (Small difference due to rounding in worked example)
+		\item \textbf{Interpretation:} Firms must value future at 64\% of present
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Bertrand collusion with $N$ firms}
+	\begin{wideitemize}
+		\item Homogeneous Bertrand: $\pi^{NE} = 0$ (price = cost)
+		\item Collusion: split monopoly profits
+		\item \textbf{Key difference:} Punishment is more severe ($\pi^{NE} = 0$)
+		\item \textbf{Critical discount factor for Bertrand:}
+		\begin{align*}
+			\delta^* = \frac{\pi^D - \pi^C}{\pi^D - 0} = \frac{\pi^M - \pi^M/N}{\pi^M} = \frac{N-1}{N}
+		\end{align*}
+		\item \textbf{Examples:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item $N = 2$: $\delta^* = 0.5$
+			\item $N = 4$: $\delta^* = 0.75$
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Cournot vs Bertrand collusion}
+	\begin{center}
+		\begin{tabular}{|c|c|c|}
+			\hline
+			$N$ & $\delta^*$ (Cournot) & $\delta^*$ (Bertrand) \\
+			\hline
+			2 & 0.53 & 0.50 \\
+			3 & 0.64 & 0.67 \\
+			4 & 0.61 & 0.75 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\vspace{10pt}
+	\begin{wideitemize}
+		\item At $N = 2$: Bertrand collusion \textbf{easier}
+		\item \textbf{Why?} Bertrand punishment is harsher ($\pi^{NE} = 0$)
+		\item At higher $N$: Bertrand collusion harder
+		\item \textbf{Why?} Deviation captures entire market (bigger temptation)
+	\end{wideitemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PART 2: DETECTION AND POLICY
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{transitionframe}
+	\begin{center}
+		{\Huge Part 2: Detection and Policy}
+	\end{center}
+\end{transitionframe}
+
+\begin{frame}{Detection probability and fines}
+	\begin{wideitemize}
+		\item In reality: cartels may be detected and punished
+		\item \textbf{Each period:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Detection probability: $\rho$
+			\item Fine if detected: $F$
+		\end{wideitemize}
+		\item \textbf{Modified collusion condition:}
+		\begin{align*}
+			\delta^* = \frac{\pi^D - \pi^C + \rho F}{\pi^D - \pi^{NE} + \rho F}
+		\end{align*}
+		\item Higher $\rho$ or higher $F$ $\rightarrow$ higher $\delta^*$ $\rightarrow$ harder to collude
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: Detection and fines}
+	\begin{wideitemize}
+		\item \textbf{Question:}
+		\item Cartel earns $\pi^C = 100$ per period
+		\item $\pi^{NE} = 25$, $\pi^D = 150$
+		\item Detection probability $\rho = 0.1$, fine $F = 500$
+		\item Find the minimum $\delta$ for collusion.
+	\end{wideitemize}
+	\vspace{10pt}
+	\centering
+	\textit{Take 3 minutes.}
+\end{frame}
+
+\begin{frame}{Worked example: Detection (solution)}
+	\begin{wideitemize}
+		\item Expected fine per period: $\rho F = 0.1 \times 500 = 50$
+		\item Apply formula:
+		\begin{align*}
+			\delta^* = \frac{\pi^D - \pi^C + \rho F}{\pi^D - \pi^{NE} + \rho F} = \frac{150 - 100 + 50}{150 - 25 + 50} = \frac{100}{175} = 0.571
+		\end{align*}
+		\item \textbf{Compare to no detection:}
+		\begin{align*}
+			\delta^*_{\text{no detection}} = \frac{150 - 100}{150 - 25} = \frac{50}{125} = 0.4
+		\end{align*}
+		\item Detection and fines make collusion harder (0.4 $\rightarrow$ 0.57)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Leniency programs}
+	\begin{wideitemize}
+		\item \textbf{Leniency:} First firm to report cartel gets reduced/zero fine
+		\item \textbf{US Corporate Leniency Program (1993):}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item First to report: automatic immunity
+			\item Second: significant reduction possible
+		\end{wideitemize}
+		\item \textbf{Effect on incentives:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Creates ``race to report''
+			\item Each firm fears others will report first
+			\item Destabilizes existing cartels
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Why leniency works}
+	\begin{wideitemize}
+		\item \textbf{Without leniency:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item If detected, everyone pays fine
+			\item No incentive to report
+		\end{wideitemize}
+		\item \textbf{With leniency:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item First to report gets immunity
+			\item Creates Prisoner's Dilemma within cartel
+			\item Each firm thinks: ``Better report before they do''
+		\end{wideitemize}
+		\item \textbf{Result:} Cartel detection increased dramatically after 1993
+		\item \textbf{Exam question:} ``Explain why leniency programs help detect cartels.''
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Factors facilitating collusion}
+	\begin{wideenumerate}
+		\item \textbf{Few firms:} Easier to coordinate and monitor
+		\item \textbf{Frequent interaction:} Higher effective $\delta$
+		\item \textbf{Similar costs:} Easier to agree on price
+		\item \textbf{Stable demand:} Easier to detect deviations
+		\item \textbf{Homogeneous products:} Easier to monitor prices
+		\item \textbf{Industry associations:} Facilitate communication
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Famous cartel cases}
+	\begin{wideitemize}
+		\item \textbf{Lysine cartel (1990s):}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Price-fixing among feed additive producers
+			\item FBI surveillance, recorded meetings
+		\end{wideitemize}
+		\item \textbf{LCD screen cartel (2000s):}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Samsung, LG, Sharp, others
+			\item \$1.4 billion in fines
+		\end{wideitemize}
+		\item \textbf{LIBOR scandal (2012):}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Banks manipulated interest rate benchmark
+			\item \$9 billion in fines
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Detecting collusion: what regulators look for}
+	\begin{wideitemize}
+		\item \textbf{Pricing patterns:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Parallel price changes
+			\item Price rigidity despite cost changes
+			\item Similar prices despite different costs
+		\end{wideitemize}
+		\item \textbf{Market characteristics:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item High concentration
+			\item Frequent meetings/communication
+			\item History of antitrust violations
+		\end{wideitemize}
+		\item \textbf{Whistleblowers:} Leniency program tips
+	\end{wideitemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% KEY POINTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Key Points}
+	\vspace{11pt}
+	\begin{wideenumerate}
+		\item \textbf{Critical discount factor:} $\delta^* = \frac{\pi^D - \pi^C}{\pi^D - \pi^{NE}}$
+		\item \textbf{Cournot with N firms:} $\delta^* = \frac{(N+1)^2}{N^2 + (N+1)^2}$
+		\item \textbf{Bertrand with N firms:} $\delta^* = \frac{N-1}{N}$
+		\item More firms $\rightarrow$ generally harder to collude
+		\item \textbf{Detection and fines} raise $\delta^*$: $\delta^* = \frac{\pi^D - \pi^C + \rho F}{\pi^D - \pi^{NE} + \rho F}$
+		\item \textbf{Leniency programs:} Create ``race to report,'' destabilize cartels
+		\item Collusion easier with: few firms, frequent interaction, similar costs
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Next time}
+	\begin{wideitemize}
+		\item \textbf{Lecture 13:} Final Review
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Comprehensive review of Part 1 and Part 2
+			\item Practice problems for final exam
+		\end{wideitemize}
+		\item \textbf{HW2 due before Lecture 13}
+	\end{wideitemize}
+\end{frame}
+
+\end{document}

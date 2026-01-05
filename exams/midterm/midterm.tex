@@ -1,0 +1,197 @@
+% ECN 594: Midterm Exam
+\documentclass[addpoints]{exam}
+\usepackage{fullpage}
+\usepackage[left=1.0in,top=1.0in,right=1.0in,bottom=1.0in,headheight=3ex,headsep=3ex]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{adjustbox}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+
+\title{ECN 594: Midterm Exam}
+\rhead{\footnotesize ECN 594: Midterm Exam}
+
+\date{February 9, 2026}
+
+\begin{document}
+\maketitle
+\begin{center}
+	\fbox{\fbox{\parbox{6in}{\centering
+		\textbf{Instructions}:
+		\begin{itemize}
+		\item You have \textbf{70 minutes}
+		\item You may bring a calculator and notes on a two-sided cheat-sheet (letter-size paper)
+		\item Please be neat. If your work is too messy it will not be graded.
+		\item Be sure to show your working.
+		\item This is a long exam, so there are lots of ways to get points. If you get stuck, move on!
+		\item Good luck!
+		\end{itemize}
+	}}}
+\end{center}
+
+\vspace{5mm}
+\makebox[0.75\textwidth]{Name: \enspace\hrulefill}
+\vspace{30pt}
+\begin{center}
+	\gradetable[h][questions]
+\end{center}
+
+\newpage
+
+\begin{questions}
+
+\subsection*{1. Short Answer Questions (30 points)}
+\vspace{11pt}
+\question For each question, write either:
+\begin{itemize}
+	\item a number or formula
+	\item one of: True, False, or NEI (Not Enough Information)
+	\item a brief definition or explanation (one sentence)
+\end{itemize}
+\vspace{11pt}
+\begin{parts}
+	\part[3] A monopolist faces constant elasticity demand with $\varepsilon = -4$ and has marginal cost $c = 15$. What is the optimal price?
+
+	\answerline
+
+	\part[3] Write the Berry inversion formula that relates market shares to mean utilities in the logit model.
+
+	\answerline
+
+	\part[3] True, False, or NEI: Adding demographic interactions to a logit model fully solves the IIA problem.
+
+	\answerline
+
+	\part[3] What is the economic interpretation of the price coefficient $\alpha$ in the logit demand model?
+
+	\answerline
+
+	\part[3] True, False, or NEI: If marginal cost increases, a monopolist with linear demand will raise price by exactly the same amount as the cost increase.
+
+	\answerline
+
+	\part[3] True, False, or NEI: Under a two-part tariff, setting the per-unit price equal to marginal cost maximizes total surplus.
+
+	\answerline
+
+	\part[3] Name one reason why the ``BLP instruments'' (characteristics of other products) help identify the price coefficient.
+
+	\answerline
+
+	\part[3] True, False, or NEI: In a self-selection problem, the firm can extract the entire surplus from low-type consumers.
+
+	\answerline
+
+	\part[3] What is ``versioning'' in the context of price discrimination?
+
+	\answerline
+
+	\part[3] True, False, or NEI: Consumer surplus in the logit model can be computed using the log-sum formula, which equals the ``inclusive value'' divided by $|\alpha|$.
+
+	\answerline
+
+\end{parts}
+
+\newpage
+\subsection*{2. Demand Estimation (30 points)}
+\question Consider a market with 4 differentiated products. The logit demand model is:
+$$u_{ij} = \delta_j + \alpha p_j + \varepsilon_{ij}$$
+where $\alpha = -0.4$ is the price coefficient.
+
+The following data are observed:
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+Product & Price ($p_j$) & Mean Utility ($\delta_j$) \\
+\midrule
+1 & \$15 & 3.0 \\
+2 & \$12 & 2.5 \\
+3 & \$18 & 3.5 \\
+4 & \$10 & 2.0 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{parts}
+	\part[8] Compute $v_j = \delta_j + \alpha p_j$ for each product. Then compute the market shares using:
+	$$s_j = \frac{\exp(v_j)}{1 + \sum_k \exp(v_k)}$$
+
+	\vspace{5cm}
+
+	\part[6] Compute the own-price elasticity for each product. Which product has the most inelastic demand?
+
+	\vspace{4cm}
+
+	\part[6] A researcher estimates demand using OLS (regressing $\ln(s_j) - \ln(s_0)$ on price and product characteristics). Explain why this leads to biased estimates of $\alpha$. What is the direction of the bias?
+
+	\vspace{4cm}
+
+	\part[10] Using the log-sum formula, compute consumer surplus per consumer. If product 1 is removed from the market, what is the change in consumer surplus?
+
+\end{parts}
+
+\newpage
+\subsection*{3. Price Discrimination (20 points)}
+\question A streaming service has two customer segments: ``binge watchers'' (B) and ``casual viewers'' (C). Marginal cost is \$2 per subscriber.
+
+\begin{itemize}
+\item Binge watcher demand: $Q_B = 200 - 10P_B$
+\item Casual viewer demand: $Q_C = 100 - 10P_C$
+\end{itemize}
+
+\begin{parts}
+	\part[6] The firm can identify customer type through usage patterns. Find the optimal prices under price discrimination by indicators.
+
+	\vspace{4cm}
+
+	\part[4] Compute total profit under price discrimination.
+
+	\vspace{3cm}
+
+	\part[6] Suppose the firm cannot distinguish customers. What is the optimal uniform price?
+
+	\vspace{4cm}
+
+	\part[4] Which group is better off under price discrimination compared to uniform pricing?
+
+\end{parts}
+
+\newpage
+\subsection*{4. Self-Selection (20 points)}
+\question An airline offers two fare classes: Business (B) and Economy (E). There are two types of travelers: executives with high willingness to pay and students with low willingness to pay.
+
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+ & \multicolumn{2}{c}{Willingness to Pay} \\
+Consumer Type & Business Class & Economy Class \\
+\midrule
+Executive (50 travelers) & \$500 & \$200 \\
+Student (100 travelers) & \$150 & \$120 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Marginal cost is \$50 for economy and \$100 for business class.
+
+\begin{parts}
+	\part[4] If the airline could perfectly identify consumer types, what prices would it charge and what is its profit?
+
+	\vspace{3cm}
+
+	\part[4] The airline cannot identify types but offers both fare classes. Write down the incentive compatibility (IC) constraint that ensures executives buy business class.
+
+	\vspace{3cm}
+
+	\part[6] Find the profit-maximizing prices for business and economy class under self-selection. (Hint: Which IC constraint binds?)
+
+	\vspace{5cm}
+
+	\part[6] The airline considers ``damaging'' economy class by adding restrictions (no changes, middle seat only). How would this affect the equilibrium? Explain the economic logic.
+
+\end{parts}
+
+\end{questions}
+
+\end{document}

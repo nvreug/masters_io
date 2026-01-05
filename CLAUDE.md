@@ -76,11 +76,13 @@ This is an advanced course in "Industrial Organization", which is the study of f
 - Homework will be similar to the phd_io course, but simpler in that there are not random effects. It will also be completed using statsmodels and the pyblp package in python.
 
 *Homework Notes*
-- **HW1:** Demand estimation only (Python) - due before midterm
+- **HW1:** Demand estimation (Python) - due before midterm
   - Based on `previous_courses/phd_io/` homework 1, adapted for masters level
   - Key difference: uses **pyblp** package instead of custom code
   - Slides should prepare students for this homework
-  - **Lecture 4 Part 1** includes a pyblp worked example (BLP car data, logit without random effects) that walks through all the modules
+  - **Lecture 3 Part 2** is the main pyblp lecture with a worked example (car data with demographic interactions)
+  - **Consumer surplus exercise:** compute CS change from removing a product using log-sum formula
+  - **NOTE:** CS exercise should be completed after L4 (log-sum formula covered there)
 - **HW2:** Covers Part 2 topics (competition models). Includes a merger simulation module where students are given the demand system and compute post-merger prices/welfare effects
 
 *Exam Notes*
@@ -108,8 +110,30 @@ This is an advanced course in "Industrial Organization", which is the study of f
 - From **ECN 532** (Hector Chade): Game theory including Nash equilibrium, Cournot, Bertrand, Stackelberg, repeated games, collusion
 - This means: Can do refreshers quickly in IO notation; demand estimation can focus on IO applications rather than MLE mechanics
 
+*Terminology Preferences*
+- **Price discrimination:** Use Cabral's terminology, NOT "first/second/third degree"
+  - Perfect price discrimination (not "first degree")
+  - Selection by indicators (not "third degree") - pricing based on observable group characteristics
+  - Self-selection (not "second degree") - menu design to induce consumers to reveal type (versioning, bundling, damaged goods)
+
+*Demand Estimation Scope (IMPORTANT)*
+- **Logit with demographic interactions - NO random coefficients**
+- Model: uᵢⱼ = xⱼβ + (Dᵢ × xⱼ)γ + αpⱼ + ξⱼ + εᵢⱼ
+  - xⱼ = product characteristics
+  - Dᵢ = observed consumer demographics (income, age, etc.)
+  - (Dᵢ × xⱼ) = interactions allowing heterogeneous preferences by demographics
+  - No random coefficients (νᵢ terms) - all heterogeneity is from observed demographics
+- This is the BLP framework but without random effects
+- We use pyblp for estimation
+- Acknowledge IIA as a limitation; mention **mixed logit** (random coefficients) relaxes this but is beyond our scope
+- This keeps the empirical content tractable for masters students
+
 *Course Materials*
 - Syllabus: `syllabus/syllabus.tex` (compile with pdflatex)
+
+*Scripts Convention*
+- All Python scripts (`.py` files) must be placed in the `scripts/` directory
+- Run scripts with: `uv run python scripts/<script_name>.py`
 
 * Environment *
 

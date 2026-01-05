@@ -1,0 +1,479 @@
+\documentclass[notes,11pt, aspectratio=169]{beamer}
+
+\usepackage{pgfpages}
+\setbeameroption{hide notes} % Only slide
+
+\usepackage{array}
+\usepackage{tikz}
+\usepackage{verbatim}
+\setbeamertemplate{note page}{\pagecolor{gray!5}\insertnote}
+\usetikzlibrary{positioning}
+\usetikzlibrary{snakes}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{matrix,shapes,arrows,fit,tikzmark}
+\usepackage{amsmath}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{multimedia}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{dcolumn}
+\usepackage{bbm}
+\usepackage{listings}
+\newcolumntype{d}[0]{D{.}{.}{5}}
+
+\usepackage{changepage}
+\usepackage{appendixnumberbeamer}
+
+\usepackage[space]{grffile}
+\usepackage{booktabs}
+
+% Colors
+\definecolor{blue}{RGB}{0,114,178}
+\definecolor{red}{RGB}{213,94,0}
+\definecolor{yellow}{RGB}{240,228,66}
+\definecolor{green}{RGB}{0,158,115}
+
+\hypersetup{
+  colorlinks=false,
+  linkbordercolor = {white},
+  linkcolor = {blue}
+}
+
+\definecolor{MyBackground}{RGB}{255,253,218}
+
+\newenvironment{transitionframe}{
+  \setbeamercolor{background canvas}{bg=white}
+  \begin{frame}}{
+    \end{frame}
+}
+
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=black}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize items}{-}
+\setbeamercolor{itemize item}{fg=blue}
+\setbeamercolor{itemize subitem}{fg=blue}
+\setbeamercolor{enumerate item}{fg=blue}
+\setbeamercolor{enumerate subitem}{fg=blue}
+\setbeamercolor{button}{bg=MyBackground,fg=blue,}
+
+\setbeamercolor{section in toc}{fg=blue}
+\setbeamercolor{subsection in toc}{fg=red}
+\setbeamersize{text margin left=1em,text margin right=1em}
+
+\newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
+\newenvironment{wideenumerate}{\enumerate\addtolength{\itemsep}{10pt}}{\endenumerate}
+
+% Code listing style
+\lstset{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  language=Python,
+  showstringspaces=false,
+  keywordstyle=\color{blue},
+  commentstyle=\color{green!60!black},
+  stringstyle=\color{red}
+}
+
+\title[]{\textcolor{blue}{ECN 594: Demographic Interactions and pyblp}}
+\author[PGP]{}
+\institute[FRBNY]{\small{\begin{tabular}{c c c}
+Nicholas Vreugdenhil \\
+\end{tabular}}}
+\date{\today}
+
+\begin{document}
+
+% Title Slide
+\begin{frame}
+\maketitle
+  \centering
+\end{frame}
+
+\begin{frame}{Plan for today}
+  \begin{wideenumerate}
+    \item Recap: endogeneity and IVs
+    \item The demographic interaction model
+    \item Why demographics help with IIA
+    \item[] \rule{0.5\textwidth}{0.4pt}
+    \item Introduction to pyblp
+    \item Worked example: car demand
+    \item Interpreting output
+  \end{wideenumerate}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PART 1: DEMOGRAPHIC INTERACTIONS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{transitionframe}
+	\begin{center}
+		{\Huge Part 1: Demand with Demographic Interactions}
+	\end{center}
+\end{transitionframe}
+
+\begin{frame}{Recap: The basic logit model}
+	\begin{wideitemize}
+		\item Our utility model so far:
+		\begin{align*}
+			u_{ij} = x_j \beta - \alpha p_j + \xi_j + \varepsilon_{ij}
+		\end{align*}
+		\item Everyone has the same $\beta$ and $\alpha$
+		\item Problem: this is very restrictive
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Rich and poor consumers have same price sensitivity?
+			\item Families and singles value car size the same?
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Extending the model: heterogeneous preferences}
+	\begin{wideitemize}
+		\item \textbf{Basic logit:} Everyone has same $\beta$
+		\item Problem: doesn't capture that different consumers value characteristics differently
+		\item \textbf{Solution:} Let preferences vary with observed demographics
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{The demographic interaction model}
+	\begin{wideitemize}
+		\item New utility specification:
+		\begin{align*}
+			u_{ij} = x_j \beta + (D_i \times x_j) \gamma - \alpha p_j + \xi_j + \varepsilon_{ij}
+		\end{align*}
+		\item $D_i$: observed consumer demographics (income, age, family size, etc.)
+		\item $(D_i \times x_j)$: interactions between demographics and characteristics
+		\item This creates \textbf{heterogeneous preferences}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Examples of demographic interactions}
+	\begin{wideitemize}
+		\item \textbf{Income $\times$ price:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item High-income consumers less price-sensitive
+			\item $\gamma_{\text{inc} \times p} > 0$: price hurts less for rich consumers
+		\end{wideitemize}
+		\item \textbf{Family size $\times$ car size:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Families prefer larger vehicles
+			\item $\gamma_{\text{fam} \times \text{size}} > 0$
+		\end{wideitemize}
+		\item \textbf{Age $\times$ fuel efficiency:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Older consumers may care more about MPG
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Where do demographics come from?}
+	\begin{wideitemize}
+		\item Two scenarios:
+		\begin{wideenumerate}
+			\vspace{5pt}
+			\item \textbf{Individual-level data:} Observe $D_i$ for each consumer
+			\begin{wideitemize}
+				\item Survey data, loyalty card data
+			\end{wideitemize}
+			\item \textbf{Market-level data:} Know distribution of $D_i$ in each market
+			\begin{wideitemize}
+				\item Census data, Current Population Survey
+				\item This is more common in practice
+			\end{wideitemize}
+		\end{wideenumerate}
+		\item pyblp handles both cases
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Why not random coefficients?}
+	\begin{wideitemize}
+		\item Full BLP/mixed logit model adds unobserved heterogeneity:
+		\begin{align*}
+			\beta_i = \bar{\beta} + \Sigma \nu_i, \quad \nu_i \sim N(0, I)
+		\end{align*}
+		\item This is computationally harder (requires simulation)
+		\item Demographic interactions capture a lot of the variation more simply
+		\item \textbf{Mixed logit} is beyond our scope, but know it exists
+		\item It fully relaxes IIA
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Demographics and IIA (preview)}
+	\begin{wideitemize}
+		\item Recall: basic logit has IIA problem
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item When BMW price rises, same fraction goes to Mercedes as to Civic
+		\end{wideitemize}
+		\item With demographics, different consumer types substitute differently
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item High-income BMW buyers $\rightarrow$ Mercedes
+			\item Low-income BMW buyers $\rightarrow$ Civic
+		\end{wideitemize}
+		\item Aggregate substitution is richer
+		\item But IIA still holds \textit{within} each consumer type
+		\item Full discussion in Lecture 4
+	\end{wideitemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PART 2: pyblp ESTIMATION
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{transitionframe}
+	\begin{center}
+		{\Huge Part 2: Estimation with pyblp}
+	\end{center}
+\end{transitionframe}
+
+\begin{frame}{What is pyblp?}
+	\begin{wideitemize}
+		\item Python package for demand estimation
+		\item Conlon \& Gortmaker (2020), ``Best Practices for Differentiated Products Demand Estimation with PyBLP''
+		\item Handles:
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Basic logit and logit with demographics
+			\item Instrumental variables
+			\item Standard errors
+			\item Post-estimation (elasticities, markups, etc.)
+		\end{wideitemize}
+		\item Why use a package?
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Correct standard errors
+			\item Well-tested code
+			\item Saves you from making mistakes
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{pyblp workflow}
+	\begin{wideenumerate}
+		\item \textbf{Set up data:} products, markets, shares, characteristics
+		\item \textbf{Define formulation:} which variables, which IVs
+		\item \textbf{Create problem:} combine data and formulation
+		\item \textbf{Solve:} estimate the model
+		\item \textbf{Extract results:} coefficients, standard errors, elasticities
+	\end{wideenumerate}
+	\vspace{11pt}
+	\textit{Let's walk through each step with car data}
+\end{frame}
+
+\begin{frame}[fragile]{Step 1: Load and inspect data}
+\begin{lstlisting}
+import pyblp
+
+# Load the BLP automobile data
+product_data = pyblp.data.BLP_PRODUCTS
+
+# Key columns:
+# - market_ids: which market (year)
+# - shares: market shares
+# - prices: prices
+# - hpwt, space, mpd: characteristics
+# - demand_instruments0, ...: IVs
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Step 2: Define the formulation}
+\begin{lstlisting}
+# Basic logit: no random coefficients
+formulation = pyblp.Formulation(
+    '1 + hpwt + space + mpd + prices'
+)
+
+# With demographic interactions (income x price):
+formulation = pyblp.Formulation(
+    '1 + hpwt + space + mpd + prices',
+    absorb='C(market_ids)'  # market fixed effects
+)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Step 3: Create the problem}
+\begin{lstlisting}
+# Define the problem
+problem = pyblp.Problem(
+    formulation,
+    product_data,
+    agent_data=agent_data  # for demographics
+)
+
+# Check the problem
+print(problem)
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Step 4: Solve}
+\begin{lstlisting}
+# Solve with 2SLS (IV estimation)
+results = problem.solve()
+
+# This gives us:
+# - Coefficient estimates
+# - Standard errors
+# - Objective value
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}[fragile]{Step 5: Extract results}
+\begin{lstlisting}
+# Print coefficient estimates
+print(results)
+
+# Get elasticities
+elasticities = results.compute_elasticities()
+
+# Get markups (assuming Nash-Bertrand)
+markups = results.compute_markups()
+\end{lstlisting}
+\end{frame}
+
+\begin{frame}{Interpreting pyblp output}
+	\begin{wideitemize}
+		\item \textbf{Coefficients:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item $\hat{\alpha}$ (price): should be negative
+			\item $\hat{\beta}$ (characteristics): interpret as marginal utility
+		\end{wideitemize}
+		\item \textbf{Standard errors:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Check statistical significance
+			\item pyblp computes robust SEs by default
+		\end{wideitemize}
+		\item \textbf{First-stage F-statistic:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Check that IVs are relevant
+			\item Rule of thumb: $F > 10$
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: Interpreting coefficients}
+	\begin{wideitemize}
+		\item Suppose you estimate:
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item $\hat{\alpha} = -0.8$ (price coefficient)
+			\item $\hat{\beta}_{HP} = 0.3$ (horsepower coefficient)
+		\end{wideitemize}
+		\item \textbf{Questions:}
+		\begin{wideenumerate}
+			\vspace{5pt}
+			\item Interpret $\hat{\alpha}$. What does a more negative $\alpha$ mean?
+			\item If you had used OLS instead of IV, would $\hat{\alpha}$ be more or less negative?
+		\end{wideenumerate}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: Interpreting coefficients (answers)}
+	\begin{wideenumerate}
+		\item $\hat{\alpha} = -0.8$: A \$1 price increase reduces mean utility by 0.8 utils
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item More negative $\alpha$ = more price-sensitive consumers
+		\end{wideitemize}
+		\vspace{10pt}
+		\item OLS would give $\hat{\alpha}$ biased toward zero (less negative)
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Because $\text{Cov}(p, \xi) > 0$
+			\item OLS thinks high prices don't hurt demand much
+			\item So OLS $\hat{\alpha}$ might be $-0.3$ instead of $-0.8$
+		\end{wideitemize}
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Post-estimation: Elasticities}
+	\begin{wideitemize}
+		\item pyblp computes elasticities automatically:
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Own-price elasticity for each product
+			\item Cross-price elasticity matrix
+		\end{wideitemize}
+		\item Check if elasticities are reasonable:
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Own-price should be negative
+			\item Magnitude: typically $-2$ to $-10$ for durable goods
+			\item Cross-price: positive for substitutes
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Post-estimation: Markups}
+	\begin{wideitemize}
+		\item Recall: Lerner index $L = (p - MC)/p = 1/|\varepsilon|$
+		\item Can recover markups from elasticities:
+		\begin{align*}
+			\text{markup}_j = \frac{p_j - mc_j}{p_j} = \frac{1}{|\eta_{jj}|}
+		\end{align*}
+		\item pyblp assumes Nash-Bertrand pricing
+		\item Multi-product firms internalize substitution between own products
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{This prepares you for HW1}
+	\begin{wideitemize}
+		\item HW1 asks you to:
+		\begin{wideenumerate}
+			\vspace{5pt}
+			\item Load car data
+			\item Estimate demand with pyblp
+			\item Compute elasticities
+			\item Interpret your results
+			\item Discuss IV choice
+		\end{wideenumerate}
+		\item Today's worked example is a template for HW1
+		\item Start early!
+	\end{wideitemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% KEY POINTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Key Points}
+	\vspace{11pt}
+	\begin{wideenumerate}
+		\item \textbf{Demographic interaction model}: $u_{ij} = x_j \beta + (D_i \times x_j)\gamma - \alpha p_j + \xi_j + \varepsilon_{ij}$
+		\item Demographics allow \textbf{heterogeneous preferences} without random coefficients
+		\item Demographics \textbf{partially help} with IIA (different types substitute differently)
+		\item \textbf{pyblp workflow}: Data $\rightarrow$ Formulation $\rightarrow$ Problem $\rightarrow$ Solve $\rightarrow$ Interpret
+		\item \textbf{Key outputs}: Coefficients (check signs), standard errors, elasticities, markups
+		\item Price coefficient should be \textbf{negative}; OLS biases it toward zero
+		\item \textbf{Check IV relevance}: First-stage F-statistic $> 10$
+		\item This is the foundation for HW1
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Next time}
+	\begin{wideitemize}
+		\item \textbf{Lecture 4:} Consumer Surplus, IIA, and Price Discrimination
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Log-sum formula for consumer surplus
+			\item Red bus/blue bus: the IIA problem in detail
+			\item Selection by indicators (group pricing)
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\end{document}

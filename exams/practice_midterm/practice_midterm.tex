@@ -1,0 +1,189 @@
+% ECN 594: Practice Midterm
+\documentclass[addpoints]{exam}
+\usepackage{fullpage}
+\usepackage[left=1.0in,top=1.0in,right=1.0in,bottom=1.0in,headheight=3ex,headsep=3ex]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{adjustbox}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+
+\title{ECN 594: Practice Midterm Exam}
+\rhead{\footnotesize ECN 594: Practice Midterm}
+
+\date{}
+
+\begin{document}
+\maketitle
+\begin{center}
+	\fbox{\fbox{\parbox{6in}{\centering
+		\textbf{Instructions}:
+		\begin{itemize}
+		\item You have \textbf{70 minutes}
+		\item You may bring a calculator and notes on a two-sided cheat-sheet (letter-size paper)
+		\item Please be neat. If your work is too messy it will not be graded.
+		\item Be sure to show your working.
+		\item This is a long exam, so there are lots of ways to get points. If you get stuck, move on!
+		\item Good luck!
+		\end{itemize}
+	}}}
+\end{center}
+
+\vspace{5mm}
+\makebox[0.75\textwidth]{Name: \enspace\hrulefill}
+\vspace{30pt}
+\begin{center}
+	\gradetable[h][questions]
+\end{center}
+
+\newpage
+
+\begin{questions}
+
+\subsection*{1. Short Answer Questions (30 points)}
+\vspace{11pt}
+\question For each question, write either:
+\begin{itemize}
+	\item a number or formula
+	\item one of: True, False, or NEI (Not Enough Information)
+	\item a brief definition or explanation (one sentence)
+\end{itemize}
+\vspace{11pt}
+\begin{parts}
+	\part[3] A monopolist faces constant elasticity demand with $\varepsilon = -3$ and has marginal cost $c = 20$. What is the optimal price?
+
+	\answerline[$\$30$]
+
+	\part[3] In the logit demand model, write the formula for the own-price elasticity $\eta_{jj}$ in terms of the price coefficient $\alpha$, price $p_j$, and market share $s_j$.
+
+	\answerline[$\eta_{jj} = \alpha p_j (1 - s_j)$]
+
+	\part[3] True, False, or NEI: In a logit demand model, products with higher prices always have more elastic demand.
+
+	\answerline[True (mechanically, from the elasticity formula)]
+
+	\part[3] What does ``IIA'' stand for, and why is it a limitation of the basic logit model?
+
+	\answerline[Independence of Irrelevant Alternatives; substitution doesn't depend on similarity]
+
+	\part[3] True, False, or NEI: OLS estimation of logit demand will underestimate the price coefficient (make it less negative) due to price endogeneity.
+
+	\answerline[True]
+
+	\part[3] True, False, or NEI: Under perfect price discrimination, there is no deadweight loss.
+
+	\answerline[True]
+
+	\part[3] Name one type of instrument commonly used to address price endogeneity in demand estimation.
+
+	\answerline[Cost shifters, BLP instruments (characteristics of other products), Hausman instruments]
+
+	\part[3] True, False, or NEI: A two-part tariff with $F > 0$ and $p = MC$ always increases total surplus compared to uniform monopoly pricing.
+
+	\answerline[True (extracts CS but eliminates DWL)]
+
+	\part[3] What is ``selection by indicators''? Give a brief example.
+
+	\answerline[Price discrimination based on observable characteristics (e.g., student discounts)]
+
+	\part[3] True, False, or NEI: In a self-selection pricing problem, the firm must ensure that high-type consumers don't want to buy the low-type product.
+
+	\answerline[True (incentive compatibility constraint)]
+
+\end{parts}
+
+\newpage
+\subsection*{2. Demand Estimation (30 points)}
+\question Consider a market with 3 products and an outside option. The logit demand model is:
+$$u_{ij} = \delta_j + \alpha p_j + \varepsilon_{ij}$$
+where $\delta_j$ is the mean utility (excluding price), $\alpha = -0.5$ is the price coefficient, and $\varepsilon_{ij}$ is i.i.d. Type 1 Extreme Value.
+
+The following data are observed:
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+Product & Price ($p_j$) & Mean Utility ($\delta_j$) & Market Share ($s_j$) \\
+\midrule
+1 & \$10 & 2.0 & 0.25 \\
+2 & \$8  & 1.5 & 0.20 \\
+3 & \$12 & 2.5 & 0.15 \\
+Outside & -- & 0 & 0.40 \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{parts}
+	\part[5] Verify that the market share for product 1 is approximately correct using the logit formula:
+	$$s_j = \frac{\exp(\delta_j + \alpha p_j)}{1 + \sum_k \exp(\delta_k + \alpha p_k)}$$
+
+	\vspace{3cm}
+
+	\part[5] Compute the own-price elasticity for each product. Which product has the most elastic demand?
+
+	\vspace{4cm}
+
+	\part[5] Compute the cross-price elasticity $\eta_{12}$ (how much demand for product 1 changes when the price of product 2 changes). What does the IIA property imply about $\eta_{12}$ vs $\eta_{13}$?
+
+	\vspace{4cm}
+
+	\part[5] Suppose you only observe prices and market shares (not $\delta_j$). Write down the Berry inversion formula that would allow you to recover $\delta_j + \alpha p_j$ from the data.
+
+	\vspace{3cm}
+
+	\part[10] Using the log-sum formula, compute the expected consumer surplus per consumer in this market. If product 3 were removed, what would be the change in consumer surplus?
+
+	$$CS = \frac{1}{|\alpha|} \ln\left(1 + \sum_j \exp(\delta_j + \alpha p_j)\right)$$
+
+\end{parts}
+
+\newpage
+\subsection*{3. Price Discrimination by Indicators (20 points)}
+\question A monopolist sells software licenses. There are two customer segments: businesses (B) and students (S). Marginal cost is \$10 per license.
+
+\begin{itemize}
+\item Business demand: $Q_B = 100 - P_B$
+\item Student demand: $Q_S = 50 - 2P_S$
+\end{itemize}
+
+\begin{parts}
+	\part[5] The firm can identify customer type (e.g., through verification). Solve for the optimal prices under price discrimination by indicators.
+
+	\vspace{4cm}
+
+	\part[5] Compute total profit under price discrimination.
+
+	\vspace{3cm}
+
+	\part[5] Now suppose the firm cannot distinguish customers and must charge a uniform price. What is the total demand curve? Find the optimal uniform price.
+
+	\vspace{4cm}
+
+	\part[5] Compare consumer surplus across the two scenarios (price discrimination vs. uniform pricing). Which group benefits from price discrimination?
+
+\end{parts}
+
+\newpage
+\subsection*{4. Two-Part Tariff (20 points)}
+\question A gym has a monopoly in its local market. There are 100 identical consumers, each with demand $q = 20 - p$ for gym visits per month. The marginal cost of a gym visit is \$2.
+
+\begin{parts}
+	\part[5] If the gym can only charge a uniform price per visit, what is the profit-maximizing price and profit?
+
+	\vspace{4cm}
+
+	\part[5] Now suppose the gym uses a two-part tariff: a monthly membership fee $F$ and a per-visit price $p$. What is the optimal two-part tariff?
+
+	\vspace{4cm}
+
+	\part[5] Compare total surplus under uniform pricing vs. the two-part tariff. Explain the efficiency difference.
+
+	\vspace{4cm}
+
+	\part[5] Suppose there are now two types of consumers: 50 ``heavy users'' with demand $q_H = 30 - p$ and 50 ``light users'' with demand $q_L = 10 - p$. If the gym must offer a single two-part tariff to all consumers, what constraint determines the optimal fee $F$?
+
+\end{parts}
+
+\end{questions}
+
+\end{document}

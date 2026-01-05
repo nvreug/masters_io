@@ -1,0 +1,188 @@
+% ECN 594: Homework 2 - Competition and Merger Simulation
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\usepackage[left=1.0in,top=1.0in,right=1.0in,bottom=1.0in,headheight=3ex,headsep=3ex]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{adjustbox}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{booktabs}
+
+\newcommand{\blankline}{\quad\pagebreak[2]}
+
+\title{ECN 594: Homework 2 \\ \large{Competition and Merger Simulation}}
+\author{\textbf{Due: See Canvas} \\
+\textbf{You may work in groups of up to 2 people.}}
+\date{}
+
+\linespread{1.3}
+\usepackage[T1]{fontenc}
+\usepackage{fancyhdr,lastpage}
+\pagestyle{fancy}
+\lhead{}
+\chead{}
+\rhead{\footnotesize ECN 594: Homework 2}
+\lfoot{}
+\cfoot{\small \thepage/\pageref*{LastPage}}
+\rfoot{}
+
+\usepackage[dvipsnames]{xcolor}
+\definecolor{asumaroon}{rgb}{0.549,0.114,0.251}
+\hypersetup{colorlinks,breaklinks,linkcolor=asumaroon,urlcolor=asumaroon,anchorcolor=asumaroon,citecolor=black}
+
+\renewcommand{\theenumi}{\alph{enumi}}
+
+\begin{document}
+\maketitle
+
+\subsection*{Instructions}
+\begin{itemize}
+\item You may work in groups of up to 2 people. If working in a group, please submit one assignment with both names.
+\item Submit your solutions as a PDF. For computational questions, also submit your Python code.
+\item Show your work for analytical questions.
+\end{itemize}
+
+\section*{Part A: Oligopoly Theory (35 points)}
+
+\subsection*{Question 1: Cournot Competition (15 points)}
+
+Consider a market with $N = 3$ identical firms competing in quantities. Market demand is $P = 100 - Q$, where $Q = q_1 + q_2 + q_3$. Each firm has constant marginal cost $c = 10$ and no fixed costs.
+
+\begin{enumerate}
+\item \textbf{(5 points)} Derive the Cournot-Nash equilibrium quantities, price, and per-firm profits. Show your work.
+
+\item \textbf{(5 points)} Verify the Lerner Index formula: $L = \frac{P - MC}{P} = \frac{s_j}{|\varepsilon|}$ where $s_j$ is firm $j$'s market share and $\varepsilon$ is the market price elasticity of demand.
+
+\item \textbf{(5 points)} Now suppose one firm exits the market, leaving $N = 2$ firms. Compute the new equilibrium and compare consumer surplus, producer surplus, and total welfare to the 3-firm case.
+\end{enumerate}
+
+\subsection*{Question 2: Bertrand Competition (10 points)}
+
+Consider the same setup as Question 1 ($P = 100 - Q$, $c = 10$), but now firms compete in prices (Bertrand) rather than quantities.
+
+\begin{enumerate}
+\item \textbf{(5 points)} What is the Bertrand-Nash equilibrium with $N = 3$ identical firms? What are equilibrium prices and profits?
+
+\item \textbf{(5 points)} Compare your answers to the Cournot case (Question 1). Explain why the outcomes differ. Which model is more realistic and when?
+\end{enumerate}
+
+\subsection*{Question 3: Collusion (10 points)}
+
+Return to the Cournot setting with $N = 3$ firms. Suppose the firms consider forming a cartel where they each produce the monopoly quantity divided by 3.
+
+\begin{enumerate}
+\item \textbf{(3 points)} What is the monopoly quantity and price? What would each firm's profit be under collusion?
+
+\item \textbf{(4 points)} If one firm considers deviating while the others stick to the collusive quantity, what quantity should it produce and what profit would it earn?
+
+\item \textbf{(3 points)} Compute the critical discount factor $\delta^*$ above which collusion can be sustained in an infinitely repeated game with grim trigger strategies. Use the formula from class.
+\end{enumerate}
+
+\newpage
+\section*{Part B: Merger Simulation (65 points)}
+
+In this section, you will perform a merger simulation using an estimated demand system. This mirrors what economists do in practice when advising antitrust authorities.
+
+\subsection*{Background}
+
+Consider a market with 4 differentiated products, each owned by a separate firm. The demand system is logit with the following estimated parameters:
+\begin{itemize}
+\item Price coefficient: $\alpha = -2.0$
+\item Product-specific mean utilities (deltas): $\delta = (-0.5, -0.3, -0.2, -0.4)$
+\item Pre-merger prices: $p^0 = (2.0, 2.5, 3.0, 2.2)$
+\item Marginal costs: $c = (1.0, 1.2, 1.5, 1.1)$
+\end{itemize}
+
+The market size is $M = 1000$ consumers. The outside option has $\delta_0 = 0$.
+
+\subsection*{Question 4: Pre-Merger Equilibrium (20 points)}
+
+\begin{enumerate}
+\item \textbf{(5 points)} Compute the market shares for each product and the outside option under the pre-merger prices.
+
+\textit{Hint:} Use the logit formula: $s_j = \frac{\exp(\delta_j + \alpha p_j)}{1 + \sum_k \exp(\delta_k + \alpha p_k)}$
+
+\item \textbf{(5 points)} Compute the own-price elasticity for each product. Verify that all products have elastic demand ($|\eta_{jj}| > 1$).
+
+\item \textbf{(5 points)} For product 1, verify the first-order condition for profit maximization:
+\[
+p_j - c_j = -\frac{s_j}{\partial s_j / \partial p_j} = \frac{1}{|\alpha|(1-s_j)}
+\]
+Note: There may be small numerical differences due to rounding.
+
+\item \textbf{(5 points)} Compute the HHI (Herfindahl-Hirschman Index) for this market. Would the DOJ/FTC consider this market concentrated?
+\end{enumerate}
+
+\subsection*{Question 5: Post-Merger Prices (25 points)}
+
+Now suppose Firm 1 and Firm 2 merge. The merged firm now controls products 1 and 2.
+
+\begin{enumerate}
+\item \textbf{(5 points)} Write down the ownership matrix $\mathcal{O}$ before and after the merger. The ownership matrix has $\mathcal{O}_{jk} = 1$ if products $j$ and $k$ are owned by the same firm, and 0 otherwise.
+
+\item \textbf{(5 points)} Explain intuitively why the merged firm will raise prices on products 1 and 2 after the merger. What is the ``recapture'' effect?
+
+\item \textbf{(10 points)} Compute the new equilibrium prices after the merger.
+
+\textit{Hint:} The first-order conditions become:
+\[
+s_j + \sum_{k: \mathcal{O}_{jk}=1} (p_k - c_k) \frac{\partial s_k}{\partial p_j} = 0
+\]
+You can solve this system numerically in Python. Hold marginal costs constant (no efficiency gains).
+
+\item \textbf{(5 points)} How much do prices increase for products 1 and 2? What happens to prices for products 3 and 4 (owned by non-merging firms)?
+\end{enumerate}
+
+\subsection*{Question 6: Welfare Analysis (20 points)}
+
+\begin{enumerate}
+\item \textbf{(5 points)} Compute total consumer surplus before and after the merger using the log-sum formula from HW1. What is the change in consumer surplus?
+
+\item \textbf{(5 points)} Compute total producer profits before and after the merger. Does the merged firm benefit? Do the non-merging firms benefit?
+
+\item \textbf{(5 points)} Compute the change in total welfare (CS + PS). Is the merger welfare-improving or welfare-reducing?
+
+\item \textbf{(5 points)} The merging firms claim they will achieve marginal cost reductions of 10\% on both products due to synergies. Redo the merger simulation with $c_1 = 0.9$ and $c_2 = 1.08$. Does the efficiency defense change your conclusion about whether the merger should be approved?
+\end{enumerate}
+
+\newpage
+\subsection*{Formulas for Reference}
+
+\textbf{Logit demand:}
+\begin{align*}
+s_j &= \frac{\exp(\delta_j + \alpha p_j)}{1 + \sum_k \exp(\delta_k + \alpha p_k)} \\
+\frac{\partial s_j}{\partial p_j} &= \alpha s_j (1 - s_j) \\
+\frac{\partial s_j}{\partial p_k} &= -\alpha s_j s_k \quad (j \neq k)
+\end{align*}
+
+\textbf{Own-price elasticity:}
+\begin{align*}
+\eta_{jj} = \alpha p_j (1 - s_j)
+\end{align*}
+
+\textbf{Consumer surplus (per consumer):}
+\begin{align*}
+CS = \frac{1}{|\alpha|} \ln\left(1 + \sum_j \exp(\delta_j + \alpha p_j)\right)
+\end{align*}
+
+\textbf{HHI:}
+\begin{align*}
+HHI = \sum_j (100 \times s_j)^2
+\end{align*}
+
+\textbf{Cournot critical discount factor ($N$ firms):}
+\begin{align*}
+\delta^* = \frac{(N+1)^2}{N^2 + (N+1)^2}
+\end{align*}
+
+\subsection*{Submission Checklist}
+\begin{itemize}
+\item[$\square$] PDF with answers to all questions
+\item[$\square$] Python code for Part B
+\item[$\square$] All calculations shown
+\item[$\square$] Both group members' names (if applicable)
+\end{itemize}
+
+\end{document}

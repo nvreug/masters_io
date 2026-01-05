@@ -1,0 +1,406 @@
+\documentclass[notes,11pt, aspectratio=169]{beamer}
+
+\usepackage{pgfpages}
+\setbeameroption{hide notes} % Only slide
+
+\usepackage{array}
+\usepackage{tikz}
+\usepackage{verbatim}
+\setbeamertemplate{note page}{\pagecolor{gray!5}\insertnote}
+\usetikzlibrary{positioning}
+\usetikzlibrary{snakes}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{matrix,shapes,arrows,fit,tikzmark}
+\usepackage{amsmath}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{multimedia}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{dcolumn}
+\usepackage{bbm}
+\newcolumntype{d}[0]{D{.}{.}{5}}
+
+\usepackage{changepage}
+\usepackage{appendixnumberbeamer}
+
+\usepackage[space]{grffile}
+\usepackage{booktabs}
+
+% Colors
+\definecolor{blue}{RGB}{0,114,178}
+\definecolor{red}{RGB}{213,94,0}
+\definecolor{yellow}{RGB}{240,228,66}
+\definecolor{green}{RGB}{0,158,115}
+
+\hypersetup{
+  colorlinks=false,
+  linkbordercolor = {white},
+  linkcolor = {blue}
+}
+
+\definecolor{MyBackground}{RGB}{255,253,218}
+
+\newenvironment{transitionframe}{
+  \setbeamercolor{background canvas}{bg=white}
+  \begin{frame}}{
+    \end{frame}
+}
+
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=black}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize items}{-}
+\setbeamercolor{itemize item}{fg=blue}
+\setbeamercolor{itemize subitem}{fg=blue}
+\setbeamercolor{enumerate item}{fg=blue}
+\setbeamercolor{enumerate subitem}{fg=blue}
+\setbeamercolor{button}{bg=MyBackground,fg=blue,}
+
+\setbeamercolor{section in toc}{fg=blue}
+\setbeamercolor{subsection in toc}{fg=red}
+\setbeamersize{text margin left=1em,text margin right=1em}
+
+\newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
+\newenvironment{wideenumerate}{\enumerate\addtolength{\itemsep}{10pt}}{\endenumerate}
+
+\title[]{\textcolor{blue}{ECN 594: Final Review}}
+\author[PGP]{}
+\institute[FRBNY]{\small{\begin{tabular}{c c c}
+Nicholas Vreugdenhil \\
+\end{tabular}}}
+\date{\today}
+
+\begin{document}
+
+% Title Slide
+\begin{frame}
+\maketitle
+  \centering
+\end{frame}
+
+\begin{frame}{Plan for today}
+  \begin{wideenumerate}
+    \item Review: Part 1 (Demand and Pricing)
+    \item Practice problems: Part 1
+    \item[] \rule{0.5\textwidth}{0.4pt}
+    \item Review: Part 2 (Competition)
+    \item Practice problems: Part 2
+    \item Exam logistics
+  \end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Final exam format}
+	\begin{wideitemize}
+		\item \textbf{Duration:} 70 minutes
+		\item \textbf{Allowed:} Calculator + two-sided cheat sheet (letter-size paper)
+		\item \textbf{Coverage:} Cumulative (Lectures 1-12)
+		\item \textbf{Structure:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Short answer (T/F/NEI, definitions, quick calculations)
+			\item Longer problems (derivations, multi-step)
+		\end{wideitemize}
+		\item Emphasis on Part 2 material, but Part 1 is included
+	\end{wideitemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PART 1 REVIEW
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{transitionframe}
+	\begin{center}
+		{\Huge Part 1 Review: Demand and Pricing}
+	\end{center}
+\end{transitionframe}
+
+\begin{frame}{Demand estimation: key concepts}
+	\begin{wideitemize}
+		\item \textbf{Logit model:} $s_j = \frac{\exp(\delta_j)}{1 + \sum_k \exp(\delta_k)}$
+		\item \textbf{Berry inversion:} $\ln(s_j) - \ln(s_0) = \delta_j$
+		\item \textbf{Elasticities:}
+		\begin{align*}
+			\eta_{jj} = \alpha p_j (1 - s_j) \quad \text{(own)} \\
+			\eta_{jk} = -\alpha p_k s_k \quad \text{(cross)}
+		\end{align*}
+		\item \textbf{Consumer surplus:} $CS = \frac{1}{|\alpha|} \ln\left[\sum_j \exp(\delta_j)\right]$
+		\item \textbf{IIA problem:} Substitution proportional to share, not similarity
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Identification and IVs}
+	\begin{wideitemize}
+		\item \textbf{Problem:} $E[p_j \xi_j] \neq 0$ (price endogeneity)
+		\item High unobserved quality $\rightarrow$ high price
+		\item OLS: $\hat{\alpha}$ biased toward zero
+		\item \textbf{Solution:} IVs correlated with $p$, uncorrelated with $\xi$
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Hausman: prices in other markets
+			\item BLP: competitor characteristics
+			\item Cost shifters
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Pricing and price discrimination}
+	\begin{wideitemize}
+		\item \textbf{Lerner index:} $L = \frac{p - MC}{p} = \frac{1}{|\varepsilon|}$
+		\item \textbf{Selection by indicators:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Different prices for observable groups
+			\item Higher price in more inelastic market
+		\end{wideitemize}
+		\item \textbf{Two-part tariff:} $F + p \times q$
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Optimal: $p = MC$, $F = CS$
+		\end{wideitemize}
+		\item \textbf{Self-selection:} IC binds for high type, IR for low type
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Practice: Demand and pricing}
+	\begin{wideitemize}
+		\item \textbf{Question 1:} Logit model with $\alpha = -0.4$. Product A has $p_A = 30$, $s_A = 0.15$. Calculate the own-price elasticity.
+		\item \textbf{Question 2:} Two markets with $\varepsilon_1 = -2$, $\varepsilon_2 = -3$, $MC = 10$. Find optimal prices.
+		\item \textbf{Question 3:} A firm uses two-part tariff. Individual demand is $q = 20 - 2p$, $MC = 2$. Find optimal $F$ and $p$.
+	\end{wideitemize}
+	\vspace{10pt}
+	\centering
+	\textit{Take 5 minutes.}
+\end{frame}
+
+\begin{frame}{Practice: Demand and pricing (solutions)}
+	\begin{wideitemize}
+		\item \textbf{Q1:} $\eta_{AA} = \alpha p_A (1 - s_A) = (-0.4)(30)(0.85) = -10.2$
+		\item \textbf{Q2:} Using $p = \frac{MC}{1 - 1/|\varepsilon|}$:
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item $p_1 = 10/(1 - 0.5) = 20$
+			\item $p_2 = 10/(1 - 1/3) = 15$
+		\end{wideitemize}
+		\item \textbf{Q3:} Optimal $p = MC = 2$. At $p = 2$: $q = 16$.
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item $CS = \frac{1}{2} \times 16 \times 8 = 64$ (triangle)
+			\item Optimal $F = 64$
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PART 2 REVIEW
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{transitionframe}
+	\begin{center}
+		{\Huge Part 2 Review: Competition}
+	\end{center}
+\end{transitionframe}
+
+\begin{frame}{Oligopoly models}
+	\begin{wideitemize}
+		\item \textbf{Cournot:} Firms choose quantities
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Lerner: $L = s_i / |\varepsilon|$
+			\item Positive profits
+		\end{wideitemize}
+		\item \textbf{Bertrand (homogeneous):} $P = MC$, zero profits
+		\item \textbf{Hotelling:} $p^* = c + t$ (markup = transport cost)
+		\item Cournot applies with capacity constraints
+		\item Product differentiation creates pricing power
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Entry and mergers}
+	\begin{wideitemize}
+		\item \textbf{Free entry:} $\pi(N^*) \geq F > \pi(N^* + 1)$
+		\item \textbf{Entry deterrence:} Requires credible commitment
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Capacity building
+			\item Solve by backward induction (SPE)
+		\end{wideitemize}
+		\item \textbf{Mergers:} Internalize substitution $\rightarrow$ higher prices
+		\item \textbf{Merger simulation:} Change ownership matrix, resolve FOCs
+		\item \textbf{HHI:} $= \sum s_i^2 \times 10000$
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Vertical relationships and collusion}
+	\begin{wideitemize}
+		\item \textbf{Double marginalization:}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Two markups $\rightarrow$ price too high
+			\item Solutions: integration, two-part tariff
+		\end{wideitemize}
+		\item \textbf{Collusion:}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item $\delta^* = \frac{\pi^D - \pi^C}{\pi^D - \pi^{NE}}$
+			\item Cournot: $\delta^* = \frac{(N+1)^2}{N^2 + (N+1)^2}$
+			\item Bertrand: $\delta^* = \frac{N-1}{N}$
+		\end{wideitemize}
+		\item \textbf{Leniency programs:} Create ``race to report''
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Practice: Competition}
+	\begin{wideitemize}
+		\item \textbf{Question 1:} Cournot duopoly. $P = 120 - Q$, $MC = 20$. Find equilibrium $P$, $Q$, and Lerner index.
+		\item \textbf{Question 2:} Market has shares 50\%, 30\%, 20\%. Top two firms merge. Calculate $\Delta HHI$.
+		\item \textbf{Question 3:} Bertrand duopoly. What is the minimum $\delta$ for collusion?
+	\end{wideitemize}
+	\vspace{10pt}
+	\centering
+	\textit{Take 5 minutes.}
+\end{frame}
+
+\begin{frame}{Practice: Competition (solutions)}
+	\begin{wideitemize}
+		\item \textbf{Q1:} FOC: $120 - 2q_i - q_j = 20$. Symmetric: $q^* = 100/3 \approx 33.3$.
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item $Q = 66.7$, $P = 53.3$
+			\item $L = (53.3 - 20)/53.3 = 0.625$ (or $s/|\varepsilon| = 0.5/0.8 = 0.625$)
+		\end{wideitemize}
+		\item \textbf{Q2:} Shortcut: $\Delta HHI = 2 \times 50 \times 30 = 3000$
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Pre: $50^2 + 30^2 + 20^2 = 3800$
+			\item Post: $80^2 + 20^2 = 6800$
+		\end{wideitemize}
+		\item \textbf{Q3:} Bertrand with $N = 2$: $\delta^* = \frac{N-1}{N} = \frac{1}{2} = 0.5$
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Practice: Double marginalization}
+	\begin{wideitemize}
+		\item \textbf{Question:} Manufacturer ($MC = 5$) sells to retailer who sells to consumers. Demand: $q = 50 - p$.
+		\item (a) Find integrated monopolist's price and profit.
+		\item (b) Find prices with vertical separation.
+	\end{wideitemize}
+	\vspace{10pt}
+	\centering
+	\textit{Take 4 minutes.}
+\end{frame}
+
+\begin{frame}{Practice: Double marginalization (solution)}
+	\begin{wideitemize}
+		\item \textbf{(a) Integrated:}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item $MR = 50 - 2q = 5 \Rightarrow q = 22.5$, $p = 27.5$
+			\item $\pi = (27.5 - 5) \times 22.5 = 506.25$
+		\end{wideitemize}
+		\item \textbf{(b) Separated:}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Retailer: $q = (50 - w)/2$, $p = (50 + w)/2$
+			\item Manufacturer: $\max_w (w - 5)(50 - w)/2$
+			\item FOC: $w = 27.5$
+			\item $p = (50 + 27.5)/2 = 38.75$, $q = 11.25$
+		\end{wideitemize}
+		\item Price 41\% higher, quantity 50\% lower with separation
+	\end{wideitemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% EXAM LOGISTICS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{transitionframe}
+	\begin{center}
+		{\Huge Exam Logistics}
+	\end{center}
+\end{transitionframe}
+
+\begin{frame}{What's on the final}
+	\begin{wideitemize}
+		\item \textbf{Part 1 topics:}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Logit, elasticities, IVs, consumer surplus
+			\item Lerner index, price discrimination, two-part tariffs
+			\item Self-selection (IC/IR)
+		\end{wideitemize}
+		\item \textbf{Part 2 topics:}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Cournot, Bertrand, Hotelling
+			\item Entry, entry deterrence
+			\item Mergers, HHI, merger simulation
+			\item Double marginalization, vertical restraints
+			\item Collusion ($\delta^*$ formulas, leniency)
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Key formulas for your cheat sheet}
+	\begin{wideitemize}
+		\item Logit: $s_j = \exp(\delta_j)/[1 + \Sigma\exp(\delta_k)]$
+		\item Berry: $\ln(s_j) - \ln(s_0) = \delta_j$
+		\item Elasticities: $\eta_{jj} = \alpha p_j(1-s_j)$, $\eta_{jk} = -\alpha p_k s_k$
+		\item Lerner: $L = 1/|\varepsilon|$ (monopoly), $L = s_i/|\varepsilon|$ (Cournot)
+		\item HHI: $\Delta = 2 s_1 s_2 \times 10000$
+		\item Hotelling: $p^* = c + t$
+		\item Collusion: $\delta^* = (\pi^D - \pi^C)/(\pi^D - \pi^{NE})$
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Final tips}
+	\begin{wideenumerate}
+		\item Work through practice exam carefully
+		\item Review HW1 and HW2 problems
+		\item Know the intuition behind formulas, not just formulas
+		\item Show your work for partial credit
+		\item Manage your time (70 minutes goes fast!)
+	\end{wideenumerate}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% KEY POINTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Key Points: Part 1}
+	\vspace{11pt}
+	\begin{wideenumerate}
+		\item Logit demand + Berry inversion for estimation
+		\item IVs needed: price endogeneity biases $\alpha$ toward zero
+		\item IIA problem: demographics partially help
+		\item Lerner index: $L = 1/|\varepsilon|$
+		\item Two-part tariff: $p = MC$, $F = CS$
+		\item Self-selection: IC binds for H, IR binds for L
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Key Points: Part 2}
+	\vspace{11pt}
+	\begin{wideenumerate}
+		\item Cournot: $L = s/|\varepsilon|$; Bertrand: $P = MC$
+		\item Hotelling: $p^* = c + t$
+		\item Free entry until $\pi(N^*) \geq F > \pi(N^*+1)$
+		\item Entry deterrence requires credible commitment (SPE)
+		\item Merger simulation: change ownership matrix
+		\item Double marginalization: two markups hurt everyone
+		\item Collusion: $\delta^* = (\pi^D - \pi^C)/(\pi^D - \pi^{NE})$
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Good luck on the final!}
+	\begin{wideitemize}
+		\item Questions before the exam?
+	\end{wideitemize}
+\end{frame}
+
+\end{document}

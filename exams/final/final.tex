@@ -1,0 +1,169 @@
+% ECN 594: Final Exam
+\documentclass[addpoints]{exam}
+\usepackage{fullpage}
+\usepackage[left=1.0in,top=1.0in,right=1.0in,bottom=1.0in,headheight=3ex,headsep=3ex]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{adjustbox}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+
+\title{ECN 594: Final Exam}
+\rhead{\footnotesize ECN 594: Final Exam}
+
+\date{March 4, 2026}
+
+\begin{document}
+\maketitle
+\begin{center}
+	\fbox{\fbox{\parbox{6in}{\centering
+		\textbf{Instructions}:
+		\begin{itemize}
+		\item You have \textbf{70 minutes}
+		\item You may bring a calculator and notes on a two-sided cheat-sheet (letter-size paper)
+		\item Please be neat. If your work is too messy it will not be graded.
+		\item Be sure to show your working.
+		\item This exam is \textbf{cumulative}---it covers all course material
+		\item Good luck!
+		\end{itemize}
+	}}}
+\end{center}
+
+\vspace{5mm}
+\makebox[0.75\textwidth]{Name: \enspace\hrulefill}
+\vspace{30pt}
+\begin{center}
+	\gradetable[h][questions]
+\end{center}
+
+\newpage
+
+\begin{questions}
+
+\subsection*{1. Short Answer Questions (30 points)}
+\vspace{11pt}
+\question For each question, write either a number/formula, True/False/NEI, or a brief answer.
+\vspace{11pt}
+\begin{parts}
+	\part[3] In a Cournot market with 4 identical firms, demand $P = 80 - Q$, and $MC = 20$, what is the equilibrium price?
+
+	\answerline
+
+	\part[3] Write the Lerner Index formula relating markup to market share and elasticity.
+
+	\answerline
+
+	\part[3] True, False, or NEI: The Bertrand model predicts that adding a third firm to a duopoly will significantly reduce prices.
+
+	\answerline
+
+	\part[3] What is the ``recapture effect'' in merger analysis?
+
+	\answerline
+
+	\part[3] True, False, or NEI: In the logit model, adding demographic interactions allows different consumer types to have different substitution patterns.
+
+	\answerline
+
+	\part[3] What is a ``most-favored-customer clause'' and how does it facilitate collusion?
+
+	\answerline
+
+	\part[3] True, False, or NEI: In entry deterrence, the incumbent's threat to flood the market is always credible.
+
+	\answerline
+
+	\part[3] What is the ``free-rider problem'' in the context of vertical restraints?
+
+	\answerline
+
+	\part[3] True, False, or NEI: Under a two-part tariff with heterogeneous consumers, the optimal per-unit price is always equal to marginal cost.
+
+	\answerline
+
+	\part[3] Name one factor that makes collusion harder to sustain.
+
+	\answerline
+
+\end{parts}
+
+\newpage
+\subsection*{2. Entry and Market Structure (25 points)}
+\question Consider a market with inverse demand $P = 150 - 2Q$. Firms compete in quantities (Cournot) and each has total cost $C(q) = 50q + 100$ (so $MC = 50$ and fixed cost $F = 100$).
+
+\begin{parts}
+	\part[6] How many firms will enter in free entry equilibrium? (Hint: Find $N^*$ such that $\pi(N^*) \geq 0$ but $\pi(N^*+1) < 0$.)
+
+	\vspace{5cm}
+
+	\part[6] Compare the free entry outcome to the socially optimal number of firms. Is there too much or too little entry? Explain.
+
+	\vspace{4cm}
+
+	\part[6] Now suppose there is an incumbent with a cost advantage: $MC_1 = 30$. All potential entrants have $MC = 50$. If one entrant enters, find the equilibrium quantities and profits.
+
+	\vspace{5cm}
+
+	\part[7] In the asymmetric case from (c), can the incumbent deter entry by committing to a high output level? What quantity would deter entry, and is it profitable to do so?
+
+\end{parts}
+
+\newpage
+\subsection*{3. Merger Simulation (25 points)}
+\question Consider a market with 3 differentiated products, each owned by a different firm. The logit demand system has $\alpha = -0.5$. Pre-merger data:
+
+\begin{center}
+\begin{tabular}{lccc}
+\toprule
+Product & Price & Market Share & Marginal Cost \\
+\midrule
+1 & \$20 & 15\% & \$12 \\
+2 & \$22 & 12\% & \$14 \\
+3 & \$18 & 10\% & \$10 \\
+Outside & -- & 63\% & -- \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\begin{parts}
+	\part[5] Verify that product 1's markup is approximately consistent with the logit FOC: $p - c = \frac{1}{|\alpha|(1-s)}$.
+
+	\vspace{3cm}
+
+	\part[5] Compute the own-price elasticity for each product. Are all products in the elastic portion of demand?
+
+	\vspace{4cm}
+
+	\part[8] Firms 1 and 2 propose to merge. Explain intuitively why the merged firm will raise prices. Using the ownership matrix approach, write down the new first-order conditions for products 1 and 2.
+
+	\vspace{5cm}
+
+	\part[7] Compute the pre-merger HHI. If the merger raises HHI by 360 points, what is the post-merger HHI? Would this merger likely be challenged?
+
+\end{parts}
+
+\newpage
+\subsection*{4. Collusion and Detection (20 points)}
+\question A market has 2 firms competing in quantities (Cournot). Demand is $P = 100 - Q$ and both firms have $MC = 10$.
+
+\begin{parts}
+	\part[5] Find the Cournot-Nash equilibrium and collusive (monopoly) outcomes.
+
+	\vspace{5cm}
+
+	\part[5] Compute the critical discount factor for sustaining collusion with grim trigger strategies.
+
+	\vspace{4cm}
+
+	\part[5] The firms operate under antitrust scrutiny. If caught colluding, they face a fine of $F$ per period. How does this affect the sustainability of collusion? What fine $F$ would make collusion unsustainable for $\delta = 0.8$?
+
+	\vspace{5cm}
+
+	\part[5] Describe two empirical ``smoking guns'' that might indicate the presence of collusion in this market.
+
+\end{parts}
+
+\end{questions}
+
+\end{document}

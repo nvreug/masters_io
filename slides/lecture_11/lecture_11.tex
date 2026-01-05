@@ -1,0 +1,445 @@
+\documentclass[notes,11pt, aspectratio=169]{beamer}
+
+\usepackage{pgfpages}
+\setbeameroption{hide notes} % Only slide
+
+\usepackage{array}
+\usepackage{tikz}
+\usepackage{verbatim}
+\setbeamertemplate{note page}{\pagecolor{gray!5}\insertnote}
+\usetikzlibrary{positioning}
+\usetikzlibrary{snakes}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{matrix,shapes,arrows,fit,tikzmark}
+\usepackage{amsmath}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{multimedia}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{dcolumn}
+\usepackage{bbm}
+\newcolumntype{d}[0]{D{.}{.}{5}}
+
+\usepackage{changepage}
+\usepackage{appendixnumberbeamer}
+
+\usepackage[space]{grffile}
+\usepackage{booktabs}
+
+% Colors
+\definecolor{blue}{RGB}{0,114,178}
+\definecolor{red}{RGB}{213,94,0}
+\definecolor{yellow}{RGB}{240,228,66}
+\definecolor{green}{RGB}{0,158,115}
+
+\hypersetup{
+  colorlinks=false,
+  linkbordercolor = {white},
+  linkcolor = {blue}
+}
+
+\definecolor{MyBackground}{RGB}{255,253,218}
+
+\newenvironment{transitionframe}{
+  \setbeamercolor{background canvas}{bg=white}
+  \begin{frame}}{
+    \end{frame}
+}
+
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=black}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize items}{-}
+\setbeamercolor{itemize item}{fg=blue}
+\setbeamercolor{itemize subitem}{fg=blue}
+\setbeamercolor{enumerate item}{fg=blue}
+\setbeamercolor{enumerate subitem}{fg=blue}
+\setbeamercolor{button}{bg=MyBackground,fg=blue,}
+
+\setbeamercolor{section in toc}{fg=blue}
+\setbeamercolor{subsection in toc}{fg=red}
+\setbeamersize{text margin left=1em,text margin right=1em}
+
+\newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
+\newenvironment{wideenumerate}{\enumerate\addtolength{\itemsep}{10pt}}{\endenumerate}
+
+\title[]{\textcolor{blue}{ECN 594: Vertical Relationships}}
+\author[PGP]{}
+\institute[FRBNY]{\small{\begin{tabular}{c c c}
+Nicholas Vreugdenhil \\
+\end{tabular}}}
+\date{\today}
+
+\begin{document}
+
+% Title Slide
+\begin{frame}
+\maketitle
+  \centering
+\end{frame}
+
+\begin{frame}{Plan for today}
+  \begin{wideenumerate}
+    \item Vertical relationships: upstream and downstream
+    \item Double marginalization problem
+    \item Solutions: integration and two-part tariffs
+    \item[] \rule{0.5\textwidth}{0.4pt}
+    \item Vertical restraints
+    \item The free-rider problem
+    \item Antitrust implications
+  \end{wideenumerate}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PART 1: DOUBLE MARGINALIZATION
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{transitionframe}
+	\begin{center}
+		{\Huge Part 1: Vertical Relationships}
+	\end{center}
+\end{transitionframe}
+
+\begin{frame}{Vertical relationships}
+	\begin{wideitemize}
+		\item \textbf{Vertical structure:} Production chain from raw materials to consumers
+		\item \textbf{Upstream:} Manufacturers, wholesalers
+		\item \textbf{Downstream:} Retailers, distributors
+		\item \textbf{Examples:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Car manufacturer $\rightarrow$ dealer
+			\item Beverage company $\rightarrow$ restaurant
+			\item Book publisher $\rightarrow$ bookstore
+		\end{wideitemize}
+		\item Key question: How should these relationships be structured?
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Double marginalization: setup}
+	\begin{wideitemize}
+		\item \textbf{Upstream monopolist} (manufacturer): produces at $MC = c$
+		\item Sells to \textbf{downstream monopolist} (retailer) at price $w$
+		\item Retailer sells to consumers at price $p$
+		\item Consumer demand: $q = D(p)$
+		\item \textbf{Problem:} Each firm adds its own markup
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Double marginalization: the chain}
+	\begin{center}
+		\begin{tikzpicture}[node distance=2.5cm, auto]
+			\node[draw, rectangle, minimum width=2cm, minimum height=1cm] (M) {Manufacturer};
+			\node[draw, rectangle, minimum width=2cm, minimum height=1cm, right of=M, node distance=4cm] (R) {Retailer};
+			\node[draw, rectangle, minimum width=2cm, minimum height=1cm, right of=R, node distance=4cm] (C) {Consumers};
+
+			\draw[->, thick] (M) -- node[above] {$w$} (R);
+			\draw[->, thick] (R) -- node[above] {$p$} (C);
+
+			\node[below=0.3cm of M] {\small $MC = c$};
+			\node[below=0.3cm of R] {\small adds markup};
+		\end{tikzpicture}
+	\end{center}
+	\vspace{10pt}
+	\begin{wideitemize}
+		\item Manufacturer: sets $w > c$ (first markup)
+		\item Retailer: sets $p > w$ (second markup)
+		\item Result: $p$ is ``too high'' relative to integrated monopolist
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Double marginalization: intuition}
+	\begin{wideitemize}
+		\item Each firm ignores the effect of its markup on the other
+		\item Manufacturer doesn't fully account for:
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Higher $w$ $\rightarrow$ higher $p$ $\rightarrow$ lower $q$ $\rightarrow$ lower profits for both
+		\end{wideitemize}
+		\item This is a \textbf{vertical externality}
+		\item Integrated monopolist would set lower price!
+		\item \textbf{Paradox:} More competition (vertical separation) $\rightarrow$ higher price
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: Double marginalization}
+	\begin{wideitemize}
+		\item Consumer demand: $q = 100 - p$
+		\item Manufacturer: $MC = 20$
+		\item Retailer: no additional costs (just buys from manufacturer at $w$)
+		\item \textbf{Questions:}
+		\item (a) Find the price and profit of an integrated monopolist
+		\item (b) Find the prices and profits with separate firms
+		\item (c) Compare total industry profits
+	\end{wideitemize}
+	\vspace{10pt}
+	\centering
+	\textit{Take 7 minutes.}
+\end{frame}
+
+\begin{frame}{Worked example: Integration (solution a)}
+	\begin{wideitemize}
+		\item \textbf{Integrated monopolist:}
+		\item Inverse demand: $p = 100 - q$
+		\item $MR = 100 - 2q$
+		\item Set $MR = MC$: $100 - 2q = 20 \Rightarrow q = 40$
+		\item $p = 100 - 40 = 60$
+		\item $\pi^{Int} = (60 - 20) \times 40 = 1600$
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: Separation (solution b)}
+	\begin{wideitemize}
+		\item \textbf{Step 1: Retailer's problem} (given $w$)
+		\item Retailer's cost is $w$, faces demand $q = 100 - p$
+		\item $MR_R = 100 - 2q$, $MC_R = w$
+		\item Set $MR_R = MC_R$: $100 - 2q = w \Rightarrow q = (100 - w)/2$
+		\item $p = 100 - q = (100 + w)/2$
+		\item Retailer profit: $\pi_R = (p - w)q = \left(\frac{100 - w}{2}\right)^2$
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: Separation (solution b, cont.)}
+	\begin{wideitemize}
+		\item \textbf{Step 2: Manufacturer's problem}
+		\item Anticipates retailer's response: $q = (100 - w)/2$
+		\item Manufacturer profit: $\pi_M = (w - 20) \times \frac{100 - w}{2}$
+		\item FOC: $\frac{\partial \pi_M}{\partial w} = \frac{100 - w}{2} - \frac{w - 20}{2} = 0$
+		\item $100 - w = w - 20 \Rightarrow w = 60$
+		\item Then: $q = (100 - 60)/2 = 20$, $p = (100 + 60)/2 = 80$
+		\item $\pi_M = (60 - 20) \times 20 = 800$
+		\item $\pi_R = (80 - 60) \times 20 = 400$
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: Comparison (solution c)}
+	\begin{center}
+		\begin{tabular}{|l|c|c|}
+			\hline
+			& \textbf{Integrated} & \textbf{Separated} \\
+			\hline
+			Final price & 60 & 80 \\
+			Quantity & 40 & 20 \\
+			Total profit & 1600 & 1200 \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\vspace{10pt}
+	\begin{wideitemize}
+		\item Separation: price 33\% higher, quantity 50\% lower
+		\item Industry profits 25\% lower with separation
+		\item Consumers also worse off (higher $p$, lower $q$)
+		\item \textbf{Everyone loses} from double marginalization!
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Solutions to double marginalization}
+	\begin{wideenumerate}
+		\item \textbf{Vertical integration}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Manufacturer buys retailer (or vice versa)
+			\item Eliminates double markup
+		\end{wideitemize}
+		\item \textbf{Two-part tariff}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Set $w = MC$ (no wholesale markup)
+			\item Charge franchise fee $F$ to extract retailer profits
+		\end{wideitemize}
+		\item \textbf{Resale price maintenance (RPM)}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Manufacturer sets final price directly
+			\item Controversial under antitrust law
+		\end{wideitemize}
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Two-part tariff solution}
+	\begin{wideitemize}
+		\item Manufacturer charges:
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Wholesale price: $w = c = MC$ (at cost)
+			\item Franchise fee: $F$
+		\end{wideitemize}
+		\item With $w = MC$, retailer sets integrated monopoly price
+		\item Retailer earns $\pi^{Int}$ minus $F$
+		\item Manufacturer sets $F = \pi^{Int}$ to extract all profit
+		\item \textbf{Result:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Price = integrated monopoly price
+			\item Total profit = integrated monopoly profit
+			\item Captured by manufacturer through $F$
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PART 2: VERTICAL RESTRAINTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{transitionframe}
+	\begin{center}
+		{\Huge Part 2: Vertical Restraints}
+	\end{center}
+\end{transitionframe}
+
+\begin{frame}{Vertical restraints: overview}
+	\begin{wideitemize}
+		\item \textbf{Vertical restraints:} Contractual restrictions between upstream/downstream firms
+		\item \textbf{Types:}
+		\begin{wideenumerate}
+			\vspace{5pt}
+			\item \textbf{Exclusive dealing:} Retailer can only sell manufacturer's products
+			\item \textbf{Exclusive territories:} Retailer has geographic monopoly
+			\item \textbf{Resale price maintenance (RPM):} Manufacturer sets retail price
+			\item \textbf{Tying:} Must buy product B to get product A
+		\end{wideenumerate}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{The free-rider problem}
+	\begin{wideitemize}
+		\item \textbf{Setup:} Retailer provides services (advice, showroom, etc.)
+		\item \textbf{Problem:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Consumer gets service at Retailer A
+			\item Buys from Retailer B (lower price, no service)
+			\item Retailer A's service investment wasted
+		\end{wideitemize}
+		\item \textbf{Result:} Retailers under-invest in services
+		\item \textbf{Examples:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Electronics stores vs online retailers
+			\item Car dealerships and test drives
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Solutions to free-riding}
+	\begin{wideitemize}
+		\item \textbf{Resale price maintenance (RPM):}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Set minimum retail price
+			\item Prevents price competition, preserves margin for services
+		\end{wideitemize}
+		\item \textbf{Exclusive territories:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Each retailer is local monopolist
+			\item No other retailer to free-ride on
+		\end{wideitemize}
+		\item Both reduce \textbf{intra-brand} competition (same brand, different retailers)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Intra-brand vs inter-brand competition}
+	\begin{wideitemize}
+		\item \textbf{Intra-brand:} Competition among retailers selling same brand
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Different Toyota dealers competing on price
+		\end{wideitemize}
+		\item \textbf{Inter-brand:} Competition between different brands
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Toyota vs Honda
+		\end{wideitemize}
+		\item \textbf{Vertical restraints often reduce intra-brand competition}
+		\item \textbf{Key question for antitrust:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item If inter-brand competition is strong, less concern
+			\item If inter-brand is weak, restraints may harm consumers
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Antitrust analysis of vertical restraints}
+	\begin{wideitemize}
+		\item \textbf{Rule of reason:} Case-by-case analysis
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Weigh pro-competitive vs anti-competitive effects
+		\end{wideitemize}
+		\item \textbf{Pro-competitive justifications:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Solve free-rider problem
+			\item Encourage retailer investments
+			\item Improve product quality/service
+		\end{wideitemize}
+		\item \textbf{Anti-competitive concerns:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Facilitate collusion
+			\item Exclude competitors
+			\item Raise prices without efficiency benefit
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Legal status of vertical restraints}
+	\begin{center}
+		\begin{tabular}{|l|c|}
+			\hline
+			\textbf{Restraint} & \textbf{US Legal Status} \\
+			\hline
+			Maximum RPM & Rule of reason \\
+			Minimum RPM & Rule of reason (since 2007) \\
+			Exclusive dealing & Rule of reason \\
+			Exclusive territories & Rule of reason \\
+			Tying & Quasi-per se illegal \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\vspace{10pt}
+	\begin{wideitemize}
+		\item Most restraints evaluated under rule of reason
+		\item Need to show harm to competition (not just competitors)
+	\end{wideitemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% KEY POINTS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Key Points}
+	\vspace{11pt}
+	\begin{wideenumerate}
+		\item \textbf{Double marginalization:} Two markups $\rightarrow$ price too high
+		\item Vertical separation hurts both firms AND consumers
+		\item \textbf{Solutions:} Integration, two-part tariff, RPM
+		\item Two-part tariff: $w = MC$, extract profit through $F$
+		\item \textbf{Free-rider problem:} Under-investment in services
+		\item Restraints (RPM, exclusive territories) can solve free-riding
+		\item Reduce \textbf{intra-brand} competition
+		\item \textbf{Antitrust:} Rule of reason; weigh pro/anti competitive effects
+	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Next time}
+	\begin{wideitemize}
+		\item \textbf{Lecture 12:} Collusion
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Sustaining collusion: trigger strategies
+			\item Critical discount factor
+			\item Detection and leniency programs
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\end{document}

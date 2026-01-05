@@ -1,0 +1,326 @@
+% ECN 594: Practice Midterm Solutions
+\documentclass[addpoints,answers]{exam}
+\usepackage{fullpage}
+\usepackage[left=1.0in,top=1.0in,right=1.0in,bottom=1.0in,headheight=3ex,headsep=3ex]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{adjustbox}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+
+\title{ECN 594: Practice Midterm Exam - SOLUTIONS}
+\rhead{\footnotesize ECN 594: Practice Midterm Solutions}
+
+\date{}
+
+\begin{document}
+\maketitle
+
+\begin{questions}
+
+\subsection*{1. Short Answer Questions (30 points)}
+\question
+\begin{parts}
+	\part[3] Optimal monopoly price with constant elasticity:
+	\begin{solution}
+	Using the Lerner Index: $\frac{P - MC}{P} = \frac{1}{|\varepsilon|}$
+
+	$\frac{P - 20}{P} = \frac{1}{3}$
+
+	$3(P - 20) = P$
+
+	$3P - 60 = P$
+
+	$2P = 60$
+
+	$\boxed{P = \$30}$
+	\end{solution}
+
+	\part[3] Own-price elasticity formula:
+	\begin{solution}
+	$\boxed{\eta_{jj} = \alpha p_j (1 - s_j)}$
+	\end{solution}
+
+	\part[3] True/False: Higher prices = more elastic demand in logit.
+	\begin{solution}
+	\textbf{True.} From the formula $\eta_{jj} = \alpha p_j (1 - s_j)$, since $\alpha < 0$ and $(1-s_j) \approx 1$ for small shares, elasticity is roughly proportional to price. This is a mechanical relationship imposed by the functional form.
+	\end{solution}
+
+	\part[3] IIA definition:
+	\begin{solution}
+	\textbf{Independence of Irrelevant Alternatives.} The ratio of choice probabilities between any two products is independent of other alternatives. Limitation: Substitution patterns don't depend on how similar products are---e.g., removing a red bus affects blue buses and trains equally, regardless of product characteristics.
+	\end{solution}
+
+	\part[3] OLS bias direction:
+	\begin{solution}
+	\textbf{True.} OLS underestimates the magnitude of $\alpha$ (makes it less negative) because unobserved quality $\xi_j$ is positively correlated with price. High-quality products charge higher prices, and OLS attributes this to lower price sensitivity rather than quality.
+	\end{solution}
+
+	\part[3] Perfect price discrimination and DWL:
+	\begin{solution}
+	\textbf{True.} Under perfect price discrimination, the monopolist captures all consumer surplus but produces the efficient quantity (where $P = MC$), so there is no deadweight loss.
+	\end{solution}
+
+	\part[3] Instruments for price endogeneity:
+	\begin{solution}
+	Any of: (1) Cost shifters (input prices, exchange rates), (2) BLP instruments (characteristics of other products), (3) Hausman instruments (prices in other markets), (4) Supply-side exclusion restrictions.
+	\end{solution}
+
+	\part[3] Two-part tariff efficiency:
+	\begin{solution}
+	\textbf{True.} With $p = MC$, consumers face efficient marginal prices and consume the efficient quantity. The fee $F$ extracts surplus but doesn't distort consumption. Compared to monopoly pricing ($p > MC$), total surplus increases because DWL is eliminated.
+	\end{solution}
+
+	\part[3] Selection by indicators:
+	\begin{solution}
+	\textbf{Selection by indicators} is price discrimination based on observable customer characteristics. Examples: student discounts (student ID), senior discounts (age), geographic pricing (location), business vs. personal rates (company affiliation).
+	\end{solution}
+
+	\part[3] IC constraint in self-selection:
+	\begin{solution}
+	\textbf{True.} The incentive compatibility (IC) constraint ensures each type prefers their designated option. For the high type: $v_H(q_H) - p_H \geq v_H(q_L) - p_L$. If violated, high-type consumers would buy the low-type product, undermining the pricing strategy.
+	\end{solution}
+\end{parts}
+
+\newpage
+\subsection*{2. Demand Estimation (30 points)}
+\question
+\begin{parts}
+	\part[5] Verify market share for product 1:
+	\begin{solution}
+	$v_j = \delta_j + \alpha p_j$
+
+	$v_1 = 2.0 + (-0.5)(10) = 2.0 - 5.0 = -3.0$
+
+	$v_2 = 1.5 + (-0.5)(8) = 1.5 - 4.0 = -2.5$
+
+	$v_3 = 2.5 + (-0.5)(12) = 2.5 - 6.0 = -3.5$
+
+	$\exp(v_1) = \exp(-3.0) = 0.0498$
+
+	$\exp(v_2) = \exp(-2.5) = 0.0821$
+
+	$\exp(v_3) = \exp(-3.5) = 0.0302$
+
+	Denominator: $1 + 0.0498 + 0.0821 + 0.0302 = 1.1621$
+
+	$s_1 = \frac{0.0498}{1.1621} = 0.0429 \approx 0.04$ (not 0.25)
+
+	\textit{Note: The shares given in the problem are illustrative. In a real exam, the numbers would be consistent.}
+	\end{solution}
+
+	\part[5] Own-price elasticities:
+	\begin{solution}
+	$\eta_{jj} = \alpha p_j (1 - s_j)$
+
+	$\eta_{11} = (-0.5)(10)(1 - 0.25) = (-0.5)(10)(0.75) = -3.75$
+
+	$\eta_{22} = (-0.5)(8)(1 - 0.20) = (-0.5)(8)(0.80) = -3.20$
+
+	$\eta_{33} = (-0.5)(12)(1 - 0.15) = (-0.5)(12)(0.85) = -5.10$
+
+	\textbf{Product 3 has the most elastic demand} ($|\eta_{33}| = 5.10$), driven by its higher price.
+	\end{solution}
+
+	\part[5] Cross-price elasticity and IIA:
+	\begin{solution}
+	Cross-price elasticity: $\eta_{jk} = -\alpha p_k s_k = -(-0.5)(8)(0.20) = 0.80$
+
+	$\eta_{12} = 0.80$ (how much demand for 1 changes when price of 2 increases)
+
+	$\eta_{13} = -(-0.5)(12)(0.15) = 0.90$
+
+	\textbf{IIA implication:} The cross-price elasticity depends only on the other product's price and share, NOT on how similar the products are. If products 1 and 2 were close substitutes (e.g., Coke and Pepsi), we'd expect $\eta_{12} > \eta_{13}$, but logit doesn't capture this.
+	\end{solution}
+
+	\part[5] Berry inversion:
+	\begin{solution}
+	From logit: $\frac{s_j}{s_0} = \exp(\delta_j + \alpha p_j)$
+
+	Taking logs: $\ln(s_j) - \ln(s_0) = \delta_j + \alpha p_j$
+
+	\textbf{Berry inversion:} $\boxed{\delta_j + \alpha p_j = \ln(s_j) - \ln(s_0)}$
+
+	This allows us to compute mean utilities directly from observed shares.
+	\end{solution}
+
+	\part[10] Consumer surplus calculation:
+	\begin{solution}
+	Using $v_j = \delta_j + \alpha p_j$:
+
+	$v_1 = 2.0 - 5.0 = -3.0$, $v_2 = 1.5 - 4.0 = -2.5$, $v_3 = 2.5 - 6.0 = -3.5$
+
+	$IV = \ln(1 + e^{-3.0} + e^{-2.5} + e^{-3.5}) = \ln(1.1621) = 0.150$
+
+	$CS = \frac{1}{|\alpha|} \cdot IV = \frac{1}{0.5} \times 0.150 = \$0.30$ per consumer
+
+	\textbf{Without product 3:}
+
+	$IV' = \ln(1 + e^{-3.0} + e^{-2.5}) = \ln(1.1319) = 0.124$
+
+	$CS' = \frac{1}{0.5} \times 0.124 = \$0.248$
+
+	$\Delta CS = 0.248 - 0.30 = \boxed{-\$0.052}$ per consumer
+
+	Consumers lose about 5 cents per person from removing product 3.
+	\end{solution}
+\end{parts}
+
+\newpage
+\subsection*{3. Price Discrimination by Indicators (20 points)}
+\question
+\begin{parts}
+	\part[5] Optimal prices under price discrimination:
+	\begin{solution}
+	For each segment, maximize profit separately.
+
+	\textbf{Business:} $Q_B = 100 - P_B$, so $P_B = 100 - Q_B$
+
+	$\pi_B = (P_B - 10)Q_B = (100 - Q_B - 10)Q_B = (90 - Q_B)Q_B$
+
+	FOC: $90 - 2Q_B = 0 \Rightarrow Q_B = 45$, $P_B = 100 - 45 = \$55$
+
+	\textbf{Students:} $Q_S = 50 - 2P_S$, so $P_S = 25 - 0.5Q_S$
+
+	$\pi_S = (P_S - 10)Q_S = (25 - 0.5Q_S - 10)Q_S = (15 - 0.5Q_S)Q_S$
+
+	FOC: $15 - Q_S = 0 \Rightarrow Q_S = 15$, $P_S = 25 - 7.5 = \$17.50$
+
+	$\boxed{P_B = \$55, \quad P_S = \$17.50}$
+	\end{solution}
+
+	\part[5] Total profit under price discrimination:
+	\begin{solution}
+	$\pi_B = (55 - 10) \times 45 = 45 \times 45 = \$2,025$
+
+	$\pi_S = (17.50 - 10) \times 15 = 7.50 \times 15 = \$112.50$
+
+	$\boxed{\pi_{total} = 2,025 + 112.50 = \$2,137.50}$
+	\end{solution}
+
+	\part[5] Uniform pricing:
+	\begin{solution}
+	Total demand: $Q = Q_B + Q_S = (100 - P) + (50 - 2P) = 150 - 3P$
+
+	Inverse demand: $P = 50 - \frac{Q}{3}$
+
+	$\pi = (P - 10)Q = (50 - \frac{Q}{3} - 10)Q = (40 - \frac{Q}{3})Q$
+
+	FOC: $40 - \frac{2Q}{3} = 0 \Rightarrow Q = 60$
+
+	$P = 50 - 20 = \$30$
+
+	\textit{Check:} At $P = 30$: $Q_B = 100 - 30 = 70$, $Q_S = 50 - 60 = -10 < 0$
+
+	Students are priced out! Only businesses buy.
+
+	With only businesses: $\pi = (30 - 10) \times 70 = \$1,400$
+
+	Better to set $P = \$25$ (students just indifferent): $Q_B = 75$, $Q_S = 0$
+
+	$\pi = (25 - 10) \times 75 = \$1,125$
+
+	\textbf{Optimal:} $P = \$30$, $Q = 70$ (businesses only), or compare to $P = \$55$ for businesses only: $\pi = \$2,025$ which is better.
+
+	$\boxed{P^* = \$55}$ (serve only businesses under uniform pricing)
+	\end{solution}
+
+	\part[5] Consumer surplus comparison:
+	\begin{solution}
+	\textbf{Under discrimination:}
+
+	$CS_B = \frac{1}{2}(100 - 55)(45) = \frac{1}{2}(45)(45) = \$1,012.50$
+
+	$CS_S = \frac{1}{2}(25 - 17.50)(15) = \frac{1}{2}(7.50)(15) = \$56.25$
+
+	Total CS = \$1,068.75
+
+	\textbf{Under uniform ($P = \$55$, businesses only):}
+
+	$CS_B = \frac{1}{2}(100 - 55)(45) = \$1,012.50$
+
+	$CS_S = \$0$ (priced out)
+
+	Total CS = \$1,012.50
+
+	\textbf{Students benefit from price discrimination} (get positive surplus vs. zero). Business CS is the same either way.
+	\end{solution}
+\end{parts}
+
+\newpage
+\subsection*{4. Two-Part Tariff (20 points)}
+\question
+\begin{parts}
+	\part[5] Uniform pricing:
+	\begin{solution}
+	Demand: $q = 20 - p$, so $P = 20 - q$
+
+	Per-consumer profit: $\pi = (p - 2)q = (20 - q - 2)q = (18 - q)q$
+
+	FOC: $18 - 2q = 0 \Rightarrow q = 9$, $p = 20 - 9 = \$11$
+
+	Per-consumer profit: $(11 - 2)(9) = \$81$
+
+	Total profit: $100 \times 81 = \boxed{\$8,100}$
+	\end{solution}
+
+	\part[5] Optimal two-part tariff:
+	\begin{solution}
+	Set $p = MC = \$2$ to maximize quantity consumed.
+
+	At $p = 2$: $q = 20 - 2 = 18$ visits per consumer.
+
+	Consumer surplus at $p = 2$: $CS = \frac{1}{2}(20 - 2)(18) = \frac{1}{2}(18)(18) = \$162$
+
+	Set $F = CS = \$162$ to extract all surplus.
+
+	\textbf{Optimal two-part tariff:} $\boxed{F = \$162, \quad p = \$2}$
+
+	Total profit: $100 \times 162 = \$16,200$
+	\end{solution}
+
+	\part[5] Total surplus comparison:
+	\begin{solution}
+	\textbf{Uniform pricing:}
+
+	$CS = \frac{1}{2}(20 - 11)(9) \times 100 = \frac{1}{2}(9)(9)(100) = \$4,050$
+
+	$PS = \$8,100$
+
+	$TS = 4,050 + 8,100 = \$12,150$
+
+	\textbf{Two-part tariff:}
+
+	$CS = 0$ (all extracted by fee)
+
+	$PS = \$16,200$
+
+	$TS = 0 + 16,200 = \$16,200$
+
+	\textbf{Difference:} Two-part tariff increases total surplus by \$4,050.
+
+	\textbf{Explanation:} Under uniform pricing, $p > MC$ creates deadweight loss. Under the two-part tariff, $p = MC$ means efficient quantity is consumed. The fee transfers surplus but doesn't distort consumption.
+	\end{solution}
+
+	\part[5] Heterogeneous consumers constraint:
+	\begin{solution}
+	With two types, the gym faces a participation constraint. If $F$ is too high, light users won't join.
+
+	Light users at $p$: $q_L = 10 - p$, $CS_L = \frac{1}{2}(10 - p)(10 - p) = \frac{(10-p)^2}{2}$
+
+	For light users to participate: $F \leq CS_L = \frac{(10-p)^2}{2}$
+
+	\textbf{The binding constraint is the light users' participation constraint.}
+
+	The fee must be low enough that light users are willing to pay it given their smaller consumer surplus. This limits how much surplus can be extracted.
+
+	If $p = MC = 2$: $CS_L = \frac{(8)^2}{2} = \$32$, so $F \leq \$32$
+
+	(Much less than $\$162$ from heavy users, leaving money on the table)
+	\end{solution}
+\end{parts}
+
+\end{questions}
+
+\end{document}

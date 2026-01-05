@@ -1,0 +1,260 @@
+% ECN 594: Homework 1 Solutions
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\usepackage[left=1.0in,top=1.0in,right=1.0in,bottom=1.0in,headheight=3ex,headsep=3ex]{geometry}
+\usepackage{graphicx}
+\usepackage{float}
+\usepackage{adjustbox}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{hyperref}
+\usepackage{booktabs}
+
+\newcommand{\blankline}{\quad\pagebreak[2]}
+
+\title{ECN 594: Homework 1 Solutions \\ \large{Demand Estimation}}
+\author{Solution Key}
+\date{}
+
+\linespread{1.3}
+\usepackage[T1]{fontenc}
+\usepackage{fancyhdr,lastpage}
+\pagestyle{fancy}
+\lhead{}
+\chead{}
+\rhead{\footnotesize ECN 594: HW1 Solutions}
+\lfoot{}
+\cfoot{\small \thepage/\pageref*{LastPage}}
+\rfoot{}
+
+\usepackage[dvipsnames]{xcolor}
+\definecolor{asumaroon}{rgb}{0.549,0.114,0.251}
+\hypersetup{colorlinks,breaklinks,linkcolor=asumaroon,urlcolor=asumaroon,anchorcolor=asumaroon,citecolor=black}
+
+\renewcommand{\theenumi}{\alph{enumi}}
+
+\begin{document}
+\maketitle
+
+\subsection*{Question 1: Basic Logit Model}
+
+\textbf{(a) Berry Inversion}
+
+Starting from the logit choice probability:
+\begin{align*}
+s_j &= \frac{\exp(\delta_j)}{1 + \sum_{k=1}^{J} \exp(\delta_k)} \\
+s_0 &= \frac{1}{1 + \sum_{k=1}^{J} \exp(\delta_k)}
+\end{align*}
+
+Taking the ratio:
+\begin{align*}
+\frac{s_j}{s_0} = \exp(\delta_j)
+\end{align*}
+
+Taking logs:
+\begin{align*}
+\ln(s_j) - \ln(s_0) = \delta_j
+\end{align*}
+
+Substituting $\delta_j = \beta_0 + \beta_1 \cdot \text{sugar}_j + \alpha \cdot p_j + \xi_j$:
+\begin{align*}
+\boxed{\ln(s_j) - \ln(s_0) = \beta_0 + \beta_1 \cdot \text{sugar}_j + \alpha \cdot p_j + \xi_j}
+\end{align*}
+
+This is a linear regression with dependent variable $\ln(s_j) - \ln(s_0)$ and error term $\xi_j$.
+
+\vspace{1em}
+\textbf{(b) OLS Estimation}
+
+\begin{center}
+\begin{tabular}{lc}
+\toprule
+Parameter & OLS Estimate \\
+\midrule
+$\hat{\beta}_0$ (constant) & $-2.967$ \\
+$\hat{\beta}_1$ (sugar) & $0.046$ \\
+$\hat{\alpha}$ (price) & $-10.20$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+\vspace{1em}
+\textbf{(c) OLS Bias}
+
+OLS is likely biased because prices are \textbf{endogenous}:
+\begin{itemize}
+\item Firms set higher prices for products with higher unobserved quality ($\xi_j$)
+\item This creates positive correlation: $\text{Cov}(p_j, \xi_j) > 0$
+\item Since $\xi_j$ is in the error term, we have $\text{Cov}(p_j, \text{error}) > 0$
+\item This causes \textbf{upward bias} in $\alpha$ (makes it less negative than the true value)
+\end{itemize}
+
+\textit{Intuition:} Products consumers like for unobserved reasons (brand, taste, advertising) charge higher prices. OLS interprets high prices with high shares as ``price doesn't hurt demand much'' when really it's unobserved quality driving both.
+
+\vspace{1em}
+\textbf{(d) 2SLS Estimation}
+
+\begin{center}
+\begin{tabular}{lcc}
+\toprule
+Parameter & OLS & 2SLS \\
+\midrule
+$\hat{\beta}_0$ (constant) & $-2.967$ & $-2.891$ \\
+$\hat{\beta}_1$ (sugar) & $0.046$ & $0.048$ \\
+$\hat{\alpha}$ (price) & $-10.20$ & $-10.94$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+As expected, OLS is \textbf{less negative} than 2SLS ($-10.20$ vs $-10.94$), confirming upward bias. The 2SLS estimate suggests consumers are more price sensitive than OLS indicates.
+
+\vspace{1em}
+\textbf{(e) Own-Price Elasticities}
+
+See Figure 1. There is a \textbf{negative linear relationship} between prices and elasticities.
+
+This is a \textbf{bug} (limitation) of the logit model. The formula $\eta_{jj} = \alpha \cdot p_j \cdot (1-s_j)$ mechanically ties elasticity to price. Since $\alpha < 0$ and $(1-s_j) \approx 1$ for small shares, elasticity is roughly proportional to price.
+
+This relationship is imposed by functional form, not learned from data. In reality, some high-priced products may have inelastic demand (luxury goods), while some low-priced products may be elastic (commodities).
+
+\newpage
+\subsection*{Question 2: Logit with Demographic Interactions}
+
+\textbf{(a) Interpretation of $\alpha_{inc}$}
+
+$\alpha_{inc}$ captures how income affects price sensitivity.
+
+Total price coefficient: $\alpha_i = \alpha_0 + \alpha_{inc} \cdot \text{income}_i$
+
+\textbf{Expected sign: Positive}
+
+Reasoning:
+\begin{itemize}
+\item $\alpha_0 < 0$ (everyone dislikes higher prices)
+\item Higher-income consumers are less price sensitive
+\item If $\alpha_{inc} > 0$, high-income consumers have $\alpha_i$ closer to zero (less negative)
+\end{itemize}
+
+Example: If $\alpha_0 = -5$ and $\alpha_{inc} = 2$:
+\begin{itemize}
+\item Low income ($=0$): $\alpha = -5$ (very price sensitive)
+\item High income ($=1$): $\alpha = -3$ (less price sensitive)
+\end{itemize}
+
+\vspace{1em}
+\textbf{(b) Estimation Results}
+
+\begin{center}
+\begin{tabular}{lc}
+\toprule
+Parameter & Estimate \\
+\midrule
+$\hat{\beta}_0$ (constant) & $-3.80$ \\
+$\hat{\alpha}_0$ (price) & $-2.93$ \\
+$\hat{\beta}_{0,inc}$ (constant $\times$ income) & $4.87$ \\
+$\hat{\alpha}_{inc}$ (price $\times$ income) & $-36.6$ \\
+$\hat{\beta}_1$ (sugar $\times$ income) & $0.13$ \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Note: The large negative $\alpha_{inc}$ is an artifact of how income is scaled in the data.
+
+\vspace{1em}
+\textbf{(c) Elasticities with Demographics}
+
+See Figure 2. The tight linear relationship is now \textbf{broken}---the pattern is scattered.
+
+\textbf{Why?}
+\begin{itemize}
+\item Basic logit: all consumers have same $\alpha$, so elasticity mechanically depends on price
+\item With demographics: different consumers have different $\alpha_i$
+\item Aggregate elasticity depends on distribution of consumer types and sorting
+\item Products attracting high-income (less price-sensitive) consumers may have lower elasticities even at high prices
+\end{itemize}
+
+This is more realistic---the model now lets data reveal the price-elasticity relationship.
+
+\vspace{1em}
+\textbf{(d) Does Adding Demographics Help with IIA?}
+
+\textbf{Partially yes:}
+\begin{itemize}
+\item Different consumer types have different substitution patterns
+\item At the aggregate level, this creates richer substitution
+\end{itemize}
+
+\textbf{Still limited:}
+\begin{itemize}
+\item For any individual consumer type, IIA still holds
+\item A consumer with specific income still has logit substitution patterns
+\end{itemize}
+
+\textbf{What would fully address IIA:}
+\begin{itemize}
+\item Random coefficients (mixed logit / full BLP)
+\item Allows idiosyncratic preferences even conditional on demographics
+\item Substitution then depends on characteristic similarity, not just shares
+\end{itemize}
+
+\newpage
+\subsection*{Question 3: Consumer Surplus}
+
+\textbf{(a) Consumer Surplus Formula}
+
+For Type 1 EV errors, expected maximum utility has closed form. The ``inclusive value'' is:
+\begin{align*}
+IV_t = \ln\left(1 + \sum_{j=1}^{J_t} \exp(\delta_{jt})\right)
+\end{align*}
+
+Consumer surplus in monetary units:
+\begin{align*}
+\boxed{E[CS_t] = \frac{1}{|\alpha|} \ln\left(1 + \sum_{j=1}^{J_t} \exp(\delta_{jt})\right)}
+\end{align*}
+
+Notes:
+\begin{itemize}
+\item CS is relative to having only the outside option
+\item The ``1'' inside the log is from outside option ($\delta_0 = 0$)
+\item Each product $j$ contributes $\exp(\delta_{jt})$ to the sum
+\end{itemize}
+
+\vspace{1em}
+\textbf{(b) CS Calculation for C01Q1}
+
+Using 2SLS estimates with $\hat{\alpha} = -10.94$:
+
+\begin{center}
+\begin{tabular}{lc}
+\toprule
+Scenario & Expected CS per Consumer \\
+\midrule
+All products available & \$0.1547 \\
+Without F1B04 & \$0.1536 \\
+\midrule
+\textbf{Change from removing F1B04} & \textbf{$-\$0.0011$} \\
+\bottomrule
+\end{tabular}
+\end{center}
+
+Consumers lose about \$0.0011 per person when F1B04 is removed.
+
+\vspace{1em}
+\textbf{(c) Products with Largest/Smallest Impact}
+
+\textbf{Product whose removal most harms consumers:} Typically the product with highest market share (highest $\delta$).
+
+\textbf{Product whose removal least harms consumers:} Typically the product with lowest market share (lowest $\delta$).
+
+\textbf{Intuition:} From the log-sum formula, products with high $\exp(\delta)$ have larger impact on inclusive value. High $\delta$ means:
+\begin{itemize}
+\item Lower price (since $\alpha < 0$)
+\item Desirable characteristics
+\item High unobserved quality
+\end{itemize}
+
+This makes sense: removing a popular product that many consumers choose hurts welfare more than removing a niche product few consumers buy.
+
+\textbf{Key relationship:} CS change is roughly proportional to market share, since share $\propto \exp(\delta)$.
+
+\end{document}
