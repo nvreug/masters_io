@@ -36,6 +36,27 @@
 \definecolor{red}{RGB}{213,94,0}
 \definecolor{yellow}{RGB}{240,228,66}
 \definecolor{green}{RGB}{0,158,115}
+\definecolor{solutionbg}{RGB}{240,248,240}
+\definecolor{solutionframe}{RGB}{0,158,115}
+
+% Solution box environment for worked answers
+\usepackage{tcolorbox}
+\newtcolorbox{solutionbox}[1][]{
+  enhanced,
+  colback=solutionbg,
+  colframe=solutionframe,
+  boxrule=0pt,
+  leftrule=3pt,
+  arc=0pt,
+  left=8pt,
+  right=8pt,
+  top=6pt,
+  bottom=6pt,
+  fonttitle=\bfseries,
+  title={#1},
+  attach boxed title to top left={yshift=-2mm, xshift=5mm},
+  boxed title style={colback=solutionframe, colframe=solutionframe, size=small, arc=2pt}
+}
 
 \hypersetup{
   colorlinks=false,
@@ -84,27 +105,16 @@ Nicholas Vreugdenhil \\
   \centering
 \end{frame}
 
-\begin{frame}{Plan for today}
+\begin{frame}{Plan}
   \begin{wideenumerate}
-    \item What determines market structure?
-    \item Free entry condition
-    \item Entry with Cournot: worked example
-    \item[] \rule{0.5\textwidth}{0.4pt}
-    \item Entry barriers
-    \item Entry deterrence strategies
-    \item Sequential game analysis (from ECN 532)
+    \item \textbf{Entry and market structure}
+    \item Entry deterrence
   \end{wideenumerate}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% PART 1: ENTRY AND MARKET STRUCTURE
+% ENTRY AND MARKET STRUCTURE
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{transitionframe}
-	\begin{center}
-		{\Huge Part 1: Entry and Market Structure}
-	\end{center}
-\end{transitionframe}
 
 \begin{frame}{What determines market structure?}
 	\begin{wideitemize}
@@ -156,6 +166,66 @@ Nicholas Vreugdenhil \\
 	\end{wideitemize}
 \end{frame}
 
+\begin{frame}{Entry reduces profits: graphical}
+	\begin{center}
+		\begin{tikzpicture}[scale=0.8]
+			\draw[->] (0,0) -- (8,0) node[right] {$N$};
+			\draw[->] (0,0) -- (0,5) node[above] {$\pi$};
+
+			% Profit curve
+			\draw[thick, blue, domain=1:7, smooth] plot (\x, {4/(\x*\x/4 + 0.5)});
+			\node[blue, right] at (7,0.8) {$\pi(N)$};
+
+			% Fixed cost line
+			\draw[dashed, red] (0,1.5) -- (8,1.5) node[right] {$F$};
+
+			% Equilibrium
+			\draw[dashed] (3,0) -- (3,1.5);
+			\node[below] at (3,0) {$N^*$};
+
+			% Labels
+			\node[left] at (0,1.5) {$F$};
+		\end{tikzpicture}
+	\end{center}
+	\begin{wideitemize}
+		\item Entry continues until $\pi(N) = F$
+		\item $N^*$ = equilibrium number of firms
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Comparative statics of entry}
+	\begin{wideitemize}
+		\item \textbf{How does $N^*$ change when:}
+		\item Market size $\uparrow$: $N^* \uparrow$ (more room for firms)
+		\item Fixed cost $F \uparrow$: $N^* \downarrow$ (harder to cover costs)
+		\item Marginal cost $c \uparrow$: $N^* \downarrow$ (lower profit margins)
+		\item Competition intensity $\uparrow$: $N^* \downarrow$ (profits lower for any $N$)
+		\item \textbf{Prediction:} Large markets with low entry costs have many small firms
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Practice: Free entry}
+	\begin{wideitemize}
+		\item \textbf{True, False, or NEI:}
+		\item (a) In a free entry equilibrium, all firms earn zero profit.
+		\item (b) Higher fixed costs lead to more concentrated industries.
+		\item (c) Under Bertrand competition with homogeneous products, free entry leads to the same number of firms as Cournot.
+	\end{wideitemize}
+	\vspace{10pt}
+	\centering
+	\textit{Take 2 minutes.}
+\end{frame}
+
+\begin{frame}{Practice: Free entry (solution)}
+	\begin{solutionbox}[Answers]
+		\begin{wideitemize}
+			\item \textbf{(a) FALSE.} Firms earn $\pi(N^*) \geq F$. Integer constraint means they may earn more than $F$.
+			\item \textbf{(b) TRUE.} Higher $F$ means fewer firms can cover their fixed costs. Industries are more concentrated.
+			\item \textbf{(c) FALSE.} Under Bertrand with homogeneous products, $P = MC$ even with 2 firms. More entry doesn't change profits---1 firm would be monopoly, 2+ gives $P = MC$.
+		\end{wideitemize}
+	\end{solutionbox}
+\end{frame}
+
 \begin{frame}{Entry with Cournot: setup}
 	\begin{wideitemize}
 		\item Inverse demand: $P = a - bQ$
@@ -181,28 +251,30 @@ Nicholas Vreugdenhil \\
 \end{frame}
 
 \begin{frame}{Worked example: Entry (solution)}
-	\begin{wideitemize}
-		\item With $a = 100$, $b = 1$, $c = 20$:
-		\begin{align*}
-			\pi(N) = \frac{(100 - 20)^2}{(N + 1)^2} = \frac{6400}{(N + 1)^2}
-		\end{align*}
-		\item Check different values of $N$:
-		\begin{center}
-			\begin{tabular}{|c|c|c|}
-				\hline
-				$N$ & $\pi(N)$ & Enter? \\
-				\hline
-				1 & $6400/4 = 1600$ & Yes ($> 100$) \\
-				2 & $6400/9 = 711$ & Yes \\
-				3 & $6400/16 = 400$ & Yes \\
-				5 & $6400/36 = 178$ & Yes \\
-				7 & $6400/64 = 100$ & Indifferent \\
-				8 & $6400/81 = 79$ & No ($< 100$) \\
-				\hline
-			\end{tabular}
-		\end{center}
-		\item \textbf{Answer:} $N^* = 7$ firms enter
-	\end{wideitemize}
+	\begin{solutionbox}[Solution]
+		\begin{wideitemize}
+			\item With $a = 100$, $b = 1$, $c = 20$:
+			\begin{align*}
+				\pi(N) = \frac{(100 - 20)^2}{(N + 1)^2} = \frac{6400}{(N + 1)^2}
+			\end{align*}
+			\item Check different values of $N$:
+			\begin{center}
+				\begin{tabular}{|c|c|c|}
+					\hline
+					$N$ & $\pi(N)$ & Enter? \\
+					\hline
+					1 & $6400/4 = 1600$ & Yes ($> 100$) \\
+					2 & $6400/9 = 711$ & Yes \\
+					3 & $6400/16 = 400$ & Yes \\
+					5 & $6400/36 = 178$ & Yes \\
+					7 & $6400/64 = 100$ & Indifferent \\
+					8 & $6400/81 = 79$ & No ($< 100$) \\
+					\hline
+				\end{tabular}
+			\end{center}
+			\item \textbf{Answer:} $N^* = 7$ firms enter
+		\end{wideitemize}
+	\end{solutionbox}
 \end{frame}
 
 \begin{frame}{Fixed costs and natural monopoly}
@@ -225,6 +297,40 @@ Nicholas Vreugdenhil \\
 	\end{wideitemize}
 \end{frame}
 
+\begin{frame}{Practice: Market structure}
+	\begin{wideitemize}
+		\item \textbf{Question:} Two industries with same demand $P = 100 - Q$.
+		\item Industry A: $F_A = 200$, $c_A = 10$ (Cournot)
+		\item Industry B: $F_B = 50$, $c_B = 30$ (Cournot)
+		\item Which industry will have more firms in equilibrium?
+	\end{wideitemize}
+	\vspace{10pt}
+	\centering
+	\textit{Take 3 minutes.}
+\end{frame}
+
+\begin{frame}{Practice: Market structure (solution)}
+	\begin{solutionbox}[Solution]
+		\begin{wideitemize}
+			\item Industry A: $\pi_A(N) = \frac{(100-10)^2}{(N+1)^2} = \frac{8100}{(N+1)^2}$
+			\begin{wideitemize}
+				\vspace{3pt}
+				\item $N=5$: $\pi = 225 > 200$ (Enter)
+				\item $N=6$: $\pi = 165 < 200$ (No)
+				\item $\Rightarrow N^*_A = 5$
+			\end{wideitemize}
+			\item Industry B: $\pi_B(N) = \frac{(100-30)^2}{(N+1)^2} = \frac{4900}{(N+1)^2}$
+			\begin{wideitemize}
+				\vspace{3pt}
+				\item $N=8$: $\pi = 60 > 50$ (Enter)
+				\item $N=9$: $\pi = 49 < 50$ (No)
+				\item $\Rightarrow N^*_B = 8$
+			\end{wideitemize}
+			\item Industry B has more firms despite higher MC (lower $F$ dominates)
+		\end{wideitemize}
+	\end{solutionbox}
+\end{frame}
+
 \begin{frame}{Excess entry theorem (brief)}
 	\begin{wideitemize}
 		\item Free entry may produce ``too many'' firms
@@ -241,14 +347,15 @@ Nicholas Vreugdenhil \\
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% PART 2: ENTRY DETERRENCE
+% ENTRY DETERRENCE
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{transitionframe}
-	\begin{center}
-		{\Huge Part 2: Entry Deterrence}
-	\end{center}
-\end{transitionframe}
+\begin{frame}{Plan}
+  \begin{wideenumerate}
+    \item Entry and market structure
+    \item \textbf{Entry deterrence}
+  \end{wideenumerate}
+\end{frame}
 
 \begin{frame}{Entry barriers}
 	\begin{wideitemize}
@@ -287,6 +394,53 @@ Nicholas Vreugdenhil \\
 			\item Check what incumbent would actually do if entry occurs
 			\item Non-credible threats are ignored
 		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Entry game: basic structure}
+	\begin{center}
+		\begin{tikzpicture}[
+			level 1/.style={sibling distance=5cm, level distance=2cm},
+			level 2/.style={sibling distance=3cm, level distance=2cm}
+		]
+			\node[circle, draw] (E) {E}
+			child {
+				node[circle, draw] (I) {I}
+				child {node {$(20, 0)$} edge from parent node[left] {Fight}}
+				child {node {$(50, 30)$} edge from parent node[right] {Accommodate}}
+				edge from parent node[left] {Enter}
+			}
+			child {
+				node {$(0, 100)$}
+				edge from parent node[right] {Stay Out}
+			};
+			\node[left=0.3cm of E] {\small Entrant};
+		\end{tikzpicture}
+	\end{center}
+	\begin{wideitemize}
+		\item Payoffs: (Entrant, Incumbent)
+		\item If I would Accommodate, threat to Fight is not credible
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Finding the SPE}
+	\begin{wideitemize}
+		\item \textbf{Step 1: Incumbent's decision (if entry occurs)}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Fight: $\pi_I = 0$
+			\item Accommodate: $\pi_I = 30$
+			\item $\Rightarrow$ Incumbent accommodates
+		\end{wideitemize}
+		\item \textbf{Step 2: Entrant's decision (knowing I will accommodate)}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Enter: $\pi_E = 50$
+			\item Stay Out: $\pi_E = 0$
+			\item $\Rightarrow$ Entrant enters
+		\end{wideitemize}
+		\item \textbf{SPE:} (Enter, Accommodate) with payoffs $(50, 30)$
+		\item Entry not deterred because threat wasn't credible
 	\end{wideitemize}
 \end{frame}
 
@@ -351,30 +505,34 @@ Nicholas Vreugdenhil \\
 \end{frame}
 
 \begin{frame}{Worked example: Entry deterrence (solution 1)}
-	\begin{wideitemize}
-		\item \textbf{Step 1: Post-entry equilibrium}
-		\item Incumbent produces $q_I \leq K$ at $MC = 0$
-		\item Entrant FOC: $100 - 2q_E - q_I - 20 = 0 \Rightarrow q_E = 40 - q_I/2$
-		\item If $K$ is large, incumbent produces $q_I = K$
-		\item Entrant produces: $q_E = 40 - K/2$
-		\item Price: $P = 100 - K - (40 - K/2) = 60 - K/2$
-		\item Entrant profit: $\pi_E = (60 - K/2 - 20)(40 - K/2) = (40 - K/2)^2$
-	\end{wideitemize}
+	\begin{solutionbox}[Solution]
+		\begin{wideitemize}
+			\item \textbf{Step 1: Post-entry equilibrium}
+			\item Incumbent produces $q_I \leq K$ at $MC = 0$
+			\item Entrant FOC: $100 - 2q_E - q_I - 20 = 0 \Rightarrow q_E = 40 - q_I/2$
+			\item If $K$ is large, incumbent produces $q_I = K$
+			\item Entrant produces: $q_E = 40 - K/2$
+			\item Price: $P = 100 - K - (40 - K/2) = 60 - K/2$
+			\item Entrant profit: $\pi_E = (60 - K/2 - 20)(40 - K/2) = (40 - K/2)^2$
+		\end{wideitemize}
+	\end{solutionbox}
 \end{frame}
 
 \begin{frame}{Worked example: Entry deterrence (solution 2)}
-	\begin{wideitemize}
-		\item \textbf{Step 2: Entry decision}
-		\item Entrant enters if: $\pi_E - F > 0$
-		\begin{align*}
-			(40 - K/2)^2 > 200
-		\end{align*}
-		\item Entry occurs if: $40 - K/2 > \sqrt{200} \approx 14.1$
-		\item Entry is deterred if: $K \geq 2(40 - 14.1) = 51.8$
-		\item \textbf{Step 3: Incumbent's choice}
-		\item If deterrence is profitable: Set $K \geq 52$
-		\item Compare: monopoly profits with $K = 52$ vs accommodation
-	\end{wideitemize}
+	\begin{solutionbox}[Solution]
+		\begin{wideitemize}
+			\item \textbf{Step 2: Entry decision}
+			\item Entrant enters if: $\pi_E - F > 0$
+			\begin{align*}
+				(40 - K/2)^2 > 200
+			\end{align*}
+			\item Entry occurs if: $40 - K/2 > \sqrt{200} \approx 14.1$
+			\item Entry is deterred if: $K \geq 2(40 - 14.1) = 51.8$
+			\item \textbf{Step 3: Incumbent's choice}
+			\item If deterrence is profitable: Set $K \geq 52$
+			\item Compare: monopoly profits with $K = 52$ vs accommodation
+		\end{wideitemize}
+	\end{solutionbox}
 \end{frame}
 
 \begin{frame}{When is deterrence profitable?}
@@ -393,6 +551,85 @@ Nicholas Vreugdenhil \\
 			\item Monopoly profits are high
 		\end{wideitemize}
 		\item Sometimes: accommodation is better (``puppy dog'' strategy)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Fudenberg-Tirole taxonomy}
+	\begin{center}
+	\begin{tabular}{|l|c|c|}
+		\hline
+		& \textbf{Deter} & \textbf{Accommodate} \\
+		\hline
+		\textbf{Tough} & Top Dog & Lean \& Hungry \\
+		& (Overinvest) & (Underinvest) \\
+		\hline
+		\textbf{Soft} & Puppy Dog & Fat Cat \\
+		& (Underinvest) & (Overinvest) \\
+		\hline
+	\end{tabular}
+	\end{center}
+	\vspace{5pt}
+	\begin{wideitemize}
+		\item ``Tough'' = investment makes incumbent more aggressive
+		\item ``Soft'' = investment makes incumbent less aggressive
+		\item Optimal strategy depends on competition type!
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Practice: Entry deterrence}
+	\begin{wideitemize}
+		\item \textbf{True, False, or NEI:}
+		\item (a) An incumbent should always try to deter entry.
+		\item (b) Building excess capacity is always a credible deterrent.
+		\item (c) Limit pricing works better when entrant believes incumbent has low costs.
+	\end{wideitemize}
+	\vspace{10pt}
+	\centering
+	\textit{Take 2 minutes.}
+\end{frame}
+
+\begin{frame}{Practice: Entry deterrence (solution)}
+	\begin{solutionbox}[Answers]
+		\begin{wideitemize}
+			\item \textbf{(a) FALSE.} Sometimes accommodation is more profitable. Deterrence has costs (excess capacity, low prices).
+			\item \textbf{(b) FALSE.} Capacity must actually be usable. If capacity depreciates, or if using it is costly, it may not be credible.
+			\item \textbf{(c) TRUE.} Limit pricing as signaling: low price $\rightarrow$ entrant infers low $MC$ $\rightarrow$ post-entry profits low $\rightarrow$ don't enter.
+		\end{wideitemize}
+	\end{solutionbox}
+\end{frame}
+
+\begin{frame}{Product proliferation}
+	\begin{wideitemize}
+		\item Fill product space to leave no room for entrants
+		\item \textbf{Example:} Ready-to-eat cereals (FTC case, 1970s)
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Kellogg's, General Mills, General Foods, Quaker
+			\item Launched many brand variants
+			\item Claimed: deterred entry into cereal market
+		\end{wideitemize}
+		\item \textbf{Logic:} In product space (Hotelling), each niche is smaller
+		\item Entrant can't find profitable niche if all are occupied
+		\item \textbf{Commitment:} Products are sunk; can't remove them post-entry
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Real-world examples of entry deterrence}
+	\begin{wideitemize}
+		\item \textbf{Airlines:} Frequent flyer programs, gate slots
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Switching costs for consumers
+			\item Scarce airport capacity
+		\end{wideitemize}
+		\item \textbf{Tech platforms:} Network effects + exclusive contracts
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Facebook: acquire potential competitors
+			\item Google: default search engine contracts
+		\end{wideitemize}
+		\item \textbf{Retail:} Long-term leases in prime locations
+		\item \textbf{Pharma:} Patent thickets, authorized generics
 	\end{wideitemize}
 \end{frame}
 
@@ -429,6 +666,63 @@ Nicholas Vreugdenhil \\
 			\hline
 		\end{tabular}
 	\end{center}
+\end{frame}
+
+\begin{frame}{Entry and antitrust policy}
+	\begin{wideitemize}
+		\item \textbf{Key question for regulators:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Is lack of entry due to structural barriers (efficient)?
+			\item Or strategic barriers (potentially anticompetitive)?
+		\end{wideitemize}
+		\item \textbf{Tricky cases:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Low prices can be competitive OR predatory
+			\item Large capacity can be efficient OR exclusionary
+			\item Product variety can be consumer-friendly OR entry-deterring
+		\end{wideitemize}
+		\item Intent is hard to prove; focus on market effects
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Empirical entry models}
+	\begin{wideitemize}
+		\item \textbf{Bresnahan \& Reiss (1991):} Entry thresholds
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item How much market size needed to support $N$ firms?
+			\item If threshold for 2nd firm $>$ 2$\times$ threshold for 1st $\rightarrow$ competition
+		\end{wideitemize}
+		\item \textbf{Berry (1992):} Entry in airline markets
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Which routes do airlines serve?
+			\item How do hub presence and distance affect entry?
+		\end{wideitemize}
+		\item These papers estimate the entry model we studied today
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Connection to merger analysis}
+	\begin{wideitemize}
+		\item \textbf{Why entry matters for mergers:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Merger raises prices $\rightarrow$ creates entry opportunity
+			\item If entry is easy, price increase is temporary
+			\item Antitrust agencies consider ``entry conditions''
+		\end{wideitemize}
+		\item \textbf{Horizontal Merger Guidelines:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Entry must be timely (2 years)
+			\item Entry must be likely
+			\item Entry must be sufficient to restore competition
+		\end{wideitemize}
+		\item Next lecture: mergers in detail
+	\end{wideitemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

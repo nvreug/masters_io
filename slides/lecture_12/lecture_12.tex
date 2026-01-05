@@ -36,6 +36,27 @@
 \definecolor{red}{RGB}{213,94,0}
 \definecolor{yellow}{RGB}{240,228,66}
 \definecolor{green}{RGB}{0,158,115}
+\definecolor{solutionbg}{RGB}{240,248,240}
+\definecolor{solutionframe}{RGB}{0,158,115}
+
+% Solution box environment for worked answers
+\usepackage{tcolorbox}
+\newtcolorbox{solutionbox}[1][]{
+  enhanced,
+  colback=solutionbg,
+  colframe=solutionframe,
+  boxrule=0pt,
+  leftrule=3pt,
+  arc=0pt,
+  left=8pt,
+  right=8pt,
+  top=6pt,
+  bottom=6pt,
+  fonttitle=\bfseries,
+  title={#1},
+  attach boxed title to top left={yshift=-2mm, xshift=5mm},
+  boxed title style={colback=solutionframe, colframe=solutionframe, size=small, arc=2pt}
+}
 
 \hypersetup{
   colorlinks=false,
@@ -84,27 +105,16 @@ Nicholas Vreugdenhil \\
   \centering
 \end{frame}
 
-\begin{frame}{Plan for today}
+\begin{frame}{Plan}
   \begin{wideenumerate}
-    \item Collusion refresher (from ECN 532)
-    \item Critical discount factor with $N$ firms
-    \item Cournot vs Bertrand collusion
-    \item[] \rule{0.5\textwidth}{0.4pt}
-    \item Detection and fines
-    \item Leniency programs
-    \item Antitrust enforcement
+    \item \textbf{Collusion theory}
+    \item Detection and policy
   \end{wideenumerate}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% PART 1: COLLUSION THEORY
+% COLLUSION THEORY
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{transitionframe}
-	\begin{center}
-		{\Huge Part 1: Collusion Theory}
-	\end{center}
-\end{transitionframe}
 
 \begin{frame}{From ECN 532: Collusion basics}
 	\begin{wideitemize}
@@ -153,6 +163,59 @@ Nicholas Vreugdenhil \\
 			\item More frequent interaction helps (reduces effective $\delta$)
 		\end{wideitemize}
 	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{T/F: Collusion theory}
+	\textbf{True, False, or Not Enough Information?}
+	\vspace{10pt}
+	\begin{wideenumerate}
+		\item If $\delta = 0.8$ and $\delta^* = 0.6$, collusion can be sustained.
+		\item The critical discount factor $\delta^*$ decreases when the punishment becomes more severe.
+		\item Collusion is easier to sustain when firms interact infrequently (e.g., annual contracts).
+		\item In the grim trigger strategy, one deviation leads to Nash equilibrium forever.
+	\end{wideenumerate}
+	\vspace{10pt}
+	\centering
+	\textit{Take 3 minutes.}
+\end{frame}
+
+\begin{frame}{T/F: Collusion theory (solutions)}
+	\begin{solutionbox}[Solutions]
+		\begin{wideenumerate}
+			\item \textbf{TRUE.} $\delta = 0.8 > \delta^* = 0.6$, so condition satisfied.
+			\item \textbf{TRUE.} Harsher punishment $\rightarrow$ lower $\pi^{NE}$ $\rightarrow$ larger denominator $\rightarrow$ lower $\delta^*$.
+			\item \textbf{FALSE.} Infrequent interaction means lower effective $\delta$, making collusion \textit{harder}.
+			\item \textbf{TRUE.} That's exactly what grim trigger means---permanent reversion to Nash.
+		\end{wideenumerate}
+	\end{solutionbox}
+\end{frame}
+
+\begin{frame}{Quick practice: Interpreting $\delta^*$}
+	\begin{wideitemize}
+		\item \textbf{Question:} Firm A has $\delta^* = 0.4$. Firm B has $\delta^* = 0.7$.
+		\item Which firm is in an industry where collusion is easier to sustain?
+		\item Explain your reasoning.
+	\end{wideitemize}
+	\vspace{10pt}
+	\centering
+	\textit{Take 2 minutes.}
+\end{frame}
+
+\begin{frame}{Quick practice: Interpreting $\delta^*$ (solution)}
+	\begin{solutionbox}[Solution]
+		\begin{wideitemize}
+			\item \textbf{Answer:} Firm A's industry has easier collusion.
+			\item \textbf{Reasoning:}
+			\begin{wideitemize}
+				\vspace{5pt}
+				\item Lower $\delta^*$ = lower patience threshold
+				\item Firm A only needs $\delta \geq 0.4$ for collusion
+				\item Firm B needs $\delta \geq 0.7$ for collusion
+				\item Since most firms have $\delta$ around 0.9-0.95, both can collude...
+				\item ...but A's industry is ``more robust'' to low-patience entrants
+			\end{wideitemize}
+		\end{wideitemize}
+	\end{solutionbox}
 \end{frame}
 
 \begin{frame}{Cournot collusion with $N$ firms}
@@ -205,26 +268,30 @@ Nicholas Vreugdenhil \\
 \end{frame}
 
 \begin{frame}{Worked example: Cournot collusion (solution)}
-	\begin{wideitemize}
-		\item \textbf{(a) Profit calculations:}
-		\item $\pi^M = (90)^2/4 = 2025$, so $\pi^C = 2025/3 = 675$
-		\item $q^C = 45/3 = 15$ per firm (monopoly quantity split)
-		\item Nash: $q^{NE} = 90/4 = 22.5$, $\pi^{NE} = 90^2/16 = 506.25$
-		\item Deviation: BR to $2 \times 15 = 30$ is $q^D = (90-30)/2 = 30$
-		\item $P = 100 - 60 = 40$, $\pi^D = (40-10) \times 30 = 900$
-	\end{wideitemize}
+	\begin{solutionbox}[Solution]
+		\begin{wideitemize}
+			\item \textbf{(a) Profit calculations:}
+			\item $\pi^M = (90)^2/4 = 2025$, so $\pi^C = 2025/3 = 675$
+			\item $q^C = 45/3 = 15$ per firm (monopoly quantity split)
+			\item Nash: $q^{NE} = 90/4 = 22.5$, $\pi^{NE} = 90^2/16 = 506.25$
+			\item Deviation: BR to $2 \times 15 = 30$ is $q^D = (90-30)/2 = 30$
+			\item $P = 100 - 60 = 40$, $\pi^D = (40-10) \times 30 = 900$
+		\end{wideitemize}
+	\end{solutionbox}
 \end{frame}
 
 \begin{frame}{Worked example: Cournot collusion (solution cont.)}
-	\begin{wideitemize}
-		\item \textbf{(b) Critical discount factor:}
-		\begin{align*}
-			\delta^* = \frac{\pi^D - \pi^C}{\pi^D - \pi^{NE}} = \frac{900 - 675}{900 - 506.25} = \frac{225}{393.75} = 0.571
-		\end{align*}
-		\item Or use formula: $\delta^* = \frac{(3+1)^2}{3^2 + (3+1)^2} = \frac{16}{9+16} = \frac{16}{25} = 0.64$
-		\item (Small difference due to rounding in worked example)
-		\item \textbf{Interpretation:} Firms must value future at 64\% of present
-	\end{wideitemize}
+	\begin{solutionbox}[Solution]
+		\begin{wideitemize}
+			\item \textbf{(b) Critical discount factor:}
+			\begin{align*}
+				\delta^* = \frac{\pi^D - \pi^C}{\pi^D - \pi^{NE}} = \frac{900 - 675}{900 - 506.25} = \frac{225}{393.75} = 0.571
+			\end{align*}
+			\item Or use formula: $\delta^* = \frac{(3+1)^2}{3^2 + (3+1)^2} = \frac{16}{9+16} = \frac{16}{25} = 0.64$
+			\item (Small difference due to rounding in worked example)
+			\item \textbf{Interpretation:} Firms must value future at 64\% of present
+		\end{wideitemize}
+	\end{solutionbox}
 \end{frame}
 
 \begin{frame}{Bertrand collusion with $N$ firms}
@@ -266,15 +333,109 @@ Nicholas Vreugdenhil \\
 	\end{wideitemize}
 \end{frame}
 
+\begin{frame}{Tacit vs explicit collusion}
+	\begin{center}
+		\begin{tabular}{|p{3cm}|p{4.5cm}|p{4.5cm}|}
+			\hline
+			& \textbf{Explicit Collusion} & \textbf{Tacit Collusion} \\
+			\hline
+			\textbf{Definition} & Direct communication and agreement & Parallel behavior without communication \\
+			\hline
+			\textbf{Legal status} & Illegal (per se violation) & Generally legal (hard to prove intent) \\
+			\hline
+			\textbf{Examples} & Lysine cartel meetings, price-fixing calls & Gasoline price matching, oligopoly pricing \\
+			\hline
+			\textbf{Evidence} & Documents, recordings, testimony & Statistical patterns only \\
+			\hline
+		\end{tabular}
+	\end{center}
+	\vspace{5pt}
+	\begin{wideitemize}
+		\item Same economic effect, very different legal treatment
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Hub-and-spoke arrangements}
+	\begin{wideitemize}
+		\item \textbf{Structure:} Competitors (spokes) coordinate through common partner (hub)
+		\item \textbf{Example:} Retailers share pricing info through common supplier
+	\end{wideitemize}
+	\vspace{5pt}
+	\begin{center}
+		\begin{tikzpicture}[scale=0.9]
+			% Hub
+			\node[circle, draw, thick, fill=red!20, minimum size=1.2cm] (hub) at (0,0) {\textbf{Hub}};
+			% Spokes
+			\node[circle, draw, thick, fill=blue!20, minimum size=1cm] (s1) at (-2.5,1.5) {Firm 1};
+			\node[circle, draw, thick, fill=blue!20, minimum size=1cm] (s2) at (0,2.2) {Firm 2};
+			\node[circle, draw, thick, fill=blue!20, minimum size=1cm] (s3) at (2.5,1.5) {Firm 3};
+			\node[circle, draw, thick, fill=blue!20, minimum size=1cm] (s4) at (-2,-1.5) {Firm 4};
+			\node[circle, draw, thick, fill=blue!20, minimum size=1cm] (s5) at (2,-1.5) {Firm 5};
+			% Connections
+			\draw[thick, <->] (hub) -- (s1);
+			\draw[thick, <->] (hub) -- (s2);
+			\draw[thick, <->] (hub) -- (s3);
+			\draw[thick, <->] (hub) -- (s4);
+			\draw[thick, <->] (hub) -- (s5);
+		\end{tikzpicture}
+	\end{center}
+	\vspace{3pt}
+	\begin{wideitemize}
+		\item \textbf{Legal issue:} Is hub liable? Are spokes colluding?
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Multi-market contact}
+	\begin{wideitemize}
+		\item \textbf{Multi-market contact:} Same firms compete in multiple markets
+		\item \textbf{Effect on collusion:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item More opportunities to punish deviators
+			\item Deviation in market A triggers punishment in markets B, C, ...
+			\item Increases total punishment $\rightarrow$ lowers $\delta^*$
+		\end{wideitemize}
+		\item \textbf{Example:} Airlines compete on multiple routes
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item American and United both fly NYC-LA and NYC-Chicago
+			\item Price war on one route can spread to others
+		\end{wideitemize}
+		\item \textbf{Bernheim \& Whinston (1990):} Formalized this theory
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Price wars and demand uncertainty}
+	\begin{wideitemize}
+		\item \textbf{Problem:} Firms can't observe rivals' prices directly
+		\item Low demand could be:
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Bad luck (demand shock)
+			\item Or a rival secretly cutting prices
+		\end{wideitemize}
+		\item \textbf{Green \& Porter (1984):} Price wars as equilibrium
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item When demand is low, trigger ``punishment phase''
+			\item Not because anyone cheated---just to maintain incentives
+			\item Punishment is temporary (return to collusion after $T$ periods)
+		\end{wideitemize}
+		\item \textbf{Implication:} Price wars can occur without anyone deviating
+		\item This explains why we see cyclical pricing in some industries
+	\end{wideitemize}
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% PART 2: DETECTION AND POLICY
+% DETECTION AND POLICY
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{transitionframe}
-	\begin{center}
-		{\Huge Part 2: Detection and Policy}
-	\end{center}
-\end{transitionframe}
+\begin{frame}{Plan}
+  \begin{wideenumerate}
+    \item Collusion theory
+    \item \textbf{Detection and policy}
+  \end{wideenumerate}
+\end{frame}
 
 \begin{frame}{Detection probability and fines}
 	\begin{wideitemize}
@@ -307,17 +468,61 @@ Nicholas Vreugdenhil \\
 \end{frame}
 
 \begin{frame}{Worked example: Detection (solution)}
+	\begin{solutionbox}[Solution]
+		\begin{wideitemize}
+			\item Expected fine per period: $\rho F = 0.1 \times 500 = 50$
+			\item Apply formula:
+			\begin{align*}
+				\delta^* = \frac{\pi^D - \pi^C + \rho F}{\pi^D - \pi^{NE} + \rho F} = \frac{150 - 100 + 50}{150 - 25 + 50} = \frac{100}{175} = 0.571
+			\end{align*}
+			\item \textbf{Compare to no detection:}
+			\begin{align*}
+				\delta^*_{\text{no detection}} = \frac{150 - 100}{150 - 25} = \frac{50}{125} = 0.4
+			\end{align*}
+			\item Detection and fines make collusion harder (0.4 $\rightarrow$ 0.57)
+		\end{wideitemize}
+	\end{solutionbox}
+\end{frame}
+
+\begin{frame}{Criminal vs civil penalties}
 	\begin{wideitemize}
-		\item Expected fine per period: $\rho F = 0.1 \times 500 = 50$
-		\item Apply formula:
-		\begin{align*}
-			\delta^* = \frac{\pi^D - \pi^C + \rho F}{\pi^D - \pi^{NE} + \rho F} = \frac{150 - 100 + 50}{150 - 25 + 50} = \frac{100}{175} = 0.571
-		\end{align*}
-		\item \textbf{Compare to no detection:}
-		\begin{align*}
-			\delta^*_{\text{no detection}} = \frac{150 - 100}{150 - 25} = \frac{50}{125} = 0.4
-		\end{align*}
-		\item Detection and fines make collusion harder (0.4 $\rightarrow$ 0.57)
+		\item \textbf{In the US, price-fixing is a felony}
+		\item \textbf{Civil penalties:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Corporate fines (up to 10\% of affected commerce)
+			\item Treble damages in private lawsuits
+		\end{wideitemize}
+		\item \textbf{Criminal penalties:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Individual prison sentences (up to 10 years)
+			\item Individual fines (up to \$1 million)
+		\end{wideitemize}
+		\item \textbf{Why criminal penalties matter:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Executives can't pass prison time to shareholders
+			\item Creates personal incentive not to collude
+			\item Lysine: executives actually went to prison
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Optimal deterrence: Becker (1968)}
+	\begin{wideitemize}
+		\item \textbf{Expected cost of crime:} $\rho \times F$
+		\item To deter, need: Expected cost $>$ Expected gain
+		\item \textbf{Question:} How should we set $\rho$ and $F$?
+		\item \textbf{Becker's insight:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Detection is costly (investigations, lawyers)
+			\item Fines are cheap to impose
+			\item $\rightarrow$ Set $F$ very high, $\rho$ low
+		\end{wideitemize}
+		\item \textbf{Problem:} Firms may not have enough to pay huge fines
+		\item \textbf{Solution:} Criminal penalties fill the ``gap''
 	\end{wideitemize}
 \end{frame}
 
@@ -371,6 +576,47 @@ Nicholas Vreugdenhil \\
 	\end{wideenumerate}
 \end{frame}
 
+\begin{frame}{Bid-rigging in auctions}
+	\begin{wideitemize}
+		\item \textbf{Bid-rigging:} Collusion in procurement auctions
+		\item \textbf{Common schemes:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item \textbf{Bid rotation:} Firms take turns ``winning''
+			\item \textbf{Bid suppression:} Some firms don't bid at all
+			\item \textbf{Complementary bidding:} Losers submit high ``cover'' bids
+			\item \textbf{Subcontracting:} Winner pays off losers
+		\end{wideitemize}
+		\item \textbf{Example:} Construction bid-rigging in NYC (1980s)
+		\item Often easier to detect than retail price-fixing (paper trail)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{T/F: Detection and policy}
+	\textbf{True, False, or Not Enough Information?}
+	\vspace{10pt}
+	\begin{wideenumerate}
+		\item Leniency programs reduce the total number of cartels that form.
+		\item If detection probability doubles, collusion becomes twice as hard.
+		\item Criminal penalties are more effective than fines because they can't be passed to shareholders.
+		\item Tacit collusion is legal because firms don't explicitly communicate.
+	\end{wideenumerate}
+	\vspace{10pt}
+	\centering
+	\textit{Take 3 minutes.}
+\end{frame}
+
+\begin{frame}{T/F: Detection and policy (solutions)}
+	\begin{solutionbox}[Solutions]
+		\begin{wideenumerate}
+			\item \textbf{NEI.} Leniency destabilizes existing cartels but may reduce fear of detection, potentially encouraging cartel formation. Empirically ambiguous.
+			\item \textbf{FALSE.} From formula, $\rho$ appears in both numerator and denominator---effect is not linear.
+			\item \textbf{TRUE.} Prison time is ``non-transferable''---executives face personal consequences.
+			\item \textbf{TRUE.} (Generally) Without evidence of explicit agreement, parallel pricing is hard to prosecute.
+		\end{wideenumerate}
+	\end{solutionbox}
+\end{frame}
+
 \begin{frame}{Famous cartel cases}
 	\begin{wideitemize}
 		\item \textbf{Lysine cartel (1990s):}
@@ -411,6 +657,84 @@ Nicholas Vreugdenhil \\
 			\item History of antitrust violations
 		\end{wideitemize}
 		\item \textbf{Whistleblowers:} Leniency program tips
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plus-factors in antitrust law}
+	\begin{wideitemize}
+		\item \textbf{Problem:} Parallel pricing is not illegal by itself
+		\item \textbf{Courts require ``plus-factors'':} Evidence beyond parallel conduct
+		\item \textbf{Common plus-factors:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Actions against individual self-interest
+			\item Secret meetings or communications
+			\item Artificial standardization of products
+			\item Exchange of price information
+			\item Price increases during demand slumps
+		\end{wideitemize}
+		\item \textbf{Economic testimony:} Experts analyze whether behavior is consistent with competition
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Algorithmic collusion: a new frontier}
+	\begin{wideitemize}
+		\item \textbf{Question:} Can algorithms collude without human instruction?
+		\item \textbf{How it might work:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Firms use pricing algorithms (AI/ML)
+			\item Algorithms learn to ``cooperate'' through repeated interaction
+			\item No explicit programming to collude
+		\end{wideitemize}
+		\item \textbf{Legal challenge:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Traditional antitrust requires ``agreement''
+			\item If algorithms learn collusion independently, is there agreement?
+		\end{wideitemize}
+		\item \textbf{Active research area:} Assad et al. (2024) on German retail gasoline
+		\item Policy is still catching up
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Collusion summary table}
+	\begin{center}
+		\small
+		\begin{tabular}{|p{3.5cm}|p{4cm}|p{4cm}|}
+			\hline
+			\textbf{Concept} & \textbf{Key Formula/Idea} & \textbf{Policy Implication} \\
+			\hline
+			Critical discount factor & $\delta^* = \frac{\pi^D - \pi^C}{\pi^D - \pi^{NE}}$ & Lower $\delta^*$ = easier collusion \\
+			\hline
+			Detection \& fines & Increase $\rho F$ in formula & Higher penalties deter \\
+			\hline
+			Leniency & First to report = immunity & Creates ``race to confess'' \\
+			\hline
+			Multi-market contact & More markets = more punishment & Monitor multi-market firms \\
+			\hline
+			Plus-factors & Evidence beyond parallel pricing & Required for prosecution \\
+			\hline
+		\end{tabular}
+	\end{center}
+\end{frame}
+
+\begin{frame}{Course connection: collusion and mergers}
+	\begin{wideitemize}
+		\item \textbf{Merger review considers coordinated effects:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Will the merger make collusion easier?
+			\item Fewer firms $\rightarrow$ lower $\delta^*$ $\rightarrow$ easier collusion
+		\end{wideitemize}
+		\item \textbf{What makes post-merger collusion more likely?}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Merger creates symmetric cost structures
+			\item Merger eliminates a ``maverick'' (aggressive competitor)
+			\item Merger increases multi-market contact
+		\end{wideitemize}
+		\item \textbf{HW2 connection:} Your merger simulation focuses on unilateral effects, but DOJ also considers coordinated effects
 	\end{wideitemize}
 \end{frame}
 

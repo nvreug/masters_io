@@ -36,6 +36,27 @@
 \definecolor{red}{RGB}{213,94,0}
 \definecolor{yellow}{RGB}{240,228,66}
 \definecolor{green}{RGB}{0,158,115}
+\definecolor{solutionbg}{RGB}{240,248,240}
+\definecolor{solutionframe}{RGB}{0,158,115}
+
+% Solution box environment for worked answers
+\usepackage{tcolorbox}
+\newtcolorbox{solutionbox}[1][]{
+  enhanced,
+  colback=solutionbg,
+  colframe=solutionframe,
+  boxrule=0pt,
+  leftrule=3pt,
+  arc=0pt,
+  left=8pt,
+  right=8pt,
+  top=6pt,
+  bottom=6pt,
+  fonttitle=\bfseries,
+  title={#1},
+  attach boxed title to top left={yshift=-2mm, xshift=5mm},
+  boxed title style={colback=solutionframe, colframe=solutionframe, size=small, arc=2pt}
+}
 
 \hypersetup{
   colorlinks=false,
@@ -84,27 +105,16 @@ Nicholas Vreugdenhil \\
   \centering
 \end{frame}
 
-\begin{frame}{Plan for today}
+\begin{frame}{Plan}
   \begin{wideenumerate}
-    \item Consumer surplus: the log-sum formula
-    \item The IIA problem: Red Bus / Blue Bus
-    \item From demand to supply
-    \item[] \rule{0.5\textwidth}{0.4pt}
-    \item Types of price discrimination
-    \item Selection by indicators
-    \item Worked example: optimal pricing across markets
+    \item \textbf{Consumer Surplus and IIA}
+    \item Price Discrimination
   \end{wideenumerate}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% PART 1: CONSUMER SURPLUS AND IIA
+% CONSUMER SURPLUS AND IIA
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{transitionframe}
-	\begin{center}
-		{\Huge Part 1: Consumer Surplus and IIA}
-	\end{center}
-\end{transitionframe}
 
 \begin{frame}{Why do we care about consumer surplus?}
 	\begin{wideitemize}
@@ -135,6 +145,50 @@ Nicholas Vreugdenhil \\
 	\end{wideitemize}
 \end{frame}
 
+\begin{frame}{Intuition for the log-sum}
+	\begin{wideitemize}
+		\item Think of choosing the best option as a lottery
+		\item Each product gives you a random utility draw
+		\item \textbf{Expected value of the BEST draw} is the log-sum
+		\item Key insights:
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item More options $\rightarrow$ higher CS (more lottery tickets)
+			\item Better options $\rightarrow$ higher CS (higher $\delta_j$)
+			\item Higher price sensitivity $\rightarrow$ divide by larger $\alpha$
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: CS change from price increase}
+	\begin{wideitemize}
+		\item \textbf{Question:}
+		\item Two products with $\delta_1 = 2$ and $\delta_2 = 1$. Outside option $\delta_0 = 0$.
+		\item Price coefficient $\alpha = 0.8$.
+		\item If product 1's price increases by \$2 (so $\delta_1$ falls to 0.4), what is the CS loss?
+	\end{wideitemize}
+	\vspace{15pt}
+	\centering
+	\textit{Take 3 minutes to solve this.}
+\end{frame}
+
+\begin{frame}{Worked example: CS change from price increase (solution)}
+	\begin{solutionbox}[Solution]
+		\begin{itemize}
+			\item Note: $\Delta \delta_1 = -\alpha \times \Delta p = -0.8 \times 2 = -1.6$, so new $\delta_1 = 2 - 1.6 = 0.4$
+			\item \textbf{Before:}
+			\begin{align*}
+				CS^{\text{before}} = \frac{1}{0.8} \ln(e^0 + e^2 + e^1) = 1.25 \ln(1 + 7.39 + 2.72) = 1.25 \times 2.41 = 3.01
+			\end{align*}
+			\item \textbf{After:}
+			\begin{align*}
+				CS^{\text{after}} = \frac{1}{0.8} \ln(e^0 + e^{0.4} + e^1) = 1.25 \ln(1 + 1.49 + 2.72) = 1.25 \times 1.65 = 2.06
+			\end{align*}
+			\item \textbf{Loss:} $3.01 - 2.06 = \$0.95$ per consumer
+		\end{itemize}
+	\end{solutionbox}
+\end{frame}
+
 \begin{frame}{Worked example: CS change from removing a product}
 	\begin{wideitemize}
 		\item \textbf{Question:} Market has 2 products with $\delta_1 = 1$, $\delta_2 = 0.5$. Outside option has $\delta_0 = 0$. Suppose $\alpha = 0.5$.
@@ -146,18 +200,20 @@ Nicholas Vreugdenhil \\
 \end{frame}
 
 \begin{frame}{Worked example: CS change (solution)}
-	\begin{wideitemize}
-		\item \textbf{Before removal:}
-		\begin{align*}
-			CS^{\text{before}} = \frac{1}{0.5} \ln(e^0 + e^1 + e^{0.5}) = 2 \ln(1 + 2.72 + 1.65) = 2 \ln(5.37) = 3.36
-		\end{align*}
-		\item \textbf{After removal:}
-		\begin{align*}
-			CS^{\text{after}} = \frac{1}{0.5} \ln(e^0 + e^{0.5}) = 2 \ln(1 + 1.65) = 2 \ln(2.65) = 1.95
-		\end{align*}
-		\item \textbf{Loss:} $3.36 - 1.95 = 1.41$ dollars per consumer
-		\item This is on HW1!
-	\end{wideitemize}
+	\begin{solutionbox}[Solution]
+		\begin{itemize}
+			\item \textbf{Before removal:}
+			\begin{align*}
+				CS^{\text{before}} = \frac{1}{0.5} \ln(e^0 + e^1 + e^{0.5}) = 2 \ln(1 + 2.72 + 1.65) = 2 \ln(5.37) = 3.36
+			\end{align*}
+			\item \textbf{After removal:}
+			\begin{align*}
+				CS^{\text{after}} = \frac{1}{0.5} \ln(e^0 + e^{0.5}) = 2 \ln(1 + 1.65) = 2 \ln(2.65) = 1.95
+			\end{align*}
+			\item \textbf{Loss:} $3.36 - 1.95 = 1.41$ dollars per consumer
+			\item This is on HW1!
+		\end{itemize}
+	\end{solutionbox}
 \end{frame}
 
 \begin{frame}{The IIA problem: Red Bus / Blue Bus}
@@ -211,6 +267,57 @@ Nicholas Vreugdenhil \\
 	\end{wideitemize}
 \end{frame}
 
+\begin{frame}{Red Bus / Blue Bus: The math}
+	\begin{wideitemize}
+		\item \textbf{Before} (Car, Red Bus): $s_{\text{car}} = s_{\text{red}} = 0.5$
+		\item \textbf{After} (Car, Red Bus, Blue Bus), logit predicts:
+		\begin{align*}
+			s_{\text{car}} = \frac{e^0}{e^0 + e^0 + e^0} = \frac{1}{3}
+		\end{align*}
+		\item Car's share dropped from 0.5 to 0.33!
+		\item \textbf{Reality:} Car share should stay at 0.5
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Car commuters don't care about bus color
+			\item Blue Bus should only steal from Red Bus
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Red Bus / Blue Bus: Visual}
+	\begin{center}
+	\begin{tikzpicture}[scale=0.9]
+		% Before panel
+		\node at (0, 3.5) {\textbf{Before}};
+		\node[draw, circle, minimum size=1.5cm, fill=blue!20] (car1) at (-1.5, 1.5) {Car};
+		\node[draw, circle, minimum size=1.5cm, fill=red!40] (rbus1) at (1.5, 1.5) {Red Bus};
+		\node at (-1.5, 0) {50\%};
+		\node at (1.5, 0) {50\%};
+
+		% Arrow
+		\draw[->, thick] (3.5, 1.5) -- (5, 1.5);
+
+		% After panel - Logit prediction
+		\node at (8, 3.5) {\textbf{After (Logit)}};
+		\node[draw, circle, minimum size=1cm, fill=blue!20] (car2) at (6, 1.5) {Car};
+		\node[draw, circle, minimum size=1cm, fill=red!40] (rbus2) at (8, 1.5) {Red};
+		\node[draw, circle, minimum size=1cm, fill=blue!60] (bbus2) at (10, 1.5) {Blue};
+		\node at (6, 0) {33\%};
+		\node at (8, 0) {33\%};
+		\node at (10, 0) {33\%};
+
+		% Reality panel
+		\node at (8, -2) {\textbf{Reality}};
+		\node[draw, circle, minimum size=1.2cm, fill=blue!20] (car3) at (6, -3.5) {Car};
+		\node[draw, circle, minimum size=0.8cm, fill=red!40] (rbus3) at (8, -3.5) {Red};
+		\node[draw, circle, minimum size=0.8cm, fill=blue!60] (bbus3) at (10, -3.5) {Blue};
+		\node at (6, -5) {50\%};
+		\node at (8, -5) {25\%};
+		\node at (10, -5) {25\%};
+	\end{tikzpicture}
+	\end{center}
+\end{frame}
+
 \begin{frame}{Why IIA matters}
 	\begin{wideitemize}
 		\item IIA affects:
@@ -229,6 +336,34 @@ Nicholas Vreugdenhil \\
 	\end{wideitemize}
 \end{frame}
 
+\begin{frame}{Worked example: Cross-elasticity and IIA}
+	\begin{wideitemize}
+		\item \textbf{Question:}
+		\item Market has 3 products: Luxury Car ($s = 0.1$), Economy Car ($s = 0.2$), Bus ($s = 0.3$).
+		\item Outside option $s_0 = 0.4$. Price coefficient $\alpha = 0.5$.
+		\item Luxury Car price = \$50K. Calculate cross-elasticity of Luxury Car with respect to Economy Car price.
+		\item What's wrong with this prediction?
+	\end{wideitemize}
+	\vspace{15pt}
+	\centering
+	\textit{Take 2 minutes to solve this.}
+\end{frame}
+
+\begin{frame}{Worked example: Cross-elasticity and IIA (solution)}
+	\begin{solutionbox}[Solution]
+		\begin{itemize}
+			\item Cross-price elasticity formula: $\eta_{jk} = \alpha p_k s_k$
+			\item Cross-elasticity of Luxury Car w.r.t. Economy Car:
+			\begin{align*}
+				\eta_{\text{Lux, Econ}} = \alpha \times p_{\text{Econ}} \times s_{\text{Econ}}
+			\end{align*}
+			\item But notice: this is the SAME as cross-elasticity w.r.t. Bus!
+			\item \textbf{IIA problem:} Logit says Luxury Car responds equally to price changes by Economy Car and by Bus
+			\item \textbf{Reality:} Luxury Car buyers probably substitute more with Economy Car than with Bus
+		\end{itemize}
+	\end{solutionbox}
+\end{frame}
+
 \begin{frame}{How demographics help (partial solution)}
 	\begin{wideitemize}
 		\item With demographics: different consumer types have different substitution patterns
@@ -240,6 +375,26 @@ Nicholas Vreugdenhil \\
 			\vspace{5pt}
 			\item Beyond our scope, but important to know
 		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{When is IIA ``good enough''?}
+	\begin{wideitemize}
+		\item \textbf{IIA is usually fine when:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Products are genuinely similar (cereal brands, gas stations)
+			\item You're not analyzing entry/exit of close substitutes
+			\item You have rich demographics capturing key preference heterogeneity
+		\end{wideitemize}
+		\item \textbf{IIA is problematic when:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Products form clear ``nests'' (cars vs buses, luxury vs economy)
+			\item Analyzing new product entry (especially into a crowded segment)
+			\item Computing welfare from removing specific products
+		\end{wideitemize}
+		\item \textbf{Solution:} Nested logit or mixed logit (beyond this course)
 	\end{wideitemize}
 \end{frame}
 
@@ -258,15 +413,44 @@ Nicholas Vreugdenhil \\
 	\end{wideitemize}
 \end{frame}
 
+\begin{frame}{Worked example: Backing out marginal cost}
+	\begin{wideitemize}
+		\item \textbf{Question:}
+		\item You estimate demand and find own-price elasticity $\varepsilon = -4$.
+		\item Observed price is $p = 100$.
+		\item Assuming Nash-Bertrand pricing, what is the implied marginal cost?
+	\end{wideitemize}
+	\vspace{15pt}
+	\centering
+	\textit{Take 2 minutes to solve this.}
+\end{frame}
+
+\begin{frame}{Worked example: Backing out marginal cost (solution)}
+	\begin{solutionbox}[Solution]
+		\begin{itemize}
+			\item Lerner index: $\frac{p - mc}{p} = \frac{1}{|\varepsilon|}$
+			\item Rearranging: $mc = p - \frac{p}{|\varepsilon|} = p\left(1 - \frac{1}{|\varepsilon|}\right)$
+			\item Plug in:
+			\begin{align*}
+				mc = 100 \times \left(1 - \frac{1}{4}\right) = 100 \times 0.75 = 75
+			\end{align*}
+			\item Implied marginal cost is \$75
+			\item \textbf{Markup:} $(100 - 75)/100 = 25\%$
+			\item This technique is used extensively in merger simulation
+		\end{itemize}
+	\end{solutionbox}
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% PART 2: PRICE DISCRIMINATION
+% PRICE DISCRIMINATION
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{transitionframe}
-	\begin{center}
-		{\Huge Part 2: Price Discrimination}
-	\end{center}
-\end{transitionframe}
+\begin{frame}{Plan}
+  \begin{wideenumerate}
+    \item Consumer Surplus and IIA
+    \item \textbf{Price Discrimination}
+  \end{wideenumerate}
+\end{frame}
 
 \begin{frame}{Price Discrimination}
 \begin{wideitemize}
@@ -355,6 +539,29 @@ Nicholas Vreugdenhil \\
 	\end{wideitemize}
 \end{frame}
 
+\begin{frame}{Real-world examples of selection by indicators}
+	\begin{wideenumerate}
+		\item \textbf{Geographic:}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item New car prices differ by region (Arizona vs California)
+			\item Software priced differently in US vs India
+		\end{wideitemize}
+		\item \textbf{Age-based:}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Senior discounts (more elastic, retired, fixed income)
+			\item Student discounts (more elastic, lower income)
+		\end{wideitemize}
+		\item \textbf{Time-based:}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Happy hour (flexible drinkers are more elastic)
+			\item Black Friday (patient shoppers are more elastic)
+		\end{wideitemize}
+	\end{wideenumerate}
+\end{frame}
+
 \begin{frame}{Selection by indicators: setup}
 	\begin{wideitemize}
 		\item Two markets: market 1 and market 2
@@ -391,18 +598,51 @@ Nicholas Vreugdenhil \\
 \end{frame}
 
 \begin{frame}{Worked example: Optimal pricing (solution)}
+	\begin{solutionbox}[Solution]
+		\begin{itemize}
+			\item Using Lerner index: $\frac{p - MC}{p} = \frac{1}{|\varepsilon|}$
+			\item \textbf{Market 1} ($\varepsilon_1 = -2$):
+			\begin{align*}
+				\frac{p_1 - 6}{p_1} = \frac{1}{2} \quad \Rightarrow \quad p_1 - 6 = 0.5 p_1 \quad \Rightarrow \quad p_1 = 12
+			\end{align*}
+			\item \textbf{Market 2} ($\varepsilon_2 = -4$):
+			\begin{align*}
+				\frac{p_2 - 6}{p_2} = \frac{1}{4} \quad \Rightarrow \quad p_2 - 6 = 0.25 p_2 \quad \Rightarrow \quad p_2 = 8
+			\end{align*}
+			\item Price is higher in more inelastic market (market 1)
+		\end{itemize}
+	\end{solutionbox}
+\end{frame}
+
+\begin{frame}{Worked example: Student discount pricing}
 	\begin{wideitemize}
-		\item Using Lerner index: $\frac{p - MC}{p} = \frac{1}{|\varepsilon|}$
-		\item \textbf{Market 1} ($\varepsilon_1 = -2$):
-		\begin{align*}
-			\frac{p_1 - 6}{p_1} = \frac{1}{2} \quad \Rightarrow \quad p_1 - 6 = 0.5 p_1 \quad \Rightarrow \quad p_1 = 12
-		\end{align*}
-		\item \textbf{Market 2} ($\varepsilon_2 = -4$):
-		\begin{align*}
-			\frac{p_2 - 6}{p_2} = \frac{1}{4} \quad \Rightarrow \quad p_2 - 6 = 0.25 p_2 \quad \Rightarrow \quad p_2 = 8
-		\end{align*}
-		\item Price is higher in more inelastic market (market 1)
+		\item \textbf{Question:}
+		\item A software company can distinguish students from professionals.
+		\item Students: $\varepsilon_s = -3$; Professionals: $\varepsilon_p = -1.5$
+		\item $MC = \$20$
+		\item Calculate optimal prices for each group.
 	\end{wideitemize}
+	\vspace{15pt}
+	\centering
+	\textit{Take 3 minutes to solve this.}
+\end{frame}
+
+\begin{frame}{Worked example: Student discount pricing (solution)}
+	\begin{solutionbox}[Solution]
+		\begin{itemize}
+			\item Using Lerner index: $p = \frac{MC}{1 + 1/\varepsilon}$
+			\item \textbf{Students} ($\varepsilon_s = -3$):
+			\begin{align*}
+				p_s = \frac{20}{1 + 1/(-3)} = \frac{20}{1 - 0.33} = \frac{20}{0.67} = \$30
+			\end{align*}
+			\item \textbf{Professionals} ($\varepsilon_p = -1.5$):
+			\begin{align*}
+				p_p = \frac{20}{1 + 1/(-1.5)} = \frac{20}{1 - 0.67} = \frac{20}{0.33} = \$60
+			\end{align*}
+			\item Students pay \$30 (50\% discount); professionals pay \$60
+			\item Students more elastic $\rightarrow$ lower price
+		\end{itemize}
+	\end{solutionbox}
 \end{frame}
 
 \begin{frame}{Welfare effects of selection by indicators}
@@ -421,6 +661,48 @@ Nicholas Vreugdenhil \\
 			\item If discrimination opens new markets $\rightarrow$ welfare may increase
 			\item If just redistributes $\rightarrow$ welfare may decrease
 		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{When is price discrimination welfare-improving?}
+	\begin{wideitemize}
+		\item \textbf{Welfare improves when:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Discrimination opens up new markets (serves consumers who otherwise wouldn't be served)
+			\item Example: Student discounts let students afford textbooks
+		\end{wideitemize}
+		\item \textbf{Welfare may decrease when:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Just redistributes from consumers to firm
+			\item No expansion of output
+		\end{wideitemize}
+		\item \textbf{Key insight:} Output matters!
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item If total quantity sold goes up, welfare likely increases
+			\item If total quantity stays same, welfare likely decreases
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Connection: Demand estimation and price discrimination}
+	\begin{wideitemize}
+		\item \textbf{Demand estimation gives us:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Elasticities by consumer group (if demographics used)
+			\item Which groups are more/less price-sensitive
+		\end{wideitemize}
+		\item \textbf{This informs pricing strategy:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item High elasticity groups $\rightarrow$ lower price
+			\item Low elasticity groups $\rightarrow$ higher price
+		\end{wideitemize}
+		\item \textbf{Example:} Nevo (2001) found that families with children are less price-sensitive for kid cereals
+		\item Cereal companies can use this for targeted promotions
 	\end{wideitemize}
 \end{frame}
 

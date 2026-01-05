@@ -36,6 +36,27 @@
 \definecolor{red}{RGB}{213,94,0}
 \definecolor{yellow}{RGB}{240,228,66}
 \definecolor{green}{RGB}{0,158,115}
+\definecolor{solutionbg}{RGB}{240,248,240}
+\definecolor{solutionframe}{RGB}{0,158,115}
+
+% Solution box environment for worked answers
+\usepackage{tcolorbox}
+\newtcolorbox{solutionbox}[1][]{
+  enhanced,
+  colback=solutionbg,
+  colframe=solutionframe,
+  boxrule=0pt,
+  leftrule=3pt,
+  arc=0pt,
+  left=8pt,
+  right=8pt,
+  top=6pt,
+  bottom=6pt,
+  fonttitle=\bfseries,
+  title={#1},
+  attach boxed title to top left={yshift=-2mm, xshift=5mm},
+  boxed title style={colback=solutionframe, colframe=solutionframe, size=small, arc=2pt}
+}
 
 \hypersetup{
   colorlinks=false,
@@ -84,15 +105,10 @@ Nicholas Vreugdenhil \\
   \centering
 \end{frame}
 
-\begin{frame}{Plan for today}
+\begin{frame}{Plan}
   \begin{wideenumerate}
-    \item Horizontal mergers: effects on prices
-    \item Merger simulation (connects Part 1 to Part 2!)
-    \item Worked example: simple merger simulation
-    \item[] \rule{0.5\textwidth}{0.4pt}
-    \item Antitrust and merger review
-    \item Market definition and HHI
-    \item Efficiency defense
+    \item \textbf{Merger effects and simulation}
+    \item Merger policy
   \end{wideenumerate}
 \end{frame}
 
@@ -106,14 +122,8 @@ Nicholas Vreugdenhil \\
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% PART 1: MERGER EFFECTS AND SIMULATION
+% MERGER EFFECTS AND SIMULATION
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{transitionframe}
-	\begin{center}
-		{\Huge Part 1: Merger Effects and Simulation}
-	\end{center}
-\end{transitionframe}
 
 \begin{frame}{Horizontal mergers}
 	\begin{wideitemize}
@@ -150,6 +160,36 @@ Nicholas Vreugdenhil \\
 			\item Lost customers are ``recaptured''
 		\end{wideitemize}
 		\item Merger \textbf{internalizes substitution} between products
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Diversion ratio}
+	\begin{wideitemize}
+		\item \textbf{Definition:} If product A loses a customer, what fraction goes to B?
+		\begin{align*}
+			D_{AB} = \frac{\partial q_B / \partial p_A}{-\partial q_A / \partial p_A} = \frac{\text{gain by B}}{\text{loss by A}}
+		\end{align*}
+		\item \textbf{High diversion:} A and B are close substitutes
+		\item \textbf{Low diversion:} A and B are distant substitutes
+		\item \textbf{Key insight:} Higher diversion $\rightarrow$ larger price increase from merger
+		\item Diversion is the key input to merger analysis
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Diversion with logit demand}
+	\begin{wideitemize}
+		\item Under logit, diversion is simple:
+		\begin{align*}
+			D_{jk} = \frac{s_k}{1 - s_j}
+		\end{align*}
+		\item \textbf{Proportional diversion:} Lost sales go to others proportionally
+		\item This is the IIA property at work!
+		\item \textbf{Implication:} Mergers between large firms are worse
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Large $s_k$ means high diversion
+			\item More recapture $\rightarrow$ bigger price increase
+		\end{wideitemize}
 	\end{wideitemize}
 \end{frame}
 
@@ -247,35 +287,39 @@ Nicholas Vreugdenhil \\
 \end{frame}
 
 \begin{frame}{Worked example: Pre-merger (solution)}
-	\begin{wideitemize}
-		\item \textbf{Pre-merger:} Each firm maximizes own profit
-		\item Firm 1: $\max_{p_1} (p_1 - 10)(100 - 3p_1 + p_2)$
-		\item FOC: $100 - 6p_1 + p_2 + 30 = 0$
-		\item Symmetric: $p_1 = p_2 = p$, so:
-		\begin{align*}
-			100 - 6p + p + 30 = 0 \Rightarrow p = 26
-		\end{align*}
-		\item Pre-merger: $p_1^{pre} = p_2^{pre} = 26$
-		\item Quantity: $q = 100 - 3(26) + 26 = 48$
-	\end{wideitemize}
+	\begin{solutionbox}[Solution]
+		\begin{wideitemize}
+			\item \textbf{Pre-merger:} Each firm maximizes own profit
+			\item Firm 1: $\max_{p_1} (p_1 - 10)(100 - 3p_1 + p_2)$
+			\item FOC: $100 - 6p_1 + p_2 + 30 = 0$
+			\item Symmetric: $p_1 = p_2 = p$, so:
+			\begin{align*}
+				100 - 6p + p + 30 = 0 \Rightarrow p = 26
+			\end{align*}
+			\item Pre-merger: $p_1^{pre} = p_2^{pre} = 26$
+			\item Quantity: $q = 100 - 3(26) + 26 = 48$
+		\end{wideitemize}
+	\end{solutionbox}
 \end{frame}
 
 \begin{frame}{Worked example: Post-merger (solution)}
-	\begin{wideitemize}
-		\item \textbf{Post-merger:} Merged firm maximizes joint profit
-		\item $\max_{p_1, p_2} (p_1 - 10)q_1 + (p_2 - 10)q_2$
-		\item FOC for $p_1$:
-		\begin{align*}
-			q_1 + (p_1 - 10)(-3) + (p_2 - 10)(1) = 0
-		\end{align*}
-		\item Note: now includes $\frac{\partial q_2}{\partial p_1} = 1$ term!
-		\item Symmetric: $p_1 = p_2 = p$:
-		\begin{align*}
-			100 - 3p + p - 3(p - 10) + (p - 10) = 0 \\
-			100 - 3p + p - 3p + 30 + p - 10 = 0 \\
-			120 - 4p = 0 \Rightarrow p = 30
-		\end{align*}
-	\end{wideitemize}
+	\begin{solutionbox}[Solution]
+		\begin{wideitemize}
+			\item \textbf{Post-merger:} Merged firm maximizes joint profit
+			\item $\max_{p_1, p_2} (p_1 - 10)q_1 + (p_2 - 10)q_2$
+			\item FOC for $p_1$:
+			\begin{align*}
+				q_1 + (p_1 - 10)(-3) + (p_2 - 10)(1) = 0
+			\end{align*}
+			\item Note: now includes $\frac{\partial q_2}{\partial p_1} = 1$ term!
+			\item Symmetric: $p_1 = p_2 = p$:
+			\begin{align*}
+				100 - 3p + p - 3(p - 10) + (p - 10) = 0 \\
+				100 - 3p + p - 3p + 30 + p - 10 = 0 \\
+				120 - 4p = 0 \Rightarrow p = 30
+			\end{align*}
+		\end{wideitemize}
+	\end{solutionbox}
 \end{frame}
 
 \begin{frame}{Worked example: Results}
@@ -292,6 +336,87 @@ Nicholas Vreugdenhil \\
 		\end{wideitemize}
 		\item This is on HW2 (with more products)!
 	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Upward Pricing Pressure (UPP)}
+	\begin{wideitemize}
+		\item \textbf{UPP:} Quick measure of merger's pricing incentive
+		\begin{align*}
+			UPP_1 = D_{12} \times (p_2 - mc_2)
+		\end{align*}
+		\item \textbf{Interpretation:} Value of sales recaptured from product 2
+		\item If $UPP_1 > 0$: merger creates upward pricing pressure
+		\item \textbf{Advantage:} Quick to compute, no full simulation needed
+		\item \textbf{Limitation:} First-order approximation only
+		\item Used by DOJ/FTC as a screening tool
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Practice: UPP calculation}
+	\begin{wideitemize}
+		\item \textbf{Question:} Products A and B with:
+		\item $p_A = 100$, $mc_A = 60$, $s_A = 0.2$
+		\item $p_B = 80$, $mc_B = 50$, $s_B = 0.3$
+		\item Using logit diversion, calculate $UPP_A$ and $UPP_B$.
+	\end{wideitemize}
+	\vspace{10pt}
+	\centering
+	\textit{Take 3 minutes.}
+\end{frame}
+
+\begin{frame}{Practice: UPP calculation (solution)}
+	\begin{solutionbox}[Solution]
+		\begin{wideitemize}
+			\item \textbf{Diversion ratios (logit):}
+			\begin{align*}
+				D_{AB} &= \frac{s_B}{1 - s_A} = \frac{0.3}{0.8} = 0.375 \\
+				D_{BA} &= \frac{s_A}{1 - s_B} = \frac{0.2}{0.7} = 0.286
+			\end{align*}
+			\item \textbf{UPP calculations:}
+			\begin{align*}
+				UPP_A &= D_{AB} \times (p_B - mc_B) = 0.375 \times 30 = 11.25 \\
+				UPP_B &= D_{BA} \times (p_A - mc_A) = 0.286 \times 40 = 11.44
+			\end{align*}
+			\item Both positive: merger creates incentive to raise both prices
+			\item Express as \% of price: $UPP_A/p_A = 11.25\%$
+		\end{wideitemize}
+	\end{solutionbox}
+\end{frame}
+
+\begin{frame}{Welfare effects of mergers}
+	\begin{wideitemize}
+		\item \textbf{Consumer surplus:} Falls due to higher prices
+		\item \textbf{Producer surplus:} Rises (merged firm profits increase)
+		\item \textbf{Deadweight loss:} From reduced quantity
+		\item Using logit demand:
+		\begin{align*}
+			\Delta CS = \frac{1}{|\alpha|}\left[\ln\left(\sum_j e^{\delta_j^{post}}\right) - \ln\left(\sum_j e^{\delta_j^{pre}}\right)\right]
+		\end{align*}
+		\item Key: $\delta_j = x_j\beta + \alpha p_j + \xi_j$
+		\item Higher prices $\rightarrow$ lower $\delta_j$ $\rightarrow$ lower CS
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Practice: T/F on mergers}
+	\begin{wideitemize}
+		\item \textbf{True, False, or NEI:}
+		\item (a) A merger between firms with high diversion ratio will have a larger price effect.
+		\item (b) Under logit demand, diversion is proportional to market shares.
+		\item (c) The Williamson trade-off always favors blocking mergers.
+	\end{wideitemize}
+	\vspace{10pt}
+	\centering
+	\textit{Take 2 minutes.}
+\end{frame}
+
+\begin{frame}{Practice: T/F on mergers (solution)}
+	\begin{solutionbox}[Answers]
+		\begin{wideitemize}
+			\item \textbf{(a) TRUE.} High diversion means customers switch between merging firms. More recapture = more incentive to raise prices.
+			\item \textbf{(b) TRUE.} Under logit, $D_{jk} = s_k/(1-s_j)$. This is the IIA property: lost sales go proportionally to others.
+			\item \textbf{(c) FALSE.} Williamson trade-off says efficiencies can outweigh market power. Some mergers are welfare-improving.
+		\end{wideitemize}
+	\end{solutionbox}
 \end{frame}
 
 \begin{frame}{Merger simulation in practice}
@@ -317,14 +442,15 @@ Nicholas Vreugdenhil \\
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% PART 2: MERGER POLICY
+% MERGER POLICY
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{transitionframe}
-	\begin{center}
-		{\Huge Part 2: Merger Policy}
-	\end{center}
-\end{transitionframe}
+\begin{frame}{Plan}
+  \begin{wideenumerate}
+    \item Merger effects and simulation
+    \item \textbf{Merger policy}
+  \end{wideenumerate}
+\end{frame}
 
 \begin{frame}{Antitrust and merger review}
 	\begin{wideitemize}
@@ -402,19 +528,21 @@ Nicholas Vreugdenhil \\
 \end{frame}
 
 \begin{frame}{Worked example: HHI (solution)}
-	\begin{wideitemize}
-		\item \textbf{(a) Pre-merger:}
-		\begin{align*}
-			HHI = (0.40)^2 + (0.30)^2 + (0.20)^2 + (0.10)^2 = 0.30
-		\end{align*}
-		\item $HHI = 3000$ (highly concentrated)
-		\item \textbf{(b) Post-merger:}
-		\begin{align*}
-			HHI = (0.50)^2 + (0.30)^2 + (0.20)^2 = 0.38
-		\end{align*}
-		\item $HHI = 3800$, $\Delta HHI = 800$
-		\item \textbf{Shortcut:} $\Delta HHI = 2 \times s_1 \times s_4 \times 10000 = 2 \times 0.4 \times 0.1 \times 10000 = 800$
-	\end{wideitemize}
+	\begin{solutionbox}[Solution]
+		\begin{wideitemize}
+			\item \textbf{(a) Pre-merger:}
+			\begin{align*}
+				HHI = (0.40)^2 + (0.30)^2 + (0.20)^2 + (0.10)^2 = 0.30
+			\end{align*}
+			\item $HHI = 3000$ (highly concentrated)
+			\item \textbf{(b) Post-merger:}
+			\begin{align*}
+				HHI = (0.50)^2 + (0.30)^2 + (0.20)^2 = 0.38
+			\end{align*}
+			\item $HHI = 3800$, $\Delta HHI = 800$
+			\item \textbf{Shortcut:} $\Delta HHI = 2 \times s_1 \times s_4 \times 10000 = 2 \times 0.4 \times 0.1 \times 10000 = 800$
+		\end{wideitemize}
+	\end{solutionbox}
 \end{frame}
 
 \begin{frame}{Efficiency defense}
@@ -434,6 +562,90 @@ Nicholas Vreugdenhil \\
 		\end{wideitemize}
 		\item Merger approved if efficiency gains outweigh market power harms
 		\item In practice: high bar for efficiency claims
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Williamson trade-off: graphical}
+	\begin{center}
+		\begin{tikzpicture}[scale=0.6]
+			% Axes
+			\draw[->] (0,0) -- (8,0) node[right] {$Q$};
+			\draw[->] (0,0) -- (0,6) node[above] {$P$};
+
+			% Demand
+			\draw[thick, blue] (0.5,5.5) -- (7.5,0.5);
+
+			% Pre-merger MC
+			\draw[thick, red] (0,2) -- (8,2) node[right] {$MC^{pre}$};
+
+			% Post-merger MC (lower)
+			\draw[thick, green] (0,1) -- (8,1) node[right] {$MC^{post}$};
+
+			% Pre-merger price
+			\draw[dashed] (0,3) -- (4.5,3) -- (4.5,0);
+			\node[left] at (0,3) {$P^{pre}$};
+			\node[below] at (4.5,0) {$Q^{pre}$};
+
+			% Post-merger price
+			\draw[dashed] (0,3.5) -- (3.5,3.5) -- (3.5,0);
+			\node[left] at (0,3.5) {$P^{post}$};
+
+			% Labels for areas
+			\node at (2.5,2.5) {\small DWL};
+			\node at (3,1.5) {\small Eff.};
+		\end{tikzpicture}
+	\end{center}
+	\begin{wideitemize}
+		\item DWL (lost surplus) vs Efficiency gain (cost savings)
+		\item Merger is welfare-improving if Efficiency $>$ DWL
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Practice: Merger policy}
+	\begin{wideitemize}
+		\item \textbf{Question:} Market has shares: 35\%, 25\%, 20\%, 15\%, 5\%.
+		\item The 35\% and 25\% firms propose to merge.
+		\item (a) Calculate pre-merger and post-merger HHI.
+		\item (b) Would this merger likely face scrutiny under the Guidelines?
+	\end{wideitemize}
+	\vspace{10pt}
+	\centering
+	\textit{Take 3 minutes.}
+\end{frame}
+
+\begin{frame}{Practice: Merger policy (solution)}
+	\begin{solutionbox}[Solution]
+		\begin{wideitemize}
+			\item \textbf{(a) Pre-merger:}
+			\begin{align*}
+				HHI = 35^2 + 25^2 + 20^2 + 15^2 + 5^2 = 2500
+			\end{align*}
+			\item \textbf{Post-merger:}
+			\begin{align*}
+				HHI = 60^2 + 20^2 + 15^2 + 5^2 = 4250
+			\end{align*}
+			\item $\Delta HHI = 1750$ (or: $2 \times 35 \times 25 = 1750$)
+			\item \textbf{(b) Yes.} Post-merger HHI $> 2500$ (highly concentrated) and $\Delta HHI > 200$. Merger would likely face significant scrutiny.
+		\end{wideitemize}
+	\end{solutionbox}
+\end{frame}
+
+\begin{frame}{Remedies in merger review}
+	\begin{wideitemize}
+		\item \textbf{If merger raises concerns, agencies can:}
+		\begin{wideenumerate}
+			\vspace{5pt}
+			\item Block the merger entirely
+			\item Require divestitures (sell some products/plants)
+			\item Impose behavioral conditions (licensing, access)
+		\end{wideenumerate}
+		\item \textbf{Divestitures:} Sell assets to maintain competition
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Must sell to capable buyer
+			\item Assets must be ``viable'' standalone
+		\end{wideitemize}
+		\item Example: T-Mobile/Sprint required divestiture to Dish
 	\end{wideitemize}
 \end{frame}
 
@@ -458,6 +670,59 @@ Nicholas Vreugdenhil \\
 			\item Vertical concerns (platforms buying content)
 		\end{wideitemize}
 	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Merger simulation vs HHI}
+	\begin{center}
+	\begin{tabular}{|l|p{4cm}|p{4cm}|}
+		\hline
+		& \textbf{HHI} & \textbf{Merger Simulation} \\
+		\hline
+		\textbf{Data needed} & Market shares & Demand estimates \\
+		\hline
+		\textbf{Output} & Concentration screen & Predicted price increase \\
+		\hline
+		\textbf{Pros} & Simple, transparent & Accounts for substitution \\
+		\hline
+		\textbf{Cons} & Ignores substitution & Requires demand model \\
+		\hline
+	\end{tabular}
+	\end{center}
+	\vspace{5pt}
+	\begin{wideitemize}
+		\item Modern merger review uses both approaches
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Connection to HW2}
+	\begin{wideitemize}
+		\item \textbf{HW2 asks you to:}
+		\begin{wideenumerate}
+			\vspace{5pt}
+			\item Take demand estimates (given)
+			\item Compute pre-merger margins and implied MC
+			\item Change ownership matrix
+			\item Solve for post-merger equilibrium
+			\item Calculate price effects and welfare change
+		\end{wideenumerate}
+		\item This connects Part 1 (demand) to Part 2 (competition)
+		\item Same methodology used in real merger cases!
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Merger analysis summary}
+	\begin{wideenumerate}
+		\item \textbf{Diversion ratio:} Key determinant of price effects
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item High diversion = close substitutes = larger price increase
+		\end{wideitemize}
+		\item \textbf{Simulation:} Change ownership, solve new equilibrium
+		\item \textbf{UPP:} Quick screen: $D \times margin$
+		\item \textbf{HHI:} Concentration screen, not definitive
+		\item \textbf{Efficiencies:} Can offset price effects, but hard to prove
+		\item \textbf{Practice:} Apply these tools in HW2!
+	\end{wideenumerate}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

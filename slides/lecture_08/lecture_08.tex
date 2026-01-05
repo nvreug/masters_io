@@ -36,6 +36,27 @@
 \definecolor{red}{RGB}{213,94,0}
 \definecolor{yellow}{RGB}{240,228,66}
 \definecolor{green}{RGB}{0,158,115}
+\definecolor{solutionbg}{RGB}{240,248,240}
+\definecolor{solutionframe}{RGB}{0,158,115}
+
+% Solution box environment for worked answers
+\usepackage{tcolorbox}
+\newtcolorbox{solutionbox}[1][]{
+  enhanced,
+  colback=solutionbg,
+  colframe=solutionframe,
+  boxrule=0pt,
+  leftrule=3pt,
+  arc=0pt,
+  left=8pt,
+  right=8pt,
+  top=6pt,
+  bottom=6pt,
+  fonttitle=\bfseries,
+  title={#1},
+  attach boxed title to top left={yshift=-2mm, xshift=5mm},
+  boxed title style={colback=solutionframe, colframe=solutionframe, size=small, arc=2pt}
+}
 
 \hypersetup{
   colorlinks=false,
@@ -86,8 +107,8 @@ Nicholas Vreugdenhil \\
 
 \begin{frame}{Welcome to Part 2}
 	\begin{wideitemize}
-		\item Part 1: Demand estimation and pricing
-		\item \textbf{Part 2: Models of competition and industry structure}
+		\item Demand estimation and pricing
+		\item \textbf{Models of competition and industry structure}
 		\begin{wideitemize}
 			\vspace{5pt}
 			\item Oligopoly models (Cournot, Bertrand, Hotelling)
@@ -100,27 +121,16 @@ Nicholas Vreugdenhil \\
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{Plan for today}
+\begin{frame}{Plan}
   \begin{wideenumerate}
-    \item Cournot competition (refresher in IO notation)
-    \item Bertrand competition (refresher)
-    \item Cournot vs Bertrand: when does each apply?
-    \item[] \rule{0.5\textwidth}{0.4pt}
-    \item Product differentiation: why it matters
-    \item Hotelling model
-    \item Connection to demand estimation
+    \item \textbf{Cournot and Bertrand competition}
+    \item Product differentiation and Hotelling model
   \end{wideenumerate}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% PART 1: COURNOT AND BERTRAND
+% COURNOT AND BERTRAND
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{transitionframe}
-	\begin{center}
-		{\Huge Part 1: Cournot and Bertrand Competition}
-	\end{center}
-\end{transitionframe}
 
 \begin{frame}{From ECN 532: Oligopoly models}
 	\begin{wideitemize}
@@ -193,15 +203,50 @@ Nicholas Vreugdenhil \\
 \end{frame}
 
 \begin{frame}{Worked example: Cournot (solution)}
+	\begin{solutionbox}[Solution]
+		\begin{wideitemize}
+			\item \textbf{(a)} FOC: $100 - 2q_i - q_j - 10 = 0$
+			\item Symmetric: $q_1 = q_2 = q^*$, so $100 - 3q^* = 10 \Rightarrow q^* = 30$
+			\item $Q = 60$, $P = 100 - 60 = 40$
+			\item \textbf{(b)} $L = \frac{40 - 10}{40} = \frac{3}{4} = 0.75$
+			\item \textbf{(c)} Market share: $s_i = 30/60 = 0.5$
+			\item Elasticity: $\varepsilon = \frac{dQ}{dP} \cdot \frac{P}{Q} = (-1) \cdot \frac{40}{60} = -\frac{2}{3}$
+			\item Check: $L = \frac{s_i}{|\varepsilon|} = \frac{0.5}{2/3} = 0.75$ $\checkmark$
+		\end{wideitemize}
+	\end{solutionbox}
+\end{frame}
+
+\begin{frame}{Cournot with $n$ symmetric firms}
 	\begin{wideitemize}
-		\item \textbf{(a)} FOC: $100 - 2q_i - q_j - 10 = 0$
-		\item Symmetric: $q_1 = q_2 = q^*$, so $100 - 3q^* = 10 \Rightarrow q^* = 30$
-		\item $Q = 60$, $P = 100 - 60 = 40$
-		\item \textbf{(b)} $L = \frac{40 - 10}{40} = \frac{3}{4} = 0.75$
-		\item \textbf{(c)} Market share: $s_i = 30/60 = 0.5$
-		\item Elasticity: $\varepsilon = \frac{dQ}{dP} \cdot \frac{P}{Q} = (-1) \cdot \frac{40}{60} = -\frac{2}{3}$
-		\item Check: $L = \frac{s_i}{|\varepsilon|} = \frac{0.5}{2/3} = 0.75$ $\checkmark$
+		\item General result for linear demand $P = a - bQ$:
+		\item Symmetric equilibrium: $q^* = \frac{a - c}{b(n+1)}$
+		\item Total quantity: $Q^* = \frac{n(a-c)}{b(n+1)}$
+		\item Price: $P^* = \frac{a + nc}{n+1}$
+		\item Lerner index: $L = \frac{1}{n|\varepsilon|}$ (symmetric case where $s_i = 1/n$)
+		\item \textbf{Key insight:} As $n \to \infty$, $P \to MC$ (perfect competition)
 	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Practice: Cournot comparative statics}
+	\begin{wideitemize}
+		\item \textbf{True, False, or NEI:}
+		\item (a) In Cournot equilibrium, a firm with a larger market share has a higher markup.
+		\item (b) Adding a third firm to a Cournot duopoly always reduces industry profits.
+		\item (c) In Cournot, all firms must have the same marginal cost.
+	\end{wideitemize}
+	\vspace{10pt}
+	\centering
+	\textit{Take 2 minutes.}
+\end{frame}
+
+\begin{frame}{Practice: Cournot comparative statics (solution)}
+	\begin{solutionbox}[Answers]
+		\begin{wideitemize}
+			\item \textbf{(a) TRUE.} From $L_i = s_i/|\varepsilon|$, larger $s_i$ means higher $L_i$.
+			\item \textbf{(b) TRUE.} More firms $\Rightarrow$ lower price $\Rightarrow$ lower industry profit. Each firm's profit falls, and total profit falls because $P$ is closer to $MC$.
+			\item \textbf{(c) FALSE.} Asymmetric costs work fine. Low-cost firms have higher $q_i$ and $s_i$, hence higher margins.
+		\end{wideitemize}
+	\end{solutionbox}
 \end{frame}
 
 \begin{frame}{Bertrand competition: setup}
@@ -256,6 +301,28 @@ Nicholas Vreugdenhil \\
 	\end{wideitemize}
 \end{frame}
 
+\begin{frame}{Escaping the Bertrand paradox}
+	\begin{wideenumerate}
+		\item \textbf{Capacity constraints} (Kreps-Scheinkman)
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Can't serve entire market at low price
+			\item Leads to Cournot outcome
+		\end{wideitemize}
+		\item \textbf{Product differentiation} (today's main topic!)
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Consumers have preferences
+			\item Not all switch to lowest price
+		\end{wideitemize}
+		\item \textbf{Repeated interaction} (collusion, covered later)
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Firms can sustain $P > MC$ through punishment strategies
+		\end{wideitemize}
+	\end{wideenumerate}
+\end{frame}
+
 \begin{frame}{When does each model apply?}
 	\begin{wideitemize}
 		\item \textbf{Cournot applies when:}
@@ -275,6 +342,59 @@ Nicholas Vreugdenhil \\
 		\end{wideitemize}
 		\item Examples: online retail, commodities
 	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Industry examples: which model?}
+	\begin{center}
+	\begin{tabular}{|l|c|l|}
+		\hline
+		\textbf{Industry} & \textbf{Model} & \textbf{Why?} \\
+		\hline
+		Airlines & Cournot & Capacity (planes, gates) committed \\
+		\hline
+		Cement & Cournot & Production committed; transport costs \\
+		\hline
+		Gasoline stations & Bertrand & Prices adjust daily; commodity \\
+		\hline
+		Online retail & Bertrand & Instant price changes; no capacity \\
+		\hline
+		Smartphones & Differentiated & Product differentiation dominates \\
+		\hline
+	\end{tabular}
+	\end{center}
+	\vspace{5pt}
+	\begin{wideitemize}
+		\item In practice: most markets have differentiated products!
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Practice: Cournot vs Bertrand}
+	\begin{wideitemize}
+		\item \textbf{Question:} Two firms have $MC = 20$. Market demand is $P = 100 - Q$.
+		\item (a) Find equilibrium price under Cournot.
+		\item (b) Find equilibrium price under Bertrand.
+		\item (c) Which model yields higher consumer surplus? Why?
+	\end{wideitemize}
+	\vspace{10pt}
+	\centering
+	\textit{Take 3 minutes.}
+\end{frame}
+
+\begin{frame}{Practice: Cournot vs Bertrand (solution)}
+	\begin{solutionbox}[Solution]
+		\begin{wideitemize}
+			\item \textbf{(a) Cournot:} Using $P^* = \frac{a + nc}{n+1} = \frac{100 + 2(20)}{3} = 46.67$
+			\item Or: $q^* = \frac{100-20}{3} = 26.67$, $Q = 53.33$, $P = 46.67$
+			\item \textbf{(b) Bertrand:} $P = MC = 20$
+			\item \textbf{(c)} Bertrand has higher CS:
+			\begin{wideitemize}
+				\vspace{5pt}
+				\item Bertrand: $CS = \frac{1}{2}(100-20)(80) = 3200$
+				\item Cournot: $CS = \frac{1}{2}(100-46.67)(53.33) \approx 1422$
+			\end{wideitemize}
+			\item Lower price $\Rightarrow$ higher quantity $\Rightarrow$ higher CS
+		\end{wideitemize}
+	\end{solutionbox}
 \end{frame}
 
 \begin{frame}{Kreps-Scheinkman (1983): resolving the puzzle}
@@ -298,14 +418,15 @@ Nicholas Vreugdenhil \\
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% PART 2: HOTELLING MODEL
+% HOTELLING MODEL
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{transitionframe}
-	\begin{center}
-		{\Huge Part 2: Product Differentiation}
-	\end{center}
-\end{transitionframe}
+\begin{frame}{Plan}
+  \begin{wideenumerate}
+    \item Cournot and Bertrand competition
+    \item \textbf{Product differentiation and Hotelling model}
+  \end{wideenumerate}
+\end{frame}
 
 \begin{frame}{Why differentiation matters}
 	\begin{wideitemize}
@@ -423,18 +544,62 @@ Nicholas Vreugdenhil \\
 \end{frame}
 
 \begin{frame}{Worked example: Hotelling (solution)}
+	\begin{solutionbox}[Solution]
+		\begin{wideitemize}
+			\item \textbf{(a)} $p^* = c + t = 1 + 2 = 3$
+			\item \textbf{(b)} At $p_1 = 4$, $p_2 = 3$:
+			\begin{align*}
+				\hat{x} = \frac{1}{2} + \frac{3 - 4}{2(2)} = \frac{1}{2} - \frac{1}{4} = \frac{1}{4}
+			\end{align*}
+			\item Firm 1's market share falls to 25\%
+			\item \textbf{(c)} At equilibrium: $D_1 = 1/2$, $\frac{\partial D_1}{\partial p_1} = -\frac{1}{2t} = -\frac{1}{4}$
+			\begin{align*}
+				\varepsilon_1 = \frac{\partial D_1}{\partial p_1} \cdot \frac{p_1}{D_1} = -\frac{1}{4} \cdot \frac{3}{1/2} = -1.5
+			\end{align*}
+		\end{wideitemize}
+	\end{solutionbox}
+\end{frame}
+
+\begin{frame}{Hotelling: why transport cost matters}
 	\begin{wideitemize}
-		\item \textbf{(a)} $p^* = c + t = 1 + 2 = 3$
-		\item \textbf{(b)} At $p_1 = 4$, $p_2 = 3$:
-		\begin{align*}
-			\hat{x} = \frac{1}{2} + \frac{3 - 4}{2(2)} = \frac{1}{2} - \frac{1}{4} = \frac{1}{4}
-		\end{align*}
-		\item Firm 1's market share falls to 25\%
-		\item \textbf{(c)} At equilibrium: $D_1 = 1/2$, $\frac{\partial D_1}{\partial p_1} = -\frac{1}{2t} = -\frac{1}{4}$
-		\begin{align*}
-			\varepsilon_1 = \frac{\partial D_1}{\partial p_1} \cdot \frac{p_1}{D_1} = -\frac{1}{4} \cdot \frac{3}{1/2} = -1.5
-		\end{align*}
+		\item \textbf{High $t$:} Strong differentiation
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Consumers have strong location preferences
+			\item Firm can raise price without losing many customers
+			\item Example: specialty restaurants vs fast food
+		\end{wideitemize}
+		\item \textbf{Low $t$:} Weak differentiation
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Consumers nearly indifferent across locations
+			\item Small price cut steals many customers
+			\item Approaches Bertrand as $t \to 0$
+		\end{wideitemize}
+		\item In demand estimation: $1/\alpha$ plays similar role to $t$
 	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Practice: T/F on Hotelling}
+	\begin{wideitemize}
+		\item \textbf{True, False, or NEI:}
+		\item (a) In Hotelling equilibrium, firms always split the market equally.
+		\item (b) A monopolist in Hotelling should locate at the center of the line.
+		\item (c) Higher transport costs benefit consumers because products are more differentiated.
+	\end{wideitemize}
+	\vspace{10pt}
+	\centering
+	\textit{Take 2 minutes.}
+\end{frame}
+
+\begin{frame}{Practice: T/F on Hotelling (solution)}
+	\begin{solutionbox}[Answers]
+		\begin{wideitemize}
+			\item \textbf{(a) TRUE} (with caveat). If firms are at endpoints and have same costs, yes. With asymmetric locations or costs, shares differ.
+			\item \textbf{(b) TRUE.} Monopolist minimizes total transport costs by locating at center. This maximizes consumer value and thus WTP.
+			\item \textbf{(c) FALSE.} Higher $t$ means higher prices ($p^* = c + t$) and higher transport costs. Both hurt consumers.
+		\end{wideitemize}
+	\end{solutionbox}
 \end{frame}
 
 \begin{frame}{Welfare in Hotelling}
@@ -469,6 +634,72 @@ Nicholas Vreugdenhil \\
 			\item Price competition with differentiated products
 		\end{wideitemize}
 		\item Next lectures: how to use demand estimates for merger simulation
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{From Hotelling to logit: the connection}
+	\begin{center}
+	\begin{tabular}{|l|l|}
+		\hline
+		\textbf{Hotelling} & \textbf{Logit} \\
+		\hline
+		Location on line & Product characteristics \\
+		\hline
+		Transport cost $t$ & Sensitivity $1/|\alpha|$ \\
+		\hline
+		Consumer position & Consumer preferences \\
+		\hline
+		Linear utility & Logit choice probabilities \\
+		\hline
+		2 products & $J$ products \\
+		\hline
+	\end{tabular}
+	\end{center}
+	\vspace{5pt}
+	\begin{wideitemize}
+		\item Logit demand lets us do empirical Hotelling-style analysis
+		\item Estimate $\alpha$ from data $\rightarrow$ calibrate ``differentiation''
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Oligopoly models: summary}
+	\begin{wideitemize}
+		\item \textbf{Homogeneous products:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Cournot (quantity): $L = s_i/|\varepsilon|$
+			\item Bertrand (price): $P = MC$
+		\end{wideitemize}
+		\item \textbf{Differentiated products:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Hotelling/Differentiated Bertrand: $P > MC$
+			\item Markup depends on differentiation (transport cost)
+		\end{wideitemize}
+		\item \textbf{Empirical approach:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Estimate demand (logit)
+			\item Assume pricing behavior (usually differentiated Bertrand)
+			\item Back out marginal costs
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Preview: merger simulation}
+	\begin{wideitemize}
+		\item \textbf{Key question:} If two firms merge, what happens to prices?
+		\item \textbf{Approach:}
+		\begin{wideenumerate}
+			\vspace{5pt}
+			\item Estimate demand $\rightarrow$ get elasticities
+			\item Assume Bertrand pricing $\rightarrow$ back out $MC$
+			\item Change ownership structure
+			\item Solve new Bertrand equilibrium
+			\item Compare prices and welfare
+		\end{wideenumerate}
+		\item This is exactly what HW2 will do!
+		\item Will cover in detail in Lecture 10
 	\end{wideitemize}
 \end{frame}
 

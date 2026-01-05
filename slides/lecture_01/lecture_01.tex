@@ -53,6 +53,27 @@
 \definecolor{red}{RGB}{213,94,0}
 \definecolor{yellow}{RGB}{240,228,66}
 \definecolor{green}{RGB}{0,158,115}
+\definecolor{solutionbg}{RGB}{240,248,240}
+\definecolor{solutionframe}{RGB}{0,158,115}
+
+% Solution box environment for worked answers
+\usepackage{tcolorbox}
+\newtcolorbox{solutionbox}[1][]{
+  enhanced,
+  colback=solutionbg,
+  colframe=solutionframe,
+  boxrule=0pt,
+  leftrule=3pt,
+  arc=0pt,
+  left=8pt,
+  right=8pt,
+  top=6pt,
+  bottom=6pt,
+  fonttitle=\bfseries,
+  title={#1},
+  attach boxed title to top left={yshift=-2mm, xshift=5mm},
+  boxed title style={colback=solutionframe, colframe=solutionframe, size=small, arc=2pt}
+}
 
 \hypersetup{
   colorlinks=false,
@@ -120,29 +141,16 @@ Nicholas Vreugdenhil \\
   \centering
 \end{frame}
 
-\begin{frame}{Plan for today}
+\begin{frame}{Plan}
   \begin{wideenumerate}
-    \item What is industrial organization?
-    \item Course structure and logistics
-    \item Review: Monopoly pricing
-    \item Monopoly regulation
-    \item[] \rule{0.5\textwidth}{0.4pt}
-    \item Why do we need demand models?
-    \item Ordinal vs cardinal utility
-    \item Random utility framework
-    \item The dimensionality problem
+    \item \textbf{Introduction and Pricing}
+    \item Utility Models and Demand
   \end{wideenumerate}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% PART 1: INTRODUCTION AND PRICING
+% INTRODUCTION AND PRICING
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{transitionframe}
-	\begin{center}
-		{\Huge Part 1: Introduction and Pricing}
-	\end{center}
-\end{transitionframe}
 
 \begin{frame}{Your economics education so far}
 	\begin{wideitemize}
@@ -262,7 +270,7 @@ Nicholas Vreugdenhil \\
 	\end{wideitemize}
 	\vspace{11pt}
 	\begin{wideitemize}
-		\item Exams: 70 minutes, calculator + one two-sided cheat sheet allowed
+		\item Exams: 80 minutes, calculator + one two-sided cheat sheet allowed
 	\end{wideitemize}
 \end{frame}
 
@@ -325,17 +333,18 @@ Nicholas Vreugdenhil \\
 \end{frame}
 
 \begin{frame}{Worked example: Monopoly pricing (solution)}
-	  \begin{wideitemize}
-		\item \textbf{Solution:}
-		\item First, invert demand: $p=10-5q$
-		\item MR using `double the slope': $MR = 10-10q$
-		\item Set MR=MC:
-		\begin{align*}
-			\underbrace{10-10q}_{MR} = \underbrace{5}_{MC}
-		\end{align*}
-		\item Solve for optimal quantity: $q^*=0.5$
-		\item Plug into demand curve: $p^*=10-5 \times 0.5 = 7.5$
-	\end{wideitemize}
+	\begin{solutionbox}[Solution]
+		\begin{itemize}
+			\item First, invert demand: $p=10-5q$
+			\item MR using `double the slope': $MR = 10-10q$
+			\item Set MR=MC:
+			\begin{align*}
+				\underbrace{10-10q}_{MR} = \underbrace{5}_{MC}
+			\end{align*}
+			\item Solve for optimal quantity: $q^*=0.5$
+			\item Plug into demand curve: $p^*=10-5 \times 0.5 = 7.5$
+		\end{itemize}
+	\end{solutionbox}
 \end{frame}
 
 \begin{frame}{Pricing: MR=MC (graph)}
@@ -571,14 +580,15 @@ Nicholas Vreugdenhil \\
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% PART 2: UTILITY MODELS AND DEMAND
+% UTILITY MODELS AND DEMAND
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{transitionframe}
-	\begin{center}
-		{\Huge Part 2: Utility Models and Demand}
-	\end{center}
-\end{transitionframe}
+\begin{frame}{Plan}
+  \begin{wideenumerate}
+    \item Introduction and Pricing
+    \item \textbf{Utility Models and Demand}
+  \end{wideenumerate}
+\end{frame}
 
 \begin{frame}{Why is estimating demand useful?}
 	  \begin{wideitemize}

@@ -36,6 +36,27 @@
 \definecolor{red}{RGB}{213,94,0}
 \definecolor{yellow}{RGB}{240,228,66}
 \definecolor{green}{RGB}{0,158,115}
+\definecolor{solutionbg}{RGB}{240,248,240}
+\definecolor{solutionframe}{RGB}{0,158,115}
+
+% Solution box environment for worked answers
+\usepackage{tcolorbox}
+\newtcolorbox{solutionbox}[1][]{
+  enhanced,
+  colback=solutionbg,
+  colframe=solutionframe,
+  boxrule=0pt,
+  leftrule=3pt,
+  arc=0pt,
+  left=8pt,
+  right=8pt,
+  top=6pt,
+  bottom=6pt,
+  fonttitle=\bfseries,
+  title={#1},
+  attach boxed title to top left={yshift=-2mm, xshift=5mm},
+  boxed title style={colback=solutionframe, colframe=solutionframe, size=small, arc=2pt}
+}
 
 \hypersetup{
   colorlinks=false,
@@ -84,27 +105,23 @@ Nicholas Vreugdenhil \\
   \centering
 \end{frame}
 
-\begin{frame}{Plan for today}
+\begin{frame}{Plan}
   \begin{wideenumerate}
-    \item Two-part tariffs: structure and intuition
-    \item Optimal two-part tariff (homogeneous consumers)
-    \item Heterogeneous consumers (brief)
-    \item[] \rule{0.5\textwidth}{0.4pt}
-    \item Self-selection: versioning and menu design
-    \item Incentive compatibility and individual rationality
-    \item Worked example: optimal menu
+    \item \textbf{Two-part tariffs}
+    \item Self-selection
   \end{wideenumerate}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% PART 1: TWO-PART TARIFFS
+% TWO-PART TARIFFS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{transitionframe}
-	\begin{center}
-		{\Huge Part 1: Two-Part Tariffs}
-	\end{center}
-\end{transitionframe}
+\begin{frame}{Plan}
+  \begin{wideenumerate}
+    \item \textbf{Two-part tariffs}
+    \item Self-selection
+  \end{wideenumerate}
+\end{frame}
 
 \begin{frame}{Non-linear pricing}
 	\begin{wideitemize}
@@ -140,6 +157,37 @@ Nicholas Vreugdenhil \\
 			\item Costco: annual membership + price per item
 		\end{wideitemize}
 	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: Gym membership}
+	\begin{wideitemize}
+		\item \textbf{Question:}
+		\item A gym knows each member has demand $q = 20 - 2p$ (visits per month).
+		\item $MC = 2$ per visit.
+		\item What is the optimal two-part tariff ($F$, $p$)?
+		\item How much profit per member?
+	\end{wideitemize}
+	\vspace{15pt}
+	\centering
+	\textit{Take 3 minutes to solve this.}
+\end{frame}
+
+\begin{frame}{Worked example: Gym membership (solution)}
+	\begin{solutionbox}[Solution]
+		\begin{wideitemize}
+			\item \textbf{Step 1:} Set $p = MC = 2$
+			\item At $p = 2$: $q = 20 - 2(2) = 16$ visits
+			\item \textbf{Step 2:} Compute CS at $p = 2$
+			\begin{wideitemize}
+				\vspace{3pt}
+				\item Max WTP (intercept): $p = 10$ when $q = 0$
+				\item $CS = \frac{1}{2} \times 16 \times (10 - 2) = \frac{1}{2} \times 16 \times 8 = 64$
+			\end{wideitemize}
+			\item \textbf{Step 3:} Set $F = CS = 64$
+			\item \textbf{Optimal tariff:} \$64/month + \$2/visit
+			\item \textbf{Profit per member:} \$64 (all from the fixed fee!)
+		\end{wideitemize}
+	\end{solutionbox}
 \end{frame}
 
 \begin{frame}{Why is this ``non-linear''?}
@@ -250,26 +298,28 @@ Nicholas Vreugdenhil \\
 \end{frame}
 
 \begin{frame}{Worked example: Two-part tariff (solution)}
-	\begin{wideitemize}
-		\item \textbf{(a) Uniform pricing:}
+	\begin{solutionbox}[Solution]
 		\begin{wideitemize}
-			\vspace{3pt}
-			\item Inverse demand: $p = 6 - q/2.5$
-			\item $MR = 6 - 2q/2.5 = 6 - 0.8q$
-			\item Set $MR = MC$: $6 - 0.8q = 0 \Rightarrow q = 7.5$
-			\item Price: $p = 6 - 7.5/2.5 = 3$
-			\item Profit: $\pi = 3 \times 7.5 = 22.5$ per consumer
+			\item \textbf{(a) Uniform pricing:}
+			\begin{wideitemize}
+				\vspace{3pt}
+				\item Inverse demand: $p = 6 - q/2.5$
+				\item $MR = 6 - 2q/2.5 = 6 - 0.8q$
+				\item Set $MR = MC$: $6 - 0.8q = 0 \Rightarrow q = 7.5$
+				\item Price: $p = 6 - 7.5/2.5 = 3$
+				\item Profit: $\pi = 3 \times 7.5 = 22.5$ per consumer
+			\end{wideitemize}
+			\item \textbf{(b) Two-part tariff:}
+			\begin{wideitemize}
+				\vspace{3pt}
+				\item Set $p = MC = 0$
+				\item At $p = 0$: $q = 15$
+				\item $CS = \frac{1}{2} \times 15 \times 6 = 45$
+				\item Set $F = 45$
+				\item Profit: $\pi = 45$ per consumer (double the uniform price!)
+			\end{wideitemize}
 		\end{wideitemize}
-		\item \textbf{(b) Two-part tariff:}
-		\begin{wideitemize}
-			\vspace{3pt}
-			\item Set $p = MC = 0$
-			\item At $p = 0$: $q = 15$
-			\item $CS = \frac{1}{2} \times 15 \times 6 = 45$
-			\item Set $F = 45$
-			\item Profit: $\pi = 45$ per consumer (double the uniform price!)
-		\end{wideitemize}
-	\end{wideitemize}
+	\end{solutionbox}
 \end{frame}
 
 \begin{frame}{Welfare effects of two-part tariffs}
@@ -302,15 +352,66 @@ Nicholas Vreugdenhil \\
 	\end{wideitemize}
 \end{frame}
 
+\begin{frame}{Worked example: Two-part tariff with two types}
+	\begin{wideitemize}
+		\item \textbf{Question:}
+		\item Type H: demand $q_H = 10 - p$, 100 consumers
+		\item Type L: demand $q_L = 5 - p$, 200 consumers
+		\item $MC = 0$
+		\item Compare: (a) $F = 50, p = 0$ vs (b) $F = 12.5, p = 0$
+	\end{wideitemize}
+	\vspace{15pt}
+	\centering
+	\textit{Take 3 minutes to solve this.}
+\end{frame}
+
+\begin{frame}{Worked example: Two-part tariff with two types (solution)}
+	\begin{solutionbox}[Solution]
+		\begin{wideitemize}
+			\item \textbf{(a) $F = 50, p = 0$:}
+			\begin{wideitemize}
+				\vspace{3pt}
+				\item Type H: $CS = \frac{1}{2}(10)(10) = 50 \geq F$ $\checkmark$ joins
+				\item Type L: $CS = \frac{1}{2}(5)(5) = 12.5 < F$ doesn't join
+				\item Profit $= 50 \times 100 = \$5,000$
+			\end{wideitemize}
+			\item \textbf{(b) $F = 12.5, p = 0$:}
+			\begin{wideitemize}
+				\vspace{3pt}
+				\item Type H: $CS = 50 \geq 12.5$ $\checkmark$ joins
+				\item Type L: $CS = 12.5 \geq 12.5$ $\checkmark$ joins
+				\item Profit $= 12.5 \times 300 = \$3,750$
+			\end{wideitemize}
+			\item \textbf{Better to serve only H!} (in this case)
+		\end{wideitemize}
+	\end{solutionbox}
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% PART 2: SELF-SELECTION
+% SELF-SELECTION
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{transitionframe}
-	\begin{center}
-		{\Huge Part 2: Self-Selection}
-	\end{center}
-\end{transitionframe}
+\begin{frame}{Plan}
+  \begin{wideenumerate}
+    \item Two-part tariffs
+    \item \textbf{Self-selection}
+  \end{wideenumerate}
+\end{frame}
+
+\begin{frame}{The self-selection problem: why can't we just ask?}
+	\begin{wideitemize}
+		\item \textbf{Why not ask consumers their WTP directly?}
+		\item Everyone would claim to be a low-value buyer!
+		\item \textbf{Information asymmetry:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Consumers know their type
+			\item Firm does not
+			\item Consumers have incentive to misreport
+		\end{wideitemize}
+		\item \textbf{Solution:} Design options so that revealing type is in consumers' interest
+	\end{wideitemize}
+\end{frame}
 
 \begin{frame}{Self-selection: the idea}
 	\begin{wideitemize}
@@ -419,6 +520,38 @@ Nicholas Vreugdenhil \\
 	\end{wideitemize}
 \end{frame}
 
+\begin{frame}{Worked example: Airline pricing}
+	\begin{wideitemize}
+		\item \textbf{Question:}
+		\item Business travelers (B): WTP \$800 for flexible, \$400 for restricted
+		\item Leisure travelers (L): WTP \$300 for flexible, \$250 for restricted
+		\item 100 of each type. $MC = 100$ for both ticket types.
+		\item Design the optimal menu (prices for flexible and restricted).
+	\end{wideitemize}
+	\vspace{15pt}
+	\centering
+	\textit{Take 4 minutes to solve this.}
+\end{frame}
+
+\begin{frame}{Worked example: Airline pricing (solution)}
+	\begin{solutionbox}[Solution]
+		\begin{wideitemize}
+			\item \textbf{Step 1:} Set $IR_L$ to bind: $p_R = 250$ (L gets zero surplus)
+			\item \textbf{Step 2:} Set $IC_B$ to bind:
+			\begin{align*}
+				800 - p_F &= 400 - 250 \\
+				p_F &= 800 - 150 = 650
+			\end{align*}
+			\item \textbf{Check L doesn't want flexible:} $300 - 650 = -350 < 0$ $\checkmark$
+			\item \textbf{Profit:}
+			\begin{align*}
+				\pi = (650 - 100) \times 100 + (250 - 100) \times 100 = 55,000 + 15,000 = 70,000
+			\end{align*}
+			\item B gets rent of \$150 (to prevent mimicking L)
+		\end{wideitemize}
+	\end{solutionbox}
+\end{frame}
+
 \begin{frame}{Worked example: Versioning}
 	\begin{wideitemize}
 		\item Two product versions. $MC = 300$ for both.
@@ -445,50 +578,56 @@ Nicholas Vreugdenhil \\
 \end{frame}
 
 \begin{frame}{Worked example: Versioning (solution part a)}
-	\begin{wideitemize}
-		\item \textbf{(a) Only Full at $p_F = 1500$:}
+	\begin{solutionbox}[Solution]
 		\begin{wideitemize}
-			\vspace{5pt}
-			\item Type H: $CS = 1500 - 1500 = 0 \geq 0$ $\checkmark$ (buys)
-			\item Type L: $CS = 600 - 1500 = -900 < 0$ (doesn't buy)
+			\item \textbf{(a) Only Full at $p_F = 1500$:}
+			\begin{wideitemize}
+				\vspace{5pt}
+				\item Type H: $CS = 1500 - 1500 = 0 \geq 0$ $\checkmark$ (buys)
+				\item Type L: $CS = 600 - 1500 = -900 < 0$ (doesn't buy)
+			\end{wideitemize}
+			\item Only H buys
+			\item Profit $= (1500 - 300) \times 1\text{M} = \$1.2\text{B}$
 		\end{wideitemize}
-		\item Only H buys
-		\item Profit $= (1500 - 300) \times 1\text{M} = \$1.2\text{B}$
-	\end{wideitemize}
+	\end{solutionbox}
 \end{frame}
 
 \begin{frame}{Worked example: Versioning (solution part b)}
-	\begin{wideitemize}
-		\item \textbf{(b) $p_F = 1500$, $p_S = 500$:}
-		\item Type H:
+	\begin{solutionbox}[Solution]
 		\begin{wideitemize}
-			\vspace{3pt}
-			\item $CS_F = 1500 - 1500 = 0$
-			\item $CS_S = 800 - 500 = 300$ $\leftarrow$ \textbf{higher!}
+			\item \textbf{(b) $p_F = 1500$, $p_S = 500$:}
+			\item Type H:
+			\begin{wideitemize}
+				\vspace{3pt}
+				\item $CS_F = 1500 - 1500 = 0$
+				\item $CS_S = 800 - 500 = 300$ $\leftarrow$ \textbf{higher!}
+			\end{wideitemize}
+			\item Type H buys Stripped! (IC violated)
+			\item Type L: $CS_S = 500 - 500 = 0$ (buys Stripped)
+			\item Everyone buys Stripped
+			\item Profit $= (500 - 300) \times 3\text{M} = \$600\text{M}$
+			\item \textbf{Worse than (a)!} The menu is poorly designed.
 		\end{wideitemize}
-		\item Type H buys Stripped! (IC violated)
-		\item Type L: $CS_S = 500 - 500 = 0$ (buys Stripped)
-		\item Everyone buys Stripped
-		\item Profit $= (500 - 300) \times 3\text{M} = \$600\text{M}$
-		\item \textbf{Worse than (a)!} The menu is poorly designed.
-	\end{wideitemize}
+	\end{solutionbox}
 \end{frame}
 
 \begin{frame}{Worked example: Versioning (solution part c)}
-	\begin{wideitemize}
-		\item \textbf{(c) $p_F = 1200$, $p_S = 500$:}
-		\item Type H:
+	\begin{solutionbox}[Solution]
 		\begin{wideitemize}
-			\vspace{3pt}
-			\item $CS_F = 1500 - 1200 = 300$
-			\item $CS_S = 800 - 500 = 300$
+			\item \textbf{(c) $p_F = 1200$, $p_S = 500$:}
+			\item Type H:
+			\begin{wideitemize}
+				\vspace{3pt}
+				\item $CS_F = 1500 - 1200 = 300$
+				\item $CS_S = 800 - 500 = 300$
+			\end{wideitemize}
+			\item H is indifferent $\rightarrow$ buys Full (IC binds!)
+			\item Type L: $CS_F = 600 - 1200 = -600$, $CS_S = 500 - 500 = 0$
+			\item L buys Stripped (IR binds!)
+			\item Profit $= (1200 - 300) \times 1\text{M} + (500 - 300) \times 2\text{M} = \$1.3\text{B}$
+			\item \textbf{Best of the three!}
 		\end{wideitemize}
-		\item H is indifferent $\rightarrow$ buys Full (IC binds!)
-		\item Type L: $CS_F = 600 - 1200 = -600$, $CS_S = 500 - 500 = 0$
-		\item L buys Stripped (IR binds!)
-		\item Profit $= (1200 - 300) \times 1\text{M} + (500 - 300) \times 2\text{M} = \$1.3\text{B}$
-		\item \textbf{Best of the three!}
-	\end{wideitemize}
+	\end{solutionbox}
 \end{frame}
 
 \begin{frame}{Lessons from the example}
@@ -526,6 +665,38 @@ Nicholas Vreugdenhil \\
 	\end{wideitemize}
 \end{frame}
 
+\begin{frame}{Classic example: Intel 486 processor}
+	\begin{wideitemize}
+		\item Intel 486DX: full-featured processor
+		\item Intel 486SX: same chip, but with math coprocessor \textbf{disabled}
+		\item 486SX costs \textbf{more} to produce (extra step to disable!)
+		\item \textbf{Why?}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Creates price discrimination without observable characteristics
+			\item Business users (need math) pay more for 486DX
+			\item Home users (don't need math) self-select into 486SX
+		\end{wideitemize}
+		\item Same logic as Tesla battery restrictions today
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{iPhone storage: versioning in action}
+	\begin{wideitemize}
+		\item iPhone comes in 128GB, 256GB, 512GB versions
+		\item Cost difference to Apple: maybe \$20-30
+		\item Price difference to consumers: \$100-200
+		\item \textbf{Why such large price gaps?}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item High-value users (professionals, photographers) need more storage
+			\item They're willing to pay much more
+			\item Low-value users self-select into smaller storage
+		\end{wideitemize}
+		\item This is versioning through product attributes
+	\end{wideitemize}
+\end{frame}
+
 \begin{frame}{Self-selection: cookbook summary}
 	\begin{wideenumerate}
 		\item Compute consumer surplus for each type, for each option:
@@ -537,6 +708,68 @@ Nicholas Vreugdenhil \\
 		\item Compute profit given consumer choices
 		\item To find optimal prices: set IC for H and IR for L to bind
 	\end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Summary: When does each type of price discrimination apply?}
+	\begin{center}
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\textbf{Type} & \textbf{Key requirement} & \textbf{Examples} \\
+		\hline
+		Selection by & Observable & Students, seniors, \\
+		indicators & characteristic & geographic regions \\
+		\hline
+		Two-part & Can charge & Gym, Costco, \\
+		tariffs & fixed + variable & phone plans \\
+		\hline
+		Self-selection & Can offer & Airline classes, \\
+		(versioning) & different versions & software editions \\
+		\hline
+	\end{tabular}
+	\end{center}
+	\vspace{10pt}
+	\begin{wideitemize}
+		\item All require: \textbf{market power} and \textbf{inability to resell}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Connection to demand estimation}
+	\begin{wideitemize}
+		\item Demand estimation gives us \textbf{elasticities by consumer type}
+		\item This directly informs pricing strategy:
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item \textbf{Selection by indicators:} Different prices for observable groups
+			\item \textbf{Versioning:} Design features that appeal differently to types
+		\end{wideitemize}
+		\item \textbf{Example:} If demand estimation shows:
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Business travelers inelastic, value flexibility
+			\item Leisure travelers elastic, value low price
+		\end{wideitemize}
+		\item $\Rightarrow$ Offer flexible tickets at high price, restricted at low price
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Preparing for the midterm}
+	\begin{wideitemize}
+		\item \textbf{Topics covered so far:}
+		\begin{wideenumerate}
+			\vspace{5pt}
+			\item Demand estimation: logit, Berry inversion, elasticities, IVs
+			\item Consumer surplus: log-sum formula
+			\item Price discrimination: selection by indicators, two-part tariffs, self-selection
+		\end{wideenumerate}
+		\item \textbf{Key skills:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Compute elasticities from logit model
+			\item Apply Lerner index to find optimal prices
+			\item Set up and solve menu design problems with IC/IR constraints
+		\end{wideitemize}
+		\item Next lecture: Review session with practice problems
+	\end{wideitemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%

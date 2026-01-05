@@ -36,6 +36,27 @@
 \definecolor{red}{RGB}{213,94,0}
 \definecolor{yellow}{RGB}{240,228,66}
 \definecolor{green}{RGB}{0,158,115}
+\definecolor{solutionbg}{RGB}{240,248,240}
+\definecolor{solutionframe}{RGB}{0,158,115}
+
+% Solution box environment for worked answers
+\usepackage{tcolorbox}
+\newtcolorbox{solutionbox}[1][]{
+  enhanced,
+  colback=solutionbg,
+  colframe=solutionframe,
+  boxrule=0pt,
+  leftrule=3pt,
+  arc=0pt,
+  left=8pt,
+  right=8pt,
+  top=6pt,
+  bottom=6pt,
+  fonttitle=\bfseries,
+  title={#1},
+  attach boxed title to top left={yshift=-2mm, xshift=5mm},
+  boxed title style={colback=solutionframe, colframe=solutionframe, size=small, arc=2pt}
+}
 
 \hypersetup{
   colorlinks=false,
@@ -84,20 +105,18 @@ Nicholas Vreugdenhil \\
   \centering
 \end{frame}
 
-\begin{frame}{Plan for today}
+\begin{frame}{Plan}
   \begin{wideenumerate}
-    \item Review: Demand estimation
-    \item Practice problems: Demand
-    \item[] \rule{0.5\textwidth}{0.4pt}
-    \item Review: Pricing and price discrimination
-    \item Practice problems: Pricing
+    \item \textbf{Demand estimation review}
+    \item Pricing review
     \item Exam logistics
+    \item Preview of Part 2
   \end{wideenumerate}
 \end{frame}
 
 \begin{frame}{Midterm format}
 	\begin{wideitemize}
-		\item \textbf{Duration:} 70 minutes
+		\item \textbf{Duration:} 80 minutes
 		\item \textbf{Allowed:} Calculator + two-sided cheat sheet (letter-size paper)
 		\item \textbf{Coverage:} Lectures 1-5 (all of Part 1)
 		\item \textbf{Structure:}
@@ -110,14 +129,17 @@ Nicholas Vreugdenhil \\
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% PART 1: DEMAND ESTIMATION REVIEW
+% DEMAND ESTIMATION REVIEW
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{transitionframe}
-	\begin{center}
-		{\Huge Part 1: Demand Estimation Review}
-	\end{center}
-\end{transitionframe}
+\begin{frame}{Plan}
+  \begin{wideenumerate}
+    \item \textbf{Demand estimation review}
+    \item Pricing review
+    \item Exam logistics
+    \item Preview of Part 2
+  \end{wideenumerate}
+\end{frame}
 
 \begin{frame}{Why demand estimation?}
 	\begin{wideitemize}
@@ -176,18 +198,20 @@ Nicholas Vreugdenhil \\
 \end{frame}
 
 \begin{frame}{Practice: Elasticity calculation (solution)}
-	\begin{wideitemize}
-		\item \textbf{(a) Own-price elasticity:}
-		\begin{align*}
-			\eta_{AA} = \alpha p_A (1 - s_A) = (-0.5)(20)(1 - 0.1) = -9
-		\end{align*}
-		\item Demand is elastic (a 1\% price increase reduces quantity by 9\%)
-		\item \textbf{(b) Cross-price elasticity:}
-		\begin{align*}
-			\eta_{AB} = -\alpha p_B s_B = -(-0.5)(25)(0.15) = 1.875
-		\end{align*}
-		\item A 1\% increase in B's price increases A's share by 1.875\%
-	\end{wideitemize}
+	\begin{solutionbox}[Solution]
+		\begin{wideitemize}
+			\item \textbf{(a) Own-price elasticity:}
+			\begin{align*}
+				\eta_{AA} = \alpha p_A (1 - s_A) = (-0.5)(20)(1 - 0.1) = -9
+			\end{align*}
+			\item Demand is elastic (a 1\% price increase reduces quantity by 9\%)
+			\item \textbf{(b) Cross-price elasticity:}
+			\begin{align*}
+				\eta_{AB} = -\alpha p_B s_B = -(-0.5)(25)(0.15) = 1.875
+			\end{align*}
+			\item A 1\% increase in B's price increases A's share by 1.875\%
+		\end{wideitemize}
+	\end{solutionbox}
 \end{frame}
 
 \begin{frame}{The identification problem}
@@ -223,11 +247,13 @@ Nicholas Vreugdenhil \\
 \end{frame}
 
 \begin{frame}{Practice: Identification (solutions)}
-	\begin{wideitemize}
-		\item \textbf{(a) TRUE.} Price endogeneity biases $\alpha$ toward zero. Since $\alpha < 0$, this means $|\hat{\alpha}_{OLS}| < |\alpha_{true}|$.
-		\item \textbf{(b) TRUE (with caveat).} Hausman IVs work because common cost shocks affect prices in all markets (relevance), but other markets' prices don't directly affect local demand (exclusion). Caveat: requires no common demand shocks.
-		\item \textbf{(c) FALSE.} Logit solves dimensionality by using product characteristics. But the IIA problem means substitution is proportional to share, not similarity.
-	\end{wideitemize}
+	\begin{solutionbox}[Answers]
+		\begin{wideitemize}
+			\item \textbf{(a) TRUE.} Price endogeneity biases $\alpha$ toward zero. Since $\alpha < 0$, this means $|\hat{\alpha}_{OLS}| < |\alpha_{true}|$.
+			\item \textbf{(b) TRUE (with caveat).} Hausman IVs work because common cost shocks affect prices in all markets (relevance), but other markets' prices don't directly affect local demand (exclusion). Caveat: requires no common demand shocks.
+			\item \textbf{(c) FALSE.} Logit solves dimensionality by using product characteristics. But the IIA problem means substitution is proportional to share, not similarity.
+		\end{wideitemize}
+	\end{solutionbox}
 \end{frame}
 
 \begin{frame}{Consumer surplus: log-sum formula}
@@ -262,15 +288,97 @@ Nicholas Vreugdenhil \\
 	\end{wideitemize}
 \end{frame}
 
+\begin{frame}{Quick summary: Logit elasticity formulas}
+	\begin{center}
+	\begin{tabular}{|l|l|}
+		\hline
+		\textbf{Formula} & \textbf{Expression} \\
+		\hline
+		Own-price elasticity & $\eta_{jj} = \alpha p_j (1 - s_j)$ \\
+		\hline
+		Cross-price elasticity & $\eta_{jk} = -\alpha p_k s_k$ \\
+		\hline
+		Berry inversion & $\delta_j = \ln(s_j) - \ln(s_0)$ \\
+		\hline
+		Consumer surplus & $CS = \frac{1}{|\alpha|} \ln\left[\sum_j \exp(\delta_j)\right]$ \\
+		\hline
+	\end{tabular}
+	\end{center}
+	\vspace{10pt}
+	\begin{wideitemize}
+		\item Remember: $\alpha < 0$, so own-price elasticity is negative
+		\item Put these on your cheat sheet!
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Practice: Berry inversion}
+	\begin{wideitemize}
+		\item \textbf{Question:} A market has 3 products plus outside option.
+		\item Observed shares: $s_0 = 0.4$, $s_1 = 0.3$, $s_2 = 0.2$, $s_3 = 0.1$
+		\item (a) Compute the mean utilities $\delta_1$, $\delta_2$, $\delta_3$.
+		\item (b) Rank the products by consumer preference.
+	\end{wideitemize}
+	\vspace{15pt}
+	\centering
+	\textit{Take 2 minutes.}
+\end{frame}
+
+\begin{frame}{Practice: Berry inversion (solution)}
+	\begin{solutionbox}[Solution]
+		\begin{wideitemize}
+			\item Using $\delta_j = \ln(s_j) - \ln(s_0)$:
+			\begin{align*}
+				\delta_1 &= \ln(0.3) - \ln(0.4) = \ln(0.75) \approx -0.29 \\
+				\delta_2 &= \ln(0.2) - \ln(0.4) = \ln(0.5) \approx -0.69 \\
+				\delta_3 &= \ln(0.1) - \ln(0.4) = \ln(0.25) \approx -1.39
+			\end{align*}
+			\item \textbf{(b)} Ranking: Product 1 $>$ Product 2 $>$ Product 3
+			\item All products have negative mean utility relative to outside option
+			\item (Outside option is normalized to $\delta_0 = 0$)
+		\end{wideitemize}
+	\end{solutionbox}
+\end{frame}
+
+\begin{frame}{Practice: Consumer surplus change}
+	\begin{wideitemize}
+		\item \textbf{Question:} Market has $\delta_0 = 0$, $\delta_1 = 1$, $\delta_2 = 0.5$.
+		\item Price coefficient $\alpha = -0.5$.
+		\item If product 1 is removed from the market, what is the consumer surplus loss per consumer?
+	\end{wideitemize}
+	\vspace{15pt}
+	\centering
+	\textit{Take 3 minutes.}
+\end{frame}
+
+\begin{frame}{Practice: Consumer surplus change (solution)}
+	\begin{solutionbox}[Solution]
+		\begin{wideitemize}
+			\item \textbf{Before removal:}
+			\begin{align*}
+				CS^{\text{before}} = \frac{1}{0.5} \ln(e^0 + e^1 + e^{0.5}) = 2 \ln(1 + 2.72 + 1.65) = 2 \ln(5.37) \approx 3.36
+			\end{align*}
+			\item \textbf{After removal:}
+			\begin{align*}
+				CS^{\text{after}} = \frac{1}{0.5} \ln(e^0 + e^{0.5}) = 2 \ln(1 + 1.65) = 2 \ln(2.65) \approx 1.95
+			\end{align*}
+			\item \textbf{CS Loss:} $3.36 - 1.95 = \$1.41$ per consumer
+			\item This is a common HW1/exam question type!
+		\end{wideitemize}
+	\end{solutionbox}
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% PART 2: PRICING REVIEW
+% PRICING REVIEW
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{transitionframe}
-	\begin{center}
-		{\Huge Part 2: Pricing Review}
-	\end{center}
-\end{transitionframe}
+\begin{frame}{Plan}
+  \begin{wideenumerate}
+    \item Demand estimation review
+    \item \textbf{Pricing review}
+    \item Exam logistics
+    \item Preview of Part 2
+  \end{wideenumerate}
+\end{frame}
 
 \begin{frame}{Monopoly pricing: key equations}
 	\begin{wideitemize}
@@ -298,13 +406,15 @@ Nicholas Vreugdenhil \\
 \end{frame}
 
 \begin{frame}{Practice: Lerner index (solution)}
-	\begin{wideitemize}
-		\item \textbf{(a)} $MR = 100 - 4q$. Set $MR = MC$: $100 - 4q = 20 \Rightarrow q = 20$
-		\item Price: $p = 100 - 2(20) = 60$
-		\item \textbf{(b)} Lerner index: $L = \frac{60 - 20}{60} = \frac{40}{60} = \frac{2}{3}$
-		\item \textbf{(c)} Elasticity: $\varepsilon = \frac{dq}{dp} \cdot \frac{p}{q} = -\frac{1}{2} \cdot \frac{60}{20} = -1.5$
-		\item Check: $L = \frac{1}{|\varepsilon|} = \frac{1}{1.5} = \frac{2}{3}$ $\checkmark$
-	\end{wideitemize}
+	\begin{solutionbox}[Solution]
+		\begin{wideitemize}
+			\item \textbf{(a)} $MR = 100 - 4q$. Set $MR = MC$: $100 - 4q = 20 \Rightarrow q = 20$
+			\item Price: $p = 100 - 2(20) = 60$
+			\item \textbf{(b)} Lerner index: $L = \frac{60 - 20}{60} = \frac{40}{60} = \frac{2}{3}$
+			\item \textbf{(c)} Elasticity: $\varepsilon = \frac{dq}{dp} \cdot \frac{p}{q} = -\frac{1}{2} \cdot \frac{60}{20} = -1.5$
+			\item Check: $L = \frac{1}{|\varepsilon|} = \frac{1}{1.5} = \frac{2}{3}$ $\checkmark$
+		\end{wideitemize}
+	\end{solutionbox}
 \end{frame}
 
 \begin{frame}{Types of price discrimination}
@@ -353,18 +463,20 @@ Nicholas Vreugdenhil \\
 \end{frame}
 
 \begin{frame}{Practice: Selection by indicators (solution)}
-	\begin{wideitemize}
-		\item Using $p = \frac{MC}{1 - 1/|\varepsilon|}$:
-		\item \textbf{Market A:}
-		\begin{align*}
-			p_A = \frac{10}{1 - 1/3} = \frac{10}{2/3} = 15
-		\end{align*}
-		\item \textbf{Market B:}
-		\begin{align*}
-			p_B = \frac{10}{1 - 1/5} = \frac{10}{4/5} = 12.50
-		\end{align*}
-		\item Higher price in more inelastic market (A)
-	\end{wideitemize}
+	\begin{solutionbox}[Solution]
+		\begin{wideitemize}
+			\item Using $p = \frac{MC}{1 - 1/|\varepsilon|}$:
+			\item \textbf{Market A:}
+			\begin{align*}
+				p_A = \frac{10}{1 - 1/3} = \frac{10}{2/3} = 15
+			\end{align*}
+			\item \textbf{Market B:}
+			\begin{align*}
+				p_B = \frac{10}{1 - 1/5} = \frac{10}{4/5} = 12.50
+			\end{align*}
+			\item Higher price in more inelastic market (A)
+		\end{wideitemize}
+	\end{solutionbox}
 \end{frame}
 
 \begin{frame}{Two-part tariffs}
@@ -420,32 +532,131 @@ Nicholas Vreugdenhil \\
 \end{frame}
 
 \begin{frame}{Practice: Self-selection (solution)}
+	\begin{solutionbox}[Solution]
+		\begin{wideitemize}
+			\item \textbf{(a) Consumer choices:}
+			\item High type: $CS_P = 100 - 100 = 0$, $CS_B = 60 - 40 = 20$
+			\item High type buys Basic! (IC violated)
+			\item Low type: $CS_P = 50 - 100 = -50$, $CS_B = 40 - 40 = 0$
+			\item Low type buys Basic
+			\item \textbf{(b) Not optimal.} Need to lower $p_P$ so IC binds.
+			\item IC binds when: $100 - p_P = 60 - 40 = 20 \Rightarrow p_P = 80$
+			\item Optimal menu: $p_P = 80$, $p_B = 40$
+		\end{wideitemize}
+	\end{solutionbox}
+\end{frame}
+
+\begin{frame}{Practice: Two-part tariff}
 	\begin{wideitemize}
-		\item \textbf{(a) Consumer choices:}
-		\item High type: $CS_P = 100 - 100 = 0$, $CS_B = 60 - 40 = 20$
-		\item High type buys Basic! (IC violated)
-		\item Low type: $CS_P = 50 - 100 = -50$, $CS_B = 40 - 40 = 0$
-		\item Low type buys Basic
-		\item \textbf{(b) Not optimal.} Need to lower $p_P$ so IC binds.
-		\item IC binds when: $100 - p_P = 60 - 40 = 20 \Rightarrow p_P = 80$
-		\item Optimal menu: $p_P = 80$, $p_B = 40$
+		\item \textbf{Question:} A gym has demand $q = 20 - p$ from each consumer.
+		\item Marginal cost is $MC = 4$.
+		\item (a) What is the optimal two-part tariff $(F, p)$?
+		\item (b) What is the firm's profit per customer?
+		\item (c) What would happen if firm charged $p = 10$ and $F = 50$?
 	\end{wideitemize}
+	\vspace{15pt}
+	\centering
+	\textit{Take 3 minutes.}
+\end{frame}
+
+\begin{frame}{Practice: Two-part tariff (solution)}
+	\begin{solutionbox}[Solution]
+		\begin{wideitemize}
+			\item \textbf{(a)} Optimal: $p = MC = 4$
+			\item At $p = 4$: $q = 20 - 4 = 16$
+			\item Consumer surplus: $CS = \frac{1}{2}(20-4)(16) = 128$
+			\item Optimal fee: $F = 128$
+			\item \textbf{(b)} Profit per customer: $F + (p - MC)q = 128 + 0 = 128$
+			\item \textbf{(c)} At $p = 10$: $q = 10$, $CS = \frac{1}{2}(20-10)(10) = 50$
+			\item $F = 50$ is feasible, but profit = $50 + (10-4)(10) = 110 < 128$
+			\item Lesson: $p > MC$ leaves money on the table!
+		\end{wideitemize}
+	\end{solutionbox}
+\end{frame}
+
+\begin{frame}{Practice: Backing out marginal cost}
+	\begin{wideitemize}
+		\item \textbf{Question:} Firm observes price $p = 50$ and elasticity $\varepsilon = -2$.
+		\item (a) What is the firm's marginal cost?
+		\item (b) If the elasticity were actually $-4$, what would $MC$ be?
+		\item (c) What does this say about the importance of accurate elasticity estimates?
+	\end{wideitemize}
+	\vspace{15pt}
+	\centering
+	\textit{Take 3 minutes.}
+\end{frame}
+
+\begin{frame}{Practice: Backing out marginal cost (solution)}
+	\begin{solutionbox}[Solution]
+		\begin{wideitemize}
+			\item Using Lerner: $MC = p\left(1 - \frac{1}{|\varepsilon|}\right)$
+			\item \textbf{(a)} $MC = 50(1 - 1/2) = 50(0.5) = 25$
+			\item \textbf{(b)} $MC = 50(1 - 1/4) = 50(0.75) = 37.5$
+			\item \textbf{(c)} Key insight: inferred MC is very sensitive to elasticity!
+			\begin{wideitemize}
+				\vspace{5pt}
+				\item Doubling $|\varepsilon|$ increased inferred $MC$ by 50\%
+				\item This matters for merger analysis: need accurate elasticities
+			\end{wideitemize}
+		\end{wideitemize}
+	\end{solutionbox}
+\end{frame}
+
+\begin{frame}{Price discrimination: Which type?}
+	\begin{center}
+	\begin{tikzpicture}[
+		decision/.style={diamond, draw=blue, thick, text width=3cm, align=center, inner sep=2pt},
+		block/.style={rectangle, draw=black, thick, text width=2.5cm, align=center, minimum height=1cm},
+		arrow/.style={->, thick}
+	]
+		\node[decision] (q1) {Can observe consumer WTP exactly?};
+		\node[block, below left=1.5cm and 2cm of q1] (perfect) {Perfect PD};
+		\node[decision, below right=1.5cm and 2cm of q1] (q2) {Can observe group membership?};
+		\node[block, below left=1.5cm and 1cm of q2] (indicator) {Selection by Indicators};
+		\node[block, below right=1.5cm and 1cm of q2] (self) {Self-Selection};
+
+		\draw[arrow] (q1) -- node[left] {Yes} (perfect);
+		\draw[arrow] (q1) -- node[right] {No} (q2);
+		\draw[arrow] (q2) -- node[left] {Yes} (indicator);
+		\draw[arrow] (q2) -- node[right] {No} (self);
+	\end{tikzpicture}
+	\end{center}
+	\vspace{5pt}
+	\begin{wideitemize}
+		\item Self-selection: design menu so consumers reveal their type
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Midterm preparation checklist}
+	\begin{wideenumerate}
+		\item[$\square$] \textbf{Formulas:} Logit shares, Berry inversion, elasticities, log-sum
+		\item[$\square$] \textbf{Derivations:} Can derive $MR = MC$, Lerner from FOC
+		\item[$\square$] \textbf{Identification:} Why OLS biased, what makes good IVs
+		\item[$\square$] \textbf{IIA:} Red bus/blue bus, when it matters
+		\item[$\square$] \textbf{Pricing:} Lerner, inverse elasticity rule for segments
+		\item[$\square$] \textbf{Two-part tariffs:} $p = MC$, $F = CS$; heterogeneity tradeoff
+		\item[$\square$] \textbf{Self-selection:} IC/IR constraints, which binds for whom
+		\item[$\square$] \textbf{Practice:} Worked through HW1 and practice exam
+	\end{wideenumerate}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % EXAM LOGISTICS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{transitionframe}
-	\begin{center}
-		{\Huge Exam Logistics}
-	\end{center}
-\end{transitionframe}
+\begin{frame}{Plan}
+  \begin{wideenumerate}
+    \item Demand estimation review
+    \item Pricing review
+    \item \textbf{Exam logistics}
+    \item Preview of Part 2
+  \end{wideenumerate}
+\end{frame}
 
 \begin{frame}{Exam format reminder}
 	\begin{wideitemize}
 		\item \textbf{Date:} Monday, Feb 9 (Lecture 7)
-		\item \textbf{Duration:} 70 minutes
+		\item \textbf{Duration:} 80 minutes
 		\item \textbf{Allowed:} Calculator + two-sided cheat sheet
 		\item \textbf{Coverage:}
 		\begin{wideitemize}
@@ -503,6 +714,90 @@ Nicholas Vreugdenhil \\
 		\item \textbf{Practice exam:} Posted on course website
 		\item Questions?
 	\end{wideitemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% PREVIEW OF PART 2 (NOT ON MIDTERM)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Plan}
+  \begin{wideenumerate}
+    \item Demand estimation review
+    \item Pricing review
+    \item Exam logistics
+    \item \textbf{Preview of Part 2}
+  \end{wideenumerate}
+\end{frame}
+
+\begin{frame}{What's coming after the midterm}
+	\begin{wideitemize}
+		\item \textbf{Part 2: Models of Competition}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Oligopoly models (Cournot, Bertrand, Hotelling)
+			\item Entry and entry deterrence
+			\item Mergers and merger simulation
+			\item Vertical relationships
+			\item Collusion
+		\end{wideitemize}
+		\item \textbf{Connection to Part 1:} We'll use demand estimation to analyze competition
+		\item \textbf{HW2:} Merger simulation using your demand estimates
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Refresher: Cournot competition}
+	\begin{wideitemize}
+		\item You covered this in ECN 532 (Hector's class)
+		\item \textbf{Setup:} $n$ firms choose quantities simultaneously
+		\item \textbf{Key result:} Lerner index in Cournot equilibrium
+		\begin{align*}
+			L_i = \frac{P - MC}{P} = \frac{s_i}{|\varepsilon|}
+		\end{align*}
+		\item \textbf{Interpretation:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Markup depends on market share $s_i$
+			\item More elastic demand $\rightarrow$ lower markup
+		\end{wideitemize}
+		\item This connects oligopoly theory to our demand estimation!
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Refresher: Bertrand competition}
+	\begin{wideitemize}
+		\item \textbf{Setup:} Firms choose prices simultaneously (homogeneous goods)
+		\item \textbf{Key result:} $P = MC$ (even with just 2 firms!)
+		\item \textbf{The Bertrand Paradox:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Two firms enough for perfectly competitive outcome
+			\item Seems unrealistic---most oligopolies have positive profits
+		\end{wideitemize}
+		\item \textbf{Escaping the paradox:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Product differentiation (Hotelling)
+			\item Capacity constraints
+			\item Repeated interaction (collusion)
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Why this matters for Part 2}
+	\begin{wideitemize}
+		\item \textbf{Mergers:} Understanding how firms compete tells us merger effects
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Cournot merger: internalize quantity competition
+			\item Bertrand merger: internalize price competition
+		\end{wideitemize}
+		\item \textbf{Entry:} Market structure determines profitability
+		\item \textbf{Policy:} Antitrust authorities use these models
+		\item \textbf{HW2 preview:} You'll simulate a merger using demand estimates
+	\end{wideitemize}
+	\vspace{10pt}
+	\centering
+	\textit{We'll cover this in detail after the midterm!}
 \end{frame}
 
 \end{document}

@@ -24,6 +24,8 @@
 \usepackage{dcolumn}
 \usepackage{bbm}
 \usepackage{listings}
+\usepackage{tcolorbox}
+\tcbuselibrary{listings,skins}
 \newcolumntype{d}[0]{D{.}{.}{5}}
 
 \usepackage{changepage}
@@ -37,6 +39,31 @@
 \definecolor{red}{RGB}{213,94,0}
 \definecolor{yellow}{RGB}{240,228,66}
 \definecolor{green}{RGB}{0,158,115}
+\definecolor{codebg}{RGB}{245,245,245}
+\definecolor{codeframe}{RGB}{200,200,200}
+\definecolor{codecomment}{RGB}{0,128,0}
+\definecolor{codestring}{RGB}{163,21,21}
+\definecolor{codekeyword}{RGB}{0,0,180}
+\definecolor{solutionbg}{RGB}{240,248,240}
+\definecolor{solutionframe}{RGB}{0,158,115}
+
+% Solution box environment for worked answers
+\newtcolorbox{solutionbox}[1][]{
+  enhanced,
+  colback=solutionbg,
+  colframe=solutionframe,
+  boxrule=0pt,
+  leftrule=3pt,
+  arc=0pt,
+  left=8pt,
+  right=8pt,
+  top=6pt,
+  bottom=6pt,
+  fonttitle=\bfseries,
+  title={#1},
+  attach boxed title to top left={yshift=-2mm, xshift=5mm},
+  boxed title style={colback=solutionframe, colframe=solutionframe, size=small, arc=2pt}
+}
 
 \hypersetup{
   colorlinks=false,
@@ -70,16 +97,48 @@
 \newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
 \newenvironment{wideenumerate}{\enumerate\addtolength{\itemsep}{10pt}}{\endenumerate}
 
-% Code listing style
+% Code listing style - light theme
 \lstset{
-  basicstyle=\ttfamily\small,
+  basicstyle=\ttfamily\footnotesize\color{black},
+  backgroundcolor=\color{codebg},
   breaklines=true,
-  frame=single,
+  frame=none,
   language=Python,
   showstringspaces=false,
-  keywordstyle=\color{blue},
-  commentstyle=\color{green!60!black},
-  stringstyle=\color{red}
+  keywordstyle=\color{codekeyword}\bfseries,
+  commentstyle=\color{codecomment}\itshape,
+  stringstyle=\color{codestring},
+  numbers=none,
+  xleftmargin=8pt,
+  xrightmargin=8pt,
+  aboveskip=10pt,
+  belowskip=10pt,
+  framesep=8pt,
+  rulecolor=\color{codeframe},
+  morekeywords={pyblp, Formulation, Problem, solve, compute_elasticities, compute_markups}
+}
+
+% Nice code box environment
+\newtcblisting{pycode}{
+  listing only,
+  colback=codebg,
+  colframe=codeframe,
+  arc=4pt,
+  boxrule=0.5pt,
+  left=6pt,
+  right=6pt,
+  top=6pt,
+  bottom=6pt,
+  listing options={
+    basicstyle=\ttfamily\footnotesize\color{black},
+    language=Python,
+    showstringspaces=false,
+    keywordstyle=\color{codekeyword}\bfseries,
+    commentstyle=\color{codecomment}\itshape,
+    stringstyle=\color{codestring},
+    breaklines=true,
+    morekeywords={pyblp, Formulation, Problem, solve, compute_elasticities, compute_markups, read_csv}
+  }
 }
 
 \title[]{\textcolor{blue}{ECN 594: Demographic Interactions and pyblp}}
@@ -97,27 +156,16 @@ Nicholas Vreugdenhil \\
   \centering
 \end{frame}
 
-\begin{frame}{Plan for today}
+\begin{frame}{Plan}
   \begin{wideenumerate}
-    \item Recap: endogeneity and IVs
-    \item The demographic interaction model
-    \item Why demographics help with IIA
-    \item[] \rule{0.5\textwidth}{0.4pt}
-    \item Introduction to pyblp
-    \item Worked example: car demand
-    \item Interpreting output
+    \item \textbf{Demand with Demographic Interactions}
+    \item Estimation with pyblp
   \end{wideenumerate}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% PART 1: DEMOGRAPHIC INTERACTIONS
+% DEMOGRAPHIC INTERACTIONS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{transitionframe}
-	\begin{center}
-		{\Huge Part 1: Demand with Demographic Interactions}
-	\end{center}
-\end{transitionframe}
 
 \begin{frame}{Recap: The basic logit model}
 	\begin{wideitemize}
@@ -131,6 +179,25 @@ Nicholas Vreugdenhil \\
 			\vspace{5pt}
 			\item Rich and poor consumers have same price sensitivity?
 			\item Families and singles value car size the same?
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Why do we need heterogeneous preferences?}
+	\begin{wideitemize}
+		\item \textbf{Policy questions require knowing WHO values WHAT:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item If a product is removed, who loses the most?
+			\item If prices rise, which consumers switch away?
+			\item Who benefits from new product variety?
+		\end{wideitemize}
+		\item \textbf{Competitive questions need substitution patterns:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item When BMW's price rises, who switches to Mercedes vs Honda?
+			\item Basic logit: everyone substitutes proportionally (IIA)
+			\item Reality: depends on consumer demographics!
 		\end{wideitemize}
 	\end{wideitemize}
 \end{frame}
@@ -155,6 +222,21 @@ Nicholas Vreugdenhil \\
 	\end{wideitemize}
 \end{frame}
 
+\begin{frame}{Classic example: Nevo (2001) - Cereal demand}
+	\begin{wideitemize}
+		\item ``Measuring Market Power in the Ready-to-Eat Cereal Industry''
+		\item Estimated demand for cereal using demographic interactions
+		\item Key findings:
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item High-income households less price-sensitive
+			\item Families with children prefer kid-targeted cereals
+			\item Without demographics: wrong substitution patterns
+		\end{wideitemize}
+		\item Result: Basic logit would underestimate markups!
+	\end{wideitemize}
+\end{frame}
+
 \begin{frame}{Examples of demographic interactions}
 	\begin{wideitemize}
 		\item \textbf{Income $\times$ price:}
@@ -175,6 +257,43 @@ Nicholas Vreugdenhil \\
 			\item Older consumers may care more about MPG
 		\end{wideitemize}
 	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: Income $\times$ price interaction}
+	\begin{wideitemize}
+		\item \textbf{Question:}
+		\item Model: $u_{ij} = \beta x_j - \alpha p_j + \gamma (\text{income}_i \times p_j) + \varepsilon_{ij}$
+		\item Estimated: $\alpha = 2.0$, $\gamma = 0.01$
+		\item Consumer A has income \$50,000; Consumer B has income \$100,000
+		\item What is the effective price coefficient for each consumer?
+	\end{wideitemize}
+	\vspace{15pt}
+	\centering
+	\textit{Take 2 minutes to solve this.}
+\end{frame}
+
+\begin{frame}{Worked example: Income $\times$ price interaction (solution)}
+	\begin{solutionbox}[Solution]
+		Effective price coefficient = $-\alpha + \gamma \times \text{income}$
+		\vspace{5pt}
+
+		\textbf{Consumer A} (income = \$50,000):
+		\vspace{-5pt}
+		\begin{align*}
+			\text{Effect} = -2.0 + 0.01 \times 50 = -2.0 + 0.5 = -1.5
+		\end{align*}
+		\vspace{-15pt}
+
+		\textbf{Consumer B} (income = \$100,000):
+		\vspace{-5pt}
+		\begin{align*}
+			\text{Effect} = -2.0 + 0.01 \times 100 = -2.0 + 1.0 = -1.0
+		\end{align*}
+		\vspace{-10pt}
+
+		\textbf{Interpretation:} Consumer B (richer) is less price-sensitive.\\
+		A \$1 price increase hurts B's utility by 1.0, but hurts A's utility by 1.5.
+	\end{solutionbox}
 \end{frame}
 
 \begin{frame}{Where do demographics come from?}
@@ -228,15 +347,37 @@ Nicholas Vreugdenhil \\
 	\end{wideitemize}
 \end{frame}
 
+\begin{frame}{Limitations: Demographics vs Mixed Logit}
+	\begin{wideitemize}
+		\item \textbf{Demographics model} (what we use):
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Heterogeneity only from observed characteristics
+			\item IIA still holds within demographic groups
+			\item Simple and tractable
+		\end{wideitemize}
+		\item \textbf{Mixed logit / random coefficients} (advanced):
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Heterogeneity from unobserved factors too
+			\item Fully relaxes IIA
+			\item Computationally intensive (requires simulation)
+		\end{wideitemize}
+		\item For this course: demographics are sufficient
+		\item Know that mixed logit exists for research
+	\end{wideitemize}
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% PART 2: pyblp ESTIMATION
+% pyblp ESTIMATION
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{transitionframe}
-	\begin{center}
-		{\Huge Part 2: Estimation with pyblp}
-	\end{center}
-\end{transitionframe}
+\begin{frame}{Plan}
+  \begin{wideenumerate}
+    \item Demand with Demographic Interactions
+    \item \textbf{Estimation with pyblp}
+  \end{wideenumerate}
+\end{frame}
 
 \begin{frame}{What is pyblp?}
 	\begin{wideitemize}
@@ -273,73 +414,162 @@ Nicholas Vreugdenhil \\
 \end{frame}
 
 \begin{frame}[fragile]{Step 1: Load and inspect data}
-\begin{lstlisting}
+\begin{wideitemize}
+	\item Load the BLP automobile data
+	\item Key columns: \texttt{market\_ids}, \texttt{shares}, \texttt{prices}, \texttt{hpwt}, \texttt{air}, \texttt{mpd}, \texttt{space}, \texttt{demand\_instruments0}, ...
+\end{wideitemize}
+\vspace{5pt}
+\begin{pycode}
 import pyblp
+import pandas as pd
 
-# Load the BLP automobile data
-product_data = pyblp.data.BLP_PRODUCTS
+product_data = pd.read_csv(pyblp.data.BLP_PRODUCTS_LOCATION)
+\end{pycode}
+\end{frame}
 
-# Key columns:
-# - market_ids: which market (year)
-# - shares: market shares
-# - prices: prices
-# - hpwt, space, mpd: characteristics
-# - demand_instruments0, ...: IVs
-\end{lstlisting}
+\begin{frame}{What data do we need?}
+	\begin{wideitemize}
+		\item \textbf{Product data} (for each product $j$ in market $t$):
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Market share $s_{jt}$
+			\item Price $p_{jt}$
+			\item Characteristics $x_{jt}$ (size, HP, fuel efficiency, etc.)
+			\item Instruments $z_{jt}$ (BLP IVs, cost shifters)
+		\end{wideitemize}
+		\item \textbf{Demographic data} (optional, for interactions):
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Census data on income, family size, age by market
+			\item Or micro-level survey data
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{The BLP automobile data}
+	\begin{center}
+		\scriptsize
+		\begin{tabular}{lccccccc}
+			\toprule
+			\textbf{market\_id} & \textbf{firm\_id} & \textbf{shares} & \textbf{prices} & \textbf{hpwt} & \textbf{air} & \textbf{mpd} & \textbf{space} \\
+			\midrule
+			1971 & 15 & 0.0012 & 4.935 & 0.524 & 0 & 1.888 & 0.917 \\
+			1971 & 15 & 0.0011 & 5.516 & 0.494 & 0 & 1.935 & 0.920 \\
+			1971 & 15 & 0.0006 & 7.108 & 0.467 & 0 & 1.716 & 1.074 \\
+			1971 & 26 & 0.0038 & 4.296 & 0.426 & 0 & 2.449 & 0.853 \\
+			1971 & 26 & 0.0018 & 4.080 & 0.521 & 0 & 2.398 & 0.772 \\
+			\vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots & \vdots \\
+			1990 & 19 & 0.0008 & 12.75 & 0.569 & 1 & 2.012 & 1.145 \\
+			\bottomrule
+		\end{tabular}
+	\end{center}
+	\vspace{5pt}
+	\begin{wideitemize}
+		\item 2,217 products across 20 years (1971--1990)
+		\item Each row: one car model in one year
+	\end{wideitemize}
 \end{frame}
 
 \begin{frame}[fragile]{Step 2: Define the formulation}
-\begin{lstlisting}
-# Basic logit: no random coefficients
-formulation = pyblp.Formulation(
-    '1 + hpwt + space + mpd + prices'
-)
-
-# With demographic interactions (income x price):
-formulation = pyblp.Formulation(
-    '1 + hpwt + space + mpd + prices',
-    absorb='C(market_ids)'  # market fixed effects
-)
-\end{lstlisting}
+\begin{wideitemize}
+	\item Specify which variables enter the utility function
+	\item Variables: \texttt{1} (constant), \texttt{hpwt} (HP/weight), \texttt{air} (A/C), \texttt{mpd} (MPG), \texttt{space}, \texttt{prices}
+\end{wideitemize}
+\vspace{5pt}
+\begin{pycode}
+formulation = pyblp.Formulation('1 + hpwt + air + mpd + space + prices')
+\end{pycode}
 \end{frame}
 
 \begin{frame}[fragile]{Step 3: Create the problem}
-\begin{lstlisting}
-# Define the problem
-problem = pyblp.Problem(
-    formulation,
-    product_data,
-    agent_data=agent_data  # for demographics
-)
-
-# Check the problem
-print(problem)
-\end{lstlisting}
+\begin{wideitemize}
+	\item Combine formulation and data into a Problem object
+	\item pyblp automatically detects: \texttt{demand\_instruments}, \texttt{market\_ids}, \texttt{firm\_ids}
+\end{wideitemize}
+\vspace{5pt}
+\begin{pycode}
+problem = pyblp.Problem(formulation, product_data)
+\end{pycode}
 \end{frame}
 
 \begin{frame}[fragile]{Step 4: Solve}
-\begin{lstlisting}
-# Solve with 2SLS (IV estimation)
+\begin{wideitemize}
+	\item Estimate the model (uses IV if instruments present)
+	\item Returns: coefficient estimates, robust standard errors, GMM objective
+\end{wideitemize}
+\vspace{5pt}
+\begin{pycode}
 results = problem.solve()
-
-# This gives us:
-# - Coefficient estimates
-# - Standard errors
-# - Objective value
-\end{lstlisting}
+\end{pycode}
 \end{frame}
 
-\begin{frame}[fragile]{Step 5: Extract results}
-\begin{lstlisting}
-# Print coefficient estimates
+\begin{frame}[fragile]{Step 5: View results}
+\begin{wideitemize}
+	\item Print coefficient estimates and standard errors
+	\item Compute elasticity matrix (own and cross-price)
+	\item Compute markups (assuming Nash-Bertrand pricing)
+\end{wideitemize}
+\vspace{5pt}
+\begin{pycode}
 print(results)
-
-# Get elasticities
 elasticities = results.compute_elasticities()
-
-# Get markups (assuming Nash-Bertrand)
 markups = results.compute_markups()
-\end{lstlisting}
+\end{pycode}
+\end{frame}
+
+\begin{frame}[fragile]{Adding demographic interactions}
+\begin{wideitemize}
+	\item Load demographic data (income draws for each market)
+	\item Add second formulation: demographics interact with price
+\end{wideitemize}
+\vspace{5pt}
+\begin{pycode}
+agent_data = pd.read_csv(pyblp.data.BLP_AGENTS_LOCATION)
+
+formulation = pyblp.Formulation(
+    '1 + hpwt + air + mpd + space + prices',
+    '0 + prices',
+    agent_formulation=pyblp.Formulation('0 + income')
+)
+\end{pycode}
+\end{frame}
+
+\begin{frame}[fragile]{Computing aggregate elasticities}
+\begin{wideitemize}
+	\item \texttt{elasticities[j,k]} = \% change in share of $j$ per \% change in price of $k$
+	\item Diagonal = own-price elasticities
+\end{wideitemize}
+\vspace{5pt}
+\begin{pycode}
+elasticities = results.compute_elasticities()
+own_elasticities = np.diag(elasticities)
+print(f"Mean own-price elasticity: {own_elasticities.mean():.2f}")
+\end{pycode}
+\end{frame}
+
+\begin{frame}{Estimation output}
+	\begin{center}
+		\begin{tabular}{lcc}
+			\toprule
+			\textbf{Variable} & \textbf{Coefficient} & \textbf{Std. Error} \\
+			\midrule
+			Constant & $-10.215$ & $(0.253)$ \\
+			HP/Weight & $2.893$ & $(0.367)$ \\
+			Air conditioning & $1.521$ & $(0.104)$ \\
+			Miles per dollar & $0.158$ & $(0.043)$ \\
+			Space & $2.384$ & $(0.125)$ \\
+			Price & $-0.142$ & $(0.012)$ \\
+			\midrule
+			\multicolumn{3}{l}{\small GMM objective: 142.35} \\
+			\multicolumn{3}{l}{\small N = 2,217 products, T = 20 markets} \\
+			\bottomrule
+		\end{tabular}
+	\end{center}
+	\vspace{3pt}
+	\begin{wideitemize}
+		\item Price coefficient is \textbf{negative} (as expected)
+		\item All characteristics positive: consumers prefer more HP, air conditioning, fuel efficiency, space
+	\end{wideitemize}
 \end{frame}
 
 \begin{frame}{Interpreting pyblp output}
@@ -383,21 +613,19 @@ markups = results.compute_markups()
 \end{frame}
 
 \begin{frame}{Worked example: Interpreting coefficients (answers)}
-	\begin{wideenumerate}
-		\item $\hat{\alpha} = -0.8$: A \$1 price increase reduces mean utility by 0.8 utils
-		\begin{wideitemize}
-			\vspace{3pt}
+	\begin{solutionbox}[Answers]
+		\textbf{1.} $\hat{\alpha} = -0.8$: A \$1 price increase reduces mean utility by 0.8 utils
+		\begin{itemize}
 			\item More negative $\alpha$ = more price-sensitive consumers
-		\end{wideitemize}
-		\vspace{10pt}
-		\item OLS would give $\hat{\alpha}$ biased toward zero (less negative)
-		\begin{wideitemize}
-			\vspace{3pt}
+		\end{itemize}
+		\vspace{8pt}
+		\textbf{2.} OLS would give $\hat{\alpha}$ biased toward zero (less negative)
+		\begin{itemize}
 			\item Because $\text{Cov}(p, \xi) > 0$
 			\item OLS thinks high prices don't hurt demand much
 			\item So OLS $\hat{\alpha}$ might be $-0.3$ instead of $-0.8$
-		\end{wideitemize}
-	\end{wideenumerate}
+		\end{itemize}
+	\end{solutionbox}
 \end{frame}
 
 \begin{frame}{Post-estimation: Elasticities}
@@ -418,6 +646,26 @@ markups = results.compute_markups()
 	\end{wideitemize}
 \end{frame}
 
+\begin{frame}{Elasticity matrix example}
+	\begin{center}
+		\small
+		\begin{tabular}{l|ccccc}
+			& \textbf{Prod 1} & \textbf{Prod 2} & \textbf{Prod 3} & \textbf{Prod 4} & \textbf{Prod 5} \\
+			\hline
+			\textbf{Prod 1} & \textcolor{red}{$-0.89$} & $0.002$ & $0.003$ & $0.001$ & $0.002$ \\
+			\textbf{Prod 2} & $0.002$ & \textcolor{red}{$-1.24$} & $0.003$ & $0.002$ & $0.003$ \\
+			\textbf{Prod 3} & $0.001$ & $0.002$ & \textcolor{red}{$-0.73$} & $0.001$ & $0.002$ \\
+			\textbf{Prod 4} & $0.002$ & $0.003$ & $0.002$ & \textcolor{red}{$-1.08$} & $0.002$ \\
+			\textbf{Prod 5} & $0.001$ & $0.002$ & $0.001$ & $0.001$ & \textcolor{red}{$-0.95$} \\
+		\end{tabular}
+	\end{center}
+	\vspace{5pt}
+	\begin{wideitemize}
+		\item \textbf{Diagonal (\textcolor{red}{red}):} Own-price elasticities $\approx -0.7$ to $-1.3$
+		\item \textbf{Off-diagonal:} Cross-price elasticities $\approx 0.001$ to $0.003$ (small but positive)
+	\end{wideitemize}
+\end{frame}
+
 \begin{frame}{Post-estimation: Markups}
 	\begin{wideitemize}
 		\item Recall: Lerner index $L = (p - MC)/p = 1/|\varepsilon|$
@@ -428,6 +676,89 @@ markups = results.compute_markups()
 		\item pyblp assumes Nash-Bertrand pricing
 		\item Multi-product firms internalize substitution between own products
 	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: Interpret this output}
+	\begin{wideitemize}
+		\item pyblp gives you this output:
+		\begin{center}
+		\begin{tabular}{lcc}
+			\toprule
+			\textbf{Variable} & \textbf{Estimate} & \textbf{Std. Error} \\
+			\midrule
+			Constant & 3.5 & 0.8 \\
+			HP/weight & 1.2 & 0.4 \\
+			Air cond. & 0.9 & 0.3 \\
+			Price & \textcolor{red}{0.05} & 0.02 \\
+			\bottomrule
+		\end{tabular}
+		\end{center}
+		\item \textbf{Question:} Something is wrong. What is it?
+	\end{wideitemize}
+	\vspace{15pt}
+	\centering
+	\textit{Take 1 minute to identify the problem.}
+\end{frame}
+
+\begin{frame}{Worked example: Interpret this output (solution)}
+	\begin{solutionbox}[Solution]
+		\textbf{Problem:} Price coefficient is \textcolor{red}{positive} (+0.05)!
+
+		This means: higher prices $\rightarrow$ higher utility. That's economically nonsensical.
+		\vspace{8pt}
+
+		\textbf{Why might this happen?}
+		\begin{enumerate}
+			\item \textbf{Weak instruments:} IVs don't predict prices well
+			\item \textbf{Wrong signs:} Maybe you forgot a negative sign somewhere
+			\item \textbf{Endogeneity still present:} IVs are correlated with $\xi$
+		\end{enumerate}
+		\vspace{5pt}
+		\textbf{Fix:} Check first-stage F-stat, try different IVs, verify data
+	\end{solutionbox}
+\end{frame}
+
+\begin{frame}{Common pyblp errors and how to fix them}
+	\begin{wideitemize}
+		\item \textbf{``Singular matrix'' error:}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Likely: collinear variables in formulation
+			\item Fix: Remove redundant variables
+		\end{wideitemize}
+		\item \textbf{Price coefficient positive or near zero:}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Likely: weak instruments
+			\item Fix: Check first-stage F-stat; try different IVs
+		\end{wideitemize}
+		\item \textbf{Huge standard errors:}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Likely: weak identification or too few observations
+			\item Fix: Aggregate to fewer markets; add more IVs
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{How to check your results make sense}
+	\begin{wideenumerate}
+		\item \textbf{Price coefficient negative?} (Required!)
+		\item \textbf{Elasticities reasonable?}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Own-price: typically $-2$ to $-10$ for durables
+			\item Cross-price: positive but small
+		\end{wideitemize}
+		\item \textbf{Markups reasonable?}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Cars: typically 15-30\%
+			\item Cereal: typically 30-50\%
+		\end{wideitemize}
+		\item \textbf{First-stage F-stat $> 10$?} (IV relevance)
+		\item \textbf{Coefficients stable across specifications?}
+	\end{wideenumerate}
 \end{frame}
 
 \begin{frame}{This prepares you for HW1}

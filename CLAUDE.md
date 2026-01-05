@@ -60,6 +60,38 @@ This is an advanced course in "Industrial Organization", which is the study of f
 *Format*
 - Follow the .tex format that I use in `previous_courses/undergraduate_io` for new slides or syllabus
 
+*Solution Box Formatting*
+- All worked example and practice solution slides use the `solutionbox` environment
+- This provides a light green background with a green left border to visually distinguish solutions
+- The environment is defined in each lecture's preamble:
+  ```latex
+  \definecolor{solutionbg}{RGB}{240,248,240}
+  \definecolor{solutionframe}{RGB}{0,158,115}
+  \usepackage{tcolorbox}
+  \newtcolorbox{solutionbox}[1][]{...}
+  ```
+- Usage: `\begin{solutionbox}[Solution]...\end{solutionbox}` or `[Answers]` for T/F questions
+- Apply to all "Worked example: ... (solution)" and "Practice: ... (solution)" slides
+- Do NOT apply to conceptual slides like "Solutions to double marginalization" (these explain concepts, not worked answers)
+
+*Plan Slides (Section Navigation)*
+- Use `\begin{frame}{Plan}` slides to show lecture structure - NOT `\transitionframe{}`
+- Pattern (from undergraduate slides):
+  1. After the title slide, add a Plan slide listing all main topics with the **first topic in bold**
+  2. Before each subsequent major section, repeat the Plan slide with the **current topic in bold**
+- These Plan slides help students track where they are in the lecture
+- Plan slides do NOT count toward the ~40 slide target
+- Example:
+  ```latex
+  \begin{frame}{Plan}
+    \begin{wideenumerate}
+      \item \textbf{Topic 1}  % Current section in bold
+      \item Topic 2
+      \item Topic 3
+    \end{wideenumerate}
+  \end{frame}
+  ```
+
 *Pedagogical Style (VERY IMPORTANT)*
 - **Match tone and format** from previous slides in `previous_courses/undergraduate_io/slides/`
 - **Worked examples (select topics, not everything):**

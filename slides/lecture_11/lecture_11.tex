@@ -36,6 +36,27 @@
 \definecolor{red}{RGB}{213,94,0}
 \definecolor{yellow}{RGB}{240,228,66}
 \definecolor{green}{RGB}{0,158,115}
+\definecolor{solutionbg}{RGB}{240,248,240}
+\definecolor{solutionframe}{RGB}{0,158,115}
+
+% Solution box environment for worked answers
+\usepackage{tcolorbox}
+\newtcolorbox{solutionbox}[1][]{
+  enhanced,
+  colback=solutionbg,
+  colframe=solutionframe,
+  boxrule=0pt,
+  leftrule=3pt,
+  arc=0pt,
+  left=8pt,
+  right=8pt,
+  top=6pt,
+  bottom=6pt,
+  fonttitle=\bfseries,
+  title={#1},
+  attach boxed title to top left={yshift=-2mm, xshift=5mm},
+  boxed title style={colback=solutionframe, colframe=solutionframe, size=small, arc=2pt}
+}
 
 \hypersetup{
   colorlinks=false,
@@ -84,27 +105,16 @@ Nicholas Vreugdenhil \\
   \centering
 \end{frame}
 
-\begin{frame}{Plan for today}
+\begin{frame}{Plan}
   \begin{wideenumerate}
-    \item Vertical relationships: upstream and downstream
-    \item Double marginalization problem
-    \item Solutions: integration and two-part tariffs
-    \item[] \rule{0.5\textwidth}{0.4pt}
-    \item Vertical restraints
-    \item The free-rider problem
-    \item Antitrust implications
+    \item \textbf{Vertical relationships and double marginalization}
+    \item Vertical restraints and antitrust
   \end{wideenumerate}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% PART 1: DOUBLE MARGINALIZATION
+% DOUBLE MARGINALIZATION
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{transitionframe}
-	\begin{center}
-		{\Huge Part 1: Vertical Relationships}
-	\end{center}
-\end{transitionframe}
 
 \begin{frame}{Vertical relationships}
 	\begin{wideitemize}
@@ -184,59 +194,67 @@ Nicholas Vreugdenhil \\
 \end{frame}
 
 \begin{frame}{Worked example: Integration (solution a)}
-	\begin{wideitemize}
-		\item \textbf{Integrated monopolist:}
-		\item Inverse demand: $p = 100 - q$
-		\item $MR = 100 - 2q$
-		\item Set $MR = MC$: $100 - 2q = 20 \Rightarrow q = 40$
-		\item $p = 100 - 40 = 60$
-		\item $\pi^{Int} = (60 - 20) \times 40 = 1600$
-	\end{wideitemize}
+	\begin{solutionbox}[Solution]
+		\begin{wideitemize}
+			\item \textbf{Integrated monopolist:}
+			\item Inverse demand: $p = 100 - q$
+			\item $MR = 100 - 2q$
+			\item Set $MR = MC$: $100 - 2q = 20 \Rightarrow q = 40$
+			\item $p = 100 - 40 = 60$
+			\item $\pi^{Int} = (60 - 20) \times 40 = 1600$
+		\end{wideitemize}
+	\end{solutionbox}
 \end{frame}
 
 \begin{frame}{Worked example: Separation (solution b)}
-	\begin{wideitemize}
-		\item \textbf{Step 1: Retailer's problem} (given $w$)
-		\item Retailer's cost is $w$, faces demand $q = 100 - p$
-		\item $MR_R = 100 - 2q$, $MC_R = w$
-		\item Set $MR_R = MC_R$: $100 - 2q = w \Rightarrow q = (100 - w)/2$
-		\item $p = 100 - q = (100 + w)/2$
-		\item Retailer profit: $\pi_R = (p - w)q = \left(\frac{100 - w}{2}\right)^2$
-	\end{wideitemize}
+	\begin{solutionbox}[Solution]
+		\begin{wideitemize}
+			\item \textbf{Step 1: Retailer's problem} (given $w$)
+			\item Retailer's cost is $w$, faces demand $q = 100 - p$
+			\item $MR_R = 100 - 2q$, $MC_R = w$
+			\item Set $MR_R = MC_R$: $100 - 2q = w \Rightarrow q = (100 - w)/2$
+			\item $p = 100 - q = (100 + w)/2$
+			\item Retailer profit: $\pi_R = (p - w)q = \left(\frac{100 - w}{2}\right)^2$
+		\end{wideitemize}
+	\end{solutionbox}
 \end{frame}
 
 \begin{frame}{Worked example: Separation (solution b, cont.)}
-	\begin{wideitemize}
-		\item \textbf{Step 2: Manufacturer's problem}
-		\item Anticipates retailer's response: $q = (100 - w)/2$
-		\item Manufacturer profit: $\pi_M = (w - 20) \times \frac{100 - w}{2}$
-		\item FOC: $\frac{\partial \pi_M}{\partial w} = \frac{100 - w}{2} - \frac{w - 20}{2} = 0$
-		\item $100 - w = w - 20 \Rightarrow w = 60$
-		\item Then: $q = (100 - 60)/2 = 20$, $p = (100 + 60)/2 = 80$
-		\item $\pi_M = (60 - 20) \times 20 = 800$
-		\item $\pi_R = (80 - 60) \times 20 = 400$
-	\end{wideitemize}
+	\begin{solutionbox}[Solution]
+		\begin{wideitemize}
+			\item \textbf{Step 2: Manufacturer's problem}
+			\item Anticipates retailer's response: $q = (100 - w)/2$
+			\item Manufacturer profit: $\pi_M = (w - 20) \times \frac{100 - w}{2}$
+			\item FOC: $\frac{\partial \pi_M}{\partial w} = \frac{100 - w}{2} - \frac{w - 20}{2} = 0$
+			\item $100 - w = w - 20 \Rightarrow w = 60$
+			\item Then: $q = (100 - 60)/2 = 20$, $p = (100 + 60)/2 = 80$
+			\item $\pi_M = (60 - 20) \times 20 = 800$
+			\item $\pi_R = (80 - 60) \times 20 = 400$
+		\end{wideitemize}
+	\end{solutionbox}
 \end{frame}
 
 \begin{frame}{Worked example: Comparison (solution c)}
-	\begin{center}
-		\begin{tabular}{|l|c|c|}
-			\hline
-			& \textbf{Integrated} & \textbf{Separated} \\
-			\hline
-			Final price & 60 & 80 \\
-			Quantity & 40 & 20 \\
-			Total profit & 1600 & 1200 \\
-			\hline
-		\end{tabular}
-	\end{center}
-	\vspace{10pt}
-	\begin{wideitemize}
-		\item Separation: price 33\% higher, quantity 50\% lower
-		\item Industry profits 25\% lower with separation
-		\item Consumers also worse off (higher $p$, lower $q$)
-		\item \textbf{Everyone loses} from double marginalization!
-	\end{wideitemize}
+	\begin{solutionbox}[Solution]
+		\begin{center}
+			\begin{tabular}{|l|c|c|}
+				\hline
+				& \textbf{Integrated} & \textbf{Separated} \\
+				\hline
+				Final price & 60 & 80 \\
+				Quantity & 40 & 20 \\
+				Total profit & 1600 & 1200 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		\vspace{10pt}
+		\begin{wideitemize}
+			\item Separation: price 33\% higher, quantity 50\% lower
+			\item Industry profits 25\% lower with separation
+			\item Consumers also worse off (higher $p$, lower $q$)
+			\item \textbf{Everyone loses} from double marginalization!
+		\end{wideitemize}
+	\end{solutionbox}
 \end{frame}
 
 \begin{frame}{Solutions to double marginalization}
@@ -283,15 +301,122 @@ Nicholas Vreugdenhil \\
 	\end{wideitemize}
 \end{frame}
 
+\begin{frame}{Practice: Double marginalization}
+	\begin{wideitemize}
+		\item \textbf{Question:} Consumer demand is $q = 200 - 2p$.
+		\item Manufacturer: $MC = 30$, sells at $w$ to retailer.
+		\item Retailer: no additional costs, sells at $p$ to consumers.
+		\item (a) What is the integrated monopoly price and profit?
+		\item (b) What is the final price with vertical separation?
+	\end{wideitemize}
+	\vspace{10pt}
+	\centering
+	\textit{Take 5 minutes.}
+\end{frame}
+
+\begin{frame}{Practice: Double marginalization (solution)}
+	\begin{solutionbox}[Solution]
+		\begin{wideitemize}
+			\item Inverse demand: $p = 100 - q/2$
+			\item \textbf{(a) Integrated:} $MR = 100 - q$, set $MR = MC$:
+			\begin{align*}
+				100 - q = 30 \Rightarrow q = 70, \quad p = 65
+			\end{align*}
+			\item $\pi^{Int} = (65-30) \times 70 = 2450$
+			\item \textbf{(b) Separation:} Retailer: $q = (100-w) = 100-w$
+			\item Actually: $q = 100 - w$ and $p = (100+w)/2$
+			\item Manufacturer: $\max_w (w-30)(100-w)/2$
+			\item FOC: $w = 65$, then $q = 35$, $p = 82.5$
+		\end{wideitemize}
+	\end{solutionbox}
+\end{frame}
+
+\begin{frame}{When double marginalization doesn't apply}
+	\begin{wideitemize}
+		\item \textbf{Competitive retail:} Many retailers $\Rightarrow$ no downstream markup
+		\item \textbf{Bargaining power:} Retailer negotiates for $w = MC$
+		\item \textbf{Vertical contracts:} Two-part tariffs, RPM
+		\item \textbf{Common ownership:} Integrated firms
+		\item \textbf{Key insight:} Double marginalization requires:
+		\begin{wideenumerate}
+			\vspace{5pt}
+			\item Market power at both levels
+			\item Linear pricing ($w$ per unit only)
+		\end{wideenumerate}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Practice: T/F on double marginalization}
+	\begin{wideitemize}
+		\item \textbf{True, False, or NEI:}
+		\item (a) Double marginalization makes consumers worse off.
+		\item (b) If the retailer is a perfect competitor, double marginalization doesn't occur.
+		\item (c) Vertical integration always benefits consumers.
+	\end{wideitemize}
+	\vspace{10pt}
+	\centering
+	\textit{Take 2 minutes.}
+\end{frame}
+
+\begin{frame}{Practice: T/F on double marginalization (solution)}
+	\begin{solutionbox}[Solutions]
+		\begin{wideitemize}
+			\item \textbf{(a) TRUE.} Higher price, lower quantity. Consumers strictly worse off relative to integrated monopoly.
+			\item \textbf{(b) TRUE.} Competitive retailers have zero markup ($p = w$). Only manufacturer's markup remains, so no ``double'' margin.
+			\item \textbf{(c) FALSE.} Integration helps consumers IF it replaces separation. But if manufacturer was already using two-part tariff, integration may not change anything.
+		\end{wideitemize}
+	\end{solutionbox}
+\end{frame}
+
+\begin{frame}{Real-world examples: Vertical relationships}
+	\begin{wideitemize}
+		\item \textbf{Auto industry:}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Manufacturers $\rightarrow$ dealers
+			\item Dealers have territorial exclusivity
+		\end{wideitemize}
+		\item \textbf{Beer industry:}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Breweries $\rightarrow$ distributors $\rightarrow$ retailers
+			\item Three-tier system mandated in many US states
+		\end{wideitemize}
+		\item \textbf{Tech platforms:}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item App stores take 30\% commission
+			\item This is a form of wholesale markup
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Successive oligopoly}
+	\begin{wideitemize}
+		\item What if there are multiple firms at each level?
+		\item \textbf{Upstream oligopoly $\rightarrow$ Downstream oligopoly}
+		\item Results depend on:
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Number of firms at each level
+			\item Type of competition (Cournot vs Bertrand)
+			\item Bargaining power
+		\end{wideitemize}
+		\item General result: more competition at either level reduces final price
+		\item But double marginalization can still be present
+	\end{wideitemize}
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% PART 2: VERTICAL RESTRAINTS
+% VERTICAL RESTRAINTS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{transitionframe}
-	\begin{center}
-		{\Huge Part 2: Vertical Restraints}
-	\end{center}
-\end{transitionframe}
+\begin{frame}{Plan}
+  \begin{wideenumerate}
+    \item Vertical relationships and double marginalization
+    \item \textbf{Vertical restraints and antitrust}
+  \end{wideenumerate}
+\end{frame}
 
 \begin{frame}{Vertical restraints: overview}
 	\begin{wideitemize}
@@ -323,6 +448,68 @@ Nicholas Vreugdenhil \\
 			\vspace{5pt}
 			\item Electronics stores vs online retailers
 			\item Car dealerships and test drives
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Free-rider problem: graphical}
+	\begin{center}
+		\begin{tikzpicture}[scale=0.8]
+			\node[draw, rectangle, minimum width=2cm] (A) at (0,2) {Retailer A};
+			\node[draw, rectangle, minimum width=2cm] (B) at (0,-1) {Retailer B};
+			\node[draw, circle] (C) at (5,0.5) {Consumer};
+
+			\draw[->, thick, blue] (A) -- node[above, sloped] {Service} (C);
+			\draw[->, thick, red, dashed] (C) -- node[below, sloped] {Purchase} (B);
+
+			\node[right=0.5cm of A] {\small High price};
+			\node[right=0.5cm of B] {\small Low price};
+		\end{tikzpicture}
+	\end{center}
+	\begin{wideitemize}
+		\item Consumer gets service from A but buys from B
+		\item A's investment is not rewarded $\Rightarrow$ stops providing service
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Exclusive dealing}
+	\begin{wideitemize}
+		\item \textbf{Definition:} Retailer agrees to sell only one manufacturer's products
+		\item \textbf{Pro-competitive:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Encourages retailer investment in manufacturer's brand
+			\item Prevents free-riding on promotional efforts
+		\end{wideitemize}
+		\item \textbf{Anti-competitive:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item May foreclose rivals from distribution
+			\item Especially concerning if many retailers are tied up
+		\end{wideitemize}
+		\item \textbf{Example:} Beverage exclusivity (Coke vs Pepsi at restaurants)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{RPM: A closer look}
+	\begin{wideitemize}
+		\item \textbf{Minimum RPM:} Floor on retail price
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Prevents discounting
+			\item Protects service margins
+		\end{wideitemize}
+		\item \textbf{Maximum RPM:} Ceiling on retail price
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Prevents double marginalization!
+			\item Generally more benign
+		\end{wideitemize}
+		\item \textbf{Case law evolution:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Minimum RPM: per se illegal (1911-2007), now rule of reason
+			\item Maximum RPM: always rule of reason
 		\end{wideitemize}
 	\end{wideitemize}
 \end{frame}
@@ -367,6 +554,19 @@ Nicholas Vreugdenhil \\
 	\end{wideitemize}
 \end{frame}
 
+\begin{frame}{Practice: Identify the restraint}
+	\begin{wideitemize}
+		\item \textbf{Which restraint is being used?}
+		\item (a) Nike requires retailers to charge at least \$150 for certain shoes.
+		\item (b) McDonald's franchises can only sell McDonald's food.
+		\item (c) A Pepsi distributor is the only one allowed in a region.
+		\item (d) A printer company requires customers to buy its toner.
+	\end{wideitemize}
+	\vspace{10pt}
+	\centering
+	\textit{Take 1 minute.}
+\end{frame}
+
 \begin{frame}{Antitrust analysis of vertical restraints}
 	\begin{wideitemize}
 		\item \textbf{Rule of reason:} Case-by-case analysis
@@ -409,6 +609,121 @@ Nicholas Vreugdenhil \\
 	\begin{wideitemize}
 		\item Most restraints evaluated under rule of reason
 		\item Need to show harm to competition (not just competitors)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Practice: Vertical restraints}
+	\begin{wideitemize}
+		\item \textbf{True, False, or NEI:}
+		\item (a) Exclusive dealing is always anti-competitive.
+		\item (b) Maximum RPM can solve double marginalization.
+		\item (c) RPM would be unnecessary if retailers didn't compete on price.
+	\end{wideitemize}
+	\vspace{10pt}
+	\centering
+	\textit{Take 2 minutes.}
+\end{frame}
+
+\begin{frame}{Practice: Vertical restraints (solution)}
+	\begin{solutionbox}[Solutions]
+		\begin{wideitemize}
+			\item \textbf{(a) FALSE.} Exclusive dealing can solve free-rider problems and encourage retailer investment. It's anti-competitive only if it forecloses significant distribution.
+			\item \textbf{(b) TRUE.} By setting a maximum retail price, manufacturer can prevent excessive downstream markup.
+			\item \textbf{(c) TRUE (essentially).} If retailers don't compete on price (e.g., exclusive territories), there's no free-riding on price. RPM addresses price-based free-riding.
+		\end{wideitemize}
+	\end{solutionbox}
+\end{frame}
+
+\begin{frame}{Tying and bundling}
+	\begin{wideitemize}
+		\item \textbf{Tying:} Must buy B to get A (separate products)
+		\item \textbf{Bundling:} Products sold together (may be separable)
+		\item \textbf{Antitrust concerns:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Leverage market power from A to B
+			\item Foreclose competitors in market B
+		\end{wideitemize}
+		\item \textbf{Efficiency justifications:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Cost savings from joint production/distribution
+			\item Quality assurance
+			\item Metering (price discrimination)
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Case study: Apple App Store}
+	\begin{wideitemize}
+		\item Apple takes 15-30\% commission on app sales
+		\item \textbf{Is this double marginalization?}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Apple = upstream platform, app developers = downstream
+			\item Commission is like wholesale markup
+		\end{wideitemize}
+		\item \textbf{But:} Apple argues commission pays for:
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Payment processing
+			\item App review (quality control)
+			\item Platform development
+		\end{wideitemize}
+		\item Antitrust cases: Epic v. Apple, DOJ investigation
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Vertical mergers}
+	\begin{wideitemize}
+		\item \textbf{Definition:} Merger between upstream and downstream firm
+		\item \textbf{Pro-competitive:} Eliminates double marginalization
+		\item \textbf{Anti-competitive concerns:}
+		\begin{wideenumerate}
+			\vspace{5pt}
+			\item \textbf{Foreclosure:} Merged firm refuses to supply rivals
+			\item \textbf{Raising rivals' costs:} Charges competitors higher prices
+			\item \textbf{Access to sensitive info:} Learn rivals' costs/strategies
+		\end{wideenumerate}
+		\item \textbf{Example:} AT\&T/Time Warner (approved with conditions)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Vertical relationships: summary table}
+	\begin{center}
+	\begin{tabular}{|l|l|l|}
+		\hline
+		\textbf{Problem} & \textbf{Solution} & \textbf{Mechanism} \\
+		\hline
+		Double margin & Two-part tariff & $w = MC$, extract via $F$ \\
+		\hline
+		Double margin & Vertical integration & Single decision-maker \\
+		\hline
+		Double margin & Max RPM & Cap downstream markup \\
+		\hline
+		Free-riding & Min RPM & Protect retailer margins \\
+		\hline
+		Free-riding & Exclusive territories & No local competition \\
+		\hline
+	\end{tabular}
+	\end{center}
+\end{frame}
+
+\begin{frame}{Connection to rest of course}
+	\begin{wideitemize}
+		\item \textbf{Vertical relationships and demand:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Wholesale prices affect retail prices
+			\item Pass-through rates: how much of $\Delta w$ passes to consumers?
+		\end{wideitemize}
+		\item \textbf{Vertical relationships and mergers:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Vertical merger simulation uses similar tools
+			\item Need to model both levels of pricing
+		\end{wideitemize}
+		\item \textbf{Next:} Collusion (how firms coordinate horizontally)
 	\end{wideitemize}
 \end{frame}
 

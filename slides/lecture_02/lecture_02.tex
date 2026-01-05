@@ -53,6 +53,27 @@
 \definecolor{red}{RGB}{213,94,0}
 \definecolor{yellow}{RGB}{240,228,66}
 \definecolor{green}{RGB}{0,158,115}
+\definecolor{solutionbg}{RGB}{240,248,240}
+\definecolor{solutionframe}{RGB}{0,158,115}
+
+% Solution box environment for worked answers
+\usepackage{tcolorbox}
+\newtcolorbox{solutionbox}[1][]{
+  enhanced,
+  colback=solutionbg,
+  colframe=solutionframe,
+  boxrule=0pt,
+  leftrule=3pt,
+  arc=0pt,
+  left=8pt,
+  right=8pt,
+  top=6pt,
+  bottom=6pt,
+  fonttitle=\bfseries,
+  title={#1},
+  attach boxed title to top left={yshift=-2mm, xshift=5mm},
+  boxed title style={colback=solutionframe, colframe=solutionframe, size=small, arc=2pt}
+}
 
 \hypersetup{
   colorlinks=false,
@@ -129,29 +150,16 @@ Nicholas Vreugdenhil \\
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{Plan for today}
+\begin{frame}{Plan}
   \begin{wideenumerate}
-    \item Logit model derivation
-    \item Berry (1994) inversion
-    \item Elasticity formulas
-    \item IIA problem (preview)
-    \item[] \rule{0.5\textwidth}{0.4pt}
-    \item The identification problem
-    \item Direction of bias
-    \item Instrumental variables
-    \item Uber example
+    \item \textbf{The Logit Demand Model}
+    \item Identification and Instrumental Variables
   \end{wideenumerate}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% PART 1: LOGIT DEMAND MODEL
+% LOGIT DEMAND MODEL
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{transitionframe}
-	\begin{center}
-		{\Huge Part 1: The Logit Demand Model}
-	\end{center}
-\end{transitionframe}
 
 \begin{frame}{Recap: Random utility}
 	\begin{wideitemize}
@@ -286,19 +294,21 @@ Nicholas Vreugdenhil \\
 \end{frame}
 
 \begin{frame}{Worked example: Logit elasticities (solution)}
-	\begin{wideitemize}
-		\item Own-price elasticity formula:
-		\begin{align*}
-			\eta_{jj} = -\alpha p_j (1 - s_j)
-		\end{align*}
-		\item Plug in: $\alpha = 0.5$, $p_j = 20$, $s_j = 0.1$
-		\begin{align*}
-			\eta_{jj} &= -0.5 \times 20 \times (1 - 0.1) \\
-			&= -0.5 \times 20 \times 0.9 \\
-			&= -9
-		\end{align*}
-		\item Interpretation: A 1\% price increase $\Rightarrow$ 9\% decrease in quantity
-	\end{wideitemize}
+	\begin{solutionbox}[Solution]
+		\begin{itemize}
+			\item Own-price elasticity formula:
+			\begin{align*}
+				\eta_{jj} = -\alpha p_j (1 - s_j)
+			\end{align*}
+			\item Plug in: $\alpha = 0.5$, $p_j = 20$, $s_j = 0.1$
+			\begin{align*}
+				\eta_{jj} &= -0.5 \times 20 \times (1 - 0.1) \\
+				&= -0.5 \times 20 \times 0.9 \\
+				&= -9
+			\end{align*}
+			\item Interpretation: A 1\% price increase $\Rightarrow$ 9\% decrease in quantity
+		\end{itemize}
+	\end{solutionbox}
 \end{frame}
 
 \begin{frame}{Worked example: Cross-price elasticity}
@@ -318,6 +328,54 @@ Nicholas Vreugdenhil \\
 	\end{wideitemize}
 \end{frame}
 
+\begin{frame}{Worked example: Berry inversion}
+	\begin{wideitemize}
+		\item \textbf{Question:}
+		\item Market has 2 products plus outside option. Observed shares:
+		\begin{align*}
+			s_0 = 0.5, \quad s_1 = 0.3, \quad s_2 = 0.2
+		\end{align*}
+		\item Compute the mean utilities $\delta_1$ and $\delta_2$.
+	\end{wideitemize}
+	\vspace{20pt}
+	\centering
+	\textit{Take 2 minutes to solve this.}
+\end{frame}
+
+\begin{frame}{Worked example: Berry inversion (solution)}
+	\begin{solutionbox}[Solution]
+		\begin{itemize}
+			\item Berry inversion: $\ln(s_j) - \ln(s_0) = \delta_j$
+			\item For product 1:
+			\begin{align*}
+				\delta_1 &= \ln(0.3) - \ln(0.5) = \ln(0.3/0.5) = \ln(0.6) \approx -0.51
+			\end{align*}
+			\item For product 2:
+			\begin{align*}
+				\delta_2 &= \ln(0.2) - \ln(0.5) = \ln(0.2/0.5) = \ln(0.4) \approx -0.92
+			\end{align*}
+			\item Interpretation: Both products have negative mean utility relative to outside option
+			\item Product 1 is ``better'' than product 2 (higher $\delta$)
+		\end{itemize}
+	\end{solutionbox}
+\end{frame}
+
+\begin{frame}{What drives the IIA property?}
+	\begin{wideitemize}
+		\item IIA comes from the \textbf{logit error structure}
+		\item Key: $\varepsilon_{ij}$ are independent across products
+		\item This means: your taste shock for BMW is unrelated to your taste shock for Mercedes
+		\item \textbf{Implication:} Model doesn't ``know'' that BMW and Mercedes are similar
+		\item When BMW's price rises:
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Logit: BMW consumers spread evenly across ALL other products
+			\item Reality: BMW consumers mostly switch to Mercedes, Audi
+		\end{wideitemize}
+		\item We'll see how to fix this with demographics (Lecture 3) and nested logit
+	\end{wideitemize}
+\end{frame}
+
 \begin{frame}{The IIA problem (preview)}
 	\begin{wideitemize}
 		\item Look at the cross-price elasticity again:
@@ -334,14 +392,15 @@ Nicholas Vreugdenhil \\
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% PART 2: IDENTIFICATION AND IVs
+% IDENTIFICATION AND IVs
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{transitionframe}
-	\begin{center}
-		{\Huge Part 2: Identification and Instrumental Variables}
-	\end{center}
-\end{transitionframe}
+\begin{frame}{Plan}
+  \begin{wideenumerate}
+    \item The Logit Demand Model
+    \item \textbf{Identification and Instrumental Variables}
+  \end{wideenumerate}
+\end{frame}
 
 \begin{frame}{The estimating equation (reminder)}
 	\begin{wideitemize}
@@ -434,18 +493,83 @@ Nicholas Vreugdenhil \\
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{The gold standard: Experiments}
+\begin{frame}{Case study: Uber surge pricing}
 	\begin{wideitemize}
-		\item Best solution: randomize prices!
-		\item \textbf{Uber's price ``wiggles''} (Cohen et al. 2016)
+		\item Uber's surge pricing: prices rise when demand is high
+		\item \textbf{Why is surge pricing endogenous?}
+		\item Surge responds to BOTH:
 		\begin{wideitemize}
 			\vspace{5pt}
-			\item Uber experimentally varies surge multipliers up and down
-			\item Same time, same location $\rightarrow$ different riders see different prices
-			\item This randomization creates exogenous price variation
+			\item \textbf{Supply shocks:} Fewer drivers available $\rightarrow$ surge up
+			\item \textbf{Demand shocks:} Concert ends, rain starts $\rightarrow$ surge up
 		\end{wideitemize}
-		\item Key insight: demand conditions are identical, only price differs
-		\item Result: demand elasticity $\approx -0.5$ (inelastic!)
+		\item Can't just regress rides on surge multiplier!
+		\item Same problem as before: observing equilibrium prices
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{The solution: Uber's price ``wiggle'' experiment}
+	\begin{wideitemize}
+		\item Uber's insight: \textbf{randomize} prices!
+		\item \textbf{Cohen et al. (2016):} Uber experimentally varied surge multipliers
+		\item Same time, same location $\rightarrow$ different riders see different prices
+		\item Key: Some riders randomly see 1.9x, others see 2.1x
+		\item Demand conditions are identical, only price differs
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Tracing out the demand curve}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\begin{tikzpicture}[scale=0.55]
+				% axes
+				\draw [->] (0,0) to (0,8) node [left] {$p$};
+				\draw [->] (0,0) to (8,0) node [below] {$q$};
+
+				% Supply (vertical - fixed)
+				\draw [thick, red] (4,1) to (4,7) node [right] {$S$ (fixed)};
+
+				% Demand curve
+				\draw [thick, blue] (1,7) to (7,1) node [below] {$D$};
+
+				% Multiple price points from wiggle
+				\node [black, fill=black, circle, inner sep=2pt] at (4,5.5) {};
+				\node [black, fill=black, circle, inner sep=2pt] at (4,4) {};
+				\node [black, fill=black, circle, inner sep=2pt] at (4,2.5) {};
+
+				% Price wiggle arrows
+				\draw [<->, thick, green!60!black] (3.5,2.5) to (3.5,5.5);
+				\node [green!60!black, left] at (3.3,4) {\small wiggle};
+
+				% Points on demand
+				\draw [dashed] (4,5.5) to (2.5,5.5);
+				\draw [dashed] (4,4) to (4,4);
+				\draw [dashed] (4,2.5) to (5.5,2.5);
+			\end{tikzpicture}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\begin{wideitemize}
+				\item Randomization holds supply fixed
+				\item Price ``wiggles'' up/down randomly
+				\item Traces out points ON the demand curve
+				\item This identifies demand!
+			\end{wideitemize}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Uber experiment: Results}
+	\begin{wideitemize}
+		\item Result: demand elasticity $\approx -0.5$
+		\item \textbf{Inelastic!} A 10\% price increase $\rightarrow$ only 5\% fewer rides
+		\item Why so inelastic?
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item When you need a ride, you \textit{need} a ride
+			\item Limited substitutes late at night
+		\end{wideitemize}
+		\item \textbf{Key lesson:} Experiments give clean identification
+		\item But most industries can't randomize prices...
 	\end{wideitemize}
 \end{frame}
 
@@ -541,6 +665,42 @@ Nicholas Vreugdenhil \\
 		\end{wideenumerate}
 		\item This is the standard IV framework from econometrics
 		\item Applied to demand estimation: use supply-side variation
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{What makes a good IV? Summary}
+	\begin{center}
+	\begin{tabular}{lcc}
+		\toprule
+		\textbf{Instrument} & \textbf{Relevance} & \textbf{Exogeneity} \\
+		\midrule
+		Cost shifters (input prices) & Strong & Usually OK \\
+		Hausman IVs (prices elsewhere) & Strong & Debatable \\
+		BLP IVs (competitor chars) & Medium & Usually OK \\
+		Experiments (Uber wiggle) & Perfect & Perfect \\
+		\bottomrule
+	\end{tabular}
+	\end{center}
+	\vspace{10pt}
+	\begin{wideitemize}
+		\item No perfect instrument in observational data
+		\item \textbf{Best practice:} Use multiple IVs, check robustness
+		\item \textbf{Experiments} are gold standard but often infeasible
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{From estimation to policy}
+	\begin{wideitemize}
+		\item We've seen how to estimate demand with logit
+		\item \textbf{Why do we care?}
+		\item Demand estimates let us:
+		\begin{wideenumerate}
+			\vspace{5pt}
+			\item Compute \textbf{elasticities} (how sensitive are consumers?)
+			\item Compute \textbf{consumer welfare} (how much do consumers benefit?)
+			\item Simulate \textbf{counterfactuals} (what if a product is removed? what if firms merge?)
+		\end{wideenumerate}
+		\item Next: demographics to relax IIA, then these applications
 	\end{wideitemize}
 \end{frame}
 
