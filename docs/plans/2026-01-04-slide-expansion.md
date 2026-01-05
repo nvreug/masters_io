@@ -129,7 +129,19 @@ Reuse existing visuals from previous courses to add engagement and break up text
    - **DIAGRAM:** Add supply/demand diagram showing identification problem (copy TikZ from week_1/pricing)
    - Add worked example: "Evaluate if gasoline prices are a valid IV" (2 slides)
    - Add slide: "Summary - What makes a good IV?"
-   - Add Uber example slide (from plan outline - already drafted)
+   - **NEW SECTION: Uber as Identification Case Study (3-4 slides)**
+     - Slide 1: "Surge pricing is endogenous" - diagram showing surge responds to BOTH:
+       - Supply shocks (fewer drivers available → surge up)
+       - Demand shocks (concert ends, rain starts → surge up)
+       - Point: Can't just regress rides on surge multiplier!
+     - Slide 2: "The solution: Uber's price wiggle experiment" - explain randomization
+     - Slide 3: **KEY DIAGRAM** - "Tracing out the demand curve"
+       - Show supply curve (fixed/vertical)
+       - Show demand curve
+       - Arrow showing price "wiggles" up/down randomly
+       - Points traced out are ON the demand curve
+       - Caption: "Randomization holds supply fixed → identifies demand"
+     - Slide 4: "Result: Demand elasticity ≈ -0.5 (inelastic!)"
 
 **Verification:** Run `grep -c '\\begin{frame}' slides/lecture_02/lecture_02.tex` → should show 40
 
@@ -462,7 +474,8 @@ These diagrams don't exist in previous courses but would be valuable:
 | Diagram | Lecture | Description |
 |---------|---------|-------------|
 | Identification problem | L2 | Supply/demand with multiple equilibrium points, showing we can't identify either curve |
-| Uber price experiment | L2 | Two riders at same corner seeing different surge prices |
+| Surge pricing endogeneity | L2 | Show surge responds to BOTH supply shocks (fewer drivers) AND demand shocks (concert ends) → price is endogenous |
+| Uber price wiggle experiment | L2 | **KEY DIAGRAM:** Fixed supply curve, price "wiggles" up/down randomly, tracing out points ON the demand curve. Shows how randomization identifies demand by moving along curve while holding supply fixed |
 | Red bus / blue bus | L4 | Three circles (Car, Red Bus, Blue Bus) showing IIA substitution problem |
 | Log-sum CS formula | L4 | Visual showing how expected utility aggregates across options |
 
