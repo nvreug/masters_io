@@ -38,10 +38,21 @@
 
 \subsection*{Instructions}
 \begin{itemize}
+\item This assignment is out of 100 points, with 10 bonus points possible. The maximum score is 100/100 (so if you earn 110 points, you receive 100/100).
 \item You may work in groups of up to 2 people. If working in a group, please submit one assignment with both names.
 \item Submit your solutions as a PDF along with your Python code (either a \texttt{.py} file or Jupyter notebook).
 \item Use the \texttt{pyblp} package for estimation. Documentation is available at \url{https://pyblp.readthedocs.io/}.
 \item This assignment uses the same cereal dataset as in lecture. The data files are available on Canvas.
+\end{itemize}
+
+\subsection*{Question 0: Submission (5 points)}
+
+Submit all materials to Canvas by the deadline:
+\begin{itemize}
+	\item A PDF containing your written answers to all questions
+	\item Your Python code (either a \texttt{.py} file or Jupyter notebook \texttt{.ipynb})
+	\item All figures should be embedded in your PDF and clearly labeled
+	\item If working in a group, include both names on your submission
 \end{itemize}
 
 \subsection*{Background and Data}
@@ -67,7 +78,7 @@ There are two datasets:
 	\end{itemize}
 \end{itemize}
 
-\subsection*{Question 1: Basic Logit Model (30 points)}
+\subsection*{Question 1: Basic Logit Model (45 points)}
 
 Consider the homogeneous-consumer logit model:
 \begin{align*}
@@ -82,75 +93,47 @@ where:
 	\item $\epsilon_{ijt}$: i.i.d. Type 1 Extreme Value error
 \end{itemize}
 
+The utility of the outside option (not purchasing any cereal) is normalized to $u_{i0t} = 0 + \epsilon_{i0t}$.
+
 \begin{enumerate}
+	\item \textbf{(5 points)} Before running any regressions, what sign do you expect $\alpha$ (the price coefficient) to have? Explain your reasoning.
+
 	\item \textbf{(5 points)} Using the Berry inversion, write down the linear regression equation that you would estimate. Clearly show the dependent variable on the left-hand side.
 
-	\item \textbf{(5 points)} Estimate the model using OLS. Report the coefficients $\hat{\beta}_0$, $\hat{\beta}_1$, and $\hat{\alpha}$.
+	\item \textbf{(5 points)} Estimate the model using OLS. Report the coefficients $\hat{\beta}_0$, $\hat{\beta}_1$, and $\hat{\alpha}$. (No need to report standard errors.)
 
-	\item \textbf{(5 points)} Why might OLS give biased estimates of $\alpha$? What is the likely direction of the bias? Explain briefly.
+	\item \textbf{(10 points)} Estimate the model using 2SLS, instrumenting for price using the provided instruments (\textit{demand\_instruments0, ..., demand\_instruments19}). Report the coefficients. (No need to report standard errors.)
 
-	\item \textbf{(10 points)} Estimate the model using 2SLS, instrumenting for price using the provided instruments (\textit{demand\_instruments0, ..., demand\_instruments19}). Report the coefficients. Compare $\hat{\alpha}$ to your OLS estimate and comment on the direction of bias.
+	\item \textbf{(10 points)} Compare $\hat{\alpha}$ from 2SLS to your OLS estimate. Which is more negative? Briefly explain why they differ. (2 sentences max.)
 
-	\item \textbf{(5 points)} Using your 2SLS estimates, compute the own-price elasticity for each product in market `C01Q1'. Create a scatterplot with prices on the x-axis and own-price elasticities on the y-axis. What pattern do you observe? Is this a feature or a bug of the logit model?
+	\item \textbf{(10 points)} Using your 2SLS estimates, compute the own-price elasticity for each product in market `C01Q1'. Create a scatterplot with prices on the x-axis and own-price elasticities on the y-axis. What pattern do you observe? Is this a feature or a bug of the logit model?
 \end{enumerate}
 
-\textit{Hint for part (e):} Recall that for the logit model, own-price elasticity is:
-\begin{align*}
-	\eta_{jj} = \alpha \cdot p_j \cdot (1 - s_j)
-\end{align*}
-
-\subsection*{Question 2: Logit with Demographic Interactions (35 points)}
+\subsection*{Question 2: Logit with Demographic Interactions (50 points)}
 
 Now consider a model that allows preferences to vary with observed consumer demographics:
 \begin{align*}
-	u_{ijt} = \beta_{0} + \beta_{0,inc} \cdot \text{income}_i + \beta_1 \cdot \text{sugar}_{jt} + (\alpha_0 + \alpha_{inc} \cdot \text{income}_i) \cdot p_{jt} + \xi_{jt} + \epsilon_{ijt}
+	u_{ijt} = \beta_{0} + (\beta_1 + \beta_{1,inc} \cdot \text{income}_i) \cdot \text{sugar}_{jt} + (\alpha_0 + \alpha_{inc} \cdot \text{income}_i) \cdot p_{jt} + \xi_{jt} + \epsilon_{ijt}
 \end{align*}
 
 This model has five parameters:
 \begin{itemize}
-	\item \textbf{Linear parameters:} $\beta_0$ (constant), $\alpha_0$ (mean price coefficient)
-	\item \textbf{Demographic interaction parameters:} $\beta_{0,inc}$ (income effect on baseline utility), $\alpha_{inc}$ (income effect on price sensitivity)
-	\item \textbf{Linear parameter:} $\beta_1$ (sugar coefficient)
+	\item \textbf{Linear parameters:} $\beta_0$ (constant), $\beta_1$ (sugar), $\alpha_0$ (price)
+	\item \textbf{Demographic interactions:} $\beta_{1,inc}$ (income $\times$ sugar), $\alpha_{inc}$ (income $\times$ price)
 \end{itemize}
 
-Note: This model does \textit{not} include random coefficients---all heterogeneity comes from observed demographics.
+Note: This model does \textit{not} include random coefficients---all heterogeneity comes from observed demographics. Again, the utility of the outside option (not purchasing any cereal) is normalized to $u_{i0t} = 0 + \epsilon_{i0t}$.
 
 \begin{enumerate}
-	\item \textbf{(5 points)} What is the economic interpretation of $\alpha_{inc}$? What sign would you expect it to have and why?
+	\item \textbf{(10 points)} Explain one advantage that this model has compared to the simple logit model in Question 1.
 
-	\item \textbf{(15 points)} Estimate this model using \texttt{pyblp}. Report all five parameter estimates.
+	\item \textbf{(10 points)} In the context of this model, what is $\delta_{jt}$? Write out the expression for $\delta_{jt}$.
 
-	\textit{Hint:} In \texttt{pyblp}, demographic interactions are specified through the ``agent formulation.'' The \texttt{agent\_data.csv} file contains 20 consumer draws per market. You do not need random coefficients for this problem---set $\Sigma = 0$ and only estimate $\Pi$ (the demographic interaction matrix). See the pyblp documentation on micro moments for guidance.
+	\item \textbf{(20 points)} Estimate this model using \texttt{pyblp}. Report all five parameter estimates. (No need to report standard errors.)
 
-	\item \textbf{(10 points)} Using your estimates, compute own-price elasticities for each product in market `C01Q1'. Create a scatterplot as in Question 1(e). How does the relationship between prices and elasticities differ from the basic logit? Explain why this happens.
+	\item \textbf{(10 points)} Interpret the parameter $\alpha_{inc}$. (2 sentences max.)
 
-	\item \textbf{(5 points)} The IIA property is a limitation of the logit model. Does adding demographic interactions help address IIA? Explain.
-\end{enumerate}
-
-\subsection*{Question 3: Consumer Surplus (35 points)}
-
-In this question you will compute consumer surplus using your estimated demand system.
-
-\begin{enumerate}
-	\item \textbf{(10 points)} Write down the formula for expected consumer surplus per consumer in the logit model. Express it in terms of the ``inclusive value'' (log-sum).
-
-	\textit{Hint:} For the logit model with utility $V_{jt} = \delta_{jt}$ (mean utility) and outside option normalized to $V_{0t} = 0$:
-	\begin{align*}
-		E[CS_t] = \frac{1}{|\alpha|} \ln\left( 1 + \sum_{j=1}^{J_t} \exp(\delta_{jt}) \right)
-	\end{align*}
-
-	\item \textbf{(15 points)} Using your 2SLS estimates from Question 1, compute the expected consumer surplus per consumer in market `C01Q1'.
-
-	Now suppose product `F1B04' (one of the cereals) is removed from the market. Compute the new consumer surplus. What is the change in consumer surplus from removing this product?
-
-	\textit{Note:} Assume consumers can still choose the outside option and all other products remain available at the same prices.
-
-	\item \textbf{(10 points)} The change in consumer surplus from removing a product depends on which product is removed. For market `C01Q1', identify:
-	\begin{itemize}
-		\item The product whose removal causes the \textit{largest} decrease in consumer surplus
-		\item The product whose removal causes the \textit{smallest} decrease in consumer surplus
-	\end{itemize}
-	What characteristics do these products have (price, sugar, market share)? Does this make intuitive sense?
+	\item \textbf{(Bonus: 10 points)} Using your estimates, compute own-price elasticities for each product in market `C01Q1'. Create a scatterplot as in Question 1(f). How does the relationship between prices and elasticities differ from the basic logit? Explain why this happens.
 \end{enumerate}
 
 \subsection*{Submission Checklist}
