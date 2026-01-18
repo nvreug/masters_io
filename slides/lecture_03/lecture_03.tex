@@ -413,6 +413,28 @@ Nicholas Vreugdenhil \\
 	\end{wideitemize}
 \end{frame}
 
+\begin{frame}[fragile]{Installing and importing packages}
+	\begin{wideitemize}
+		\item \textbf{Install once} (in terminal):
+	\end{wideitemize}
+\begin{pycode}
+pip install pyblp numpy pandas
+\end{pycode}
+	\vspace{5pt}
+	\begin{wideitemize}
+		\item \textbf{Import at top of every script:}
+	\end{wideitemize}
+\begin{pycode}
+import pyblp       # demand estimation
+import numpy as np # numerical arrays (np.array, np.zeros, etc.)
+import pandas as pd # data frames (like Excel spreadsheets)
+\end{pycode}
+	\vspace{5pt}
+	\begin{wideitemize}
+		\item \texttt{np} and \texttt{pd} are standard abbreviations
+	\end{wideitemize}
+\end{frame}
+
 \begin{frame}{pyblp workflow}
 	\begin{wideenumerate}
 		\item \textbf{Set up data:} products, markets, shares, characteristics
