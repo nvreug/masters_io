@@ -68,7 +68,7 @@
 \newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
 \newenvironment{wideenumerate}{\enumerate\addtolength{\itemsep}{10pt}}{\endenumerate}
 
-\title[]{\textcolor{blue}{ECN 594: Two-Part Tariffs and Self-Selection}}
+\title[]{\textcolor{blue}{ECN 594: Self-Selection and Two-Part Tariffs}}
 \author[PGP]{}
 \institute[FRBNY]{\small{\begin{tabular}{c c c}
 Nicholas Vreugdenhil \\
@@ -85,13 +85,388 @@ Nicholas Vreugdenhil \\
 
 \begin{frame}{Plan}
   \begin{wideenumerate}
-    \item \textbf{Two-part tariffs: structure and intuition}
-    \item Optimal two-part tariff (homogeneous consumers)
-    \item Heterogeneous consumers (brief)
-    \item Self-selection: versioning and menu design
+    \item \textbf{Self-selection: versioning and menu design}
     \item Incentive compatibility and individual rationality
     \item Worked example: optimal menu
+    \item Two-part tariffs: structure and intuition
+    \item Optimal two-part tariff (homogeneous consumers)
+    \item Heterogeneous consumers (brief)
   \end{wideenumerate}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% SELF-SELECTION
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Plan}
+  \begin{wideenumerate}
+    \item \textbf{Self-selection: versioning and menu design}
+    \item Incentive compatibility and individual rationality
+    \item Worked example: optimal menu
+    \item Two-part tariffs: structure and intuition
+    \item Optimal two-part tariff (homogeneous consumers)
+    \item Heterogeneous consumers (brief)
+  \end{wideenumerate}
+\end{frame}
+
+\begin{frame}{The self-selection problem: why can't we just ask?}
+	\begin{wideitemize}
+		\item \textbf{Why not ask consumers their WTP directly?}
+		\item Everyone would claim to be a low-value buyer
+		\item \textbf{Information asymmetry:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Consumers know their type
+			\item Firm does not
+			\item Consumers have incentive to misreport
+		\end{wideitemize}
+		\item \textbf{Solution:} Design options so that revealing type is in consumers' interest
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Self-selection: the idea}
+	\begin{wideitemize}
+		\item \textbf{Problem:} Seller cannot directly observe consumer types
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Can't tell who has high vs low willingness to pay
+		\end{wideitemize}
+		\item \textbf{Solution:} Design a \textbf{menu} of options
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Different options appeal to different types
+			\item Consumers ``self-select'' into revealing their type
+		\end{wideitemize}
+		\item Also called: screening, menu design, second-degree price discrimination
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Self-selection: versioning}
+	\begin{wideitemize}
+		\item \textbf{Versioning:} Offer different ``versions'' of a product
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item High-quality version for high-value consumers
+			\item Low-quality version for low-value consumers
+		\end{wideitemize}
+		\item \textbf{Examples:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Airline tickets: business class vs economy
+			\item Software: Pro vs Basic editions
+			\item iPhone Pro vs iPhone
+		\end{wideitemize}
+		\item \textbf{Damaged goods:} Sometimes firms deliberately reduce quality
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Tesla: software-limited battery range
+			\item 19th century French rail: roofless third-class cars
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{The menu design problem: setup}
+	\begin{wideitemize}
+		\item Two consumer types: H (high-value) and L (low-value)
+		\item Two product versions: Full and Stripped-down
+		\item Willingness to pay:
+		\begin{center}
+			\begin{tabular}{|c|c|c|}
+				\hline
+				& Full & Stripped-down \\
+				\hline
+				Type H & $v_H^F$ & $v_H^S$ \\
+				Type L & $v_L^F$ & $v_L^S$ \\
+				\hline
+			\end{tabular}
+		\end{center}
+		\item Assume: $v_H^F > v_L^F$ and $v_H^S > v_L^S$ (H values both more)
+		\item Also: $v_H^F - v_H^S > v_L^F - v_L^S$ (H values upgrade more)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Consumer choice: self-selection}
+	\begin{wideitemize}
+		\item Consumer surplus from each option:
+		\begin{align*}
+			CS_{\text{Full}} &= v^F - p_F \\
+			CS_{\text{Stripped}} &= v^S - p_S
+		\end{align*}
+		\item Each consumer chooses the option with highest CS
+		\item (If both negative, consumer doesn't buy)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan}
+  \begin{wideenumerate}
+    \item Self-selection: versioning and menu design
+    \item \textbf{Incentive compatibility and individual rationality}
+    \item Worked example: optimal menu
+    \item Two-part tariffs: structure and intuition
+    \item Optimal two-part tariff (homogeneous consumers)
+    \item Heterogeneous consumers (brief)
+  \end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Constraints on pricing}
+	\begin{wideitemize}
+		\item \textbf{Incentive Compatibility (IC):} Each type prefers ``their'' option
+		\begin{align*}
+			\text{IC}_H: \quad v_H^F - p_F &\geq v_H^S - p_S \\
+			\text{IC}_L: \quad v_L^S - p_S &\geq v_L^F - p_F
+		\end{align*}
+		\item \textbf{Individual Rationality (IR):} Each type is willing to participate
+		\begin{align*}
+			\text{IR}_H: \quad v_H^F - p_F &\geq 0 \\
+			\text{IR}_L: \quad v_L^S - p_S &\geq 0
+		\end{align*}
+		\item Also called: participation constraints
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Key insight: which constraints bind?}
+	\begin{wideitemize}
+		\item In the optimal menu:
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item $\text{IC}_H$ binds: H is just indifferent between Full and Stripped
+			\item $\text{IR}_L$ binds: L gets zero surplus from Stripped
+		\end{wideitemize}
+		\item \textbf{Intuition:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Extract all surplus from L (low type has no ``outside option'')
+			\item H gets some surplus (to prevent them from mimicking L)
+		\end{wideitemize}
+		\item This is called: ``no distortion at the top''
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Proof: which constraints bind}
+	\begin{wideitemize}
+		\item \textbf{Claim 1: $\text{IR}_L$ binds.}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Suppose $\text{IR}_L$ slack: $v_L^S - p_S > 0$
+			\item Then raise $p_S$ slightly $\rightarrow$ profit increases, L still buys
+			\item Contradiction. So $\text{IR}_L$ binds: $p_S = v_L^S$
+		\end{wideitemize}
+		\item \textbf{Claim 2: $\text{IC}_H$ binds.}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Suppose $\text{IC}_H$ slack: $v_H^F - p_F > v_H^S - p_S$
+			\item Then raise $p_F$ slightly $\rightarrow$ profit increases, H still prefers Full
+			\item Contradiction. So $\text{IC}_H$ binds: $v_H^F - p_F = v_H^S - p_S$
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Proof: why we can ignore other constraints}
+	\begin{wideitemize}
+		\item \textbf{Claim 3: $\text{IR}_H$ is implied (doesn't bind).}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item From $\text{IC}_H$: $v_H^F - p_F = v_H^S - p_S$
+			\item From $\text{IR}_L$: $p_S = v_L^S$, and $v_H^S > v_L^S$ (H values more)
+			\item So $v_H^F - p_F = v_H^S - v_L^S > 0$
+		\end{wideitemize}
+		\item \textbf{Claim 4: $\text{IC}_L$ is implied (doesn't bind).}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Need: $v_L^S - p_S \geq v_L^F - p_F$
+			\item From binding constraints: $p_F - p_S = v_H^F - v_H^S$
+			\item So need: $v_H^F - v_H^S \geq v_L^F - v_L^S$
+			\item This is our assumption: H values the upgrade more
+		\end{wideitemize}
+		\item \textbf{Result:} $p_S = v_L^S$ and $p_F = v_H^F - v_H^S + v_L^S$
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan}
+  \begin{wideenumerate}
+    \item Self-selection: versioning and menu design
+    \item Incentive compatibility and individual rationality
+    \item \textbf{Worked example: optimal menu}
+    \item Two-part tariffs: structure and intuition
+    \item Optimal two-part tariff (homogeneous consumers)
+    \item Heterogeneous consumers (brief)
+  \end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Worked example: Airline pricing}
+	\begin{wideitemize}
+		\item \textbf{Question:}
+		\item Business travelers (B): WTP \$800 for flexible, \$400 for restricted
+		\item Leisure travelers (L): WTP \$300 for flexible, \$250 for restricted
+		\item 100 of each type. $MC = 100$ for both ticket types.
+		\item Design the optimal menu (prices for flexible and restricted).
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: Airline pricing (solution)}
+	\begin{wideitemize}
+		\item \textbf{Step 1:} Set $IR_L$ to bind: $p_R = 250$ (L gets zero surplus)
+		\item \textbf{Step 2:} Set $IC_B$ to bind:
+		\begin{align*}
+			800 - p_F &= 400 - 250 \\
+			p_F &= 800 - 150 = 650
+		\end{align*}
+		\item Check L doesn't want flexible: $300 - 650 = -350 < 0$
+		\item \textbf{Profit:}
+		\begin{align*}
+			\pi = (650 - 100) \times 100 + (250 - 100) \times 100 = 55,000 + 15,000 = 70,000
+		\end{align*}
+		\item B gets rent of \$150 (to prevent mimicking L)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: Versioning}
+	\begin{wideitemize}
+		\item Two product versions. $MC = 300$ for both.
+		\item 1 million type H consumers; 2 million type L consumers
+		\item Willingness to pay:
+		\begin{center}
+			\begin{tabular}{|c|c|c|}
+				\hline
+				& Full & Stripped \\
+				\hline
+				Type H & 1500 & 800 \\
+				Type L & 600 & 500 \\
+				\hline
+			\end{tabular}
+		\end{center}
+		\item \textbf{Questions:}
+		\item (a) Profit from selling only Full at $p_F = 1500$?
+		\item (b) Profit from $p_F = 1500$, $p_S = 500$?
+		\item (c) Profit from $p_F = 1200$, $p_S = 500$?
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: Versioning (solution part a)}
+	\begin{wideitemize}
+		\item \textbf{(a) Only Full at $p_F = 1500$:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Type H: $CS = 1500 - 1500 = 0 \geq 0$, buys
+			\item Type L: $CS = 600 - 1500 = -900 < 0$ (doesn't buy)
+		\end{wideitemize}
+		\item Only H buys
+		\item Profit $= (1500 - 300) \times 1\text{M} = \$1.2\text{B}$
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: Versioning (solution part b)}
+	\begin{wideitemize}
+		\item \textbf{(b) $p_F = 1500$, $p_S = 500$:}
+		\item Type H:
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item $CS_F = 1500 - 1500 = 0$
+			\item $CS_S = 800 - 500 = 300$ $\leftarrow$ higher
+		\end{wideitemize}
+		\item Type H buys Stripped (IC violated)
+		\item Type L: $CS_S = 500 - 500 = 0$ (buys Stripped)
+		\item Everyone buys Stripped
+		\item Profit $= (500 - 300) \times 3\text{M} = \$600\text{M}$
+		\item Worse than (a). The menu is poorly designed.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: Versioning (solution part c)}
+	\begin{wideitemize}
+		\item \textbf{(c) $p_F = 1200$, $p_S = 500$:}
+		\item Type H:
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item $CS_F = 1500 - 1200 = 300$
+			\item $CS_S = 800 - 500 = 300$
+		\end{wideitemize}
+		\item H is indifferent $\rightarrow$ buys Full (IC binds)
+		\item Type L: $CS_F = 600 - 1200 = -600$, $CS_S = 500 - 500 = 0$
+		\item L buys Stripped (IR binds)
+		\item Profit $= (1200 - 300) \times 1\text{M} + (500 - 300) \times 2\text{M} = \$1.3\text{B}$
+		\item Best of the three
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Lessons from the example}
+	\begin{wideitemize}
+		\item The optimal menu satisfies:
+		\begin{wideenumerate}
+			\vspace{5pt}
+			\item IC for H binds: H just willing to buy Full over Stripped
+			\item IR for L binds: L gets exactly zero surplus
+		\end{wideenumerate}
+		\item H gets ``information rent'' (surplus of 300)
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item This is the cost of preventing H from mimicking L
+		\end{wideitemize}
+		\item Price gap $p_F - p_S$ must be $\leq v_H^F - v_H^S$ (otherwise H switches)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Why ``damaged goods''?}
+	\begin{wideitemize}
+		\item Sometimes the low-quality version costs \textit{more} to produce
+		\item Example: Tesla battery-limited car
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Same car, same battery, just software restriction
+			\item \textbf{Why?} To prevent high-value buyers from choosing the cheap option
+		\end{wideitemize}
+		\item By making the low-quality version less attractive to H types, the firm can:
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Charge more for the high-quality version
+			\item Still serve the low-value market
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Classic example: Intel 486 processor}
+	\begin{wideitemize}
+		\item Intel 486DX: full-featured processor
+		\item Intel 486SX: same chip, but with math coprocessor \textbf{disabled}
+		\item 486SX costs more to produce (extra step to disable)
+		\item \textbf{Why?}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Creates price discrimination without observable characteristics
+			\item Business users (need math) pay more for 486DX
+			\item Home users (don't need math) self-select into 486SX
+		\end{wideitemize}
+		\item Same logic as Tesla battery restrictions today
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{iPhone storage: versioning in action}
+	\begin{wideitemize}
+		\item iPhone comes in 128GB, 256GB, 512GB versions
+		\item Cost difference to Apple: maybe \$20-30
+		\item Price difference to consumers: \$100-200
+		\item \textbf{Why such large price gaps?}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item High-value users (professionals, photographers) need more storage
+			\item They're willing to pay much more
+			\item Low-value users self-select into smaller storage
+		\end{wideitemize}
+		\item This is versioning through product attributes
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Self-selection: cookbook summary}
+	\begin{wideenumerate}
+		\item Compute consumer surplus for each type, for each option:
+		\begin{align*}
+			CS = WTP - price
+		\end{align*}
+		\item For each type, find the option with highest CS
+		\item Check that CS $\geq 0$ (otherwise they don't buy)
+		\item Compute profit given consumer choices
+		\item To find optimal prices: set IC for H and IR for L to bind
+	\end{wideenumerate}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -100,29 +475,29 @@ Nicholas Vreugdenhil \\
 
 \begin{frame}{Plan}
   \begin{wideenumerate}
-    \item \textbf{Two-part tariffs: structure and intuition}
-    \item Optimal two-part tariff (homogeneous consumers)
-    \item Heterogeneous consumers (brief)
     \item Self-selection: versioning and menu design
     \item Incentive compatibility and individual rationality
     \item Worked example: optimal menu
+    \item \textbf{Two-part tariffs: structure and intuition}
+    \item Optimal two-part tariff (homogeneous consumers)
+    \item Heterogeneous consumers (brief)
   \end{wideenumerate}
 \end{frame}
 
 \begin{frame}{Non-linear pricing}
 	\begin{wideitemize}
-		\item So far: price discrimination by \textbf{selection by indicators}
+		\item So far: price discrimination by \textbf{selection by indicators} and \textbf{self-selection}
 		\begin{wideitemize}
 			\vspace{5pt}
-			\item Requires observable characteristics (student ID, location, etc.)
+			\item Requires observable characteristics or menu of versions
 		\end{wideitemize}
-		\item Now: \textbf{non-linear pricing}
+		\item Now: \textbf{two-part tariffs}
 		\begin{wideitemize}
 			\vspace{5pt}
 			\item Price per unit depends on quantity purchased
 			\item Consumers \textit{self-select} into how much to buy
 		\end{wideitemize}
-		\item Key example: \textbf{two-part tariffs}
+		\item Another form of non-linear pricing
 	\end{wideitemize}
 \end{frame}
 
@@ -156,12 +531,12 @@ Nicholas Vreugdenhil \\
 
 \begin{frame}{Plan}
   \begin{wideenumerate}
-    \item Two-part tariffs: structure and intuition
-    \item \textbf{Optimal two-part tariff (homogeneous consumers)}
-    \item Heterogeneous consumers (brief)
     \item Self-selection: versioning and menu design
     \item Incentive compatibility and individual rationality
     \item Worked example: optimal menu
+    \item Two-part tariffs: structure and intuition
+    \item \textbf{Optimal two-part tariff (homogeneous consumers)}
+    \item Heterogeneous consumers (brief)
   \end{wideenumerate}
 \end{frame}
 
@@ -352,12 +727,12 @@ Nicholas Vreugdenhil \\
 
 \begin{frame}{Plan}
   \begin{wideenumerate}
-    \item Two-part tariffs: structure and intuition
-    \item Optimal two-part tariff (homogeneous consumers)
-    \item \textbf{Heterogeneous consumers (brief)}
     \item Self-selection: versioning and menu design
     \item Incentive compatibility and individual rationality
     \item Worked example: optimal menu
+    \item Two-part tariffs: structure and intuition
+    \item Optimal two-part tariff (homogeneous consumers)
+    \item \textbf{Heterogeneous consumers (brief)}
   \end{wideenumerate}
 \end{frame}
 
@@ -406,381 +781,10 @@ Nicholas Vreugdenhil \\
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% SELF-SELECTION
+% SUMMARY
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Plan}
-  \begin{wideenumerate}
-    \item Two-part tariffs: structure and intuition
-    \item Optimal two-part tariff (homogeneous consumers)
-    \item Heterogeneous consumers (brief)
-    \item \textbf{Self-selection: versioning and menu design}
-    \item Incentive compatibility and individual rationality
-    \item Worked example: optimal menu
-  \end{wideenumerate}
-\end{frame}
-
-\begin{frame}{The self-selection problem: why can't we just ask?}
-	\begin{wideitemize}
-		\item \textbf{Why not ask consumers their WTP directly?}
-		\item Everyone would claim to be a low-value buyer
-		\item \textbf{Information asymmetry:}
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Consumers know their type
-			\item Firm does not
-			\item Consumers have incentive to misreport
-		\end{wideitemize}
-		\item \textbf{Solution:} Design options so that revealing type is in consumers' interest
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Self-selection: the idea}
-	\begin{wideitemize}
-		\item \textbf{Problem:} Seller cannot directly observe consumer types
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Can't tell who has high vs low willingness to pay
-		\end{wideitemize}
-		\item \textbf{Solution:} Design a \textbf{menu} of options
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Different options appeal to different types
-			\item Consumers ``self-select'' into revealing their type
-		\end{wideitemize}
-		\item Also called: screening, menu design, second-degree price discrimination
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Self-selection: versioning}
-	\begin{wideitemize}
-		\item \textbf{Versioning:} Offer different ``versions'' of a product
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item High-quality version for high-value consumers
-			\item Low-quality version for low-value consumers
-		\end{wideitemize}
-		\item \textbf{Examples:}
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Airline tickets: business class vs economy
-			\item Software: Pro vs Basic editions
-			\item iPhone Pro vs iPhone
-		\end{wideitemize}
-		\item \textbf{Damaged goods:} Sometimes firms deliberately reduce quality
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Tesla: software-limited battery range
-			\item 19th century French rail: roofless third-class cars
-		\end{wideitemize}
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{The menu design problem: setup}
-	\begin{wideitemize}
-		\item Two consumer types: H (high-value) and L (low-value)
-		\item Two product versions: Full and Stripped-down
-		\item Willingness to pay:
-		\begin{center}
-			\begin{tabular}{|c|c|c|}
-				\hline
-				& Full & Stripped-down \\
-				\hline
-				Type H & $v_H^F$ & $v_H^S$ \\
-				Type L & $v_L^F$ & $v_L^S$ \\
-				\hline
-			\end{tabular}
-		\end{center}
-		\item Assume: $v_H^F > v_L^F$ and $v_H^S > v_L^S$ (H values both more)
-		\item Also: $v_H^F - v_H^S > v_L^F - v_L^S$ (H values upgrade more)
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Consumer choice: self-selection}
-	\begin{wideitemize}
-		\item Consumer surplus from each option:
-		\begin{align*}
-			CS_{\text{Full}} &= v^F - p_F \\
-			CS_{\text{Stripped}} &= v^S - p_S
-		\end{align*}
-		\item Each consumer chooses the option with highest CS
-		\item (If both negative, consumer doesn't buy)
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Plan}
-  \begin{wideenumerate}
-    \item Two-part tariffs: structure and intuition
-    \item Optimal two-part tariff (homogeneous consumers)
-    \item Heterogeneous consumers (brief)
-    \item Self-selection: versioning and menu design
-    \item \textbf{Incentive compatibility and individual rationality}
-    \item Worked example: optimal menu
-  \end{wideenumerate}
-\end{frame}
-
-\begin{frame}{Constraints on pricing}
-	\begin{wideitemize}
-		\item \textbf{Incentive Compatibility (IC):} Each type prefers ``their'' option
-		\begin{align*}
-			\text{IC}_H: \quad v_H^F - p_F &\geq v_H^S - p_S \\
-			\text{IC}_L: \quad v_L^S - p_S &\geq v_L^F - p_F
-		\end{align*}
-		\item \textbf{Individual Rationality (IR):} Each type is willing to participate
-		\begin{align*}
-			\text{IR}_H: \quad v_H^F - p_F &\geq 0 \\
-			\text{IR}_L: \quad v_L^S - p_S &\geq 0
-		\end{align*}
-		\item Also called: participation constraints
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Key insight: which constraints bind?}
-	\begin{wideitemize}
-		\item In the optimal menu:
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item $\text{IC}_H$ binds: H is just indifferent between Full and Stripped
-			\item $\text{IR}_L$ binds: L gets zero surplus from Stripped
-		\end{wideitemize}
-		\item \textbf{Intuition:}
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Extract all surplus from L (low type has no ``outside option'')
-			\item H gets some surplus (to prevent them from mimicking L)
-		\end{wideitemize}
-		\item This is called: ``no distortion at the top''
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Proof: which constraints bind}
-	\begin{wideitemize}
-		\item \textbf{Claim 1: $\text{IR}_L$ binds.}
-		\begin{wideitemize}
-			\vspace{3pt}
-			\item Suppose $\text{IR}_L$ slack: $v_L^S - p_S > 0$
-			\item Then raise $p_S$ slightly $\rightarrow$ profit increases, L still buys
-			\item Contradiction. So $\text{IR}_L$ binds: $p_S = v_L^S$
-		\end{wideitemize}
-		\item \textbf{Claim 2: $\text{IC}_H$ binds.}
-		\begin{wideitemize}
-			\vspace{3pt}
-			\item Suppose $\text{IC}_H$ slack: $v_H^F - p_F > v_H^S - p_S$
-			\item Then raise $p_F$ slightly $\rightarrow$ profit increases, H still prefers Full
-			\item Contradiction. So $\text{IC}_H$ binds: $v_H^F - p_F = v_H^S - p_S$
-		\end{wideitemize}
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Proof: why we can ignore other constraints}
-	\begin{wideitemize}
-		\item \textbf{Claim 3: $\text{IR}_H$ is implied (doesn't bind).}
-		\begin{wideitemize}
-			\vspace{3pt}
-			\item From $\text{IC}_H$: $v_H^F - p_F = v_H^S - p_S$
-			\item From $\text{IR}_L$: $p_S = v_L^S$, and $v_H^S > v_L^S$ (H values more)
-			\item So $v_H^F - p_F = v_H^S - v_L^S > 0$
-		\end{wideitemize}
-		\item \textbf{Claim 4: $\text{IC}_L$ is implied (doesn't bind).}
-		\begin{wideitemize}
-			\vspace{3pt}
-			\item Need: $v_L^S - p_S \geq v_L^F - p_F$
-			\item From binding constraints: $p_F - p_S = v_H^F - v_H^S$
-			\item So need: $v_H^F - v_H^S \geq v_L^F - v_L^S$
-			\item This is our assumption: H values the upgrade more
-		\end{wideitemize}
-		\item \textbf{Result:} $p_S = v_L^S$ and $p_F = v_H^F - v_H^S + v_L^S$
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Plan}
-  \begin{wideenumerate}
-    \item Two-part tariffs: structure and intuition
-    \item Optimal two-part tariff (homogeneous consumers)
-    \item Heterogeneous consumers (brief)
-    \item Self-selection: versioning and menu design
-    \item Incentive compatibility and individual rationality
-    \item \textbf{Worked example: optimal menu}
-  \end{wideenumerate}
-\end{frame}
-
-\begin{frame}{Worked example: Airline pricing}
-	\begin{wideitemize}
-		\item \textbf{Question:}
-		\item Business travelers (B): WTP \$800 for flexible, \$400 for restricted
-		\item Leisure travelers (L): WTP \$300 for flexible, \$250 for restricted
-		\item 100 of each type. $MC = 100$ for both ticket types.
-		\item Design the optimal menu (prices for flexible and restricted).
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Worked example: Airline pricing (solution)}
-	\begin{wideitemize}
-		\item \textbf{Step 1:} Set $IR_L$ to bind: $p_R = 250$ (L gets zero surplus)
-		\item \textbf{Step 2:} Set $IC_B$ to bind:
-		\begin{align*}
-			800 - p_F &= 400 - 250 \\
-			p_F &= 800 - 150 = 650
-		\end{align*}
-		\item Check L doesn't want flexible: $300 - 650 = -350 < 0$
-		\item \textbf{Profit:}
-		\begin{align*}
-			\pi = (650 - 100) \times 100 + (250 - 100) \times 100 = 55,000 + 15,000 = 70,000
-		\end{align*}
-		\item B gets rent of \$150 (to prevent mimicking L)
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Worked example: Versioning}
-	\begin{wideitemize}
-		\item Two product versions. $MC = 300$ for both.
-		\item 1 million type H consumers; 2 million type L consumers
-		\item Willingness to pay:
-		\begin{center}
-			\begin{tabular}{|c|c|c|}
-				\hline
-				& Full & Stripped \\
-				\hline
-				Type H & 1500 & 800 \\
-				Type L & 600 & 500 \\
-				\hline
-			\end{tabular}
-		\end{center}
-		\item \textbf{Questions:}
-		\item (a) Profit from selling only Full at $p_F = 1500$?
-		\item (b) Profit from $p_F = 1500$, $p_S = 500$?
-		\item (c) Profit from $p_F = 1200$, $p_S = 500$?
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Worked example: Versioning (solution part a)}
-	\begin{wideitemize}
-		\item \textbf{(a) Only Full at $p_F = 1500$:}
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Type H: $CS = 1500 - 1500 = 0 \geq 0$, buys
-			\item Type L: $CS = 600 - 1500 = -900 < 0$ (doesn't buy)
-		\end{wideitemize}
-		\item Only H buys
-		\item Profit $= (1500 - 300) \times 1\text{M} = \$1.2\text{B}$
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Worked example: Versioning (solution part b)}
-	\begin{wideitemize}
-		\item \textbf{(b) $p_F = 1500$, $p_S = 500$:}
-		\item Type H:
-		\begin{wideitemize}
-			\vspace{3pt}
-			\item $CS_F = 1500 - 1500 = 0$
-			\item $CS_S = 800 - 500 = 300$ $\leftarrow$ higher
-		\end{wideitemize}
-		\item Type H buys Stripped (IC violated)
-		\item Type L: $CS_S = 500 - 500 = 0$ (buys Stripped)
-		\item Everyone buys Stripped
-		\item Profit $= (500 - 300) \times 3\text{M} = \$600\text{M}$
-		\item Worse than (a). The menu is poorly designed.
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Worked example: Versioning (solution part c)}
-	\begin{wideitemize}
-		\item \textbf{(c) $p_F = 1200$, $p_S = 500$:}
-		\item Type H:
-		\begin{wideitemize}
-			\vspace{3pt}
-			\item $CS_F = 1500 - 1200 = 300$
-			\item $CS_S = 800 - 500 = 300$
-		\end{wideitemize}
-		\item H is indifferent $\rightarrow$ buys Full (IC binds)
-		\item Type L: $CS_F = 600 - 1200 = -600$, $CS_S = 500 - 500 = 0$
-		\item L buys Stripped (IR binds)
-		\item Profit $= (1200 - 300) \times 1\text{M} + (500 - 300) \times 2\text{M} = \$1.3\text{B}$
-		\item Best of the three
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Lessons from the example}
-	\begin{wideitemize}
-		\item The optimal menu satisfies:
-		\begin{wideenumerate}
-			\vspace{5pt}
-			\item IC for H binds: H just willing to buy Full over Stripped
-			\item IR for L binds: L gets exactly zero surplus
-		\end{wideenumerate}
-		\item H gets ``information rent'' (surplus of 300)
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item This is the cost of preventing H from mimicking L
-		\end{wideitemize}
-		\item Price gap $p_F - p_S$ must be $\leq v_H^F - v_H^S$ (otherwise H switches)
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Why ``damaged goods''?}
-	\begin{wideitemize}
-		\item Sometimes the low-quality version costs \textit{more} to produce
-		\item Example: Tesla battery-limited car
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Same car, same battery, just software restriction
-			\item \textbf{Why?} To prevent high-value buyers from choosing the cheap option
-		\end{wideitemize}
-		\item By making the low-quality version less attractive to H types, the firm can:
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Charge more for the high-quality version
-			\item Still serve the low-value market
-		\end{wideitemize}
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Classic example: Intel 486 processor}
-	\begin{wideitemize}
-		\item Intel 486DX: full-featured processor
-		\item Intel 486SX: same chip, but with math coprocessor \textbf{disabled}
-		\item 486SX costs more to produce (extra step to disable)
-		\item \textbf{Why?}
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Creates price discrimination without observable characteristics
-			\item Business users (need math) pay more for 486DX
-			\item Home users (don't need math) self-select into 486SX
-		\end{wideitemize}
-		\item Same logic as Tesla battery restrictions today
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{iPhone storage: versioning in action}
-	\begin{wideitemize}
-		\item iPhone comes in 128GB, 256GB, 512GB versions
-		\item Cost difference to Apple: maybe \$20-30
-		\item Price difference to consumers: \$100-200
-		\item \textbf{Why such large price gaps?}
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item High-value users (professionals, photographers) need more storage
-			\item They're willing to pay much more
-			\item Low-value users self-select into smaller storage
-		\end{wideitemize}
-		\item This is versioning through product attributes
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Self-selection: cookbook summary}
-	\begin{wideenumerate}
-		\item Compute consumer surplus for each type, for each option:
-		\begin{align*}
-			CS = WTP - price
-		\end{align*}
-		\item For each type, find the option with highest CS
-		\item Check that CS $\geq 0$ (otherwise they don't buy)
-		\item Compute profit given consumer choices
-		\item To find optimal prices: set IC for H and IR for L to bind
-	\end{wideenumerate}
-\end{frame}
-
-\begin{frame}{Summary: When does each type of price discrimination apply?}
+\begin{frame}{Pricing/Price discrimination}
 	\begin{center}
 	\begin{tabular}{|l|l|l|}
 		\hline
@@ -829,14 +833,14 @@ Nicholas Vreugdenhil \\
 \begin{frame}{Key Points}
 	\vspace{11pt}
 	\begin{wideenumerate}
-		\item \textbf{Two-part tariff:} $F + p \times q$ (fixed fee + per-unit price)
-		\item \textbf{Optimal (homogeneous):} Set $p = MC$, $F = CS$ at that price
-		\item Two-part tariffs increase efficiency but reduce consumer surplus to zero
 		\item \textbf{Self-selection:} Design menu so types reveal themselves
 		\item \textbf{IC constraint:} Each type prefers ``their'' option
 		\item \textbf{IR constraint:} Each type willing to participate (CS $\geq 0$)
 		\item Optimal menu: IC binds for high type, IR binds for low type
 		\item High type gets ``information rent''; low type gets zero surplus
+		\item \textbf{Two-part tariff:} $F + p \times q$ (fixed fee + per-unit price)
+		\item \textbf{Optimal (homogeneous):} Set $p = MC$, $F = CS$ at that price
+		\item Two-part tariffs increase efficiency but reduce consumer surplus to zero
 	\end{wideenumerate}
 \end{frame}
 
