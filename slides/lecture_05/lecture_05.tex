@@ -320,6 +320,38 @@ Nicholas Vreugdenhil \\
 	\end{wideitemize}
 \end{frame}
 
+\begin{frame}{Self-selection: versioning}
+	\begin{wideitemize}
+		\item An extreme form of versioning: \textbf{damaged goods} - reduce the quality of existing products
+		\item \textbf{Example:}
+	\end{wideitemize}
+	\begin{columns}
+		\begin{column}{0.4\textwidth}
+			\begin{figure}
+				\includegraphics[scale=0.2]{tesla.jpeg}
+				\caption{2017 Tesla Model S full range: \$76 thousand}
+			\end{figure}
+		\end{column}
+		\begin{column}{0.4\textwidth}
+			\begin{figure}
+				\includegraphics[scale=0.2]{tesla.jpeg}
+				\caption{Exactly the same car with a few extra lines of code to restrict battery: \$70 thousand}
+			\end{figure}
+		\end{column}
+	\end{columns}
+		\begin{wideitemize}
+			\item Why would it be profitable for a seller to intentionally make some of its products worse? Price discrimination.
+		\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Self-selection: versioning}
+	\begin{wideitemize}
+		\item Another example of damaged goods (from textbook)
+		\item \underline{19th century French railcars}: how to prevent wealthy passengers from choosing third-class tickets rather than second-class tickets? \pause
+		\item Answer: pull the roof off the third-class railcar!
+	\end{wideitemize}
+\end{frame}
+
 \begin{frame}{Worked example: Versioning}
 	\begin{wideitemize}
 		\item Two product versions. $MC = 300$ for both.
@@ -403,56 +435,6 @@ Nicholas Vreugdenhil \\
 			\item This is the cost of preventing H from mimicking L
 		\end{wideitemize}
 		\item Price gap $p_F - p_S$ must be $\leq v_H^F - v_H^S$ (otherwise H switches)
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Why ``damaged goods''?}
-	\begin{wideitemize}
-		\item Sometimes the low-quality version costs \textit{more} to produce
-		\item Example: Tesla battery-limited car
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Same car, same battery, just software restriction
-			\item \textbf{Why?} To prevent high-value buyers from choosing the cheap option
-		\end{wideitemize}
-		\item By making the low-quality version less attractive to H types, the firm can:
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Charge more for the high-quality version
-			\item Still serve the low-value market
-		\end{wideitemize}
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Classic example: Intel 486 processor}
-	\begin{wideitemize}
-		\item Intel 486DX: full-featured processor
-		\item Intel 486SX: same chip, but with math coprocessor \textbf{disabled}
-		\item 486SX costs more to produce (extra step to disable)
-		\item \textbf{Why?}
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Creates price discrimination without observable characteristics
-			\item Business users (need math) pay more for 486DX
-			\item Home users (don't need math) self-select into 486SX
-		\end{wideitemize}
-		\item Same logic as Tesla battery restrictions today
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{iPhone storage: versioning in action}
-	\begin{wideitemize}
-		\item iPhone comes in 128GB, 256GB, 512GB versions
-		\item Cost difference to Apple: maybe \$20-30
-		\item Price difference to consumers: \$100-200
-		\item \textbf{Why such large price gaps?}
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item High-value users (professionals, photographers) need more storage
-			\item They're willing to pay much more
-			\item Low-value users self-select into smaller storage
-		\end{wideitemize}
-		\item This is versioning through product attributes
 	\end{wideitemize}
 \end{frame}
 
@@ -596,56 +578,6 @@ Nicholas Vreugdenhil \\
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{Optimal two-part tariff: graphically}
-	\begin{columns}
-		\begin{column}{0.5\textwidth}
-			\begin{figure}
-				\begin{tikzpicture}[scale=0.45]
-					\fill [green!40] (0,1) -- (0,10) -- (9,1) -- cycle;
-
-					\draw [->] (0,0) to (0,11) node [left] {$p$};
-					\draw [->] (0,0) to (11,0) node [below] {$q$};
-					\draw [thick] (0,10)  to  (10,0)  node [above right] {$D$};
-					\draw [thick] (0,1)  to  (11,1)  node [right] {$MC$};
-
-					\draw [dashed] (9,1) to (9,0) node [below] {$q^*$};
-
-					\node [above right] at (2,4) {$F^* = CS$};
-					\node [left] at (0,1) {$p^*=MC$};
-				\end{tikzpicture}
-			\end{figure}
-		\end{column}
-		\begin{column}{0.5\textwidth}
-			\begin{wideitemize}
-				\item Set $p^* = MC$
-				\item Consumers buy $q^*$ (efficient quantity)
-				\item Set $F^* = $ entire green triangle
-				\item Profit = $F^* - 0 = F^*$
-				\item \textbf{Result:} Firm captures ALL surplus
-			\end{wideitemize}
-		\end{column}
-	\end{columns}
-\end{frame}
-
-\begin{frame}{The general method: Two-part tariff optimization}
-	\begin{wideitemize}
-		\item Consumer has demand $q(p)$ and pays total $T = F + pq$
-		\item \textbf{Step 1:} Consumer participates if surplus $\geq$ fee
-		\begin{align*}
-			CS(p) \geq F
-		\end{align*}
-		\item \textbf{Step 2:} Firm wants to extract maximum surplus
-		\begin{align*}
-			F^* = CS(p)
-		\end{align*}
-		\item \textbf{Step 3:} Firm's profit becomes
-		\begin{align*}
-			\pi = CS(p) + (p - c)q(p)
-		\end{align*}
-		\item This is total surplus. Firm captures everything.
-	\end{wideitemize}
-\end{frame}
-
 \begin{frame}{Why price at marginal cost?}
 	\begin{wideitemize}
 		\item Firm profit = $CS(p) + (p - c)q(p)$ = Total surplus
@@ -680,32 +612,85 @@ Nicholas Vreugdenhil \\
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{Worked example: Two-part tariff}
+\begin{frame}{Optimal two-part tariff: graphically}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\begin{figure}
+				\begin{tikzpicture}[scale=0.45]
+					\fill [green!40] (0,1) -- (0,10) -- (9,1) -- cycle;
+
+					\draw [->] (0,0) to (0,11) node [left] {$p$};
+					\draw [->] (0,0) to (11,0) node [below] {$q$};
+					\draw [thick] (0,10)  to  (10,0)  node [above right] {$D$};
+					\draw [thick] (0,1)  to  (11,1)  node [right] {$MC$};
+
+					\draw [dashed] (9,1) to (9,0) node [below] {$q^*$};
+
+					\node [above right] at (2,4) {$F^* = CS$};
+					\node [left] at (0,1) {$p^*=MC$};
+				\end{tikzpicture}
+			\end{figure}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\begin{wideitemize}
+				\item Set $p^* = MC$
+				\item Consumers buy $q^*$ (efficient quantity)
+				\item Set $F^* = $ entire green triangle
+				\item Profit = $F^* - 0 = F^*$
+				\item \textbf{Result:} Firm captures ALL surplus
+			\end{wideitemize}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Worked example: Sushi bar}
 	\begin{wideitemize}
-		\item \textbf{Question:} Individual demand is $q = 15 - 2.5p$. Marginal cost is $MC = 0$.
-		\item (a) What is the optimal uniform price and profit per consumer?
-		\item (b) What is the optimal two-part tariff and profit per consumer?
+		\item \textbf{Question:} A sushi bar has $MC = 0.1$ per piece. Each consumer has demand $q = 20 - 10p$.
+		\item (a) What is the optimal uniform price per piece and profit per consumer?
+		\item (b) Consider an all-you-can-eat policy. What is the optimal fee and profit per consumer?
+		\item (c) What is the optimal two-part tariff (fee at the door plus price per piece)?
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{Worked example: Two-part tariff (solution)}
+\begin{frame}{Worked example: Sushi bar (solution)}
 	\begin{wideitemize}
 		\item \textbf{(a) Uniform pricing:}
 		\begin{wideitemize}
 			\vspace{3pt}
-			\item Inverse demand: $p = 6 - 0.4q$, so $\pi = (6 - 0.4q)q = 6q - 0.4q^2$
-			\item FOC: $\frac{d\pi}{dq} = 6 - 0.8q = 0 \Rightarrow q = 7.5$
-			\item Price: $p = 6 - 0.4(7.5) = 3$
-			\item Profit: $\pi = 3 \times 7.5 = 22.5$ per consumer
+			\item Inverse demand: $p = 2 - 0.1q$
+			\item Profit: $\pi = (p - 0.1)q = (1.9 - 0.1q)q = 1.9q - 0.1q^2$
+			\item FOC: $\frac{d\pi}{dq} = 1.9 - 0.2q = 0 \Rightarrow q = 9.5$
+			\item Price: $p = 2 - 0.1(9.5) = 1.05$
+			\item Profit: $\pi = (1.05 - 0.1) \times 9.5 = 9.025$
 		\end{wideitemize}
-		\item \textbf{(b) Two-part tariff:}
+		\item \textbf{(b) All-you-can-eat} ($p = 0$, charge fee $F$):
 		\begin{wideitemize}
 			\vspace{3pt}
-			\item Set $p = MC = 0$
-			\item At $p = 0$: $q = 15$
-			\item $CS = \frac{1}{2} \times 15 \times 6 = 45$
-			\item Set $F = 45$
-			\item Profit: $\pi = 45$ per consumer (double the uniform price)
+			\item At $p = 0$: $q = 20$, $CS = \frac{1}{2} \times 20 \times 2 = 20$
+			\item Set $F = 20$. Cost $= 0.1 \times 20 = 2$
+			\item Profit: $\pi = 20 - 2 = 18$ (much higher)
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: Sushi bar (solution continued)}
+	\begin{wideitemize}
+		\item \textbf{(c) Optimal two-part tariff:}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Set $p = MC = 0.1$
+			\item At $p = 0.1$: $q = 20 - 10(0.1) = 19$
+			\item $CS = \frac{1}{2} \times 19 \times (2 - 0.1) = \frac{1}{2} \times 19 \times 1.9 = 18.05$
+			\item Set $F = 18.05$
+			\item Profit from sales: $(0.1 - 0.1) \times 19 = 0$
+			\item Total profit: $\pi = 18.05$
+		\end{wideitemize}
+		\item \textbf{Summary:}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Uniform pricing: $\pi = 9.025$
+			\item All-you-can-eat: $\pi = 18$
+			\item Two-part tariff ($p = MC$): $\pi = 18.05$ (best)
 		\end{wideitemize}
 	\end{wideitemize}
 \end{frame}
