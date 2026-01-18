@@ -158,157 +158,110 @@ Nicholas Vreugdenhil \\
 
 \begin{frame}{Plan for today}
   \begin{wideenumerate}
-    \item \textbf{Recap: endogeneity and IVs}
+    \item \textbf{Recap: The IIA problem}
     \item The demographic interaction model
     \item Why demographics help with IIA
     \item Introduction to pyblp
     \item Worked example: car demand
-    \item Interpreting output
   \end{wideenumerate}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% RECAP: IIA PROBLEM
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Recap: The IIA problem}
+	\begin{wideitemize}
+		\item Last time: basic logit gives elasticities
+		\begin{align*}
+			\eta_{jj} = \alpha p_{jt} (1 - s_{jt}), \qquad \eta_{jk} = -\alpha p_{kt} s_{kt}
+		\end{align*}
+		\item \textbf{Problem:} Cross-price elasticity $\eta_{jk}$ doesn't depend on $j$!
+		\item All products have the \textit{same} cross-elasticity with product $k$
+		\item Example: BMW raises price $\Rightarrow$ same fraction go to Mercedes as to Honda Civic
+		\item This is unrealistic: BMW and Mercedes are closer substitutes
+		\item \textbf{Today:} Fix this with demographic interactions
+	\end{wideitemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % DEMOGRAPHIC INTERACTIONS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Recap: The basic logit model}
-	\begin{wideitemize}
-		\item Our utility model so far:
-		\begin{align*}
-			u_{ij} = x_j \beta - \alpha p_j + \xi_j + \varepsilon_{ij}
-		\end{align*}
-		\item Everyone has the same $\beta$ and $\alpha$
-		\item Problem: this is very restrictive
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Rich and poor consumers have same price sensitivity?
-			\item Families and singles value car size the same?
-		\end{wideitemize}
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Why do we need heterogeneous preferences?}
-	\begin{wideitemize}
-		\item \textbf{Policy questions require knowing WHO values WHAT:}
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item If a product is removed, who loses the most?
-			\item If prices rise, which consumers switch away?
-			\item Who benefits from new product variety?
-		\end{wideitemize}
-		\item \textbf{Competitive questions need substitution patterns:}
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item When BMW's price rises, who switches to Mercedes vs Honda?
-			\item Basic logit: everyone substitutes proportionally (IIA)
-			\item Reality: depends on consumer demographics!
-		\end{wideitemize}
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Extending the model: heterogeneous preferences}
-	\begin{wideitemize}
-		\item \textbf{Basic logit:} Everyone has same $\beta$
-		\item Problem: doesn't capture that different consumers value characteristics differently
-		\item \textbf{Solution:} Let preferences vary with observed demographics
-	\end{wideitemize}
-\end{frame}
-
 \begin{frame}{Plan for today}
   \begin{wideenumerate}
-    \item Recap: endogeneity and IVs
+    \item Recap: The IIA problem
     \item \textbf{The demographic interaction model}
     \item Why demographics help with IIA
     \item Introduction to pyblp
     \item Worked example: car demand
-    \item Interpreting output
   \end{wideenumerate}
 \end{frame}
 
 \begin{frame}{The demographic interaction model}
 	\begin{wideitemize}
-		\item New utility specification:
+		\item Allow preferences to vary across consumers:
 		\begin{align*}
-			u_{ij} = x_j \beta + (D_i \times x_j) \gamma - \alpha p_j + \xi_j + \varepsilon_{ij}
+			u_{ijt} = x_{jt} \beta_i + \alpha_i p_{jt} + \xi_{jt} + \varepsilon_{ijt}
 		\end{align*}
-		\item $D_i$: observed consumer demographics (income, age, family size, etc.)
-		\item $(D_i \times x_j)$: interactions between demographics and characteristics
-		\item This creates \textbf{heterogeneous preferences}
+		\item $\beta_i$, $\alpha_i$: consumer $i$'s taste for characteristics and price
+		\item \textbf{Key question:} What drives heterogeneity in $\beta_i$ and $\alpha_i$?
+		\item \textbf{Our approach:} Observed demographics
+		\begin{align*}
+			\beta_{ik} = \beta_k + \sum_{\ell=1}^L \gamma_{k\ell} D_{i\ell}, \qquad \alpha_i = \alpha + \sum_{\ell=1}^L \gamma_{\alpha\ell} D_{i\ell}
+		\end{align*}
+		\item $D_{i\ell}$: demographic $\ell$ for consumer $i$ (income, age, family size, etc.)
+		\item $\gamma_{k\ell}$: how demographic $\ell$ shifts preference for characteristic $k$
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{Classic example: Nevo (2001) - Cereal demand}
+\begin{frame}{Rewriting in terms of mean utility}
 	\begin{wideitemize}
-		\item ``Measuring Market Power in the Ready-to-Eat Cereal Industry''
-		\item Estimated demand for cereal using demographic interactions
-		\item Key findings:
+		\item Substituting the expressions for $\beta_{ik}$ and $\alpha_i$:
+		\begin{align*}
+			u_{ijt} = \underbrace{x_{jt} \beta + \alpha p_{jt} + \xi_{jt}}_{\delta_{jt} \text{ (mean utility)}} + \underbrace{\sum_{k,\ell} \gamma_{k\ell} D_{i\ell} x_{jt,k}}_{\mu_{ijt}} + \varepsilon_{ijt}
+		\end{align*}
+		\item \textbf{Mean utility} $\delta_{jt}$: part common to all consumers
 		\begin{wideitemize}
-			\vspace{5pt}
-			\item High-income households less price-sensitive
-			\item Families with children prefer kid-targeted cereals
-			\item Without demographics: wrong substitution patterns
+			\item Contains ``\textbf{linear parameters}'' $(\beta, \alpha)$ --- enter linearly in $\delta$
 		\end{wideitemize}
-		\item Result: Basic logit would underestimate markups!
+		\item \textbf{Individual deviation} $\mu_{ijt}$: how consumer $i$ differs from average
+		\begin{wideitemize}
+			\item Contains ``\textbf{nonlinear parameters}'' $(\gamma_{k\ell})$ --- enter nonlinearly via shares
+		\end{wideitemize}
+		\item Note: $\alpha < 0$ (higher price $\rightarrow$ lower utility)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{From utility to demand}
+	\begin{wideitemize}
+		\item \textbf{Individual choice probability} (with T1EV errors):
+		\begin{align*}
+			s_{ijt} = \frac{\exp(\delta_{jt} + \mu_{ijt})}{1 + \sum_{k=1}^J \exp(\delta_{kt} + \mu_{ikt})}
+		\end{align*}
+		\item \textbf{Market share} (aggregate over consumers):
+		\begin{align*}
+			s_{jt} = \frac{1}{I} \sum_{i=1}^{I} s_{ijt}
+		\end{align*}
+		\item This is \textbf{demand}: the fraction of consumers who buy product $j$
+		\item Key: shares depend on mean utilities $\delta$ and demographics $D_i$
 	\end{wideitemize}
 \end{frame}
 
 \begin{frame}{Examples of demographic interactions}
 	\begin{wideitemize}
-		\item \textbf{Income $\times$ price:}
+		\item Recall: $\mu_{ijt} = \sum_{k,\ell} \gamma_{k\ell} D_{i\ell} x_{jt,k}$ captures preference heterogeneity
+		\item Effective price coefficient for consumer $i$: $\alpha_i = \alpha + \gamma_{\text{inc} \times p} \cdot \text{income}_i$
+		\item \textbf{Question:} High-income consumers are typically \textit{less} price-sensitive.
 		\begin{wideitemize}
-			\vspace{5pt}
-			\item High-income consumers less price-sensitive
-			\item $\gamma_{\text{inc} \times p} > 0$: price hurts less for rich consumers
-		\end{wideitemize}
-		\item \textbf{Family size $\times$ car size:}
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Families prefer larger vehicles
-			\item $\gamma_{\text{fam} \times \text{size}} > 0$
-		\end{wideitemize}
-		\item \textbf{Age $\times$ fuel efficiency:}
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Older consumers may care more about MPG
+			\vspace{3pt}
+			%\item We need $\alpha_i$ to be less negative for high-income consumers
+			\item Given $\alpha < 0$, what sign should $\gamma_{\text{inc} \times p}$ have?
 		\end{wideitemize}
 	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Worked example: Income $\times$ price interaction}
-	\begin{wideitemize}
-		\item \textbf{Question:}
-		\item Model: $u_{ij} = \beta x_j - \alpha p_j + \gamma (\text{income}_i \times p_j) + \varepsilon_{ij}$
-		\item Estimated: $\alpha = 2.0$, $\gamma = 0.01$
-		\item Consumer A has income \$50,000; Consumer B has income \$100,000
-		\item What is the effective price coefficient for each consumer?
-	\end{wideitemize}
-	\vspace{15pt}
-	\centering
-	\textit{Take 2 minutes to solve this.}
-\end{frame}
-
-\begin{frame}{Worked example: Income $\times$ price interaction (solution)}
-	\begin{solutionbox}[Solution]
-		Effective price coefficient = $-\alpha + \gamma \times \text{income}$
-		\vspace{5pt}
-
-		\textbf{Consumer A} (income = \$50,000):
-		\vspace{-5pt}
-		\begin{align*}
-			\text{Effect} = -2.0 + 0.01 \times 50 = -2.0 + 0.5 = -1.5
-		\end{align*}
-		\vspace{-15pt}
-
-		\textbf{Consumer B} (income = \$100,000):
-		\vspace{-5pt}
-		\begin{align*}
-			\text{Effect} = -2.0 + 0.01 \times 100 = -2.0 + 1.0 = -1.0
-		\end{align*}
-		\vspace{-10pt}
-
-		\textbf{Interpretation:} Consumer B (richer) is less price-sensitive.\\
-		A \$1 price increase hurts B's utility by 1.0, but hurts A's utility by 1.5.
-	\end{solutionbox}
+	\vspace{10pt}
+	%\centering
+	%\textit{Take 1 minute to think about this.}
 \end{frame}
 
 \begin{frame}{Where do demographics come from?}
@@ -330,47 +283,76 @@ Nicholas Vreugdenhil \\
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{Why not random coefficients?}
+\begin{frame}{How do we estimate this model?}
 	\begin{wideitemize}
-		\item Full BLP/mixed logit model adds unobserved heterogeneity:
-		\begin{align*}
-			\beta_i = \bar{\beta} + \Sigma \nu_i, \quad \nu_i \sim N(0, I)
-		\end{align*}
-		\item This is computationally harder (requires simulation)
-		\item Demographic interactions capture a lot of the variation more simply
-		\item \textbf{Mixed logit} is beyond our scope, but know it exists
-		\item It fully relaxes IIA
+		\item Caveat: this is one algorithm, many variations exist
+		\item \textbf{Two-step procedure:}
+		\begin{wideenumerate}
+			\vspace{5pt}
+			\item \textbf{Estimate $\gamma$ and $\delta_{jt}$:}
+			\begin{wideitemize}
+				\item Maximum likelihood with $\delta_{jt}$ as product fixed effects
+				\item Jointly estimates demographic coefficients $\gamma$
+			\end{wideitemize}
+			\item \textbf{Recover $\beta$ and $\alpha$:}
+			\begin{wideitemize}
+				\item Run 2SLS on $\delta_{jt} = x_{jt}\beta + \alpha p_{jt} + \xi_{jt}$
+				\item Need instruments because price is endogenous
+			\end{wideitemize}
+		\end{wideenumerate}
+		\item \textbf{Key insight:} First step gives us $\delta_{jt}$, then step 2 is linear regression with endogeneity (which we know how to handle!)
 	\end{wideitemize}
 \end{frame}
 
 \begin{frame}{Plan for today}
   \begin{wideenumerate}
-    \item Recap: endogeneity and IVs
+    \item Recap: The IIA problem
     \item The demographic interaction model
     \item \textbf{Why demographics help with IIA}
     \item Introduction to pyblp
     \item Worked example: car demand
-    \item Interpreting output
   \end{wideenumerate}
 \end{frame}
 
-\begin{frame}{Demographics and IIA (preview)}
+\begin{frame}{Elasticities with demographic interactions}
 	\begin{wideitemize}
-		\item Recall: basic logit has IIA problem
+		\item \textbf{Elasticities with heterogeneous consumers:}
+		\[  \eta_{jkt} =  \left\{
+		\begin{array}{ll}
+		\frac{p_{jt}}{s_{jt}} \sum_i \alpha_i s_{ijt} (1-s_{ijt}) & \text{if } j=k \\[8pt]
+		-\frac{p_{kt}}{s_{jt}} \sum_i \alpha_i s_{ijt} s_{ikt} & \text{otherwise} \\
+		\end{array}
+		\right. \]
+		\item $s_{ijt}$: probability that consumer $i$ purchases product $j$
+		\item \textbf{Key insight:} Cross-elasticity now depends on $\sum_i s_{ijt} s_{ikt}$
 		\begin{wideitemize}
-			\vspace{5pt}
-			\item When BMW price rises, same fraction goes to Mercedes as to Civic
+			\item Products that attract \textit{similar consumers} have higher cross-elasticity
+			\item BMW and Mercedes attract similar (high-income) consumers $\Rightarrow$ closer substitutes
 		\end{wideitemize}
-		\item With demographics, different consumer types substitute differently
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item High-income BMW buyers $\rightarrow$ Mercedes
-			\item Low-income BMW buyers $\rightarrow$ Civic
-		\end{wideitemize}
-		\item Aggregate substitution is richer
-		\item But IIA still holds \textit{within} each consumer type
-		\item Full discussion in Lecture 4
+		\item Correlation in $\mu_{ijt}$ and $\mu_{ikt}$ drives realistic substitution patterns
 	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Classic example: Nevo (2001) - Cereal demand}
+	\begin{columns}
+		\begin{column}{0.65\textwidth}
+			\begin{wideitemize}
+				\item ``Measuring Market Power in the Ready-to-Eat Cereal Industry''
+				\item Estimated demand for cereal using demographic interactions
+				\item Key findings:
+				\begin{wideitemize}
+					\vspace{5pt}
+					\item High-income households less price-sensitive
+					\item Families with children prefer kid-targeted cereals
+					\item Without demographics: wrong substitution patterns
+				\end{wideitemize}
+				\item Result: Basic logit would underestimate markups!
+			\end{wideitemize}
+		\end{column}
+		\begin{column}{0.35\textwidth}
+			\includegraphics[width=\textwidth]{../../previous_courses/phd_io/demand_estimation/cereal.png}
+		\end{column}
+	\end{columns}
 \end{frame}
 
 \begin{frame}{Limitations: Demographics vs Mixed Logit}
@@ -400,12 +382,11 @@ Nicholas Vreugdenhil \\
 
 \begin{frame}{Plan for today}
   \begin{wideenumerate}
-    \item Recap: endogeneity and IVs
+    \item Recap: The IIA problem
     \item The demographic interaction model
     \item Why demographics help with IIA
     \item \textbf{Introduction to pyblp}
     \item Worked example: car demand
-    \item Interpreting output
   \end{wideenumerate}
 \end{frame}
 
@@ -420,13 +401,6 @@ Nicholas Vreugdenhil \\
 			\item Instrumental variables
 			\item Standard errors
 			\item Post-estimation (elasticities, markups, etc.)
-		\end{wideitemize}
-		\item Why use a package?
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Correct standard errors
-			\item Well-tested code
-			\item Saves you from making mistakes
 		\end{wideitemize}
 	\end{wideitemize}
 \end{frame}
@@ -478,12 +452,11 @@ product_data = pd.read_csv(pyblp.data.BLP_PRODUCTS_LOCATION)
 
 \begin{frame}{Plan for today}
   \begin{wideenumerate}
-    \item Recap: endogeneity and IVs
+    \item Recap: The IIA problem
     \item The demographic interaction model
     \item Why demographics help with IIA
     \item Introduction to pyblp
     \item \textbf{Worked example: car demand}
-    \item Interpreting output
   \end{wideenumerate}
 \end{frame}
 
@@ -611,17 +584,6 @@ print(f"Mean own-price elasticity: {own_elasticities.mean():.2f}")
 		\item Price coefficient is \textbf{negative} (as expected)
 		\item All characteristics positive: consumers prefer more HP, air conditioning, fuel efficiency, space
 	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Plan for today}
-  \begin{wideenumerate}
-    \item Recap: endogeneity and IVs
-    \item The demographic interaction model
-    \item Why demographics help with IIA
-    \item Introduction to pyblp
-    \item Worked example: car demand
-    \item \textbf{Interpreting output}
-  \end{wideenumerate}
 \end{frame}
 
 \begin{frame}{Interpreting pyblp output}
@@ -836,24 +798,24 @@ print(f"Mean own-price elasticity: {own_elasticities.mean():.2f}")
 \begin{frame}{Key Points}
 	\vspace{11pt}
 	\begin{wideenumerate}
-		\item \textbf{Demographic interaction model}: $u_{ij} = x_j \beta + (D_i \times x_j)\gamma - \alpha p_j + \xi_j + \varepsilon_{ij}$
-		\item Demographics allow \textbf{heterogeneous preferences} without random coefficients
-		\item Demographics \textbf{partially help} with IIA (different types substitute differently)
+		\item \textbf{Elasticities}: Own $= \alpha p_{jt}(1-s_{jt})$; Cross $= -\alpha p_{kt} s_{kt}$ \quad ($\alpha < 0$)
+		\item \textbf{IIA problem}: Cross-elasticities don't depend on product similarity
+		\item \textbf{Demographic interaction model}: $u_{ijt} = \delta_{jt} + \sum_{k,\ell} \gamma_{k\ell} D_{i\ell} x_{jt,k} + \varepsilon_{ijt}$
+		\item Demographics allow \textbf{heterogeneous preferences} and help with IIA
 		\item \textbf{pyblp workflow}: Data $\rightarrow$ Formulation $\rightarrow$ Problem $\rightarrow$ Solve $\rightarrow$ Interpret
 		\item \textbf{Key outputs}: Coefficients (check signs), standard errors, elasticities, markups
 		\item Price coefficient should be \textbf{negative}; OLS biases it toward zero
-		\item \textbf{Check IV relevance}: First-stage F-statistic $> 10$
 		\item This is the foundation for HW1
 	\end{wideenumerate}
 \end{frame}
 
 \begin{frame}{Next time}
 	\begin{wideitemize}
-		\item \textbf{Lecture 4:} Consumer Surplus, IIA, and Price Discrimination
+		\item \textbf{Lecture 4:} Consumer Surplus and Price Discrimination
 		\begin{wideitemize}
 			\vspace{5pt}
 			\item Log-sum formula for consumer surplus
-			\item Red bus/blue bus: the IIA problem in detail
+			\item Red bus/blue bus example
 			\item Selection by indicators (group pricing)
 		\end{wideitemize}
 	\end{wideitemize}
