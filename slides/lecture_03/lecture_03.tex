@@ -571,12 +571,14 @@ results.xi            # estimated unobservables (xi_jt)
 \begin{pycode}
 elasticities = results.compute_elasticities()
 # Returns matrix: elasticities[j,k] = % change in q_j from 1% price change in k
+
+own_price_elasticities = np.diag(elasticities)  # extract diagonal
 \end{pycode}
 	\vspace{8pt}
 	\begin{wideitemize}
 		\item Own-price elasticity: $\eta_{jj}$ on diagonal
 		\item Cross-price elasticity: $\eta_{jk}$ off diagonal
-		\item We'll look at an example later in this lecture
+		\item \texttt{np.diag()} extracts the diagonal of a matrix
 	\end{wideitemize}
 \end{frame}
 
