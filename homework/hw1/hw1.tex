@@ -42,7 +42,8 @@
 \item You may work in groups of up to 2 people. If working in a group, please submit one assignment with both names.
 \item Submit your solutions as a PDF along with your Python code (either a \texttt{.py} file or Jupyter notebook).
 \item Use the \texttt{pyblp} package for estimation. Documentation is available at \url{https://pyblp.readthedocs.io/}.
-\item This assignment uses the same cereal dataset as in lecture. The data files are available on Canvas.
+\item The data files are available on Canvas.
+\item \textbf{AI policy:} You may use AI tools (e.g., ChatGPT, Claude) as a reference, but you may \textit{not} use AI to directly answer the questions. 
 \end{itemize}
 
 \subsection*{Question 0: Submission (5 points)}
@@ -115,13 +116,13 @@ The utility of the outside option (not purchasing any cereal) is normalized to $
 
 Now consider a model that allows preferences to vary with observed consumer demographics:
 \begin{align*}
-	u_{ijt} = (\beta_1 + \beta_{1,inc} \cdot \text{income}_i) \cdot \text{sugar}_{jt} + (\alpha_0 + \alpha_{inc} \cdot \text{income}_i) \cdot p_{jt} + \xi_{jt} + \epsilon_{ijt}
+	u_{ijt} = (\beta_1 + \pi_1 \cdot \text{income}_i) \cdot \text{sugar}_{jt} + (\alpha + \pi_\alpha \cdot \text{income}_i) \cdot p_{jt} + \xi_{jt} + \epsilon_{ijt}
 \end{align*}
 
 This model has four parameters:
 \begin{itemize}
-	\item \textbf{Linear parameters:} $\beta_1$ (sugar), $\alpha_0$ (price)
-	\item \textbf{Demographic interactions:} $\beta_{1,inc}$ (income $\times$ sugar), $\alpha_{inc}$ (income $\times$ price)
+	\item \textbf{Linear parameters:} $\beta_1$ (sugar), $\alpha$ (price)
+	\item \textbf{Demographic interactions (pi):} $\pi_1$ (income $\times$ sugar), $\pi_\alpha$ (income $\times$ price)
 \end{itemize}
 
 Note: This model does \textit{not} include random coefficients---all heterogeneity comes from observed demographics. Again, the utility of the outside option (not purchasing any cereal) is normalized to $u_{i0t} = 0 + \epsilon_{i0t}$.
@@ -141,7 +142,7 @@ initial_pi = np.array([
 ])
 \end{verbatim}
 
-	\item \textbf{(10 points)} Interpret the parameter $\alpha_{inc}$. (2 sentences max.)
+	\item \textbf{(10 points)} Interpret the parameter $\pi_\alpha$. (2 sentences max.)
 
 	\item \textbf{(Bonus: 10 points)} Using your estimates, compute own-price elasticities for each product in market `C01Q1'. Create a scatterplot as in Question 1(f). How does the relationship between prices and elasticities differ from the basic logit? Explain why this happens.
 \end{enumerate}

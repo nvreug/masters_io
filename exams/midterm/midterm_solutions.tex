@@ -151,77 +151,68 @@
 \end{parts}
 
 \newpage
-\subsection*{3. Monopoly Pricing (20 points)}
+\subsection*{3. Two-Part Tariffs (20 points)}
 \question
 \begin{parts}
-	\part[5] Profit-maximizing quantity and price:
+	\part[5] Profit as a function of $F$ and $p$:
 	\begin{solution}
-	Inverse demand: $P = 100 - 2Q$
+	Each consumer's demand: $q = 20 - 2p$
 
-	Revenue: $R = PQ = (100 - 2Q)Q = 100Q - 2Q^2$
+	Consumer surplus at price $p$: $CS(p) = \frac{1}{2} \cdot q \cdot (10 - p) = \frac{1}{2}(20-2p)(10-p) = (10-p)^2$
 
-	$MR = \frac{dR}{dQ} = 100 - 4Q$
+	(The choke price is $p = 10$ where $q = 0$.)
 
-	Set $MR = MC$: $100 - 4Q = 20$
+	Maximum fee: $F = CS(p) = (10-p)^2$
 
-	$4Q = 80 \Rightarrow \boxed{Q^* = 20}$
+	Per-visit profit margin: $(p - c) = (p - 2)$
 
-	$\boxed{P^* = 100 - 2(20) = \$60}$
+	Profit per consumer: $\pi = F + (p-c) \cdot q = (10-p)^2 + (p-2)(20-2p)$
+
+	Total profit (100 consumers): $\boxed{\Pi = 100 \left[ (10-p)^2 + (p-2)(20-2p) \right]}$
 	\end{solution}
 
-	\part[5] Lerner index and elasticity verification:
+	\part[5] Show $p^* = c = 2$:
 	\begin{solution}
-	Lerner index: $L = \frac{P - MC}{P} = \frac{60 - 20}{60} = \frac{40}{60} = \boxed{\frac{2}{3}}$
+	Per-consumer profit: $\pi(p) = (10-p)^2 + (p-2)(20-2p)$
 
-	To verify $L = 1/|\varepsilon|$, compute elasticity at optimal price:
+	Take derivative with respect to $p$:
 
-	From $P = 100 - 2Q$, we get $Q = 50 - 0.5P$
+	$\frac{d\pi}{dp} = 2(10-p)(-1) + (20-2p) + (p-2)(-2)$
 
-	$\frac{dQ}{dP} = -0.5$
+	$= -2(10-p) + (20-2p) - 2(p-2)$
 
-	$\varepsilon = \frac{dQ}{dP} \cdot \frac{P}{Q} = (-0.5) \cdot \frac{60}{20} = -1.5$
+	$= -20 + 2p + 20 - 2p - 2p + 4$
 
-	$\frac{1}{|\varepsilon|} = \frac{1}{1.5} = \frac{2}{3} = L$ \quad \checkmark
+	$= 4 - 2p$
+
+	Set equal to zero: $4 - 2p = 0 \Rightarrow \boxed{p^* = 2 = c}$
+
+	\textbf{Intuition:} Setting $p = MC$ maximizes total surplus (no deadweight loss). The firm then extracts all surplus via the fee $F$.
 	\end{solution}
 
-	\part[5] Effect of cost increase:
+	\part[10] Comparing two pricing strategies:
 	\begin{solution}
-	With $MC = 30$:
+	First, compute consumer surplus at $p = 0$:
+	\begin{itemize}
+		\item Heavy users: $q_H = 10$, $CS_H = \frac{1}{2}(10)(10) = 50$
+		\item Light users: $q_L = 5$, $CS_L = \frac{1}{2}(5)(5) = 12.5$
+	\end{itemize}
 
-	$MR = MC$: $100 - 4Q = 30$
+	\textbf{(a) $F = 50$, $p = 0$:}
+	\begin{itemize}
+		\item Heavy: $CS_H = 50 \geq F = 50$, so they join
+		\item Light: $CS_L = 12.5 < F = 50$, so they don't join
+		\item Profit $= 50 \times 50 = \boxed{\$2,500}$
+	\end{itemize}
 
-	$4Q = 70 \Rightarrow Q^* = 17.5$
+	\textbf{(b) $F = 12.5$, $p = 0$:}
+	\begin{itemize}
+		\item Heavy: $CS_H = 50 \geq F = 12.5$, so they join
+		\item Light: $CS_L = 12.5 \geq F = 12.5$, so they join
+		\item Profit $= 150 \times 12.5 = \boxed{\$1,875}$
+	\end{itemize}
 
-	$P^* = 100 - 2(17.5) = \$65$
-
-	Price increase: $65 - 60 = \$5$
-
-	Cost increase: $30 - 20 = \$10$
-
-	\textbf{Pass-through rate:} $\frac{\$5}{\$10} = \boxed{50\%}$
-
-	With linear demand, monopolists pass through only half of cost increases.
-	\end{solution}
-
-	\part[5] Cournot duopoly:
-	\begin{solution}
-	With 2 symmetric firms, $Q = q_1 + q_2$. Each firm's FOC:
-
-	$\pi_i = (100 - 2Q)q_i - 20q_i = (100 - 2q_i - 2q_j - 20)q_i$
-
-	FOC: $\frac{d\pi_i}{dq_i} = 100 - 4q_i - 2q_j - 20 = 0$
-
-	Best response: $q_i = \frac{80 - 2q_j}{4} = 20 - 0.5q_j$
-
-	Symmetry: $q_1 = q_2 = q^*$
-
-	$q^* = 20 - 0.5q^* \Rightarrow 1.5q^* = 20 \Rightarrow q^* = \frac{40}{3} \approx 13.33$
-
-	$Q = 2q^* = \frac{80}{3} \approx 26.67$
-
-	$P = 100 - 2(\frac{80}{3}) = 100 - \frac{160}{3} = \frac{140}{3} \approx \boxed{\$46.67}$
-
-	\textbf{Comparison:} Cournot price (\$46.67) $<$ Monopoly price (\$60). Competition lowers price.
+	\textbf{Strategy (a) is better.} It's more profitable to serve only heavy users and charge them their full surplus, rather than lowering the fee to attract light users.
 	\end{solution}
 \end{parts}
 
@@ -237,7 +228,7 @@
 
 	Students: $P_B = \$100$, sell Basic
 
-	Profit: $40(400 - 50) + 60(100 - 20) = 40(350) + 60(80) = 14,000 + 4,800 = \boxed{\$18,800}$
+	Profit: $40(400 - 30) + 60(100 - 30) = 40(370) + 60(70) = 14,800 + 4,200 = \boxed{\$19,000}$
 	\end{solution}
 
 	\part[4] IC constraint for businesses:
@@ -251,6 +242,21 @@
 	$\boxed{P_P - P_B \leq 250}$
 
 	(Or equivalently: $P_P \leq P_B + 250$)
+	\end{solution}
+
+	\part[6] Why $P_P = \$380$, $P_B = \$100$ is not optimal:
+	\begin{solution}
+	Check the business IC constraint:
+
+	Business surplus from Pro: $400 - 380 = 20$
+
+	Business surplus from Basic: $150 - 100 = 50$
+
+	Since $20 < 50$, \textbf{businesses prefer Basic to Pro!}
+
+	$\boxed{\text{The business IC constraint is violated: } P_P - P_B = 280 > 250}$
+
+	At these prices, businesses would buy Basic (getting surplus of \$50) rather than Pro (surplus of \$20). The firm loses the high-margin Pro sales to businesses.
 	\end{solution}
 
 	\part[6] Self-selection prices:
@@ -271,26 +277,9 @@
 
 	Check student IC: $100 - 100 = 0 \geq 120 - 350 = -230$ \checkmark
 
-	Profit: $40(350 - 50) + 60(100 - 20) = 40(300) + 60(80) = 12,000 + 4,800 = \boxed{\$16,800}$
+	Profit: $40(350 - 30) + 60(100 - 30) = 40(320) + 60(70) = 12,800 + 4,200 = \boxed{\$17,000}$
 
 	(Lost \$2,000 compared to perfect discrimination due to business IC constraint)
-	\end{solution}
-
-	\part[6] Effect of ``damaging'' Basic:
-	\begin{solution}
-	Damaging Basic (removing features) \textbf{lowers businesses' WTP for Basic}.
-
-	Suppose damage reduces business WTP for Basic from \$150 to \$50.
-
-	New business IC: $400 - P_P \geq 50 - P_B$, i.e., $P_P \leq P_B + 350$
-
-	Now the firm can charge $P_P = 100 + 350 = \$450$... but this exceeds business WTP of \$400.
-
-	So charge $P_P = \$400$ (binding IR), $P_B = \$100$ (still extract all student surplus)
-
-	Profit: $40(400 - 50) + 60(100 - 20) = 14,000 + 4,800 = \$18,800$
-
-	\textbf{Economic logic:} By making Basic less attractive to high-value businesses, the firm relaxes the IC constraint and can charge businesses closer to their full WTP (\$400 vs. \$350 before). This is why software companies deliberately cripple basic versions---it's strategic product degradation to enable better price discrimination, not cost reduction.
 	\end{solution}
 \end{parts}
 
