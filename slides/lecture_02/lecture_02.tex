@@ -126,12 +126,12 @@
 \tikzstyle{fancytitle} =[draw=black,fill=red, text=white]
 %%%% END TIKZ STUFF
 
-\title[]{\textcolor{blue}{ECN 594: Logit Demand and Identification}}
+\title[]{\textcolor{blue}{ECN 594: Identification and Instrumental Variables}}
 \author[PGP]{}
 \institute[FRBNY]{\small{\begin{tabular}{c c c}
 Nicholas Vreugdenhil \\
 \end{tabular}}}
-\date{\today}
+\date{}
 
 \begin{document}
 
@@ -144,7 +144,7 @@ Nicholas Vreugdenhil \\
 \begin{frame}{Announcements}
 	\begin{wideitemize}
 		\item \textbf{Homework 1 released today}
-		\item Due: Feb 4 (before Lecture 6)
+		\item Due: see Canvas
 		\item Demand estimation using Python and \texttt{pyblp}
 		\item Start early!
 	\end{wideitemize}
@@ -152,312 +152,55 @@ Nicholas Vreugdenhil \\
 
 \begin{frame}{Plan for today}
   \begin{wideenumerate}
-    \item \textbf{Logit model derivation}
-    \item Berry (1994) inversion
-    \item Elasticity formulas
-    \item IIA problem (preview)
+    \item \textbf{Recap: Logit and Berry inversion}
     \item The identification problem
     \item Direction of bias
-    \item Instrumental variables
     \item Uber example
+    \item Instrumental variables
+    \item Elasticities and limitations
   \end{wideenumerate}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% LOGIT DEMAND MODEL
+% LOGIT ESTIMATION
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Recap: Random utility}
+\begin{frame}{Recap: Logit and Berry inversion}
 	\begin{wideitemize}
-		\item Consumer $i$ chooses among $J$ products
-		\item Utility:
+		\item Mean utility: $\delta_{jt} = x_{jt} \beta + \alpha p_{jt} + \xi_{jt}$ \quad ($\alpha < 0$)
+		\item Logit shares:
 		\begin{align*}
-			u_{ij} = x_j \beta - \alpha p_j + \xi_j + \varepsilon_{ij}
+			s_{jt} = \frac{\exp(\delta_{jt})}{1 + \sum_{k=1}^J \exp(\delta_{kt})}, \qquad s_{0t} = \frac{1}{1 + \sum_{k=1}^J \exp(\delta_{kt})}
 		\end{align*}
-		\item Consumer chooses the product with highest utility
-		\item Last time: we left $\varepsilon_{ij}$ unspecified
-		\item Today: we assume $\varepsilon_{ij}$ has a specific distribution
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{The logit assumption}
-	\begin{wideitemize}
-		\item Assume $\varepsilon_{ij}$ is i.i.d. \textbf{Type I Extreme Value}
-		\item Also called Gumbel distribution
-		\item CDF: $F(\varepsilon) = \exp(-\exp(-\varepsilon))$
-		\item Why this assumption?
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Gives us \textbf{closed-form} choice probabilities!
-			\item Computationally tractable
-		\end{wideitemize}
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Logit choice probabilities}
-	\begin{wideitemize}
-		\item Define \textbf{mean utility}:
+		\item \textbf{Berry inversion} (from last time):
 		\begin{align*}
-			\delta_j = x_j \beta - \alpha p_j + \xi_j
+			\ln(s_{jt}) - \ln(s_{0t}) = x_{jt} \beta + \alpha p_{jt} + \xi_{jt}
 		\end{align*}
-		\item So utility is: $u_{ij} = \delta_j + \varepsilon_{ij}$
-		\item With Type I Extreme Value errors, the probability that consumer chooses $j$:
-		\begin{align*}
-			P(\text{choose } j) = \frac{\exp(\delta_j)}{\sum_{k=1}^J \exp(\delta_k)}
-		\end{align*}
-		\item This is the \textbf{logit} formula
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{The outside option}
-	\begin{wideitemize}
-		\item Problem: Our formula doesn't allow consumers to ``not buy''
-		\item We need an \textbf{outside option} (product $j=0$)
-		\item Utility of outside option:
-		\begin{align*}
-			u_{i0} = \varepsilon_{i0}
-		\end{align*}
-		\item We normalize: $\delta_0 = 0$
-		\item All other utilities are \textit{relative} to this outside option
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Logit with outside option}
-	\begin{wideitemize}
-		\item With the outside option, the share of product $j$ is:
-		\begin{align*}
-			s_j = \frac{\exp(\delta_j)}{1 + \sum_{k=1}^J \exp(\delta_k)}
-		\end{align*}
-		\item And the share of the outside option is:
-		\begin{align*}
-			s_0 = \frac{1}{1 + \sum_{k=1}^J \exp(\delta_k)}
-		\end{align*}
-		\item Note: $s_0 + \sum_{j=1}^J s_j = 1$ (shares sum to 1)
+		\item This looks like a regression we can run... but there's a problem
+		\item \textbf{Today:} Price endogeneity and instrumental variables
 	\end{wideitemize}
 \end{frame}
 
 \begin{frame}{Plan for today}
   \begin{wideenumerate}
-    \item Logit model derivation
-    \item \textbf{Berry (1994) inversion}
-    \item Elasticity formulas
-    \item IIA problem (preview)
-    \item The identification problem
+    \item Recap: Logit and Berry inversion
+    \item \textbf{The identification problem}
     \item Direction of bias
-    \item Instrumental variables
     \item Uber example
-  \end{wideenumerate}
-\end{frame}
-
-\begin{frame}{Berry (1994) inversion: the key insight}
-	\begin{wideitemize}
-		\item We observe: market shares $s_j$
-		\item We want: mean utilities $\delta_j$ (to estimate $\beta$, $\alpha$)
-		\item \textbf{Problem:} How do we get $\delta_j$ from $s_j$?
-		\item \textbf{Berry's insight:} Take the log of shares!
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Berry (1994) inversion}
-	\begin{wideitemize}
-		\item Start with:
-		\begin{align*}
-			s_j = \frac{\exp(\delta_j)}{1 + \sum_{k=1}^J \exp(\delta_k)}, \quad s_0 = \frac{1}{1 + \sum_{k=1}^J \exp(\delta_k)}
-		\end{align*}
-		\item Take logs:
-		\begin{align*}
-			\ln(s_j) &= \delta_j - \ln\left(1 + \sum_{k=1}^J \exp(\delta_k)\right) \\
-			\ln(s_0) &= -\ln\left(1 + \sum_{k=1}^J \exp(\delta_k)\right)
-		\end{align*}
-		\item Subtract:
-		\begin{align*}
-			\ln(s_j) - \ln(s_0) = \delta_j
-		\end{align*}
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Berry (1994) inversion: the estimating equation}
-	\begin{wideitemize}
-		\item We have: $\ln(s_j) - \ln(s_0) = \delta_j$
-		\item Substitute $\delta_j = x_j \beta - \alpha p_j + \xi_j$:
-		\begin{align*}
-			\ln(s_j) - \ln(s_0) = x_j \beta - \alpha p_j + \xi_j
-		\end{align*}
-		\item This is a \textbf{linear regression}!
-		\item LHS: can compute from observed shares
-		\item RHS: product characteristics, price, and an error term
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Plan for today}
-  \begin{wideenumerate}
-    \item Logit model derivation
-    \item Berry (1994) inversion
-    \item \textbf{Elasticity formulas}
-    \item IIA problem (preview)
-    \item The identification problem
-    \item Direction of bias
     \item Instrumental variables
-    \item Uber example
+    \item Elasticities and limitations
   \end{wideenumerate}
-\end{frame}
-
-\begin{frame}{Logit elasticities}
-	\begin{wideitemize}
-		\item Given shares $s_j = \frac{\exp(\delta_j)}{1 + \sum_k \exp(\delta_k)}$
-		\item We can derive price elasticities:
-		\begin{align*}
-			\eta_{jj} &= \frac{\partial s_j}{\partial p_j} \frac{p_j}{s_j} = -\alpha p_j (1 - s_j) \quad \text{(own-price)} \\[10pt]
-			\eta_{jk} &= \frac{\partial s_j}{\partial p_k} \frac{p_k}{s_j} = \alpha p_k s_k \quad \text{(cross-price)}
-		\end{align*}
-		\item Note: $\alpha > 0$, so own-price elasticity is \textbf{negative} (as expected)
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Worked example: Logit elasticities}
-	\begin{wideitemize}
-		\item \textbf{Question:}
-		\item Suppose $\alpha = 0.5$, product $j$ has price $p_j = 20$ and market share $s_j = 0.1$.
-		\item Compute the own-price elasticity for product $j$.
-	\end{wideitemize}
-	\vspace{20pt}
-	\centering
-	\textit{Take 2 minutes to solve this.}
-\end{frame}
-
-\begin{frame}{Worked example: Logit elasticities (solution)}
-	\begin{solutionbox}[Solution]
-		\begin{itemize}
-			\item Own-price elasticity formula:
-			\begin{align*}
-				\eta_{jj} = -\alpha p_j (1 - s_j)
-			\end{align*}
-			\item Plug in: $\alpha = 0.5$, $p_j = 20$, $s_j = 0.1$
-			\begin{align*}
-				\eta_{jj} &= -0.5 \times 20 \times (1 - 0.1) \\
-				&= -0.5 \times 20 \times 0.9 \\
-				&= -9
-			\end{align*}
-			\item Interpretation: A 1\% price increase $\Rightarrow$ 9\% decrease in quantity
-		\end{itemize}
-	\end{solutionbox}
-\end{frame}
-
-\begin{frame}{Worked example: Cross-price elasticity}
-	\begin{wideitemize}
-		\item Now compute the cross-price elasticity with product $k$
-		\item Given: $\alpha = 0.5$, $p_k = 25$, $s_k = 0.05$
-		\item Cross-price elasticity formula:
-		\begin{align*}
-			\eta_{jk} = \alpha p_k s_k
-		\end{align*}
-		\item Plug in:
-		\begin{align*}
-			\eta_{jk} &= 0.5 \times 25 \times 0.05 \\
-			&= 0.625
-		\end{align*}
-		\item Interpretation: A 1\% increase in $p_k$ $\Rightarrow$ 0.625\% increase in $s_j$
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Worked example: Berry inversion}
-	\begin{wideitemize}
-		\item \textbf{Question:}
-		\item Market has 2 products plus outside option. Observed shares:
-		\begin{align*}
-			s_0 = 0.5, \quad s_1 = 0.3, \quad s_2 = 0.2
-		\end{align*}
-		\item Compute the mean utilities $\delta_1$ and $\delta_2$.
-	\end{wideitemize}
-	\vspace{20pt}
-	\centering
-	\textit{Take 2 minutes to solve this.}
-\end{frame}
-
-\begin{frame}{Worked example: Berry inversion (solution)}
-	\begin{solutionbox}[Solution]
-		\begin{itemize}
-			\item Berry inversion: $\ln(s_j) - \ln(s_0) = \delta_j$
-			\item For product 1:
-			\begin{align*}
-				\delta_1 &= \ln(0.3) - \ln(0.5) = \ln(0.3/0.5) = \ln(0.6) \approx -0.51
-			\end{align*}
-			\item For product 2:
-			\begin{align*}
-				\delta_2 &= \ln(0.2) - \ln(0.5) = \ln(0.2/0.5) = \ln(0.4) \approx -0.92
-			\end{align*}
-			\item Interpretation: Both products have negative mean utility relative to outside option
-			\item Product 1 is ``better'' than product 2 (higher $\delta$)
-		\end{itemize}
-	\end{solutionbox}
-\end{frame}
-
-\begin{frame}{Plan for today}
-  \begin{wideenumerate}
-    \item Logit model derivation
-    \item Berry (1994) inversion
-    \item Elasticity formulas
-    \item \textbf{IIA problem (preview)}
-    \item The identification problem
-    \item Direction of bias
-    \item Instrumental variables
-    \item Uber example
-  \end{wideenumerate}
-\end{frame}
-
-\begin{frame}{What drives the IIA property?}
-	\begin{wideitemize}
-		\item IIA comes from the \textbf{logit error structure}
-		\item Key: $\varepsilon_{ij}$ are independent across products
-		\item This means: your taste shock for BMW is unrelated to your taste shock for Mercedes
-		\item \textbf{Implication:} Model doesn't ``know'' that BMW and Mercedes are similar
-		\item When BMW's price rises:
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Logit: BMW consumers spread evenly across ALL other products
-			\item Reality: BMW consumers mostly switch to Mercedes, Audi
-		\end{wideitemize}
-		\item We'll see how to fix this with demographics (Lecture 3) and nested logit
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{The IIA problem (preview)}
-	\begin{wideitemize}
-		\item Look at the cross-price elasticity again:
-		\begin{align*}
-			\eta_{jk} = \alpha p_k s_k
-		\end{align*}
-		\item This doesn't depend on product $j$ at all!
-		\item Implication: All products have the \textbf{same} cross-elasticity with product $k$
-		\item Is this realistic?
-		\item Suppose BMW raises its price. Logit says: same fraction go to Mercedes as to Honda Civic!
-		\item This is the \textbf{IIA} (Independence of Irrelevant Alternatives) property
-		\item We'll discuss this in detail in Lecture 4
-	\end{wideitemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % IDENTIFICATION AND IVs
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Plan for today}
-  \begin{wideenumerate}
-    \item Logit model derivation
-    \item Berry (1994) inversion
-    \item Elasticity formulas
-    \item IIA problem (preview)
-    \item \textbf{The identification problem}
-    \item Direction of bias
-    \item Instrumental variables
-    \item Uber example
-  \end{wideenumerate}
-\end{frame}
-
-\begin{frame}{The estimating equation (reminder)}
+\begin{frame}{The estimating equation (from Lecture 1)}
 	\begin{wideitemize}
 		\item From Berry inversion:
 		\begin{align*}
-			\ln(s_j) - \ln(s_0) = x_j \beta - \alpha p_j + \xi_j
+			\ln(s_{jt}) - \ln(s_{0t}) = x_{jt} \beta + \alpha p_{jt} + \xi_{jt} \quad (\alpha < 0)
 		\end{align*}
 		\item This looks like a regression we can run with OLS
 		\item \textbf{But there's a problem...}
@@ -467,7 +210,7 @@ Nicholas Vreugdenhil \\
 \begin{frame}{The classic identification problem}
 	\begin{wideitemize}
 		\item We observe equilibrium prices and quantities
-		\item Problem: can't tell if demand shifted or supply shifted
+		\item \only<1>{Question: what's the demand curve?}\only<2->{Problem: cannot tell if demand or supply is shifting}
 	\end{wideitemize}
 	\begin{figure}
 		\begin{tikzpicture}[scale=0.5]
@@ -476,19 +219,23 @@ Nicholas Vreugdenhil \\
 			%x axis
 			\draw [->] (0,0) to (10,0) node [below] {$q$};
 
-			% D curves
-			\draw [thick, blue] (0,8) to (8,0) node [below] {$D_1$};
-			\draw [thick, blue] (2,10) to (10,2) node [right] {$D_2$};
+			% D curves (shown on slide 2+)
+			\onslide<2->{
+				\draw [thick, blue] (0,8) to (8,0) node [below] {$D_1$};
+				\draw [thick, blue] (2,10) to (10,2) node [right] {$D_2$};
+			}
 
-			% S curve
-			\draw [thick, red] (0,2) to (8,10) node [right] {$S$};
+			% S curve (shown on slide 2+)
+			\onslide<2->{
+				\draw [thick, red] (0,2) to (8,10) node [right] {$S$};
+			}
 
-			% equilibrium points
-			\node [black] at (3.5,5.5) {\LARGE \textbullet};
-			\node [black] at (5.5,7.5) {\LARGE \textbullet};
+			% equilibrium points (always shown) - at intersections: D1∩S=(3,5), D2∩S=(5,7)
+			\node [black] at (3,5) {\LARGE \textbullet};
+			\node [black] at (5,7) {\LARGE \textbullet};
 
-			\draw [dashed] (3.5,5.5) to (3.5,0);
-			\draw [dashed] (5.5,7.5) to (5.5,0);
+			\draw [dashed] (3,5) to (3,0);
+			\draw [dashed] (5,7) to (5,0);
 		\end{tikzpicture}
 	\end{figure}
 \end{frame}
@@ -497,6 +244,7 @@ Nicholas Vreugdenhil \\
 	\begin{wideitemize}
 		\item If we just regress $q$ on $p$, what do we get?
 		\item Neither demand nor supply!
+		\item \textbf{Question:} What variation do we need to identify demand? \pause
 		\item \textbf{Key insight:} We need variation that shifts ONE curve but not the other
 		\begin{wideitemize}
 			\vspace{5pt}
@@ -510,26 +258,24 @@ Nicholas Vreugdenhil \\
 	\begin{wideitemize}
 		\item Our estimating equation:
 		\begin{align*}
-			\ln(s_j) - \ln(s_0) = x_j \beta - \alpha p_j + \xi_j
+			\ln(s_{jt}) - \ln(s_{0t}) = x_{jt} \beta + \alpha p_{jt} + \xi_{jt} \quad (\alpha < 0)
 		\end{align*}
-		\item $\xi_j$ = unobserved product quality
-		\item \textbf{Problem:} Firms observe $\xi_j$ when setting prices!
-		\item High quality products ($\xi_j$ high) tend to have high prices
-		\item $\Rightarrow$ $\text{Cov}(p_j, \xi_j) > 0$
+		\item $\xi_{jt}$ = unobserved product quality
+		\item \textbf{Problem:} Firms observe $\xi_{jt}$ when setting prices!
+		\item High quality products ($\xi_{jt}$ high) tend to have high prices
+		\item $\Rightarrow$ $\text{Cov}(p_{jt}, \xi_{jt}) > 0$
 		\item OLS gives biased estimates
 	\end{wideitemize}
 \end{frame}
 
 \begin{frame}{Plan for today}
   \begin{wideenumerate}
-    \item Logit model derivation
-    \item Berry (1994) inversion
-    \item Elasticity formulas
-    \item IIA problem (preview)
+    \item Recap: Logit and Berry inversion
     \item The identification problem
     \item \textbf{Direction of bias}
-    \item Instrumental variables
     \item Uber example
+    \item Instrumental variables
+    \item Elasticities and limitations
   \end{wideenumerate}
 \end{frame}
 
@@ -559,21 +305,19 @@ Nicholas Vreugdenhil \\
 
 \begin{frame}{Plan for today}
   \begin{wideenumerate}
-    \item Logit model derivation
-    \item Berry (1994) inversion
-    \item Elasticity formulas
-    \item IIA problem (preview)
+    \item Recap: Logit and Berry inversion
     \item The identification problem
     \item Direction of bias
-    \item Instrumental variables
     \item \textbf{Uber example}
+    \item Instrumental variables
+    \item Elasticities and limitations
   \end{wideenumerate}
 \end{frame}
 
 \begin{frame}{Case study: Uber surge pricing}
 	\begin{wideitemize}
 		\item Uber's surge pricing: prices rise when demand is high
-		\item \textbf{Why is surge pricing endogenous?}
+		\item \textbf{Why is surge pricing endogenous?} \pause
 		\item Surge responds to BOTH:
 		\begin{wideitemize}
 			\vspace{5pt}
@@ -666,14 +410,12 @@ Nicholas Vreugdenhil \\
 
 \begin{frame}{Plan for today}
   \begin{wideenumerate}
-    \item Logit model derivation
-    \item Berry (1994) inversion
-    \item Elasticity formulas
-    \item IIA problem (preview)
+    \item Recap: Logit and Berry inversion
     \item The identification problem
     \item Direction of bias
-    \item \textbf{Instrumental variables}
     \item Uber example
+    \item \textbf{Instrumental variables}
+    \item Elasticities and limitations
   \end{wideenumerate}
 \end{frame}
 
@@ -690,36 +432,119 @@ Nicholas Vreugdenhil \\
 \end{frame}
 
 \begin{frame}{Common IVs in demand estimation}
+	Three main approaches used in the literature:
 	\begin{wideenumerate}
-		\item \textbf{Hausman IVs:} Prices in other markets
-		\begin{wideitemize}
-			\vspace{3pt}
-			\item Same product in different cities has similar costs
-			\item But demand shocks may differ across markets
-		\end{wideitemize}
-		\item \textbf{BLP IVs:} Characteristics of competing products
-		\begin{wideitemize}
-			\vspace{3pt}
-			\item More/different competitors $\rightarrow$ lower prices
-			\item Competitors' characteristics don't affect YOUR $\xi$
-		\end{wideitemize}
 		\item \textbf{Cost shifters:} Input prices, exchange rates
-		\begin{wideitemize}
-			\vspace{3pt}
-			\item Affect production costs, hence prices
-			\item No direct effect on demand
-		\end{wideitemize}
+		\item \textbf{Hausman IVs:} Prices in other markets
+		\item \textbf{BLP IVs:} Characteristics of competing products
 	\end{wideenumerate}
+	\vspace{1em}
+	Let's examine each in detail...
 \end{frame}
 
-\begin{frame}{Worked example: IV intuition}
+\begin{frame}{IV \#1: Cost shifters}
 	\begin{wideitemize}
-		\item \textbf{Question:} Why do competitor characteristics work as IVs?
+		\item \textbf{Idea:} Use variables that shift marginal costs
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Input prices (steel, labor, energy)
+			\item Exchange rates (for imported goods)
+			\item Tariffs, taxes, regulations
+		\end{wideitemize} \pause
+		\item \textbf{Relevance:} Higher costs $\rightarrow$ higher prices
+		\item \textbf{Exogeneity:} Cost shocks don't directly affect consumer utility
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Steel prices don't make you like/dislike a car
+		\end{wideitemize} \pause
+		\item \textbf{Problem:} Cost data rarely observed!
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Firms don't disclose detailed cost information
+			\item Even aggregate input prices may be hard to match to products
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{IV \#2: Hausman instruments}
+	\begin{wideitemize}
+		\item \textbf{Idea:} Use prices of the same product in \textit{other markets}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Coca-Cola price in Chicago as IV for Coca-Cola price in Phoenix
+		\end{wideitemize} \pause
+		\item \textbf{Why it works:}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Same product has similar costs across markets
+			\item Cost shocks (ingredients, shipping) affect prices everywhere
+		\end{wideitemize}
+		\item \textbf{Key assumption:} Demand shocks $\xi_{jt}$ are independent across markets
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Chicago's unobserved demand factors don't affect Phoenix
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: When do Hausman IVs fail?}
+	\begin{wideitemize}
+		\item \textbf{Question:} You want to use Pepsi prices in Denver as an IV for Pepsi prices in Phoenix. When might this fail?
 		\pause
 		\item \textbf{Answer:}
-		\item \textbf{Relevance:} More competitors nearby $\rightarrow$ more competition $\rightarrow$ lower price $\checkmark$
-		\item \textbf{Exogeneity:} Competitor characteristics don't affect YOUR unobserved quality $\xi_j$ $\checkmark$
-		\item Example: If Toyota enters with a new Camry, this affects Civic's price but not Civic's unobserved quality
+		\item Hausman IVs assume $\xi_{jt}$ is independent across markets
+		\item \textbf{This fails when:}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item National advertising campaigns affect all markets
+			\item Nationwide product reformulation (``New Coke'')
+			\item Coordinated promotions or seasonal demand patterns
+		\end{wideitemize}
+		\item \textbf{Relevance is OK:} Cost shocks do affect prices everywhere
+		\item \textbf{Exogeneity is the problem:} Demand shocks may also be correlated!
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{IV \#3: BLP instruments}
+	\begin{wideitemize}
+		\item \textbf{Idea:} Use characteristics of \textit{other products} in the market
+		\item \textbf{Key assumption:}
+		\begin{align*}
+			E(\xi_{jt} | x_{t}) = 0
+		\end{align*}
+		``Observed characteristics are mean independent of unobserved characteristics''
+		\item \textbf{Common BLP instruments:}
+		\begin{wideenumerate}
+			\vspace{5pt}
+			\item Own product characteristics (not price!)
+			\item Sum of characteristics of \textit{own-firm} products
+			\item Sum of characteristics of \textit{competitor} products
+		\end{wideenumerate}
+		\item \textbf{Intuition:} More/closer competitors $\rightarrow$ more competition $\rightarrow$ lower prices
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{BLP instruments: Example}
+	\begin{wideitemize}
+		\item Consider estimating demand for the Honda Civic
+		\item \textbf{BLP instruments could include:}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Civic's own characteristics: horsepower, MPG, size
+			\item Sum of Honda's other cars' characteristics (Accord, CR-V)
+			\item Sum of competitors' characteristics (Corolla, Mazda3, etc.)
+		\end{wideitemize} \pause
+		\item \textbf{Why exogenous?}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Toyota's decision about Corolla's horsepower doesn't affect Civic's unobserved quality $\xi$
+		\end{wideitemize}
+		\item \textbf{Why relevant?}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item If Toyota improves Corolla, Honda faces more competition
+			\item This pressures Honda to lower Civic's price
+		\end{wideitemize}
 	\end{wideitemize}
 \end{frame}
 
@@ -728,7 +553,7 @@ Nicholas Vreugdenhil \\
 		\item \textbf{Question:} A researcher proposes using gasoline prices as an IV for car prices. Is this valid?
 		\pause
 		\item \textbf{Relevance:} Higher gas prices $\rightarrow$ higher operating costs $\rightarrow$ might affect car prices? Maybe weakly.
-		\item \textbf{Exogeneity:} Do gas prices affect car quality $\xi_j$?
+		\item \textbf{Exogeneity:} Do gas prices affect car quality $\xi_{jt}$?
 		\begin{wideitemize}
 			\vspace{3pt}
 			\item Gas prices affect \textit{demand} for fuel-efficient cars
@@ -779,18 +604,111 @@ Nicholas Vreugdenhil \\
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{From estimation to policy}
+\begin{frame}{Plan for today}
+  \begin{wideenumerate}
+    \item Recap: Logit and Berry inversion
+    \item The identification problem
+    \item Direction of bias
+    \item Uber example
+    \item Instrumental variables
+    \item \textbf{Elasticities and limitations}
+  \end{wideenumerate}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% ELASTICITIES AND LIMITATIONS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{From estimation to elasticities}
 	\begin{wideitemize}
 		\item We've seen how to estimate demand with logit
 		\item \textbf{Why do we care?}
-		\item Demand estimates let us:
-		\begin{wideenumerate}
-			\vspace{5pt}
-			\item Compute \textbf{elasticities} (how sensitive are consumers?)
-			\item Compute \textbf{consumer welfare} (how much do consumers benefit?)
-			\item Simulate \textbf{counterfactuals} (what if a product is removed? what if firms merge?)
-		\end{wideenumerate}
-		\item Next: demographics to relax IIA, then these applications
+		\item Demand estimates let us compute \textbf{elasticities}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item How sensitive are consumers to price changes?
+			\item How do consumers substitute between products?
+		\end{wideitemize}
+		\item These are crucial for policy: mergers, pricing, welfare
+		\item \textbf{But:} the logit model has important limitations...
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Logit elasticities}
+	\begin{wideitemize}
+		\item Given shares $s_{jt} = \frac{\exp(\delta_{jt})}{1 + \sum_k \exp(\delta_{kt})}$
+		\item We can derive price elasticities:
+		\begin{align*}
+			\eta_{jj} &= \frac{\partial s_{jt}}{\partial p_{jt}} \frac{p_{jt}}{s_{jt}} = \alpha p_{jt} (1 - s_{jt}) \quad \text{(own-price)} \\[10pt]
+			\eta_{jk} &= \frac{\partial s_{jt}}{\partial p_{kt}} \frac{p_{kt}}{s_{jt}} = -\alpha p_{kt} s_{kt} \quad \text{(cross-price)}
+		\end{align*}
+		\item Note: $\alpha < 0$, so own-price elasticity is \textbf{negative} (as expected)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Limitation \#1: Own-price elasticity}
+	\begin{wideitemize}
+		\item Own-price elasticity: $\eta_{jj} = \alpha p_{jt} (1 - s_{jt})$
+		\item With many products: $(1 - s_{jt}) \approx 1$
+		\item So: $\eta_{jj} \approx \alpha p_{jt}$
+		\item \textbf{Implication:} Own-price elasticity is proportional to price! \pause
+		\item Lower-priced products have more \textit{inelastic} demand
+		\item Higher-priced products have more \textit{elastic} demand
+		\item \textbf{Question:} Is this realistic?
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Generic cereal (low price) should be more elastic than organic cereal?
+			\item Budget airline (low price) more inelastic than first class?
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Limitation \#2: Cross-price elasticity (IIA)}
+	\begin{wideitemize}
+		\item Cross-price elasticity: $\eta_{jk} = -\alpha p_{kt} s_{kt}$
+		\item This doesn't depend on product $j$ at all!
+		\item \textbf{Implication:} All products have the \textit{same} cross-elasticity with product $k$ \pause
+		\item Example: BMW raises its price
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Logit says: same fraction go to Mercedes as to Honda Civic!
+			\item Reality: BMW consumers mostly switch to Mercedes, Audi
+		\end{wideitemize}
+		\item This is the \textbf{IIA} (Independence of Irrelevant Alternatives) property
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{The IIA problem: Diversion ratios}
+	\begin{wideitemize}
+		\item When product $k$'s price rises, where do consumers go?
+		\item \textbf{Diversion ratio} from $k$ to $j$:
+		\begin{align*}
+			D_{k \to j} = \frac{\partial s_{jt} / \partial p_{kt}}{\partial s_{kt} / \partial p_{kt}} = \frac{s_{jt}}{1 - s_{kt}}
+		\end{align*}
+		\item Substitution is proportional to \textbf{market share}, not similarity! \pause
+		\item \textbf{Why this matters:}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Merger analysis: which products are close substitutes?
+			\item Product positioning: who are my real competitors?
+			\item Logit can't answer these questions well
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{What causes the IIA problem?}
+	\begin{wideitemize}
+		\item IIA comes from the \textbf{logit error structure}
+		\item Key assumption: $\varepsilon_{ijt}$ are \textit{independent} across products
+		\item This means: your taste shock for BMW is unrelated to your taste shock for Mercedes
+		\item The model doesn't ``know'' that BMW and Mercedes are similar \pause
+		\item \textbf{Solution:} Allow for consumer heterogeneity
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item High-income consumers prefer both BMW and Mercedes
+			\item When BMW's price rises, these consumers switch to Mercedes
+			\item \textbf{Next time:} demographic interactions to address IIA
+		\end{wideitemize}
 	\end{wideitemize}
 \end{frame}
 
@@ -801,14 +719,12 @@ Nicholas Vreugdenhil \\
 \begin{frame}{Key Points}
 	\vspace{11pt}
 	\begin{wideenumerate}
-		\item \textbf{Logit model}: $\varepsilon_{ij}$ is Type I Extreme Value $\rightarrow$ closed-form shares
-		\item \textbf{Share equation}: $s_j = \frac{\exp(\delta_j)}{1 + \sum_k \exp(\delta_k)}$
-		\item \textbf{Berry inversion}: $\ln(s_j) - \ln(s_0) = \delta_j$ turns demand estimation into a regression
-		\item \textbf{Elasticities}: Own $= -\alpha p_j(1-s_j)$; Cross $= \alpha p_k s_k$
-		\item \textbf{IIA}: Cross-elasticities don't depend on product similarity (a limitation)
-		\item \textbf{Price is endogenous}: Firms observe $\xi_j$ when pricing $\rightarrow$ $\text{Cov}(p, \xi) > 0$
-		\item \textbf{Bias direction}: OLS gives $\hat{\alpha}$ biased toward zero
+		\item \textbf{Price is endogenous}: Firms observe $\xi_{jt}$ when pricing $\rightarrow$ OLS biased toward zero
 		\item \textbf{Solution}: Instrumental variables (cost shifters, BLP IVs, Hausman IVs)
+		\item \textbf{Experiments} (like Uber) provide cleanest identification
+		\item \textbf{Logit elasticities}: $\eta_{jj} = \alpha p_{jt}(1-s_{jt})$, $\eta_{jk} = -\alpha p_{kt} s_{kt}$
+		\item \textbf{IIA problem}: Cross-elasticity doesn't depend on $j$ $\Rightarrow$ unrealistic substitution
+		\item \textbf{Next time}: Demographic interactions to address IIA
 	\end{wideenumerate}
 \end{frame}
 
@@ -817,9 +733,10 @@ Nicholas Vreugdenhil \\
 		\item \textbf{Lecture 3:} Demographic Interactions and pyblp
 		\begin{wideitemize}
 			\vspace{5pt}
-			\item Extending logit to allow preference heterogeneity
-			\item Estimation using pyblp package
-			\item Worked example with car data
+			\item Adding demographic interactions to the model
+			\item How demographics address IIA
+			\item Estimation using the pyblp package
+			\item Worked example: car demand with demographics
 		\end{wideitemize}
 	\end{wideitemize}
 \end{frame}
