@@ -148,18 +148,23 @@ Nicholas Vreugdenhil \\
 
 \begin{frame}{Worked example: Cournot duopoly}
 	\begin{wideitemize}
-		\item \textbf{Question:} Inverse demand is $P = 100 - Q$. Two symmetric firms with $MC = 10$.
-		\item Find equilibrium quantities and price.
+		\item \textbf{Setup:} Inverse demand is $P = 100 - Q$. Two firms with $MC = 10$.
+		\item \textbf{Steps:}
+		\begin{wideenumerate}
+			\item Write down firm $i$'s profit function
+			\item Find firm $i$'s best response function
+			\item Use symmetry to find equilibrium $Q$ and $P$
+		\end{wideenumerate}
 	\end{wideitemize}
 \end{frame}
 
 \begin{frame}{Worked example: Cournot duopoly (solution)}
 	\begin{wideitemize}
-		\item \textbf{Solution:}
-		\item Firm $i$ profit: $\pi_i = (100 - q_i - q_j)q_i - 10q_i$
-		\item FOC: $\frac{d\pi_i}{dq_i} = 100 - 2q_i - q_j - 10 = 0$
-		\item Symmetric: $q_1 = q_2 = q^*$, so $100 - 3q^* = 10$
-		\item $q^* = 30$
+		\item \textbf{Step 1:} Profit: $\pi_i = (100 - q_i - q_j)q_i - 10q_i$
+		\item \textbf{Step 2:} FOC: $\frac{d\pi_i}{dq_i} = 100 - 2q_i - q_j - 10 = 0$
+		\item Best response: $q_i = \frac{90 - q_j}{2} = 45 - 0.5q_j$
+		\item \textbf{Step 3:} Symmetry: $q_1 = q_2 = q^*$
+		\item $q^* = 45 - 0.5q^* \Rightarrow 1.5q^* = 45 \Rightarrow q^* = 30$
 		\item $Q = 60$, $P = 100 - 60 = 40$
 		\item Profit per firm: $\pi = (40 - 10) \times 30 = 900$
 	\end{wideitemize}
