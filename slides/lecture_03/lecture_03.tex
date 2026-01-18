@@ -553,7 +553,7 @@ results = problem.solve()
 \begin{pycode}
 print(results)  # displays formatted table
 \end{pycode}
-	\vspace{3pt}
+	\vspace{8pt}
 	\begin{wideitemize}
 		\item \textbf{Access specific attributes:}
 	\end{wideitemize}
@@ -562,14 +562,28 @@ results.beta          # linear coefficients (numpy array)
 results.beta_se       # standard errors
 results.xi            # estimated unobservables (xi_jt)
 \end{pycode}
-	\vspace{3pt}
+\end{frame}
+
+\begin{frame}[fragile]{Working with results: post-estimation}
 	\begin{wideitemize}
-		\item \textbf{Compute post-estimation quantities:}
+		\item \textbf{Compute elasticities:}
 	\end{wideitemize}
 \begin{pycode}
-results.compute_elasticities()  # price elasticity matrix
-results.compute_costs()         # implied marginal costs
+elasticities = results.compute_elasticities()
+# Returns matrix: elasticities[j,k] = % change in q_j from 1% price change in k
 \end{pycode}
+	\vspace{8pt}
+	\begin{wideitemize}
+		\item \textbf{Compute marginal costs} (assuming Nash-Bertrand):
+	\end{wideitemize}
+\begin{pycode}
+costs = results.compute_costs()
+# Backs out MC from observed prices and estimated demand
+\end{pycode}
+	\vspace{8pt}
+	\begin{wideitemize}
+		\item We'll use these for merger simulation in Lecture 10
+	\end{wideitemize}
 \end{frame}
 
 \begin{frame}{Model 1: Results}
