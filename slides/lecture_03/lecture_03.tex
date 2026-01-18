@@ -615,9 +615,30 @@ agent_formulation = pyblp.Formulation('0 + income')
 problem = pyblp.Problem(
     (X1, X2), product_data, agent_formulation, agent_data
 )
-# sigma=0: no random coefficients (demographics only, not mixed logit)
 results = problem.solve(sigma=0, pi=np.array([[0.5]]))
 \end{pycode}
+\end{frame}
+
+\begin{frame}{Understanding the solve command}
+	\begin{wideitemize}
+		\item \texttt{results = problem.solve(sigma=0, pi=np.array([[0.5]]))}
+		\item \textbf{numpy} (\texttt{np}): Python library for numerical arrays
+		\begin{wideitemize}
+			\item \texttt{np.array([[0.5]])} creates a matrix with value 0.5
+		\end{wideitemize}
+		\item \textbf{sigma}: Standard deviations of random coefficients
+		\begin{wideitemize}
+			\item \texttt{sigma=0} means \textbf{no random coefficients}
+			\item We use demographics only, not full mixed logit
+			\item (Mixed logit is beyond scope of this course)
+		\end{wideitemize}
+		\item \textbf{pi}: Demographic interaction parameters ($\pi$)
+		\begin{wideitemize}
+			\item Starting values for the optimizer (initial guess)
+			\item pyblp finds the best values via GMM
+		\end{wideitemize}
+		\item \textbf{results}: Object containing all estimation output
+	\end{wideitemize}
 \end{frame}
 
 \begin{frame}{Model 2: Results}
