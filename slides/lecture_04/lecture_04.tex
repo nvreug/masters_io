@@ -90,12 +90,12 @@
 \newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
 \newenvironment{wideenumerate}{\enumerate\addtolength{\itemsep}{10pt}}{\endenumerate}
 
-\title[]{\textcolor{blue}{ECN 594: Consumer Surplus, IIA, and Price Discrimination}}
+\title[]{\textcolor{blue}{ECN 594: Consumer Surplus, Monopoly Pricing, and Price Discrimination}}
 \author[PGP]{}
 \institute[FRBNY]{\small{\begin{tabular}{c c c}
 Nicholas Vreugdenhil \\
 \end{tabular}}}
-\date{\today}
+\date{}
 
 \begin{document}
 
@@ -107,17 +107,17 @@ Nicholas Vreugdenhil \\
 
 \begin{frame}{Plan for today}
   \begin{wideenumerate}
-    \item \textbf{Consumer surplus: the log-sum formula}
-    \item The IIA problem: Red Bus / Blue Bus
-    \item From demand to supply
+    \item \textbf{Consumer surplus}
+    \item Welfare from new products: applications
+    \item Monopoly pricing: using estimated elasticities
+    \item Monopoly regulation
     \item Types of price discrimination
     \item Selection by indicators
-    \item Worked example: optimal pricing across markets
   \end{wideenumerate}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% CONSUMER SURPLUS AND IIA
+% CONSUMER SURPLUS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Why do we care about consumer surplus?}
@@ -136,16 +136,16 @@ Nicholas Vreugdenhil \\
 
 \begin{frame}{Consumer surplus in logit: the log-sum formula}
 	\begin{wideitemize}
-		\item For consumer $i$, expected utility from choosing among $J$ products:
+		\item For consumer $i$ in market $t$, expected utility from choosing among $J$ products:
 		\begin{align*}
-			E[\max_j u_{ij}] = \ln\left[\sum_{j=0}^J \exp(\delta_j + \mu_{ij})\right] + \text{constant}
+			E[\max_j u_{ijt}] = \ln\left[\sum_{j=0}^J \exp(\delta_{jt} + \mu_{ijt})\right] + \text{constant}
 		\end{align*}
 		\item This is the ``log-sum'' or ``inclusive value''
 		\item Consumer surplus (in dollars):
 		\begin{align*}
-			CS_i = \frac{1}{\alpha} \ln\left[\sum_{j=0}^J \exp(\delta_j + \mu_{ij})\right]
+			CS_{it} = \frac{1}{|\alpha_i|} \ln\left[\sum_{j=0}^J \exp(\delta_{jt} + \mu_{ijt})\right]
 		\end{align*}
-		\item Divide by $\alpha$ (price coefficient) to convert to dollars
+		\item Divide by $|\alpha_i|$ (consumer $i$'s price coefficient) to convert to dollars
 	\end{wideitemize}
 \end{frame}
 
@@ -159,43 +159,14 @@ Nicholas Vreugdenhil \\
 			\vspace{5pt}
 			\item More options $\rightarrow$ higher CS (more lottery tickets)
 			\item Better options $\rightarrow$ higher CS (higher $\delta_j$)
-			\item Higher price sensitivity $\rightarrow$ divide by larger $\alpha$
+			\item Higher price sensitivity $\rightarrow$ divide by larger $|\alpha|$
 		\end{wideitemize}
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{Worked example: CS change from price increase}
-	\begin{wideitemize}
-		\item \textbf{Question:}
-		\item Two products with $\delta_1 = 2$ and $\delta_2 = 1$. Outside option $\delta_0 = 0$.
-		\item Price coefficient $\alpha = 0.8$.
-		\item If product 1's price increases by \$2 (so $\delta_1$ falls to 0.4), what is the CS loss?
-	\end{wideitemize}
-	\vspace{15pt}
-	\centering
-	\textit{Take 3 minutes to solve this.}
-\end{frame}
-
-\begin{frame}{Worked example: CS change from price increase (solution)}
-	\begin{solutionbox}[Solution]
-		\begin{itemize}
-			\item Note: $\Delta \delta_1 = -\alpha \times \Delta p = -0.8 \times 2 = -1.6$, so new $\delta_1 = 2 - 1.6 = 0.4$
-			\item \textbf{Before:}
-			\begin{align*}
-				CS^{\text{before}} = \frac{1}{0.8} \ln(e^0 + e^2 + e^1) = 1.25 \ln(1 + 7.39 + 2.72) = 1.25 \times 2.41 = 3.01
-			\end{align*}
-			\item \textbf{After:}
-			\begin{align*}
-				CS^{\text{after}} = \frac{1}{0.8} \ln(e^0 + e^{0.4} + e^1) = 1.25 \ln(1 + 1.49 + 2.72) = 1.25 \times 1.65 = 2.06
-			\end{align*}
-			\item \textbf{Loss:} $3.01 - 2.06 = \$0.95$ per consumer
-		\end{itemize}
-	\end{solutionbox}
-\end{frame}
-
 \begin{frame}{Worked example: CS change from removing a product}
 	\begin{wideitemize}
-		\item \textbf{Question:} Market has 2 products with $\delta_1 = 1$, $\delta_2 = 0.5$. Outside option has $\delta_0 = 0$. Suppose $\alpha = 0.5$.
+		\item \textbf{Question:} Market has 2 products with $\delta_1 = 1$, $\delta_2 = 0.5$. Outside option has $\delta_0 = 0$. Suppose $\alpha = -0.5$.
 		\item What is the consumer surplus loss if product 1 is removed?
 	\end{wideitemize}
 	\vspace{15pt}
@@ -204,108 +175,82 @@ Nicholas Vreugdenhil \\
 \end{frame}
 
 \begin{frame}{Worked example: CS change (solution)}
-	\begin{solutionbox}[Solution]
-		\begin{itemize}
-			\item \textbf{Before removal:}
-			\begin{align*}
-				CS^{\text{before}} = \frac{1}{0.5} \ln(e^0 + e^1 + e^{0.5}) = 2 \ln(1 + 2.72 + 1.65) = 2 \ln(5.37) = 3.36
-			\end{align*}
-			\item \textbf{After removal:}
-			\begin{align*}
-				CS^{\text{after}} = \frac{1}{0.5} \ln(e^0 + e^{0.5}) = 2 \ln(1 + 1.65) = 2 \ln(2.65) = 1.95
-			\end{align*}
-			\item \textbf{Loss:} $3.36 - 1.95 = 1.41$ dollars per consumer
-			\item This is on HW1!
-		\end{itemize}
-	\end{solutionbox}
-\end{frame}
-
-\begin{frame}{Plan for today}
-  \begin{wideenumerate}
-    \item Consumer surplus: the log-sum formula
-    \item \textbf{The IIA problem: Red Bus / Blue Bus}
-    \item From demand to supply
-    \item Types of price discrimination
-    \item Selection by indicators
-    \item Worked example: optimal pricing across markets
-  \end{wideenumerate}
-\end{frame}
-
-\begin{frame}{The IIA problem: Red Bus / Blue Bus}
 	\begin{wideitemize}
+		\item \textbf{Solution:}
+		\item \textbf{Before removal:}
+		\begin{align*}
+			CS^{\text{before}} = \frac{1}{|\alpha|} \ln(e^0 + e^1 + e^{0.5}) = 2 \ln(1 + 2.72 + 1.65) = 2 \ln(5.37) = 3.36
+		\end{align*}
+		\item \textbf{After removal:}
+		\begin{align*}
+			CS^{\text{after}} = \frac{1}{|\alpha|} \ln(e^0 + e^{0.5}) = 2 \ln(1 + 1.65) = 2 \ln(2.65) = 1.95
+		\end{align*}
+		\item \textbf{Loss:} $3.36 - 1.95 = 1.41$ dollars per consumer
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Welfare from new products: Red Bus / Blue Bus}
+	\begin{wideitemize}
+		\item The log-sum formula lets us value welfare from new products
+		\item But there's a problem: the \textbf{Red Bus / Blue Bus} example
 		\item \textbf{Setup:} Consumers choose how to commute
-		\item Choices: Car, Red Bus
-		\item Suppose: half choose Car, half choose Red Bus
-		\item So: $\delta_{\text{car}} = \delta_{\text{red bus}} = 0$
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Choices: Car, Red Bus
+			\item Half choose Car, half choose Red Bus
+			\item So: $\delta_{\text{car}} = \delta_{\text{red bus}} = 0$
+		\end{wideitemize}
 	\end{wideitemize}
 \end{frame}
 
 \begin{frame}{Red Bus / Blue Bus: introducing a new option}
 	\begin{wideitemize}
-		\item Now introduce a \textbf{Blue Bus}
-		\item But consumers are color-blind!
+		\item Artificially introduce a \textbf{Blue Bus}
+		\item But consumers are \textbf{color-blind}!
 		\item Blue Bus is identical to Red Bus in every way
+		\item Now: half choose Car, rest split between buses
 		\item \textbf{Reality:} Welfare should NOT change
 		\begin{wideitemize}
 			\vspace{5pt}
 			\item It's the same bus, just different color
-			\item No real new option
+			\item No real new option for consumers
 		\end{wideitemize}
 	\end{wideitemize}
 \end{frame}
 
 \begin{frame}{What does logit predict?}
 	\begin{wideitemize}
-		\item \textbf{Before Blue Bus:}
-		\begin{align*}
-			\text{Inclusive value} = \ln(e^0 + e^0) = \ln(2)
-		\end{align*}
-		\item \textbf{After Blue Bus:} $\delta_{\text{blue bus}} = \delta_{\text{red bus}} = 0$
-		\begin{align*}
-			\text{Inclusive value} = \ln(e^0 + e^0 + e^0) = \ln(3)
-		\end{align*}
-		\item Logit says welfare \textbf{increased}!
-		\item But nothing real changed...
+		\item Suppose we only observe data \textbf{pre-introduction} of Blue Bus
+		\item \textbf{Pre-introduction:}
+		\begin{itemize}
+			\item Normalize: $\delta_{\text{car}} = 0$. Then $\delta_{\text{red bus}} = 0$ (since equal shares)
+			\item Inclusive value: $\ln(e^0 + e^0) = \ln(2)$
+		\end{itemize}
+		\item \textbf{Post-introduction} (using logit to predict):
+		\begin{itemize}
+			\item $\delta_{\text{blue bus}} = \delta_{\text{red bus}} = 0$ (same bus)
+			\item Logit predicts: $s_{\text{car}} = s_{\text{blue}} = s_{\text{red}} = 1/3$
+			\item Inclusive value: $\ln(e^0 + e^0 + e^0) = \ln(3)$
+		\end{itemize}
+		\item Logit says welfare \textbf{increased}! But nothing real changed...
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{The IIA problem: what went wrong?}
+\begin{frame}{Red Bus / Blue Bus: what went wrong?}
 	\begin{wideitemize}
-		\item Logit gives an extra ``lottery ticket'' for each product
+		\item \textbf{Main issue:} We get an extra logit draw when introducing Blue Bus
+		\item Logit gives an extra ``lottery ticket'' for each new product
 		\item It doesn't know that buses are close substitutes
-		\item \textbf{IIA:} The ratio $s_j/s_k$ doesn't depend on other options
-		\begin{align*}
-			\frac{s_{\text{car}}}{s_{\text{red bus}}} = \frac{e^0}{e^0} = 1 \quad \text{(before and after!)}
-		\end{align*}
-		\item Adding Blue Bus steals equally from Car and Red Bus
-		\item But Car and Red Bus are NOT equally similar to Blue Bus
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Red Bus / Blue Bus: The math}
-	\begin{wideitemize}
-		\item \textbf{Before} (Car, Red Bus): $s_{\text{car}} = s_{\text{red}} = 0.5$
-		\item \textbf{After} (Car, Red Bus, Blue Bus), logit predicts:
-		\begin{align*}
-			s_{\text{car}} = \frac{e^0}{e^0 + e^0 + e^0} = \frac{1}{3}
-		\end{align*}
-		\item Car's share dropped from 0.5 to 0.33!
-		\item \textbf{Reality:} Car share should stay at 0.5
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Car commuters don't care about bus color
-			\item Blue Bus should only steal from Red Bus
-		\end{wideitemize}
 	\end{wideitemize}
 \end{frame}
 
 \begin{frame}{Red Bus / Blue Bus: Visual}
 	\begin{center}
-	\begin{tikzpicture}[scale=0.9]
+	\begin{tikzpicture}[scale=0.65]
 		% Before panel
 		\node at (0, 3.5) {\textbf{Before}};
-		\node[draw, circle, minimum size=1.5cm, fill=blue!20] (car1) at (-1.5, 1.5) {Car};
-		\node[draw, circle, minimum size=1.5cm, fill=red!40] (rbus1) at (1.5, 1.5) {Red Bus};
+		\node[draw, circle, minimum size=1.3cm, fill=blue!20] (car1) at (-1.5, 1.5) {Car};
+		\node[draw, circle, minimum size=1.3cm, fill=red!40] (rbus1) at (1.5, 1.5) {Red Bus};
 		\node at (-1.5, 0) {50\%};
 		\node at (1.5, 0) {50\%};
 
@@ -313,158 +258,559 @@ Nicholas Vreugdenhil \\
 		\draw[->, thick] (3.5, 1.5) -- (5, 1.5);
 
 		% After panel - Logit prediction
-		\node at (8, 3.5) {\textbf{After (Logit)}};
-		\node[draw, circle, minimum size=1cm, fill=blue!20] (car2) at (6, 1.5) {Car};
-		\node[draw, circle, minimum size=1cm, fill=red!40] (rbus2) at (8, 1.5) {Red};
-		\node[draw, circle, minimum size=1cm, fill=blue!60] (bbus2) at (10, 1.5) {Blue};
+		\node at (8, 3.5) {\textbf{Logit predicts}};
+		\node[draw, circle, minimum size=0.9cm, fill=blue!20] (car2) at (6, 1.5) {Car};
+		\node[draw, circle, minimum size=0.9cm, fill=red!40] (rbus2) at (8, 1.5) {Red};
+		\node[draw, circle, minimum size=0.9cm, fill=blue!60] (bbus2) at (10, 1.5) {Blue};
 		\node at (6, 0) {33\%};
 		\node at (8, 0) {33\%};
 		\node at (10, 0) {33\%};
 
 		% Reality panel
-		\node at (8, -2) {\textbf{Reality}};
-		\node[draw, circle, minimum size=1.2cm, fill=blue!20] (car3) at (6, -3.5) {Car};
-		\node[draw, circle, minimum size=0.8cm, fill=red!40] (rbus3) at (8, -3.5) {Red};
-		\node[draw, circle, minimum size=0.8cm, fill=blue!60] (bbus3) at (10, -3.5) {Blue};
-		\node at (6, -5) {50\%};
-		\node at (8, -5) {25\%};
-		\node at (10, -5) {25\%};
+		\node at (8, -1.5) {\textbf{Reality}};
+		\node[draw, circle, minimum size=1.1cm, fill=blue!20] (car3) at (6, -3) {Car};
+		\node[draw, circle, minimum size=0.7cm, fill=red!40] (rbus3) at (8, -3) {Red};
+		\node[draw, circle, minimum size=0.7cm, fill=blue!60] (bbus3) at (10, -3) {Blue};
+		\node at (6, -4.3) {50\%};
+		\node at (8, -4.3) {25\%};
+		\node at (10, -4.3) {25\%};
 	\end{tikzpicture}
 	\end{center}
 \end{frame}
 
-\begin{frame}{Why IIA matters}
+\begin{frame}{Solution: use observed post-introduction shares}
 	\begin{wideitemize}
-		\item IIA affects:
-		\begin{wideenumerate}
-			\vspace{5pt}
-			\item \textbf{Valuing new products:} May overstate welfare gains
-			\item \textbf{Merger analysis:} May mispredict substitution patterns
-			\item \textbf{Cross-elasticities:} All products same cross-elasticity with any given product
-		\end{wideenumerate}
-		\item \textbf{When is logit ``good enough''?}
+		\item \textbf{Key insight:} If we observe the market \textit{after} introducing Blue Bus, we can correct this
+		\item \textbf{Observed shares:} $s_{\text{car}} = 0.5$, $s_{\text{blue}} = s_{\text{red}} = 0.25$
+		\item Back out $\delta$ from observed shares:
+		\begin{align*}
+			\delta_{\text{blue bus}} = \delta_{\text{red bus}} = \ln(0.25) - \ln(0.5) = \ln(0.5)
+		\end{align*}
+		\item \textbf{Corrected inclusive value:}
+		\begin{align*}
+			\ln(e^0 + 2 \times e^{\ln(0.5)}) = \ln(1 + 2 \times 0.5) = \ln(2)
+		\end{align*}
+		\item This is the \textbf{correct answer} --- no welfare change!
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Key takeaways: welfare from new products}
+	\begin{wideitemize}
+		\item \textbf{Problem:} Introducing new products adds extra logit draws, biasing welfare up
+		\item \textbf{Solution:} Observing post-introduction market shares can correct for this
 		\begin{wideitemize}
 			\vspace{5pt}
-			\item Products are genuinely similar (e.g., brands of cereal)
-			\item You're not analyzing entry/exit of close substitutes
+			\item Fitting the shares exactly means the extra logit gain is offset by lower $\delta$'s
+		\end{wideitemize}
+		\item \textbf{Bottom line:} Be careful computing welfare from hypothetical new products
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item If you observe the new product in data, fit the shares first
+			\item If purely counterfactual, results may be biased
 		\end{wideitemize}
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{Worked example: Cross-elasticity and IIA}
-	\begin{wideitemize}
-		\item \textbf{Question:}
-		\item Market has 3 products: Luxury Car ($s = 0.1$), Economy Car ($s = 0.2$), Bus ($s = 0.3$).
-		\item Outside option $s_0 = 0.4$. Price coefficient $\alpha = 0.5$.
-		\item Luxury Car price = \$50K. Calculate cross-elasticity of Luxury Car with respect to Economy Car price.
-		\item What's wrong with this prediction?
-	\end{wideitemize}
-	\vspace{15pt}
-	\centering
-	\textit{Take 2 minutes to solve this.}
-\end{frame}
-
-\begin{frame}{Worked example: Cross-elasticity and IIA (solution)}
-	\begin{solutionbox}[Solution]
-		\begin{itemize}
-			\item Cross-price elasticity formula: $\eta_{jk} = \alpha p_k s_k$
-			\item Cross-elasticity of Luxury Car w.r.t. Economy Car:
-			\begin{align*}
-				\eta_{\text{Lux, Econ}} = \alpha \times p_{\text{Econ}} \times s_{\text{Econ}}
-			\end{align*}
-			\item But notice: this is the SAME as cross-elasticity w.r.t. Bus!
-			\item \textbf{IIA problem:} Logit says Luxury Car responds equally to price changes by Economy Car and by Bus
-			\item \textbf{Reality:} Luxury Car buyers probably substitute more with Economy Car than with Bus
-		\end{itemize}
-	\end{solutionbox}
-\end{frame}
-
-\begin{frame}{How demographics help (partial solution)}
-	\begin{wideitemize}
-		\item With demographics: different consumer types have different substitution patterns
-		\item Bus riders vs car commuters substitute differently
-		\item Aggregate substitution is richer
-		\item But IIA still holds \textit{within} each consumer type
-		\item \textbf{Mixed logit} (random coefficients) fully relaxes IIA
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Beyond our scope, but important to know
-		\end{wideitemize}
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{When is IIA ``good enough''?}
-	\begin{wideitemize}
-		\item \textbf{IIA is usually fine when:}
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Products are genuinely similar (cereal brands, gas stations)
-			\item You're not analyzing entry/exit of close substitutes
-			\item You have rich demographics capturing key preference heterogeneity
-		\end{wideitemize}
-		\item \textbf{IIA is problematic when:}
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Products form clear ``nests'' (cars vs buses, luxury vs economy)
-			\item Analyzing new product entry (especially into a crowded segment)
-			\item Computing welfare from removing specific products
-		\end{wideitemize}
-		\item \textbf{Solution:} Nested logit or mixed logit (beyond this course)
-	\end{wideitemize}
-\end{frame}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% WELFARE FROM NEW PRODUCTS: APPLICATIONS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Plan for today}
   \begin{wideenumerate}
-    \item Consumer surplus: the log-sum formula
-    \item The IIA problem: Red Bus / Blue Bus
-    \item \textbf{From demand to supply}
+    \item Consumer surplus
+    \item \textbf{Welfare from new products: applications}
+    \item Monopoly pricing: using estimated elasticities
+    \item Monopoly regulation
     \item Types of price discrimination
     \item Selection by indicators
-    \item Worked example: optimal pricing across markets
   \end{wideenumerate}
 \end{frame}
 
-\begin{frame}{From demand to supply}
+\begin{frame}{Application: the minivan (Petrin, 2002)}
+	\begin{columns}
+		\begin{column}{0.55\textwidth}
+			\begin{wideitemize}
+				\item \textbf{Question:} What are the welfare benefits of the minivan?
+				\item \underline{Minivan}:
+				\begin{wideitemize}
+					\item Box-like vehicle first introduced in 1984
+					\item Increased height, decreased floor $\rightarrow$ easier entry
+					\item Extremely popular with families
+				\end{wideitemize}
+				\item \underline{Motivation}: New products are a key source of economic growth. How should we value them?
+			\end{wideitemize}
+		\end{column}
+		\begin{column}{0.45\textwidth}
+			\includegraphics[width=\textwidth]{minivan.jpeg}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Petrin (2002): Main takeaways}
 	\begin{wideitemize}
-		\item We've focused on demand estimation
-		\item \textbf{Key insight:} Demand gives us the hard part
+		\item Beyond valuing the minivan, key methodological insights:
+		\begin{wideenumerate}
+			\vspace{5pt}
+			\item Logit model performs poorly compared to mixed logit
+			\item Use of \textbf{micro-data} to improve estimates
+			\item Dealing with the Red Bus / Blue Bus problem
+		\end{wideenumerate}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Petrin (2002): Model and data}
+	\begin{wideitemize}
+		\item Utility: $u_{ijt} = x_{jt} \beta_{it} + \alpha_{it} \ln(y_i - p_{jt}) + \xi_{jt} + \epsilon_{ijt}$
+		\item Price coefficient varies by income
+		\item ``Minivan'' enters as a product characteristic
+		\item \underline{Data}: US market 1981--1993 (916 vehicles)
 		\begin{wideitemize}
 			\vspace{5pt}
-			\item Elasticities
-			\item Substitution patterns
-			\item Consumer welfare
+			\item Prices, quantities, product characteristics
+			\item \textbf{Key:} CEX auto supplement links demographics $\leftrightarrow$ purchases
 		\end{wideitemize}
-		\item Costs can often be \textit{backed out} from pricing behavior
-		\item Using the Lerner index: $mc = p - p/|\varepsilon|$
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{Worked example: Backing out marginal cost}
+\begin{frame}{Petrin (2002): What is micro-data?}
 	\begin{wideitemize}
-		\item \textbf{Question:}
-		\item You estimate demand and find own-price elasticity $\varepsilon = -4$.
-		\item Observed price is $p = 100$.
-		\item Assuming Nash-Bertrand pricing, what is the implied marginal cost?
+		\item \textbf{Micro-data} = individual-level survey data linking demographics to purchases
+		\item \underline{Example}: Consumer Expenditure Survey (CEX) auto supplement
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Observe: household income, family size, vehicle purchased
+			\item Can compute: ``What fraction of minivan buyers have 3+ kids?''
+		\end{wideitemize}
 	\end{wideitemize}
-	\vspace{15pt}
-	\centering
-	\textit{Take 2 minutes to solve this.}
 \end{frame}
 
-\begin{frame}{Worked example: Backing out marginal cost (solution)}
-	\begin{solutionbox}[Solution]
-		\begin{itemize}
-			\item Lerner index: $\frac{p - mc}{p} = \frac{1}{|\varepsilon|}$
-			\item Rearranging: $mc = p - \frac{p}{|\varepsilon|} = p\left(1 - \frac{1}{|\varepsilon|}\right)$
-			\item Plug in:
-			\begin{align*}
-				mc = 100 \times \left(1 - \frac{1}{4}\right) = 100 \times 0.75 = 75
-			\end{align*}
-			\item Implied marginal cost is \$75
-			\item \textbf{Markup:} $(100 - 75)/100 = 25\%$
-			\item This technique is used extensively in merger simulation
-		\end{itemize}
-	\end{solutionbox}
+\begin{frame}{Petrin (2002): Demand estimates}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.22]{table_4_1.jpeg}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Petrin (2002): Substitution patterns}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.18]{table_4_2.jpeg}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Petrin (2002): Counterfactual}
+	\begin{wideitemize}
+		\item \textbf{Exercise:} Eliminate minivan, compute welfare change
+		\item \textbf{Issue:} utility is not quasilinear
+		\item Uses \textbf{Compensating Variation (CV)}, defined implicitly for each consumer $i$:
+		\begin{align*}
+			&\ln \left( \sum_{j \in J^1} \exp\left( x_{jt}\beta_{it} + \alpha_{it} \ln(y_i - CV_i - p_{jt}) + \xi_{jt} \right) \right) \\
+			&= \ln \left( \sum_{j \in J^0} \exp\left( x_{jt}\beta_{it} + \alpha_{it} \ln(y_i - p_{jt}) + \xi_{jt} \right) \right)
+		\end{align*}
+		\item $J^1$ = with minivan; $J^0$ = without. Solve for $CV_i$ numerically.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Petrin (2002): Welfare results}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.35]{table_8_1.jpeg}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Petrin (2002): Key findings}
+	\begin{wideitemize}
+		\item CV in logit model is \textbf{biased upward}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Due to large logit draws (extreme tastes for minivans)
+		\end{wideitemize}
+		\item Adding micro-data reduces reliance on logit draws
+		\item Observing actual market shares corrects Red Bus / Blue Bus bias
+		\item \textbf{Welfare gain from minivan:} \$2.8 billion (1982 dollars)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Apple-Cinnamon Cheerios war}
+	\begin{columns}
+		\begin{column}{0.65\textwidth}
+			\begin{wideitemize}
+				\item Hausman (1997) in ``The Economics of New Goods''
+				\item Values welfare contribution of Apple Cinnamon Cheerios at \textbf{\$60 million per year} (mid 1990s)
+				\item Bresnahan (1997) strongly disagrees:
+				\begin{wideitemize}
+					\item Criticizes identifying assumptions
+					\item Questions assumptions about competition
+				\end{wideitemize}
+				\item Quote: \textit{``I have never met an economist who strayed that far from reality by ideology --- only by arrogance.''}
+			\end{wideitemize}
+		\end{column}
+		\begin{column}{0.35\textwidth}
+			\includegraphics[width=\textwidth]{cheerios.png}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MONOPOLY PRICING
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Plan for today}
+  \begin{wideenumerate}
+    \item Consumer surplus
+    \item Welfare from new products: applications
+    \item \textbf{Monopoly pricing: using estimated elasticities}
+    \item Monopoly regulation
+    \item Types of price discrimination
+    \item Selection by indicators
+  \end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Monopoly pricing: setup}
+\begin{wideitemize}
+	\item \textbf{Goal:} Derive optimal pricing rule for a monopolist
+	\item \underline{Setup}:
+	\begin{wideitemize}
+		\vspace{5pt}
+		\item Inverse demand curve: $p = P(q)$
+		\item Total cost: $C(q)$
+		\item Monopolist chooses $q$ to maximize profit
+	\end{wideitemize}
+	\item \textbf{Profit function:}
+	\begin{align*}
+		\pi(q) = \underbrace{P(q) \cdot q}_{TR} - \underbrace{C(q)}_{TC}
+	\end{align*}
+\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Deriving MR = MC}
+	\begin{wideitemize}
+		\item Take first-order condition: $\frac{d\pi}{dq} = 0$
+		\begin{align*}
+			\frac{d}{dq}\left[ P(q) \cdot q - C(q) \right] = 0
+		\end{align*}
+		\item Applying the product rule to $P(q) \cdot q$:
+		\begin{align*}
+			P(q) + P'(q) \cdot q - C'(q) = 0
+		\end{align*}
+		\item Rearranging:
+		\begin{align*}
+			\underbrace{P(q) + P'(q) \cdot q}_{MR} = \underbrace{C'(q)}_{MC}
+		\end{align*}
+		\item This gives us: $\boxed{MR = MC}$
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Deriving the Lerner Index}
+	\begin{wideitemize}
+		\item Start from $MR = MC$: \quad $p + P'(q) \cdot q = MC$
+		\item Rearrange:
+		\begin{align*}
+			p - MC = -P'(q) \cdot q
+		\end{align*}
+		\item Divide both sides by $p$:
+		\begin{align*}
+			\frac{p - MC}{p} = -P'(q) \cdot \frac{q}{p}
+		\end{align*}
+		\item Recall elasticity: $\varepsilon = \frac{dq}{dp} \cdot \frac{p}{q}$, so $\frac{1}{\varepsilon} = \frac{dp}{dq} \cdot \frac{q}{p} = P'(q) \cdot \frac{q}{p}$
+		\item Therefore:
+		\begin{align*}
+			\boxed{\frac{p - MC}{p} = \frac{1}{|\varepsilon|}}
+		\end{align*}
+		\item This is the \textbf{Lerner Index}: markup equals inverse elasticity
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{The Lerner Index}
+	\begin{wideitemize}
+		\item The \textbf{Lerner Index} measures market power:
+		\begin{align*}
+			L = \frac{p - MC}{p} = \frac{1}{|\varepsilon|}
+		\end{align*}
+		\item Equivalently, solving for optimal price:
+		\begin{align*}
+			p = \frac{MC}{1 + \frac{1}{\varepsilon}} = \frac{MC}{1 - \frac{1}{|\varepsilon|}}
+		\end{align*}
+		\item \textbf{Interpretation:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item $L = 0$: perfect competition (price = MC)
+			\item $L$ close to 1: high market power
+			\item More elastic demand $\rightarrow$ lower markup
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Pricing: MR=MC (graph)}
+\begin{figure}
+	\begin{tikzpicture}[scale=0.55]
+
+		%y axis.....................
+		\draw [->] (0,0) to (0,12) node [left] {$p$};
+
+		%x axis......................
+		\draw [->] (0,0) to (12,0) node [below] {$q$};
+
+		% D curve...................
+		\draw [thick] (0,10)  to  (10,0)  node [above right] {$D$};
+
+		% MR curve....................
+		\draw [thick] (0,10) to (5,0);
+		\node [above right] at (5,0) {$MR$};
+
+		% MC=S curve...................
+		\draw [thick] (0,1)  to  (12,1)  node [right] {$MC$};
+
+		% dashed lines to equilibrium.............
+		\draw [dashed] (0,5.5) node [left] {$p^*$} to (4.55,5.5);
+		\draw [dashed] (4.5,5.5) to (4.5,0) node [below] {$q^*$};
+
+		% equilibrium points.......................
+		\node [black] at (4.5,5.25) {\LARGE \textbullet};
+
+		% labels..............................
+		\node [black, above right] at (4.5,5.5) {Optimal price/quantity};
+
+	\end{tikzpicture}
+\end{figure}
+\end{frame}
+
+\begin{frame}{Using estimated elasticities for pricing}
+	\begin{wideitemize}
+		\item Suppose you work as an economist in a firm pricing a product.
+		\item You know MC. You \textbf{estimate} the demand elasticity $\varepsilon$.
+		\item Then just plug into the elasticity rule:
+		\begin{align*}
+			p = \frac{MC}{1 + \frac{1}{\varepsilon}}
+		\end{align*}
+		\item \textbf{This is why demand estimation matters!}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Estimate demand $\rightarrow$ get elasticities $\rightarrow$ compute optimal prices
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Welfare costs of monopoly pricing}
+	\begin{columns}
+		\begin{column}{0.5\textwidth}
+			\begin{figure}
+				\begin{tikzpicture}[scale=0.5]
+					\fill [darkgray!60] (0,1) -- (0,5.5) -- (4.5,5.5) -- (5.5,1) -- cycle;
+					\fill [blue!60] (0,5.5) -- (4.5,5.5) -- (0,10) -- cycle;
+					\fill [orange!60] (4.5,1) -- (4.5,5.5) -- (9,1) -- cycle;
+
+					%y axis.....................
+					\draw [->] (0,0) to (0,12) node [left] {$p$};
+
+					%x axis......................
+					\draw [->] (0,0) to (12,0) node [below] {$q$};
+
+					% D curve...................
+					\draw [thick] (0,10)  to  (10,0)  node [above right] {$D$};
+
+					% MC=S curve...................
+					\draw [thick] (0,1)  to  (12,1)  node [right] {$MC$};
+
+					% dashed lines to equilibrium.............
+					\draw [dashed] (0,5.5) node [left] {$p_m$} to (4.55,5.5);
+					\draw [dashed] (4.5,5.5) to (4.5,0) node [below] {$q_m$};
+
+					% dashed lines to new equilibrium.........
+					\draw [dashed] (0,1) node [left] {$p_{c}$} to (9,1);
+					\draw [dashed] (9,1) to (9,0) node [below] {$q_{c}$};
+
+					% equilibrium points.......................
+					\node [black] at (4.5,5.25) {\LARGE \textbullet};
+					\node [black] at (9,0.75) {\LARGE \textbullet};
+
+					% labels..............................
+					\node [above right] at (1.5,6.5) {CS};
+					\node [above right] at (5,2) {DWL};
+					\node [above right] at (1.5,2) {PS};
+				\end{tikzpicture}
+			\end{figure}
+		\end{column}
+		\begin{column}{0.5\textwidth}
+			\begin{wideitemize}
+				\item Competitive outcome: $p_c$, $q_c$
+				\item Monopoly outcome: $p_m$, $q_m$
+				\item Monopoly sets price `too high' and quantity `too low'
+				\item This causes \textbf{deadweight loss} (DWL)
+				\item Monopoly is a \textbf{market failure}
+			\end{wideitemize}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% MONOPOLY REGULATION
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Plan for today}
+  \begin{wideenumerate}
+    \item Consumer surplus
+    \item Welfare from new products: applications
+    \item Monopoly pricing: using estimated elasticities
+    \item \textbf{Monopoly regulation}
+    \item Types of price discrimination
+    \item Selection by indicators
+  \end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Regulating monopolies}
+	\begin{wideitemize}
+		\item How can we correct the market failure of monopoly?
+		\item \textbf{Option 1:} Break up the monopoly (antitrust)
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Standard Oil (1911), AT\&T (1984)
+			\item Current debates: Google, Meta, Amazon
+		\end{wideitemize}
+		\item Sometimes breaking up isn't possible (natural monopolies)
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Power plants, bridges, water utilities
+			\item High fixed costs make one firm efficient
+		\end{wideitemize}
+		\item How should we regulate these natural monopolies?
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Regulating monopolies: case study of Facebook vs FTC}
+\begin{figure}
+	\includegraphics[scale=0.2]{logos.jpeg}
+\end{figure}
+\begin{wideitemize}
+	\item \textbf{Background:}
+	\item In 2012 Facebook acquired Instagram
+	\item In 2014 Facebook acquired Whatsapp
+\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Regulating monopolies: case study of Facebook vs FTC}
+	\begin{figure}
+		\includegraphics[scale=0.15]{ftc.jpeg}
+	\end{figure}
+	\begin{wideitemize}
+		\item In 2020 the Federal Trade Commission (FTC) sued Facebook.
+		\item FTC was seeking to (amongst other things) require \textbf{divestiture} (the forced sale) of Whatsapp and Instagram.
+		\item FTC alleged ``Facebook has engaged in a systematic strategy [of acquisitions]... to eliminate threats to its monopoly''
+		\begin{wideitemize}
+			\item FTC: ``Facebook's actions to entrench and maintain its monopoly deny consumers the benefits of competition.''
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Regulating monopolies: case study of Facebook vs FTC}
+	\begin{figure}
+		\includegraphics[scale=0.15]{outcome.jpeg}
+	\end{figure}
+	\begin{wideitemize}
+		\item \textbf{Outcome:} Court dismissed the FTC's complaint in June 2021.
+		\item Court stated that FTC did not prove that Facebook was a monopoly.
+		\item In addition, court argued that FTC waited too long to challenge the acquisitions.
+			\item This and other antitrust complaints centered on large tech companies will likely continue in the near future.
+
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Marginal cost pricing}
+	\begin{wideitemize}
+		\item \textbf{Idea:} Force the monopolist to set $p=MC$
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item This is the competitive price; no deadweight loss
+		\end{wideitemize}
+		\item \textbf{Problem:} Suppose cost is $C(q) = F + cq$ (fixed cost + marginal cost)
+		\item If $p=MC=c$, then profit is:
+		\begin{align*}
+			\pi = pq - F - cq = cq - F - cq = -F < 0
+		\end{align*}
+		\item Firm makes \textbf{negative} profit and would shut down!
+		\item Solution: government \textbf{subsidy} of $F$
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Average cost pricing}
+	\begin{wideitemize}
+		\item \textbf{Alternative:} Force the monopolist to set $p=AC$
+		\item This is the price where the monopolist makes zero profit:
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item If $\pi = 0$ then $TR = TC$
+			\item So $pq = TC$, which means $p = TC/q = AC$
+		\end{wideitemize}
+		\item The monopolist can only exercise market power to cover fixed costs
+		\item No government subsidy needed
+		\item Commonly used for utilities (``rate of return regulation'')
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Average cost pricing (graph)}
+	\begin{figure}
+		\begin{tikzpicture}[scale=0.5]
+
+			%y axis.....................
+			\draw [->] (0,0) to (0,12) node [left] {$p$};
+
+			%x axis......................
+			\draw [->] (0,0) to (12,0) node [below] {$q$};
+
+			% D curve...................
+			\draw [thick] (0,10)  to  (10,0)  node [above right] {$D$};
+
+			% MR curve....................
+			\draw [thick] (0,10) to (5,0);
+			\node [above right] at (5,0) {$MR$};
+
+			% MC=S curve...................
+			\draw [thick] (0,1)  to  (12,1)  node [right] {$MC$};
+
+			% ATC curve...................
+			\draw [thick] (0.25,8.5) to [out=-88,in=180]  (11,2.5) node[right] {$AC$};
+
+			% dashed lines to equilibrium.............
+			\draw [dashed] (0,5.5) node [left] {$p_m$} to (4.55,5.5);
+			\draw [dashed] (4.5,5.5) to (4.5,0) node [below] {$q_m$};
+
+			% dashed lines to mc pricing.........
+			\draw [dashed] (0,1) node [left] {$p_{mc}$} to (9,1);
+			\draw [dashed] (9,1) to (9,0) node [below] {$q_{mc}$};
+
+			% dashed lines to ac pricing.........
+			\draw [dashed] (0,2.75) node [left] {$p_{ac}$} to (7.25,2.75);
+			\draw [dashed] (7.25,2.75) to (7.25,0) node [below] {$q_{ac}$};
+
+			% equilibrium points.......................
+			\node [black] at (4.5,5.25) {\LARGE \textbullet};
+			\node [black] at (7.2,2.5) {\LARGE \textbullet};
+			\node [black] at (9,0.75) {\LARGE \textbullet};
+
+			% labels..............................
+			\node [black, above right] at (4.5,5.5) {Monopoly};
+			\node [black, above right] at (7.25,2.75) {AC pricing};
+			\node [black, above right] at (9,1) {MC pricing};
+		\end{tikzpicture}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{Price caps}
+	\begin{wideitemize}
+		\item \textbf{Price cap regulation:} Set a maximum price the firm can charge
+		\item Often indexed to inflation (``CPI-X'' regulation)
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Price can rise with inflation, minus an efficiency factor X
+		\end{wideitemize}
+		\item Advantage: incentivizes cost reduction
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Under AC pricing, firm has no incentive to cut costs
+			\item Under price caps, cost savings become profit
+		\end{wideitemize}
+		\item Common in UK utilities, telecoms
+	\end{wideitemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -473,12 +819,12 @@ Nicholas Vreugdenhil \\
 
 \begin{frame}{Plan for today}
   \begin{wideenumerate}
-    \item Consumer surplus: the log-sum formula
-    \item The IIA problem: Red Bus / Blue Bus
-    \item From demand to supply
+    \item Consumer surplus
+    \item Welfare from new products: applications
+    \item Monopoly pricing: using estimated elasticities
+    \item Monopoly regulation
     \item \textbf{Types of price discrimination}
     \item Selection by indicators
-    \item Worked example: optimal pricing across markets
   \end{wideenumerate}
 \end{frame}
 
@@ -515,6 +861,7 @@ Nicholas Vreugdenhil \\
 			\end{figure}
 		\end{column}
 		\begin{column}{0.5\textwidth}
+			\pause
 			\begin{wideitemize}
 				\item \textbf{Area A:} Consumers WTP $> p_m$
 				\begin{wideitemize}
@@ -556,12 +903,12 @@ Nicholas Vreugdenhil \\
 
 \begin{frame}{Plan for today}
   \begin{wideenumerate}
-    \item Consumer surplus: the log-sum formula
-    \item The IIA problem: Red Bus / Blue Bus
-    \item From demand to supply
+    \item Consumer surplus
+    \item Welfare from new products: applications
+    \item Monopoly pricing: using estimated elasticities
+    \item Monopoly regulation
     \item Types of price discrimination
     \item \textbf{Selection by indicators}
-    \item Worked example: optimal pricing across markets
   \end{wideenumerate}
 \end{frame}
 
@@ -622,19 +969,7 @@ Nicholas Vreugdenhil \\
 		\begin{align*}
 			\frac{p_1 - MC}{p_1} = \frac{1}{|\varepsilon_1|} \quad \text{and} \quad \frac{p_2 - MC}{p_2} = \frac{1}{|\varepsilon_2|}
 		\end{align*}
-		\item \textbf{Key implication:} Charge higher price in market with more inelastic demand
 	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Plan for today}
-  \begin{wideenumerate}
-    \item Consumer surplus: the log-sum formula
-    \item The IIA problem: Red Bus / Blue Bus
-    \item From demand to supply
-    \item Types of price discrimination
-    \item Selection by indicators
-    \item \textbf{Worked example: optimal pricing across markets}
-  \end{wideenumerate}
 \end{frame}
 
 \begin{frame}{Worked example: Optimal pricing across markets}
@@ -642,100 +977,23 @@ Nicholas Vreugdenhil \\
 		\item \textbf{Question:}
 		\item Two markets with $\varepsilon_1 = -2$ and $\varepsilon_2 = -4$
 		\item $MC = 6$
-		\item Find optimal prices in each market.
+		\item Find optimal prices in each market. Should you charge a higher price in the more inelastic market?
 	\end{wideitemize}
-	\vspace{15pt}
-	\centering
-	\textit{Take 3 minutes to solve this.}
 \end{frame}
 
 \begin{frame}{Worked example: Optimal pricing (solution)}
-	\begin{solutionbox}[Solution]
-		\begin{itemize}
-			\item Using Lerner index: $\frac{p - MC}{p} = \frac{1}{|\varepsilon|}$
-			\item \textbf{Market 1} ($\varepsilon_1 = -2$):
-			\begin{align*}
-				\frac{p_1 - 6}{p_1} = \frac{1}{2} \quad \Rightarrow \quad p_1 - 6 = 0.5 p_1 \quad \Rightarrow \quad p_1 = 12
-			\end{align*}
-			\item \textbf{Market 2} ($\varepsilon_2 = -4$):
-			\begin{align*}
-				\frac{p_2 - 6}{p_2} = \frac{1}{4} \quad \Rightarrow \quad p_2 - 6 = 0.25 p_2 \quad \Rightarrow \quad p_2 = 8
-			\end{align*}
-			\item Price is higher in more inelastic market (market 1)
-		\end{itemize}
-	\end{solutionbox}
-\end{frame}
-
-\begin{frame}{Worked example: Student discount pricing}
 	\begin{wideitemize}
-		\item \textbf{Question:}
-		\item A software company can distinguish students from professionals.
-		\item Students: $\varepsilon_s = -3$; Professionals: $\varepsilon_p = -1.5$
-		\item $MC = \$20$
-		\item Calculate optimal prices for each group.
-	\end{wideitemize}
-	\vspace{15pt}
-	\centering
-	\textit{Take 3 minutes to solve this.}
-\end{frame}
-
-\begin{frame}{Worked example: Student discount pricing (solution)}
-	\begin{solutionbox}[Solution]
-		\begin{itemize}
-			\item Using Lerner index: $p = \frac{MC}{1 + 1/\varepsilon}$
-			\item \textbf{Students} ($\varepsilon_s = -3$):
-			\begin{align*}
-				p_s = \frac{20}{1 + 1/(-3)} = \frac{20}{1 - 0.33} = \frac{20}{0.67} = \$30
-			\end{align*}
-			\item \textbf{Professionals} ($\varepsilon_p = -1.5$):
-			\begin{align*}
-				p_p = \frac{20}{1 + 1/(-1.5)} = \frac{20}{1 - 0.67} = \frac{20}{0.33} = \$60
-			\end{align*}
-			\item Students pay \$30 (50\% discount); professionals pay \$60
-			\item Students more elastic $\rightarrow$ lower price
-		\end{itemize}
-	\end{solutionbox}
-\end{frame}
-
-\begin{frame}{Welfare effects of selection by indicators}
-	\begin{wideitemize}
-		\item \textbf{Producer surplus:} Increases (that's why firms do it)
-		\item \textbf{Consumer surplus:} Ambiguous
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Some consumers pay more (inelastic market)
-			\item Some consumers pay less (elastic market)
-			\item Some consumers now served who weren't before
-		\end{wideitemize}
-		\item \textbf{Total welfare:} Depends on whether new markets are served
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item If discrimination opens new markets $\rightarrow$ welfare may increase
-			\item If just redistributes $\rightarrow$ welfare may decrease
-		\end{wideitemize}
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{When is price discrimination welfare-improving?}
-	\begin{wideitemize}
-		\item \textbf{Welfare improves when:}
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Discrimination opens up new markets (serves consumers who otherwise wouldn't be served)
-			\item Example: Student discounts let students afford textbooks
-		\end{wideitemize}
-		\item \textbf{Welfare may decrease when:}
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Just redistributes from consumers to firm
-			\item No expansion of output
-		\end{wideitemize}
-		\item \textbf{Key insight:} Output matters!
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item If total quantity sold goes up, welfare likely increases
-			\item If total quantity stays same, welfare likely decreases
-		\end{wideitemize}
+		\item \textbf{Solution:}
+		\item Using Lerner index: $\frac{p - MC}{p} = \frac{1}{|\varepsilon|}$
+		\item \textbf{Market 1} ($\varepsilon_1 = -2$):
+		\begin{align*}
+			\frac{p_1 - 6}{p_1} = \frac{1}{2} \quad \Rightarrow \quad p_1 - 6 = 0.5 p_1 \quad \Rightarrow \quad p_1 = 12
+		\end{align*}
+		\item \textbf{Market 2} ($\varepsilon_2 = -4$):
+		\begin{align*}
+			\frac{p_2 - 6}{p_2} = \frac{1}{4} \quad \Rightarrow \quad p_2 - 6 = 0.25 p_2 \quad \Rightarrow \quad p_2 = 8
+		\end{align*}
+		\item Price is higher in more inelastic market (market 1). This is a general result.
 	\end{wideitemize}
 \end{frame}
 
@@ -765,10 +1023,9 @@ Nicholas Vreugdenhil \\
 \begin{frame}{Key Points}
 	\vspace{11pt}
 	\begin{wideenumerate}
-		\item \textbf{Log-sum formula}: $CS_i = \frac{1}{\alpha}\ln\left[\sum_j \exp(\delta_j)\right]$
-		\item \textbf{Red Bus / Blue Bus}: Logit overcounts value of similar products
-		\item \textbf{IIA}: Substitution proportional to share, not similarity
-		\item Demographics partially help; mixed logit fully relaxes IIA
+		\item \textbf{Log-sum formula}: $CS_{it} = \frac{1}{|\alpha_i|}\ln\left[\sum_j \exp(\delta_{jt} + \mu_{ijt})\right]$
+		\item \textbf{Red Bus / Blue Bus}: Logit overcounts welfare from similar new products
+		\item \textbf{Solution}: Use observed post-introduction shares to correct bias
 		\item \textbf{Price discrimination}: Different prices for same good
 		\item \textbf{Perfect PD}: Charge each consumer their WTP (benchmark)
 		\item \textbf{Selection by indicators}: Group pricing based on observables
