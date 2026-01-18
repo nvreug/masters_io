@@ -615,8 +615,8 @@ agent_formulation = pyblp.Formulation('0 + income')
 problem = pyblp.Problem(
     (X1, X2), product_data, agent_formulation, agent_data
 )
-initial_pi = np.array([[0.5]])  # starting value for pi
-results = problem.solve(sigma=0, pi=initial_pi)
+# sigma=0: no random coefficients (demographics only, not mixed logit)
+results = problem.solve(sigma=0, pi=np.array([[0.5]]))
 \end{pycode}
 \end{frame}
 

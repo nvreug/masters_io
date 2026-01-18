@@ -55,16 +55,15 @@ product_data_est['y'] = (
     - np.log(product_data_est['share_outside'])
 )
 
-# OLS estimation
+# OLS estimation (no intercept)
 model_ols = smf.ols(
-    formula='y ~ prices + sugar',
+    formula='y ~ 0 + prices + sugar',
     data=product_data_est
 )
 result_ols = model_ols.fit()
 print(result_ols.summary())
 
 print("\nOLS Coefficients:")
-print(f"  beta_0 (constant): {result_ols.params['Intercept']:.4f}")
 print(f"  beta_1 (sugar):    {result_ols.params['sugar']:.4f}")
 print(f"  alpha (price):     {result_ols.params['prices']:.4f}")
 
@@ -73,8 +72,8 @@ print(f"  alpha (price):     {result_ols.params['prices']:.4f}")
 # -----------------------------------------------------------------------------
 print("\n--- Q1(d): 2SLS Estimation ---")
 
-# Using pyblp for 2SLS (it handles the IV estimation)
-formulation_2sls = pyblp.Formulation('1 + prices + sugar')
+# Using pyblp for 2SLS (it handles the IV estimation) - no intercept
+formulation_2sls = pyblp.Formulation('0 + prices + sugar')
 problem_2sls = pyblp.Problem(formulation_2sls, product_data)
 results_2sls = problem_2sls.solve()
 print(results_2sls)
@@ -82,13 +81,12 @@ print(results_2sls)
 # Extract coefficients
 beta_2sls = results_2sls.beta.flatten()
 print("\n2SLS Coefficients:")
-print(f"  beta_0 (constant): {beta_2sls[0]:.4f}")
-print(f"  alpha (price):     {beta_2sls[1]:.4f}")
-print(f"  beta_1 (sugar):    {beta_2sls[2]:.4f}")
+print(f"  alpha (price):     {beta_2sls[0]:.4f}")
+print(f"  beta_1 (sugar):    {beta_2sls[1]:.4f}")
 
 print(f"\nComparison of price coefficients:")
 print(f"  OLS:  alpha = {result_ols.params['prices']:.4f}")
-print(f"  2SLS: alpha = {beta_2sls[1]:.4f}")
+print(f"  2SLS: alpha = {beta_2sls[0]:.4f}")
 
 # -----------------------------------------------------------------------------
 # Q1(f): Own-Price Elasticities
@@ -128,9 +126,9 @@ print("="*70)
 print("\n--- Q2(c): Estimation with Demographic Interactions ---")
 
 # Define formulations
-# X1: linear parameters (constant, sugar, price)
+# X1: linear parameters (sugar, price) - no intercept
 # X2: characteristics that interact with demographics (sugar, price)
-X1_formulation = pyblp.Formulation('1 + sugar + prices')
+X1_formulation = pyblp.Formulation('0 + sugar + prices')
 X2_formulation = pyblp.Formulation('0 + sugar + prices')
 product_formulations = (X1_formulation, X2_formulation)
 
@@ -145,17 +143,16 @@ problem_demo = pyblp.Problem(
     agent_data
 )
 
-# Initial values for Pi (demographic interactions)
-# Pi has shape: (# X2 vars) x (# demographics)
-# X2 vars: sugar, prices
-# Demographics: income
+# Sigma = 0: no random coefficients (demographics only, not mixed logit)
+# Shape: (# X2 vars) x (# X2 vars) = 2x2 for sugar and prices
+initial_sigma = np.zeros((2, 2))
+
+# Initial values for Pi (demographic interactions) - required for optimization
+# Shape: (# X2 vars) x (# demographics) = 2x1
 initial_pi = np.array([
     [0.1],   # income effect on sugar (beta_1_inc)
     [-5.0]   # income effect on price (alpha_inc)
 ])
-
-# Sigma = 0 (no random coefficients)
-initial_sigma = np.zeros((2, 2))
 
 # Optimization settings
 optimization = pyblp.Optimization('bfgs', {'gtol': 1e-5})
@@ -172,9 +169,8 @@ print(results_demo)
 # Extract and display parameters
 print("\nParameter Estimates:")
 print(f"  Beta (linear):")
-print(f"    beta_0 (constant): {results_demo.beta[0, 0]:.4f}")
-print(f"    beta_1 (sugar):    {results_demo.beta[1, 0]:.4f}")
-print(f"    alpha_0 (price):   {results_demo.beta[2, 0]:.4f}")
+print(f"    beta_1 (sugar):    {results_demo.beta[0, 0]:.4f}")
+print(f"    alpha_0 (price):   {results_demo.beta[1, 0]:.4f}")
 print(f"  Pi (demographic interactions):")
 print(f"    beta_1_inc (sugar x income): {results_demo.pi[0, 0]:.4f}")
 print(f"    alpha_inc (price x income):  {results_demo.pi[1, 0]:.4f}")
