@@ -20,7 +20,7 @@
 	\fbox{\fbox{\parbox{6in}{\centering
 		\textbf{Instructions}:
 		\begin{itemize}
-		\item You have \textbf{70 minutes}
+		\item You have \textbf{80 minutes}
 		\item You may bring a calculator and notes on a two-sided cheat-sheet (letter-size paper)
 		\item Please be neat. If your work is too messy it will not be graded.
 		\item Be sure to show your working.
@@ -51,7 +51,7 @@
 \end{itemize}
 \vspace{11pt}
 \begin{parts}
-	\part[3] A monopolist faces constant elasticity demand with $\varepsilon = -4$ and has marginal cost $c = 15$. What is the optimal price?
+	\part[3] A monopolist faces demand with elasticity $\varepsilon = -2$. The Lerner index is:
 
 	\answerline
 
@@ -67,11 +67,11 @@
 
 	\answerline
 
-	\part[3] True, False, or NEI: If marginal cost increases, a monopolist with linear demand will raise price by exactly the same amount as the cost increase.
+	\part[3] True, False, or NEI: If marginal cost increases by \$1, a monopolist with linear demand will raise price by exactly \$1.
 
 	\answerline
 
-	\part[3] True, False, or NEI: Under a two-part tariff, setting the per-unit price equal to marginal cost maximizes total surplus.
+	\part[3] True, False, or NEI: Under a two-part tariff with homogeneous consumers, the optimal per-unit price equals marginal cost.
 
 	\answerline
 
@@ -79,15 +79,15 @@
 
 	\answerline
 
-	\part[3] True, False, or NEI: In a self-selection problem, the firm can extract the entire surplus from low-type consumers.
+	\part[3] True, False, or NEI: In a self-selection problem, the binding incentive compatibility constraint is that the low type must not prefer the high-type product.
 
 	\answerline
 
-	\part[3] What is ``versioning'' in the context of price discrimination?
+	\part[3] What is ``versioning'' in the context of self-selection?
 
 	\answerline
 
-	\part[3] True, False, or NEI: Consumer surplus in the logit model can be computed using the log-sum formula, which equals the ``inclusive value'' divided by $|\alpha|$.
+	\part[3] True, False, or NEI: Consumer surplus in the logit model can be computed using the log-sum formula: $CS = \frac{1}{|\alpha|} \ln(1 + \sum_j \exp(v_j))$.
 
 	\answerline
 
@@ -95,100 +95,95 @@
 
 \newpage
 \subsection*{2. Demand Estimation (30 points)}
-\question Consider a market with 4 differentiated products. The logit demand model is:
-$$u_{ij} = \delta_j + \alpha p_j + \varepsilon_{ij}$$
-where $\alpha = -0.4$ is the price coefficient.
+\question Consider a market with 3 differentiated products. The logit demand model is:
+$$u_{ijt} = \delta_{jt} + \alpha p_{jt} + \varepsilon_{ijt}$$
+where $\alpha = -0.5$ is the price coefficient.
 
 The following data are observed:
 \begin{center}
 \begin{tabular}{lccc}
 \toprule
-Product & Price ($p_j$) & Mean Utility ($\delta_j$) \\
+Product & Price ($p_j$) & Mean Utility ($\delta_{jt}$) \\
 \midrule
-1 & \$15 & 3.0 \\
-2 & \$12 & 2.5 \\
-3 & \$18 & 3.5 \\
-4 & \$10 & 2.0 \\
+1 & \$20 & 4.0 \\
+2 & \$15 & 3.0 \\
+3 & \$10 & 2.0 \\
 \bottomrule
 \end{tabular}
 \end{center}
 
 \begin{parts}
-	\part[8] Compute $v_j = \delta_j + \alpha p_j$ for each product. Then compute the market shares using:
-	$$s_j = \frac{\exp(v_j)}{1 + \sum_k \exp(v_k)}$$
+	\part[8] Compute $v_j = \delta_{jt} + \alpha p_{jt}$ for each product. Then compute the market shares using:
+	$$s_{jt} = \frac{\exp(v_j)}{1 + \sum_k \exp(v_k)}$$
 
 	\vspace{5cm}
 
-	\part[6] Compute the own-price elasticity for each product. Which product has the most inelastic demand?
+	\part[6] Compute the own-price elasticity for each product using $\eta_{jj} = \alpha p_j (1 - s_j)$. Which product has the most elastic demand?
 
 	\vspace{4cm}
 
-	\part[6] A researcher estimates demand using OLS (regressing $\ln(s_j) - \ln(s_0)$ on price and product characteristics). Explain why this leads to biased estimates of $\alpha$. What is the direction of the bias?
+	\part[6] A researcher estimates demand using OLS (regressing $\ln(s_{jt}) - \ln(s_{0t})$ on price and product characteristics). Explain why this leads to biased estimates of $\alpha$. What is the direction of the bias?
 
 	\vspace{4cm}
 
-	\part[10] Using the log-sum formula, compute consumer surplus per consumer. If product 1 is removed from the market, what is the change in consumer surplus?
+	\part[10] Using the log-sum formula, compute consumer surplus per consumer. If product 3 is removed from the market, what is the change in consumer surplus?
+	$$CS = \frac{1}{|\alpha|} \ln\left(1 + \sum_j \exp(v_j)\right)$$
 
 \end{parts}
 
 \newpage
-\subsection*{3. Price Discrimination (20 points)}
-\question A streaming service has two customer segments: ``binge watchers'' (B) and ``casual viewers'' (C). Marginal cost is \$2 per subscriber.
-
-\begin{itemize}
-\item Binge watcher demand: $Q_B = 200 - 10P_B$
-\item Casual viewer demand: $Q_C = 100 - 10P_C$
-\end{itemize}
+\subsection*{3. Monopoly Pricing (20 points)}
+\question A monopolist faces inverse demand $P = 100 - 2Q$ and has constant marginal cost $MC = 20$.
 
 \begin{parts}
-	\part[6] The firm can identify customer type through usage patterns. Find the optimal prices under price discrimination by indicators.
+	\part[5] Find the profit-maximizing quantity and price.
 
 	\vspace{4cm}
 
-	\part[4] Compute total profit under price discrimination.
-
-	\vspace{3cm}
-
-	\part[6] Suppose the firm cannot distinguish customers. What is the optimal uniform price?
+	\part[5] Compute the Lerner index at the optimal price. Verify that $L = 1/|\varepsilon|$ by computing the elasticity at the optimal price.
 
 	\vspace{4cm}
 
-	\part[4] Which group is better off under price discrimination compared to uniform pricing?
+	\part[5] Suppose marginal cost increases to $MC = 30$. Find the new optimal price. By how much does price increase relative to the cost increase?
+
+	\vspace{4cm}
+
+	\part[5] A second firm enters and the two firms compete as Cournot duopolists (same demand, both have $MC = 20$). Find the Cournot equilibrium price. Compare to the monopoly price.
 
 \end{parts}
 
 \newpage
 \subsection*{4. Self-Selection (20 points)}
-\question An airline offers two fare classes: Business (B) and Economy (E). There are two types of travelers: executives with high willingness to pay and students with low willingness to pay.
+\question A software company sells two versions: Pro (P) and Basic (B). There are two types of users: businesses with high willingness to pay and students with low willingness to pay.
 
 \begin{center}
 \begin{tabular}{lcc}
 \toprule
  & \multicolumn{2}{c}{Willingness to Pay} \\
-Consumer Type & Business Class & Economy Class \\
+Consumer Type & Pro Version & Basic Version \\
 \midrule
-Executive (50 travelers) & \$500 & \$200 \\
-Student (100 travelers) & \$150 & \$120 \\
+Business (40 users) & \$400 & \$150 \\
+Student (60 users) & \$120 & \$100 \\
 \bottomrule
 \end{tabular}
 \end{center}
 
-Marginal cost is \$50 for economy and \$100 for business class.
+Marginal cost is \$20 for Basic and \$50 for Pro.
 
 \begin{parts}
-	\part[4] If the airline could perfectly identify consumer types, what prices would it charge and what is its profit?
+	\part[4] If the company could perfectly identify consumer types, what prices would it charge for each version to each type? What is total profit?
 
 	\vspace{3cm}
 
-	\part[4] The airline cannot identify types but offers both fare classes. Write down the incentive compatibility (IC) constraint that ensures executives buy business class.
+	\part[4] The company cannot identify types but offers both versions. Write down the incentive compatibility (IC) constraint that ensures businesses buy Pro rather than Basic.
 
 	\vspace{3cm}
 
-	\part[6] Find the profit-maximizing prices for business and economy class under self-selection. (Hint: Which IC constraint binds?)
+	\part[6] Find the profit-maximizing prices for Pro and Basic under self-selection. (Hint: Which IC constraint binds? Set it as an equality and solve.)
 
 	\vspace{5cm}
 
-	\part[6] The airline considers ``damaging'' economy class by adding restrictions (no changes, middle seat only). How would this affect the equilibrium? Explain the economic logic.
+	\part[6] The company considers ``damaging'' the Basic version by removing features that cost nothing to provide. How would this affect the equilibrium prices and profits? Explain the economic logic.
 
 \end{parts}
 
