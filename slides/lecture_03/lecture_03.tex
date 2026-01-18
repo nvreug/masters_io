@@ -688,11 +688,9 @@ results = problem.solve(sigma=0, pi=np.array([[0.5]]))
 		\begin{wideitemize}
 			\item \texttt{np.array([[0.5]])} creates a matrix with value 0.5
 		\end{wideitemize}
-		\item \textbf{sigma}: Standard deviations of random coefficients
+		\item \textbf{sigma}: \texttt{sigma=0} means no random coefficients
 		\begin{wideitemize}
-			\item \texttt{sigma=0} means \textbf{no random coefficients}
-			\item We use demographics only, not full mixed logit
-			\item (Mixed logit is beyond scope of this course)
+			\item We use observed demographics only
 		\end{wideitemize}
 		\item \textbf{pi}: Demographic interaction parameters ($\pi$)
 		\begin{wideitemize}
