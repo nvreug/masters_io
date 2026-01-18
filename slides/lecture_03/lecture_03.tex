@@ -213,7 +213,7 @@ Nicholas Vreugdenhil \\
 		\item \textbf{Key question:} What drives heterogeneity in $\beta_i$ and $\alpha_i$?
 		\item \textbf{Our approach:} Observed demographics
 		\begin{align*}
-			\beta_{ik} = \beta_k + \sum_{\ell=1}^L \gamma_{k\ell} D_{i\ell}, \qquad \alpha_i = \alpha + \sum_{\ell=1}^L \gamma_{\alpha\ell} D_{i\ell}
+			\beta_{ik} = \beta_k + \sum_{\ell=1}^L \pi_{k\ell} D_{i\ell}, \qquad \alpha_i = \alpha + \sum_{\ell=1}^L \pi_{\alpha\ell} D_{i\ell}
 		\end{align*}
 		\item $D_{i\ell}$: demographic $\ell$ for consumer $i$ (income, age, family size, etc.)
 	\end{wideitemize}
@@ -223,7 +223,7 @@ Nicholas Vreugdenhil \\
 	\begin{wideitemize}
 		\item Substituting the expressions for $\beta_{ik}$ and $\alpha_i$:
 		\begin{align*}
-			u_{ijt} = \underbrace{x_{jt} \beta + \alpha p_{jt} + \xi_{jt}}_{\delta_{jt} \text{ (mean utility)}} + \underbrace{\sum_{k,\ell} \gamma_{k\ell} D_{i\ell} x_{jt,k}}_{\mu_{ijt}} + \varepsilon_{ijt}
+			u_{ijt} = \underbrace{x_{jt} \beta + \alpha p_{jt} + \xi_{jt}}_{\delta_{jt} \text{ (mean utility)}} + \underbrace{\sum_{k,\ell} \pi_{k\ell} D_{i\ell} x_{jt,k}}_{\mu_{ijt}} + \varepsilon_{ijt}
 		\end{align*}
 		\item \textbf{Mean utility} $\delta_{jt}$: part common to all consumers
 		\begin{wideitemize}
@@ -231,7 +231,7 @@ Nicholas Vreugdenhil \\
 		\end{wideitemize}
 		\item \textbf{Individual deviation} $\mu_{ijt}$: how consumer $i$ differs from average
 		\begin{wideitemize}
-			\item Contains ``\textbf{nonlinear parameters}'' $(\gamma_{k\ell})$ --- enter nonlinearly via shares
+			\item Contains ``\textbf{nonlinear parameters}'' $(\pi_{k\ell})$ --- enter nonlinearly via shares
 		\end{wideitemize}
 		\item Note: $\alpha < 0$ (higher price $\rightarrow$ lower utility)
 	\end{wideitemize}
@@ -254,13 +254,13 @@ Nicholas Vreugdenhil \\
 
 \begin{frame}{Examples of demographic interactions}
 	\begin{wideitemize}
-		\item Recall: $\mu_{ijt} = \sum_{k,\ell} \gamma_{k\ell} D_{i\ell} x_{jt,k}$ captures preference heterogeneity
-		\item Effective price coefficient for consumer $i$: $\alpha_i = \alpha + \gamma_{\text{inc} \times p} \cdot \text{income}_i$
+		\item Recall: $\mu_{ijt} = \sum_{k,\ell} \pi_{k\ell} D_{i\ell} x_{jt,k}$ captures preference heterogeneity
+		\item Effective price coefficient for consumer $i$: $\alpha_i = \alpha + \pi_{\text{inc} \times p} \cdot \text{income}_i$
 		\item \textbf{Question:} High-income consumers are typically \textit{less} price-sensitive.
 		\begin{wideitemize}
 			\vspace{3pt}
 			%\item We need $\alpha_i$ to be less negative for high-income consumers
-			\item Given $\alpha < 0$, what sign should $\gamma_{\text{inc} \times p}$ have?
+			\item Given $\alpha < 0$, what sign should $\pi_{\text{inc} \times p}$ have?
 		\end{wideitemize}
 	\end{wideitemize}
 	\vspace{10pt}
@@ -293,10 +293,10 @@ Nicholas Vreugdenhil \\
 		\item \textbf{Two-step procedure:}
 		\begin{wideenumerate}
 			\vspace{5pt}
-			\item \textbf{Estimate $\gamma$ and $\delta_{jt}$:}
+			\item \textbf{Estimate $\pi$ and $\delta_{jt}$:}
 			\begin{wideitemize}
 				\item Maximum likelihood with $\delta_{jt}$ as product fixed effects
-				\item Jointly estimates demographic coefficients $\gamma$
+				\item Jointly estimates demographic coefficients $\pi$
 			\end{wideitemize}
 			\item \textbf{Recover $\beta$ and $\alpha$:}
 			\begin{wideitemize}
@@ -574,15 +574,9 @@ elasticities = results.compute_elasticities()
 \end{pycode}
 	\vspace{8pt}
 	\begin{wideitemize}
-		\item \textbf{Compute marginal costs} (assuming Nash-Bertrand):
-	\end{wideitemize}
-\begin{pycode}
-costs = results.compute_costs()
-# Backs out MC from observed prices and estimated demand
-\end{pycode}
-	\vspace{8pt}
-	\begin{wideitemize}
-		\item We'll use these for merger simulation in Lecture 10
+		\item Own-price elasticity: $\eta_{jj}$ on diagonal
+		\item Cross-price elasticity: $\eta_{jk}$ off diagonal
+		\item We'll look at an example later in this lecture
 	\end{wideitemize}
 \end{frame}
 
@@ -882,7 +876,7 @@ results = problem.solve(sigma=0, pi=np.array([[0.5]]))
 	\begin{wideenumerate}
 		\item \textbf{Elasticities}: Own $= \alpha p_{jt}(1-s_{jt})$; Cross $= -\alpha p_{kt} s_{kt}$ \quad ($\alpha < 0$)
 		\item \textbf{IIA problem}: Cross-elasticities don't depend on product similarity
-		\item \textbf{Demographic interaction model}: $u_{ijt} = \delta_{jt} + \sum_{k,\ell} \gamma_{k\ell} D_{i\ell} x_{jt,k} + \varepsilon_{ijt}$
+		\item \textbf{Demographic interaction model}: $u_{ijt} = \delta_{jt} + \sum_{k,\ell} \pi_{k\ell} D_{i\ell} x_{jt,k} + \varepsilon_{ijt}$
 		\item Demographics allow \textbf{heterogeneous preferences} and help with IIA
 		\item \textbf{pyblp workflow}: Data $\rightarrow$ Formulation $\rightarrow$ Problem $\rightarrow$ Solve $\rightarrow$ Interpret
 		\item \textbf{Key outputs}: Coefficients (check signs), standard errors, elasticities, markups
