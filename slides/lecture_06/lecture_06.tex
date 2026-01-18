@@ -165,17 +165,19 @@ Nicholas Vreugdenhil \\
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{Cournot with $n$ symmetric firms: derivation}
+\begin{frame}{Cournot with $n$ symmetric firms}
 	\begin{wideitemize}
-		\item Linear demand $P = a - bQ$ where $Q = q_1 + q_2 + \ldots + q_n$
-		\item Firm $i$ profit:
-		\begin{align*}
-			\pi_i = q_i(a - bQ) - cq_i = q_i(a - bQ - c)
-		\end{align*}
-		\item FOC:
-		\begin{align*}
-			\frac{d\pi_i}{dq_i} = a - bQ - bq_i - c = 0
-		\end{align*}
+		\item \textbf{Setup:}
+		\item $n$ firms with constant marginal cost $c$
+		\item Linear demand: $P = a - bQ$ where $Q = q_1 + q_2 + \ldots + q_n$
+		\item \textbf{Question:} What are the Cournot equilibrium quantities and price?
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Cournot with $n$ symmetric firms (solution)}
+	\begin{wideitemize}
+		\item Firm $i$ profit: $\pi_i = q_i(a - bQ) - cq_i$
+		\item FOC: $\frac{d\pi_i}{dq_i} = a - bQ - bq_i - c = 0$
 		\item By symmetry: $q_1 = q_2 = \ldots = q_n = q^*$, so $Q = nq^*$
 		\item Substituting: $a - bnq^* - bq^* - c = 0$
 		\item Solving: $q^* = \frac{a-c}{b(n+1)}$, \quad $P^* = \frac{a + nc}{n+1}$
