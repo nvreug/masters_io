@@ -546,6 +546,32 @@ results = problem.solve()
 \end{pycode}
 \end{frame}
 
+\begin{frame}[fragile]{Working with results}
+	\begin{wideitemize}
+		\item \textbf{Print summary:} shows coefficients, std errors, diagnostics
+	\end{wideitemize}
+\begin{pycode}
+print(results)  # displays formatted table
+\end{pycode}
+	\vspace{3pt}
+	\begin{wideitemize}
+		\item \textbf{Access specific attributes:}
+	\end{wideitemize}
+\begin{pycode}
+results.beta          # linear coefficients (numpy array)
+results.beta_se       # standard errors
+results.xi            # estimated unobservables (xi_jt)
+\end{pycode}
+	\vspace{3pt}
+	\begin{wideitemize}
+		\item \textbf{Compute post-estimation quantities:}
+	\end{wideitemize}
+\begin{pycode}
+results.compute_elasticities()  # price elasticity matrix
+results.compute_costs()         # implied marginal costs
+\end{pycode}
+\end{frame}
+
 \begin{frame}{Model 1: Results}
 	\begin{center}
 		\begin{tabular}{lcc}
