@@ -756,18 +756,6 @@ results = problem.solve(sigma=0, pi=np.array([[0.5]]))
   \end{wideenumerate}
 \end{frame}
 
-\begin{frame}{Post-estimation: Markups}
-	\begin{wideitemize}
-		\item Recall: Lerner index $L = (p - MC)/p = 1/|\varepsilon|$
-		\item Can recover markups from elasticities:
-		\begin{align*}
-			\text{markup}_j = \frac{p_j - mc_j}{p_j} = \frac{1}{|\eta_{jj}|}
-		\end{align*}
-		\item pyblp assumes Nash-Bertrand pricing
-		\item Multi-product firms internalize substitution between own products
-	\end{wideitemize}
-\end{frame}
-
 \begin{frame}{Worked example: Interpret this output}
 	\begin{wideitemize}
 		\item pyblp gives you this output:
