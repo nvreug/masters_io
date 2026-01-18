@@ -82,7 +82,7 @@ There are two datasets:
 
 Consider the homogeneous-consumer logit model:
 \begin{align*}
-	u_{ijt} = \beta_0 + \beta_1 \cdot \text{sugar}_{jt} + \alpha \cdot p_{jt} + \xi_{jt} + \epsilon_{ijt}
+	u_{ijt} = \beta_1 \cdot \text{sugar}_{jt} + \alpha \cdot p_{jt} + \xi_{jt} + \epsilon_{ijt}
 \end{align*}
 where:
 \begin{itemize}
@@ -95,12 +95,14 @@ where:
 
 The utility of the outside option (not purchasing any cereal) is normalized to $u_{i0t} = 0 + \epsilon_{i0t}$.
 
+\textbf{Important:} The market shares in the data will \textit{not} sum to 1 within each market. The residual share ($1 - \sum_j s_{jt}$) is the outside option share $s_{0t}$.
+
 \begin{enumerate}
 	\item \textbf{(5 points)} Before running any regressions, what sign do you expect $\alpha$ (the price coefficient) to have? Explain your reasoning.
 
 	\item \textbf{(5 points)} Using the Berry inversion, write down the linear regression equation that you would estimate. Clearly show the dependent variable on the left-hand side.
 
-	\item \textbf{(5 points)} Estimate the model using OLS. Report the coefficients $\hat{\beta}_0$, $\hat{\beta}_1$, and $\hat{\alpha}$. (No need to report standard errors.)
+	\item \textbf{(5 points)} Estimate the model using OLS. Report the coefficients $\hat{\beta}_1$ and $\hat{\alpha}$. (No need to report standard errors.)
 
 	\item \textbf{(10 points)} Estimate the model using 2SLS, instrumenting for price using the provided instruments (\textit{demand\_instruments0, ..., demand\_instruments19}). Report the coefficients. (No need to report standard errors.)
 
@@ -113,12 +115,12 @@ The utility of the outside option (not purchasing any cereal) is normalized to $
 
 Now consider a model that allows preferences to vary with observed consumer demographics:
 \begin{align*}
-	u_{ijt} = \beta_{0} + (\beta_1 + \beta_{1,inc} \cdot \text{income}_i) \cdot \text{sugar}_{jt} + (\alpha_0 + \alpha_{inc} \cdot \text{income}_i) \cdot p_{jt} + \xi_{jt} + \epsilon_{ijt}
+	u_{ijt} = (\beta_1 + \beta_{1,inc} \cdot \text{income}_i) \cdot \text{sugar}_{jt} + (\alpha_0 + \alpha_{inc} \cdot \text{income}_i) \cdot p_{jt} + \xi_{jt} + \epsilon_{ijt}
 \end{align*}
 
-This model has five parameters:
+This model has four parameters:
 \begin{itemize}
-	\item \textbf{Linear parameters:} $\beta_0$ (constant), $\beta_1$ (sugar), $\alpha_0$ (price)
+	\item \textbf{Linear parameters:} $\beta_1$ (sugar), $\alpha_0$ (price)
 	\item \textbf{Demographic interactions:} $\beta_{1,inc}$ (income $\times$ sugar), $\alpha_{inc}$ (income $\times$ price)
 \end{itemize}
 
@@ -129,7 +131,15 @@ Note: This model does \textit{not} include random coefficients---all heterogenei
 
 	\item \textbf{(10 points)} In the context of this model, what is $\delta_{jt}$? Write out the expression for $\delta_{jt}$.
 
-	\item \textbf{(20 points)} Estimate this model using \texttt{pyblp}. Report all five parameter estimates. (No need to report standard errors.)
+	\item \textbf{(20 points)} Estimate this model using \texttt{pyblp}. Report all four parameter estimates. (No need to report standard errors.)
+
+	\textit{Hint:} Use \texttt{sigma=0} (no random coefficients) and the following starting values for \texttt{pi}:
+\begin{verbatim}
+initial_pi = np.array([
+    [0.1],   # income effect on sugar
+    [-5.0]   # income effect on price
+])
+\end{verbatim}
 
 	\item \textbf{(10 points)} Interpret the parameter $\alpha_{inc}$. (2 sentences max.)
 
