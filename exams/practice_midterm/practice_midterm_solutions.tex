@@ -35,9 +35,9 @@
 	$\xi_{jt}$ is unobserved product quality---factors affecting demand that the researcher doesn't observe (e.g., brand reputation, advertising, design).
 	\end{solution}
 
-	\part[4] Shares increase proportionally when product removed:
+	\part[4] Demographics fully eliminate IIA:
 	\begin{solution}
-	True. This is the IIA property: when product $k$ is removed, remaining shares increase proportionally to pre-existing shares.
+	False. IIA still holds within demographic groups. Only mixed logit (random coefficients) fully relaxes IIA.
 	\end{solution}
 
 	\part[4] Cost shifters as instruments:
@@ -50,9 +50,9 @@
 	False. In logit, $\eta_{jk} = -\alpha p_k s_k$---depends only on $k$'s price and share, not on similarity between $j$ and $k$. This is the IIA limitation.
 	\end{solution}
 
-	\part[3] Ramsey pricing sets $P = MC$:
+	\part[3] MC pricing gives zero profit:
 	\begin{solution}
-	False. Ramsey pricing sets $\frac{P_j - MC_j}{P_j} \propto \frac{1}{|\varepsilon_j|}$---higher markups on less elastic goods to minimize distortions.
+	False. $\pi = pq - F - cq = cq - F - cq = -F < 0$. MC pricing requires government subsidies.
 	\end{solution}
 
 	\part[4] False CS formula:
@@ -69,49 +69,43 @@
 \subsection*{2. Demand Estimation (30 points)}
 \question
 \begin{parts}
-	\part[5] Define $\delta_{jt}$ and derive Berry inversion:
+	\part[6] Define $\delta_{jt}$ and derive Berry inversion:
 	\begin{solution}
 	$\delta_{jt} = \beta \cdot \text{screen}_j + \alpha \cdot p_{jt} + \xi_{jt}$ (part of utility common to all consumers).
 
 	Berry inversion: $\delta_{jt} = \ln(s_{jt}) - \ln(s_{0t})$
 	\end{solution}
 
-	\part[5] Regression equation:
+	\part[6] Regression equation:
 	\begin{solution}
 	$\ln(s_{jt}) - \ln(s_{0t}) = \beta \cdot \text{screen}_j + \alpha \cdot p_{jt} + \xi_{jt}$
 
 	Dependent variable: $\ln(s_{jt}) - \ln(s_{0t})$. Regressors: $\text{screen}_j$, $p_{jt}$. Error: $\xi_{jt}$.
 	\end{solution}
 
-	\part[5] OLS bias:
+	\part[6] OLS bias:
 	\begin{solution}
 	$\text{Cov}(p_{jt}, \xi_{jt}) > 0$: high-quality phones command higher prices.
 
 	Upward bias (less negative $\hat{\alpha}$): OLS attributes high demand for expensive phones to low price sensitivity rather than unobserved quality.
 	\end{solution}
 
-	\part[5] Cost shifters exclusion restriction:
+	\part[6] Cost shifters exclusion restriction:
 	\begin{solution}
 	If chip prices affect product quality (e.g., better chips $\rightarrow$ faster phones $\rightarrow$ higher $\xi$), then chip prices are correlated with $\xi_{jt}$, violating exclusion.
 	\end{solution}
 
-	\part[5] Advantage of demographic interactions:
+	\part[6] Advantage of demographic interactions:
 	\begin{solution}
 	Allows heterogeneous preferences across consumers, partially addressing IIA: older vs. younger consumers may prefer different screen sizes, generating more realistic substitution patterns.
 	\end{solution}
 
-	\part[5] Phone Pro vs Phone Pro Max:
-	\begin{solution}
-	Model predicts CS increases: $CS = \frac{1}{|\alpha|} \ln(1 + \sum_j \exp(\delta_j))$ rises when products are added.
-
-	Not reasonable. The phones are identical except for color---no real increase in variety. This is the ``red bus/blue bus'' problem.
-	\end{solution}
 \end{parts}
 
 \subsection*{3. Two-Part Tariffs (20 points)}
 \question
 \begin{parts}
-	\part[5] Profit as a function of $F$ and $p$:
+	\part[10] Profit as a function of $F$ and $p$:
 	\begin{solution}
 	$q = 30 - 3p$, choke price $p = 10$.
 
@@ -120,7 +114,7 @@
 	$\Pi = 200 \left[ \frac{3}{2}(10-p)^2 + (p-1)(30-3p) \right]$
 	\end{solution}
 
-	\part[5] Show $p^* = c = 1$:
+	\part[10] Show $p^* = c = 1$:
 	\begin{solution}
 	Per-consumer profit: $\pi(p) = \frac{3}{2}(10-p)^2 + (p-1)(30-3p)$
 
@@ -128,46 +122,28 @@
 
 	$3 - 3p = 0 \Rightarrow p^* = 1 = c$
 	\end{solution}
-
-	\part[10] Comparing two pricing strategies:
-	\begin{solution}
-	At $p = 0$: $CS_H = \frac{1}{2}(20)(10) = 100$, $CS_L = \frac{1}{2}(8)(4) = 16$.
-
-	(a) $F = 50$: Buffs join ($CS_H = 100 \geq F$), casuals don't ($CS_L = 16 < F$). Profit $= 100 \times 50 = \$5,000$.
-
-	(b) $F = 8$: Both join. Profit $= 200 \times 8 = \$1,600$.
-
-	Strategy (a) is better.
-	\end{solution}
 \end{parts}
 
 \subsection*{4. Self-Selection (20 points)}
 \question
 \begin{parts}
-	\part[4] Perfect price discrimination:
+	\part[6] Perfect price discrimination:
 	\begin{solution}
 	Corporate: $P_B = \$800$. Leisure: $P_E = \$150$.
 
 	Profit $= 50(800 - 50) + 100(150 - 50) = 50(750) + 100(100) = 37,500 + 10,000 = \$47,500$
 	\end{solution}
 
-	\part[4] IC constraint for corporate travelers:
+	\part[6] IC constraint for corporate travelers:
 	\begin{solution}
 	$800 - P_B \geq 300 - P_E \implies P_B - P_E \leq 500$
 	\end{solution}
 
-	\part[6] Why $P_B = \$750$, $P_E = \$150$ is not optimal:
-	\begin{solution}
-	Corporate surplus from Business: $800 - 750 = 50$. From Economy: $300 - 150 = 150$.
-
-	Since $50 < 150$, corporate travelers prefer Economy. IC violated: $P_B - P_E = 600 > 500$.
-	\end{solution}
-
-	\part[6] Self-selection prices:
+	\part[8] Self-selection prices:
 	\begin{solution}
 	Binding: Leisure IR ($P_E = 150$) and Corporate IC ($P_B = P_E + 500 = 650$).
 
-	Check leisure IC: $150 - 150 = 0 \geq 200 - 650 = -450$
+	Check leisure IC: $150 - 150 = 0 \geq 200 - 650 = -450$ \checkmark
 
 	Profit $= 50(650 - 50) + 100(150 - 50) = 50(600) + 100(100) = 30,000 + 10,000 = \$40,000$
 	\end{solution}

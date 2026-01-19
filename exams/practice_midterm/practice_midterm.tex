@@ -54,7 +54,7 @@
 
 	\vspace{2cm}
 
-	\part[4] True, False, or NEI: In the logit model, if we remove one product from the market, the remaining products' market shares all increase proportionally.
+	\part[4] True, False, or NEI: Adding demographic interactions to the logit model fully eliminates the IIA problem.
 
 	\vspace{2cm}
 
@@ -66,7 +66,7 @@
 
 	\vspace{2cm}
 
-	\part[3] True, False, or NEI: Ramsey pricing sets price equal to marginal cost for all goods.
+	\part[3] True, False, or NEI: Under marginal cost pricing ($P = MC$), a monopolist with fixed costs will earn zero profit.
 
 	\vspace{2cm}
 
@@ -89,29 +89,25 @@ $$u_{ijt} = \beta \cdot \text{screen}_j + \alpha \cdot p_{jt} + \xi_{jt} + \vare
 where $\text{screen}_j$ is screen size (inches), $p_{jt}$ is price, $\xi_{jt}$ is unobserved product quality, and $\varepsilon_{ijt}$ is i.i.d. Type 1 Extreme Value.
 
 \begin{parts}
-	\part[5] Define the mean utility $\delta_{jt}$. Using the Berry inversion, derive an expression for $\delta_{jt}$ in terms of observed market shares $s_{jt}$ and the outside option share $s_{0t}$.
+	\part[6] Define the mean utility $\delta_{jt}$. Using the Berry inversion, derive an expression for $\delta_{jt}$ in terms of observed market shares $s_{jt}$ and the outside option share $s_{0t}$.
 
 	\vspace{5cm}
 
-	\part[5] Write down the linear regression equation the researcher would estimate to recover $\beta$ and $\alpha$. Clearly identify the dependent variable, regressors, and error term.
+	\part[6] Write down the linear regression equation the researcher would estimate to recover $\beta$ and $\alpha$. Clearly identify the dependent variable, regressors, and error term.
 
 	\vspace{5cm}
 
-	\part[5] Why does OLS produce biased estimates of $\alpha$? What is the likely direction of the bias? (2-3 sentences)
+	\part[6] Why does OLS produce biased estimates of $\alpha$? What is the likely direction of the bias? (2-3 sentences)
 
 	\vspace{5cm}
 
 \newpage
 
-	\part[5] A researcher proposes using ``cost shifters'' (e.g., semiconductor chip prices) as instruments. Give one reason why these instruments might fail the exclusion restriction.
+	\part[6] A researcher proposes using ``cost shifters'' (e.g., semiconductor chip prices) as instruments. Give one reason why these instruments might fail the exclusion restriction.
 
 	\vspace{5cm}
 
-	\part[5] Compared to the basic logit, what is one advantage of adding demographic interactions (e.g., age $\times$ screen size) to the model?
-
-	\vspace{5cm}
-
-	\part[5] A phone manufacturer launches two versions of the same phone: ``Phone Pro'' and ``Phone Pro Max,'' which are identical except for color. What will the logit model predict about consumer surplus from having both versions available? Is this prediction reasonable? Explain.
+	\part[6] Compared to the basic logit, what is one advantage of adding demographic interactions (e.g., age $\times$ screen size) to the model?
 
 	\vspace{5cm}
 
@@ -121,35 +117,14 @@ where $\text{screen}_j$ is screen size (inches), $p_{jt}$ is price, $\xi_{jt}$ i
 \subsection*{3. Two-Part Tariffs (20 points)}
 \question A streaming service charges a monthly subscription fee $F$ and a per-movie price $p$. Marginal cost per movie is $c = 1$.
 
-\textbf{Part A: Homogeneous consumers}
-
 There are 200 identical consumers, each with demand $q = 30 - 3p$ for movies per month.
 
 \begin{parts}
-	\part[5] Write down the streaming service's profit as a function of $F$ and $p$. (Hint: What is consumer surplus at price $p$? What is the maximum $F$ the service can charge?)
+	\part[10] Write down the streaming service's profit as a function of $F$ and $p$. (Hint: What is consumer surplus at price $p$? What is the maximum $F$ the service can charge?)
 
 	\vspace{6cm}
 
-	\part[5] Show that the profit-maximizing per-movie price is $p^* = c = 1$. (Hint: Take the derivative of profit with respect to $p$ and set it equal to zero.)
-
-	\vspace{6cm}
-
-\end{parts}
-
-\newpage
-
-\textbf{Part B: Heterogeneous consumers}
-
-Now suppose there are 100 ``movie buffs'' with demand $q_H = 20 - 2p$ and 100 ``casual viewers'' with demand $q_L = 8 - 2p$. Marginal cost is $c = 0$.
-
-\begin{parts}
-\setcounter{partno}{2}
-	\part[10] The streaming service is considering two pricing strategies:
-	\begin{itemize}
-		\item[(a)] $F = 50$, $p = 0$
-		\item[(b)] $F = 8$, $p = 0$
-	\end{itemize}
-	Calculate profit under each strategy. Which is better and why?
+	\part[10] Show that the profit-maximizing per-movie price is $p^* = c = 1$. (Hint: Take the derivative of profit with respect to $p$ and set it equal to zero.)
 
 	\vspace{6cm}
 
@@ -174,21 +149,17 @@ Leisure (100 travelers) & \$200 & \$150 \\
 Marginal cost is \$50 for both classes.
 
 \begin{parts}
-	\part[4] If the airline could perfectly identify traveler types, what prices would it charge for each class to each type? What is total profit?
+	\part[6] If the airline could perfectly identify traveler types, what prices would it charge for each class to each type? What is total profit?
 
 	\vspace{6cm}
 
-	\part[4] The airline cannot identify types but offers both classes. Write down the incentive compatibility (IC) constraint that ensures corporate travelers buy Business rather than Economy.
+	\part[6] The airline cannot identify types but offers both classes. Write down the incentive compatibility (IC) constraint that ensures corporate travelers buy Business rather than Economy.
 
 	\vspace{4cm}
 
 \newpage
 
-	\part[6] Suppose the airline sets $P_B = \$750$ and $P_E = \$150$. Explain why these prices are not optimal. Which constraint is violated?
-
-	\vspace{7cm}
-
-	\part[6] Find the profit-maximizing prices for Business and Economy under self-selection. (Hint: Which IC constraint binds? Set it as an equality and solve.)
+	\part[8] Find the profit-maximizing prices for Business and Economy under self-selection. (Hint: Which IC constraint binds? Set it as an equality and solve.)
 
 	\vspace{5cm}
 

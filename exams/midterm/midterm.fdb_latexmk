@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1768781618.20781 "/Users/nicholasvreugdenhil/ASU Dropbox/Nicholas Vreugdenhil/masters_io_2026/exams/midterm/midterm.tex" "midterm.pdf" "midterm" 1768781618.67346 0
-  "/Users/nicholasvreugdenhil/ASU Dropbox/Nicholas Vreugdenhil/masters_io_2026/exams/midterm/midterm.tex" 1768781618.03504 6684 35fd788dbe0aa1682f08f0658b5c0480 ""
+["pdflatex"] 1768787849.71868 "/Users/nicholasvreugdenhil/ASU Dropbox/Nicholas Vreugdenhil/masters_io_2026/exams/midterm/midterm.tex" "midterm.pdf" "midterm" 1768787850.18715 0
+  "/Users/nicholasvreugdenhil/ASU Dropbox/Nicholas Vreugdenhil/masters_io_2026/exams/midterm/midterm.tex" 1768787848.62483 6369 d874c9f1db31777e3ab848c3b16f0e41 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/tfm/jknappen/ec/tcrm1000.tfm" 1136768653 1536 e07581a4bb3136ece9eeb4c3ffab8233 ""
@@ -81,8 +81,8 @@
   "/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1762320741 5467155 19efa205003f9ecad95fbbaa6ff24da1 ""
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1741450574 3345740 46b66fdb0378f7bf5921b5eabf1762b8 ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
-  "midterm.aux" 1768781618.62105 3583 aac5e2eaa35ee3e93463cdc25a2aa9bf "pdflatex"
-  "midterm.tex" 1768781618.03504 6684 35fd788dbe0aa1682f08f0658b5c0480 ""
+  "midterm.aux" 1768787850.13715 3397 f27671aff8e94e8d70f340a9bd4cfbb4 "pdflatex"
+  "midterm.tex" 1768787848.62483 6369 d874c9f1db31777e3ab848c3b16f0e41 ""
   (generated)
   "midterm.aux"
   "midterm.log"

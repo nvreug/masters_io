@@ -71,38 +71,31 @@
 \subsection*{2. Demand Estimation (30 points)}
 \question
 \begin{parts}
-	\part[5] Define $\delta_{jt}$ and derive Berry inversion:
+	\part[6] Define $\delta_{jt}$ and derive Berry inversion:
 	\begin{solution}
 	$\delta_{jt} = \beta \cdot \text{mpg}_j + \alpha \cdot p_{jt} + \xi_{jt}$ (part of utility common to all consumers).
 
 	Berry inversion: $\delta_{jt} = \ln(s_{jt}) - \ln(s_{0t})$
 	\end{solution}
 
-	\part[5] Regression equation:
+	\part[6] Regression equation:
 	\begin{solution}
 	$\ln(s_{jt}) - \ln(s_{0t}) = \beta \cdot \text{mpg}_j + \alpha \cdot p_{jt} + \xi_{jt}$
 
 	Dependent variable: $\ln(s_{jt}) - \ln(s_{0t})$. Regressors: $\text{mpg}_j$, $p_{jt}$. Error: $\xi_{jt}$.
 	\end{solution}
 
-	\part[5] OLS bias:
-	\begin{solution}
-	$\text{Cov}(p_{jt}, \xi_{jt}) > 0$: high-quality cars command higher prices.
-
-	Upward bias (less negative $\hat{\alpha}$): OLS attributes high demand for expensive cars to low price sensitivity rather than unobserved quality.
-	\end{solution}
-
-	\part[5] Hausman instruments:
+	\part[6] Hausman instruments:
 	\begin{solution}
 	If $\xi_{jt}$ is correlated across markets (e.g., brand reputation), then other-market prices are correlated with own-market $\xi_{jt}$, violating the exclusion restriction.
 	\end{solution}
 
-	\part[5] Advantage of demographic interactions:
+	\part[6] Advantage of demographic interactions:
 	\begin{solution}
 	Allows heterogeneous price sensitivity across consumers, partially addressing IIA: substitution patterns depend on which consumers buy each product.
 	\end{solution}
 
-	\part[5] Corolla-Odd vs. Corolla-Even:
+	\part[6] Corolla-Odd vs. Corolla-Even:
 	\begin{solution}
 	Model predicts CS increases: $CS = \frac{1}{|\alpha|} \ln(1 + \sum_j \exp(\delta_j))$ rises when products are added.
 
@@ -144,30 +137,24 @@
 \subsection*{4. Self-Selection (20 points)}
 \question
 \begin{parts}
-	\part[4] Perfect price discrimination:
+	\part[6] Perfect price discrimination:
 	\begin{solution}
 	Businesses: $P_P = \$400$. Students: $P_B = \$100$.
 
 	Profit $= 40(370) + 60(70) = \$19,000$
 	\end{solution}
 
-	\part[4] IC constraint for businesses:
+	\part[6] IC constraint for businesses:
 	\begin{solution}
 	$400 - P_P \geq 150 - P_B \implies P_P - P_B \leq 250$
 	\end{solution}
 
-	\part[6] Why $P_P = \$380$, $P_B = \$100$ is not optimal:
-	\begin{solution}
-	Business surplus from Pro: $400 - 380 = 20$. From Basic: $150 - 100 = 50$.
-
-	Since $20 < 50$, businesses prefer Basic. IC violated: $P_P - P_B = 280 > 250$.
-	\end{solution}
-
-	\part[6] Self-selection prices:
+	\part[8] Self-selection prices:
 	\begin{solution}
 	Binding: Student IR ($P_B = 100$) and Business IC ($P_P = P_B + 250 = 350$).
 
-	Check student IC: $100 - 100 = 0 \geq 120 - 350 = -230$
+	Check student IC: $100 - 100 = 0 \geq 120 - 350 = -230$ \checkmark
+
 	Profit $= 40(320) + 60(70) = \$17,000$
 	\end{solution}
 \end{parts}
