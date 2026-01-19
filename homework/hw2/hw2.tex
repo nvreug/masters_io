@@ -154,24 +154,24 @@ You can solve this system numerically in Python. Hold marginal costs constant (n
 
 \textbf{Logit demand:}
 \begin{align*}
-s_j &= \frac{\exp(\delta_j + \alpha p_j)}{1 + \sum_k \exp(\delta_k + \alpha p_k)} \\
-\frac{\partial s_j}{\partial p_j} &= \alpha s_j (1 - s_j) \\
-\frac{\partial s_j}{\partial p_k} &= -\alpha s_j s_k \quad (j \neq k)
+s_{jt} &= \frac{\exp(\delta_{jt} + \alpha p_{jt})}{1 + \sum_k \exp(\delta_{kt} + \alpha p_{kt})} \\
+\frac{\partial s_{jt}}{\partial p_{jt}} &= \alpha s_{jt} (1 - s_{jt}) \\
+\frac{\partial s_{jt}}{\partial p_{kt}} &= -\alpha s_{jt} s_{kt} \quad (j \neq k)
 \end{align*}
 
 \textbf{Own-price elasticity:}
 \begin{align*}
-\eta_{jj} = \alpha p_j (1 - s_j)
+\eta_{jjt} = \alpha p_{jt} (1 - s_{jt})
 \end{align*}
 
 \textbf{Consumer surplus (per consumer):}
 \begin{align*}
-CS = \frac{1}{|\alpha|} \ln\left(1 + \sum_j \exp(\delta_j + \alpha p_j)\right)
+CS_t = \frac{1}{|\alpha|} \ln\left(1 + \sum_j \exp(\delta_{jt} + \alpha p_{jt})\right)
 \end{align*}
 
 \textbf{HHI:}
 \begin{align*}
-HHI = \sum_j (100 \times s_j)^2
+HHI_t = \sum_j (100 \times s_{jt})^2
 \end{align*}
 
 \textbf{Cournot critical discount factor ($N$ firms):}

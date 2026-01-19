@@ -55,9 +55,9 @@
 
 	\answerline[$\$30$]
 
-	\part[3] In the logit demand model, write the formula for the own-price elasticity $\eta_{jj}$ in terms of the price coefficient $\alpha$, price $p_j$, and market share $s_j$.
+	\part[3] In the logit demand model, write the formula for the own-price elasticity $\eta_{jj}$ in terms of the price coefficient $\alpha$, price $p_j$, and market share $s_{jt}$.
 
-	\answerline[$\eta_{jj} = \alpha p_j (1 - s_j)$]
+	\answerline[$\eta_{jj} = \alpha p_{jt} (1 - s_{jt})$]
 
 	\part[3] True, False, or NEI: In a logit demand model, products with higher prices always have more elastic demand.
 
@@ -96,14 +96,14 @@
 \newpage
 \subsection*{2. Demand Estimation (30 points)}
 \question Consider a market with 3 products and an outside option. The logit demand model is:
-$$u_{ij} = \delta_j + \alpha p_j + \varepsilon_{ij}$$
-where $\delta_j$ is the mean utility (excluding price), $\alpha = -0.5$ is the price coefficient, and $\varepsilon_{ij}$ is i.i.d. Type 1 Extreme Value.
+$$u_{ijt} = \delta_{jt} + \alpha p_{jt} + \varepsilon_{ijt}$$
+where $\delta_{jt}$ is the mean utility (excluding price), $\alpha = -0.5$ is the price coefficient, and $\varepsilon_{ijt}$ is i.i.d. Type 1 Extreme Value.
 
 The following data are observed:
 \begin{center}
 \begin{tabular}{lccc}
 \toprule
-Product & Price ($p_j$) & Mean Utility ($\delta_j$) & Market Share ($s_j$) \\
+Product & Price ($p_j$) & Mean Utility ($\delta_{jt}$) & Market Share ($s_{jt}$) \\
 \midrule
 1 & \$10 & 2.0 & 0.25 \\
 2 & \$8  & 1.5 & 0.20 \\
@@ -115,7 +115,7 @@ Outside & -- & 0 & 0.40 \\
 
 \begin{parts}
 	\part[5] Verify that the market share for product 1 is approximately correct using the logit formula:
-	$$s_j = \frac{\exp(\delta_j + \alpha p_j)}{1 + \sum_k \exp(\delta_k + \alpha p_k)}$$
+	$$s_{jt} = \frac{\exp(\delta_{jt} + \alpha p_{jt})}{1 + \sum_k \exp(\delta_{kt} + \alpha p_{kt})}$$
 
 	\vspace{3cm}
 
@@ -127,13 +127,13 @@ Outside & -- & 0 & 0.40 \\
 
 	\vspace{4cm}
 
-	\part[5] Suppose you only observe prices and market shares (not $\delta_j$). Write down the Berry inversion formula that would allow you to recover $\delta_j + \alpha p_j$ from the data.
+	\part[5] Suppose you only observe prices and market shares (not $\delta_{jt}$). Write down the Berry inversion formula that would allow you to recover $\delta_{jt} + \alpha p_{jt}$ from the data.
 
 	\vspace{3cm}
 
 	\part[10] Using the log-sum formula, compute the expected consumer surplus per consumer in this market. If product 3 were removed, what would be the change in consumer surplus?
 
-	$$CS = \frac{1}{|\alpha|} \ln\left(1 + \sum_j \exp(\delta_j + \alpha p_j)\right)$$
+	$$CS = \frac{1}{|\alpha|} \ln\left(1 + \sum_j \exp(\delta_{jt} + \alpha p_{jt})\right)$$
 
 \end{parts}
 

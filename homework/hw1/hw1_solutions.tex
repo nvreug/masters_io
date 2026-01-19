@@ -49,12 +49,12 @@ We expect $\alpha$ to be negative. The price coefficient captures how utility ch
 \vspace{1em}
 (b) Berry Inversion
 
-The Berry inversion starts from the logit choice probability. For product $j$, the market share is $s_j = \exp(\delta_j) / (1 + \sum_{k=1}^{J} \exp(\delta_k))$, while the outside option share is $s_0 = 1 / (1 + \sum_{k=1}^{J} \exp(\delta_k))$. Taking the ratio gives $s_j / s_0 = \exp(\delta_j)$, and applying logs yields $\ln(s_j) - \ln(s_0) = \delta_j$. Substituting the expression for mean utility $\delta_j = \beta_0 + \beta_1 \cdot \text{sugar}_j + \alpha \cdot p_j + \xi_j$, we obtain the estimating equation:
+The Berry inversion starts from the logit choice probability. For product $j$, the market share is $s_{jt} = \exp(\delta_{jt}) / (1 + \sum_{k=1}^{J} \exp(\delta_{kt}))$, while the outside option share is $s_{0t} = 1 / (1 + \sum_{k=1}^{J} \exp(\delta_{kt}))$. Taking the ratio gives $s_{jt} / s_{0t} = \exp(\delta_{jt})$, and applying logs yields $\ln(s_{jt}) - \ln(s_{0t}) = \delta_{jt}$. Substituting the expression for mean utility $\delta_{jt} = \beta_1 \cdot \text{sugar}_{jt} + \alpha \cdot p_{jt} + \xi_{jt}$, we obtain the estimating equation:
 \begin{align*}
-\boxed{\ln(s_j) - \ln(s_0) = \beta_0 + \beta_1 \cdot \text{sugar}_j + \alpha \cdot p_j + \xi_j}
+\boxed{\ln(s_{jt}) - \ln(s_{0t}) = \beta_1 \cdot \text{sugar}_{jt} + \alpha \cdot p_{jt} + \xi_{jt}}
 \end{align*}
 
-This is a linear regression where the dependent variable is the log difference between product share and outside good share, and the error term is $\xi_j$.
+This is a linear regression (without intercept) where the dependent variable is the log difference between product share and outside good share, and the error term is $\xi_{jt}$.
 
 \vspace{1em}
 (c) OLS Estimation
@@ -64,9 +64,8 @@ This is a linear regression where the dependent variable is the log difference b
 \toprule
 Parameter & OLS Estimate \\
 \midrule
-$\hat{\beta}_0$ (constant) & $-2.9665$ \\
-$\hat{\beta}_1$ (sugar) & $0.0463$ \\
-$\hat{\alpha}$ (price) & $-10.2036$ \\
+$\hat{\beta}_1$ (sugar) & $0.0389$ \\
+$\hat{\alpha}$ (price) & $-32.1018$ \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -79,9 +78,8 @@ $\hat{\alpha}$ (price) & $-10.2036$ \\
 \toprule
 Parameter & 2SLS Estimate \\
 \midrule
-$\hat{\beta}_0$ (constant) & $-2.8915$ \\
-$\hat{\beta}_1$ (sugar) & $0.0483$ \\
-$\hat{\alpha}$ (price) & $-10.9449$ \\
+$\hat{\beta}_1$ (sugar) & $0.0285$ \\
+$\hat{\alpha}$ (price) & $-32.1253$ \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -89,7 +87,7 @@ $\hat{\alpha}$ (price) & $-10.9449$ \\
 \vspace{1em}
 (e) Comparison of OLS and 2SLS
 
-The OLS estimate of the price coefficient is less negative than the 2SLS estimate ($-10.20$ vs $-10.94$). This difference arises because prices are likely correlated with unobserved product quality. Firms set higher prices for products that consumers value for reasons not captured by sugar content, such as brand reputation or taste. This positive correlation between price and the error term biases the OLS estimate of $\alpha$ toward zero. The 2SLS estimate, which uses instruments that are correlated with price but uncorrelated with unobserved quality, produces a more negative coefficient indicating that consumers are more price sensitive than OLS suggests.
+The OLS estimate of the price coefficient is slightly less negative than the 2SLS estimate ($-32.10$ vs $-32.13$). This difference arises because prices are likely correlated with unobserved product quality. Firms set higher prices for products that consumers value for reasons not captured by sugar content, such as brand reputation or taste. This positive correlation between price and the error term biases the OLS estimate of $\alpha$ toward zero. The 2SLS estimate, which uses instruments that are correlated with price but uncorrelated with unobserved quality, produces a more negative coefficient indicating that consumers are more price sensitive than OLS suggests.
 
 \vspace{1em}
 (f) Own-Price Elasticities
@@ -100,7 +98,7 @@ The OLS estimate of the price coefficient is less negative than the 2SLS estimat
 \caption{Own-price elasticities vs.\ prices for basic logit model (market C01Q1)}
 \end{figure}
 
-The figure shows a negative linear relationship between prices and own-price elasticities. This pattern is a limitation of the logit model rather than something learned from the data. The formula $\eta_{jj} = \alpha \cdot p_j \cdot (1-s_j)$ mechanically ties elasticity to price. Since $\alpha < 0$ and $(1-s_j) \approx 1$ for products with small market shares, elasticity becomes roughly proportional to price. In reality, this need not hold: some high-priced products may have relatively inelastic demand (luxury goods with loyal customers), while some low-priced products may face elastic demand (commodities where consumers easily switch). The logit model cannot capture these patterns because the price-elasticity relationship is imposed by functional form assumptions.
+The figure shows a negative linear relationship between prices and own-price elasticities. This pattern is a limitation of the logit model rather than something learned from the data. The formula $\eta_{jj} = \alpha \cdot p_{jt} \cdot (1-s_{jt})$ mechanically ties elasticity to price. Since $\alpha < 0$ and $(1-s_{jt}) \approx 1$ for products with small market shares, elasticity becomes roughly proportional to price. In reality, this need not hold: some high-priced products may have relatively inelastic demand (luxury goods with loyal customers), while some low-priced products may face elastic demand (commodities where consumers easily switch). The logit model cannot capture these patterns because the price-elasticity relationship is imposed by functional form assumptions.
 
 \newpage
 \subsection*{Question 2: Logit with Demographic Interactions}
@@ -112,7 +110,7 @@ One key advantage is that this model allows for consumer heterogeneity in prefer
 \vspace{1em}
 (b) Definition of $\delta_{jt}$
 
-The term $\delta_{jt}$ is the mean utility of product $j$ in market $t$, representing the portion of utility that is common to all consumers. In this model, $\delta_{jt} = \beta_0 + \beta_1 \cdot \text{sugar}_{jt} + \alpha_0 \cdot p_{jt} + \xi_{jt}$. It captures the average valuation of the product before accounting for individual-specific variation from demographics or the idiosyncratic logit shock.
+The term $\delta_{jt}$ is the mean utility of product $j$ in market $t$, representing the portion of utility that is common to all consumers. In this model, $\delta_{jt} = \beta_1 \cdot \text{sugar}_{jt} + \alpha_0 \cdot p_{jt} + \xi_{jt}$. It captures the average valuation of the product before accounting for individual-specific variation from demographics or the idiosyncratic logit shock.
 
 \vspace{1em}
 (c) Estimation Results
@@ -123,13 +121,12 @@ The term $\delta_{jt}$ is the mean utility of product $j$ in market $t$, represe
 Parameter & Estimate \\
 \midrule
 \multicolumn{2}{l}{\textit{Linear parameters}} \\
-$\hat{\beta}_0$ (constant) & $-2.6323$ \\
-$\hat{\beta}_1$ (sugar) & $-0.0134$ \\
-$\hat{\alpha}_0$ (price) & $-10.9489$ \\
+$\hat{\beta}_1$ (sugar) & $0.0718$ \\
+$\hat{\alpha}_0$ (price) & $-40.7163$ \\
 \midrule
 \multicolumn{2}{l}{\textit{Demographic interactions}} \\
-$\hat{\beta}_{1,inc}$ (income $\times$ sugar) & $0.1685$ \\
-$\hat{\alpha}_{inc}$ (income $\times$ price) & $-1.2668$ \\
+$\hat{\beta}_{1,inc}$ (income $\times$ sugar) & $-0.0498$ \\
+$\hat{\alpha}_{inc}$ (income $\times$ price) & $32.9185$ \\
 \bottomrule
 \end{tabular}
 \end{center}
@@ -137,7 +134,7 @@ $\hat{\alpha}_{inc}$ (income $\times$ price) & $-1.2668$ \\
 \vspace{1em}
 (d) Interpretation of $\alpha_{inc}$
 
-The parameter $\alpha_{inc}$ captures how price sensitivity varies with income. A positive $\alpha_{inc}$ means higher-income consumers are less sensitive to price, so their effective price coefficient $(\alpha_0 + \alpha_{inc} \cdot \text{income})$ is less negative than for lower-income consumers.
+The parameter $\alpha_{inc}$ captures how price sensitivity varies with income. Since $\alpha_{inc} > 0$, higher-income consumers are less sensitive to price---their effective price coefficient $(\alpha_0 + \alpha_{inc} \cdot \text{income})$ is less negative than for lower-income consumers.
 
 \vspace{1em}
 (e) Elasticities with Demographics (Bonus)

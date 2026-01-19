@@ -47,6 +47,19 @@ results = problem.solve()
 
 **Slide: Plan (bold item 6)**
 
+**Slide: Agent data structure**
+- Explain what agent_data contains:
+  - market_ids: Which market each consumer draw belongs to
+  - weights: Weight of each draw (e.g., 1/20 if 20 draws per market)
+  - income: Draw from income distribution in that market
+- Show example table:
+  | market_ids | weights | income |
+  |------------|---------|--------|
+  | 1971       | 0.05    | 45.2   |
+  | 1971       | 0.05    | 62.8   |
+  | ...        | ...     | ...    |
+- Note: pyblp uses these draws to integrate over consumer heterogeneity
+
 **Slide: Model 2 specification**
 ```
 u_{ijt} = (β₁ + β₁,inc · income_i) · hpwt_{jt} + (α₀ + α_inc · income_i) · p_{jt} + ξ_{jt} + ε_{ijt}

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: 'SF Mono', 'Menlo', 'Monaco', monospace;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            margin: 0;
+        }
+        .header {
+            color: #569cd6;
+            font-size: 16px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        .matrix-box {
+            background: #2d2d2d;
+            padding: 25px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        table {
+            border-collapse: collapse;
+            font-size: 15px;
+        }
+        th {
+            color: #569cd6;
+            padding: 12px 18px;
+            text-align: center;
+            font-weight: bold;
+        }
+        td {
+            padding: 10px 18px;
+            text-align: right;
+            font-family: monospace;
+        }
+        .own {
+            color: #f44747;
+            font-weight: bold;
+        }
+        .cross { color: #4ec9b0; }
+        .note { color: #888; font-size: 12px; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <div class="header">Price Elasticity Matrix (First 5 Products, Market 1971)</div>
+    <div class="matrix-box">
+        <table>
+            <tr>
+                <th></th>
+                <th>Prod 1</th>
+                <th>Prod 2</th>
+                <th>Prod 3</th>
+                <th>Prod 4</th>
+                <th>Prod 5</th>
+            </tr>
+            <tr>
+                <th>Prod 1</th>
+                <td class="own">-0.739</td>
+                <td class="cross">0.001</td>
+                <td class="cross">0.000</td>
+                <td class="cross">0.001</td>
+                <td class="cross">0.001</td>
+            </tr>
+            <tr>
+                <th>Prod 2</th>
+                <td class="cross">0.001</td>
+                <td class="own">-0.826</td>
+                <td class="cross">0.000</td>
+                <td class="cross">0.001</td>
+                <td class="cross">0.001</td>
+            </tr>
+            <tr>
+                <th>Prod 3</th>
+                <td class="cross">0.001</td>
+                <td class="cross">0.001</td>
+                <td class="own">-1.065</td>
+                <td class="cross">0.001</td>
+                <td class="cross">0.001</td>
+            </tr>
+            <tr>
+                <th>Prod 4</th>
+                <td class="cross">0.001</td>
+                <td class="cross">0.001</td>
+                <td class="cross">0.000</td>
+                <td class="own">-1.025</td>
+                <td class="cross">0.001</td>
+            </tr>
+            <tr>
+                <th>Prod 5</th>
+                <td class="cross">0.001</td>
+                <td class="cross">0.001</td>
+                <td class="cross">0.000</td>
+                <td class="cross">0.001</td>
+                <td class="own">-1.338</td>
+            </tr>
+        </table>
+        <p class="note">Diagonal (red): own-price elasticities | Off-diagonal (teal): cross-price elasticities</p>
+    </div>
+</body>
+</html>

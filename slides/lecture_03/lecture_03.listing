@@ -1,0 +1,11 @@
+# Scale income to $100,000s for numerical stability
+agent_data['income'] = agent_data['income'] / 100
+
+X1 = pyblp.Formulation('0 + hpwt + air + mpd + space + prices')
+X2 = pyblp.Formulation('0 + prices')  # interacts with demographics
+agent_formulation = pyblp.Formulation('0 + income')
+
+problem = pyblp.Problem(
+    (X1, X2), product_data, agent_formulation, agent_data
+)
+results = problem.solve(sigma=0, pi=np.array([[0.5]]))

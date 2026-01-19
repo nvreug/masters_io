@@ -1,11 +1,14 @@
-\frametitle{Step 5: Extract results}
-\begin{lstlisting}
-# Print coefficient estimates
-print(results)
+\frametitle{Estimating Model 2}
+\begin{pycode}
+# Scale income to $100,000s for numerical stability
+agent_data['income'] = agent_data['income'] / 100
 
-# Get elasticities
-elasticities = results.compute_elasticities()
+X1 = pyblp.Formulation('0 + hpwt + air + mpd + space + prices')
+X2 = pyblp.Formulation('0 + prices')  # interacts with demographics
+agent_formulation = pyblp.Formulation('0 + income')
 
-# Get markups (assuming Nash-Bertrand)
-markups = results.compute_markups()
-\end{lstlisting}
+problem = pyblp.Problem(
+    (X1, X2), product_data, agent_formulation, agent_data
+)
+results = problem.solve(sigma=0, pi=np.array([[0.5]]))
+\end{pycode}

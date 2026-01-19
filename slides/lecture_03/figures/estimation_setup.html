@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: 'SF Mono', 'Menlo', 'Monaco', monospace;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            margin: 0;
+        }}
+        .code {
+            background: #2d2d2d;
+            padding: 15px;
+            border-radius: 6px;
+        }
+        pre {
+            margin: 0;
+            font-size: 13px;
+            line-height: 1.6;
+        }
+        .keyword { color: #c586c0; }
+        .function { color: #dcdcaa; }
+        .string { color: #ce9178; }
+        .comment { color: #6a9955; }
+        .number { color: #b5cea8; }
+    </style>
+</head>
+<body>
+    <div class="code">
+        <pre><span class="comment"># Step 1: Define the demand formulation</span>
+formulation = pyblp.<span class="function">Formulation</span>(
+    <span class="string">'1 + hpwt + air + mpd + space + prices'</span>
+)
+
+<span class="comment"># Step 2: Create the estimation problem</span>
+problem = pyblp.<span class="function">Problem</span>(formulation, product_data)
+
+<span class="comment"># Step 3: Solve (estimate coefficients)</span>
+results = problem.<span class="function">solve</span>()
+
+<span class="comment"># Step 4: View results</span>
+<span class="function">print</span>(results)</pre>
+    </div>
+</body>
+</html>

@@ -39,12 +39,12 @@
 
 	\part[3] Own-price elasticity formula:
 	\begin{solution}
-	$\boxed{\eta_{jj} = \alpha p_j (1 - s_j)}$
+	$\boxed{\eta_{jj} = \alpha p_{jt} (1 - s_{jt})}$
 	\end{solution}
 
 	\part[3] True/False: Higher prices = more elastic demand in logit.
 	\begin{solution}
-	\textbf{True.} From the formula $\eta_{jj} = \alpha p_j (1 - s_j)$, since $\alpha < 0$ and $(1-s_j) \approx 1$ for small shares, elasticity is roughly proportional to price. This is a mechanical relationship imposed by the functional form.
+	\textbf{True.} From the formula $\eta_{jj} = \alpha p_{jt} (1 - s_{jt})$, since $\alpha < 0$ and $(1-s_{jt}) \approx 1$ for small shares, elasticity is roughly proportional to price. This is a mechanical relationship imposed by the functional form.
 	\end{solution}
 
 	\part[3] IIA definition:
@@ -89,7 +89,7 @@
 \begin{parts}
 	\part[5] Verify market share for product 1:
 	\begin{solution}
-	$v_j = \delta_j + \alpha p_j$
+	$v_j = \delta_{jt} + \alpha p_{jt}$
 
 	$v_1 = 2.0 + (-0.5)(10) = 2.0 - 5.0 = -3.0$
 
@@ -112,7 +112,7 @@
 
 	\part[5] Own-price elasticities:
 	\begin{solution}
-	$\eta_{jj} = \alpha p_j (1 - s_j)$
+	$\eta_{jj} = \alpha p_{jt} (1 - s_{jt})$
 
 	$\eta_{11} = (-0.5)(10)(1 - 0.25) = (-0.5)(10)(0.75) = -3.75$
 
@@ -136,18 +136,18 @@
 
 	\part[5] Berry inversion:
 	\begin{solution}
-	From logit: $\frac{s_j}{s_0} = \exp(\delta_j + \alpha p_j)$
+	From logit: $\frac{s_{jt}}{s_{0t}} = \exp(\delta_{jt} + \alpha p_{jt})$
 
-	Taking logs: $\ln(s_j) - \ln(s_0) = \delta_j + \alpha p_j$
+	Taking logs: $\ln(s_{jt}) - \ln(s_{0t}) = \delta_{jt} + \alpha p_{jt}$
 
-	\textbf{Berry inversion:} $\boxed{\delta_j + \alpha p_j = \ln(s_j) - \ln(s_0)}$
+	\textbf{Berry inversion:} $\boxed{\delta_{jt} + \alpha p_{jt} = \ln(s_{jt}) - \ln(s_{0t})}$
 
 	This allows us to compute mean utilities directly from observed shares.
 	\end{solution}
 
 	\part[10] Consumer surplus calculation:
 	\begin{solution}
-	Using $v_j = \delta_j + \alpha p_j$:
+	Using $v_j = \delta_{jt} + \alpha p_{jt}$:
 
 	$v_1 = 2.0 - 5.0 = -3.0$, $v_2 = 1.5 - 4.0 = -2.5$, $v_3 = 2.5 - 6.0 = -3.5$
 

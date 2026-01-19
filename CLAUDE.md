@@ -60,6 +60,11 @@ This is an advanced course in "Industrial Organization", which is the study of f
 *Format*
 - Follow the .tex format that I use in `previous_courses/undergraduate_io` for new slides or syllabus
 
+*LaTeX Compilation*
+- **Always recompile all modified .tex files** after making changes
+- Use `pdflatex -interaction=nonstopmode <file>.tex` to compile
+- Verify compilation succeeds before considering the task complete
+
 *Solution Box Formatting*
 - All worked example and practice solution slides use the `solutionbox` environment
 - This provides a light green background with a green left border to visually distinguish solutions
@@ -103,7 +108,14 @@ This is an advanced course in "Industrial Organization", which is the study of f
   - The solution is also on the slides - professor goes through it with students
   - This is a core part of the teaching style
 - **Reveal-style questions:** Pose a question on a slide, discuss with students, then reveal the answer on the next slide (or after a pause). This keeps students engaged.
-- Pattern for key topics: Concept → Worked example (question on slide) → Students try → Solution slide (professor walks through) 
+- Pattern for key topics: Concept → Worked example (question on slide) → Students try → Solution slide (professor walks through)
+
+*Mathematical Derivations*
+- Use "example first, then generalize" approach
+- Pattern: Concrete worked example → Solve step-by-step → Generalize to method
+- Key derivations:
+  - L05: Two-part tariff optimization (FOC shows p* = MC, F* = CS)
+  - L10: Differentiated Bertrand → Merger simulation (connects demand estimation to competition policy)
 
 *Structure*
 - Structure of the course is `Masters IO dates.xlsx`.

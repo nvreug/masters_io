@@ -1,0 +1,373 @@
+% ECN 594: Midterm Review Notes
+% This document contains review material and practice problems for the midterm exam
+\documentclass[11pt]{article}
+\usepackage{fullpage}
+\usepackage[left=1.0in,top=1.0in,right=1.0in,bottom=1.0in]{geometry}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{booktabs}
+\usepackage{hyperref}
+
+\usepackage[dvipsnames]{xcolor}
+\definecolor{asumaroon}{rgb}{0.549,0.114,0.251}
+\hypersetup{colorlinks,breaklinks,linkcolor=asumaroon,urlcolor=asumaroon,anchorcolor=asumaroon,citecolor=black}
+
+\title{ECN 594: Midterm Review Notes}
+\author{Nicholas Vreugdenhil}
+\date{}
+
+\begin{document}
+\maketitle
+
+\section{Demand Estimation}
+
+\subsection{Why Demand Estimation?}
+\begin{itemize}
+	\item We need demand models to:
+	\begin{itemize}
+		\item Measure substitution patterns between products
+		\item Compute price elasticities
+		\item Evaluate policy (mergers, new products, price changes)
+		\item Calculate consumer welfare
+	\end{itemize}
+	\item The dimensionality problem: $J$ products $\rightarrow$ $J^2$ elasticities
+	\item Solution: characteristics-based models (Lancaster, BLP)
+\end{itemize}
+
+\subsection{The Logit Model: Key Equations}
+\begin{itemize}
+	\item Utility: $u_{ijt} = \delta_{jt} + \varepsilon_{ijt}$ where $\delta_{jt} = x_{jt}\beta + \alpha p_{jt} + \xi_{jt}$
+	\item Choice probability (market share):
+	\[
+		s_{jt} = \frac{\exp(\delta_{jt})}{1 + \sum_{k=1}^J \exp(\delta_{kt})}
+	\]
+	\item Outside option: $s_{0t} = \frac{1}{1 + \sum_{k=1}^J \exp(\delta_{kt})}$
+	\item \textbf{Berry inversion:}
+	\[
+		\ln(s_{jt}) - \ln(s_{0t}) = \delta_{jt}
+	\]
+\end{itemize}
+
+\subsection{Logit Elasticities}
+\begin{itemize}
+	\item \textbf{Own-price elasticity:}
+	\[
+		\eta_{jjt} = \frac{\partial s_{jt}}{\partial p_{jt}} \cdot \frac{p_{jt}}{s_{jt}} = \alpha p_{jt} (1 - s_{jt})
+	\]
+	\item \textbf{Cross-price elasticity:}
+	\[
+		\eta_{jkt} = \frac{\partial s_{jt}}{\partial p_{kt}} \cdot \frac{p_{kt}}{s_{jt}} = -\alpha p_{kt} s_{kt}
+	\]
+	\item Note: $\alpha < 0$ so own-price elasticity is negative
+	\item \textbf{IIA problem:} Cross-elasticity depends only on $k$, not on similarity to $j$
+\end{itemize}
+
+\subsection{The Identification Problem}
+\begin{itemize}
+	\item \textbf{Problem:} We observe equilibrium $(p, q)$ pairs
+	\item Can't tell if demand shifted or supply shifted
+	\item \textbf{Price endogeneity:} High unobserved quality $\xi_{jt} \rightarrow$ high price
+	\begin{itemize}
+		\item OLS sees: high price, still high demand
+		\item Concludes: price doesn't matter much
+		\item Result: $\hat{\alpha}$ biased toward zero
+	\end{itemize}
+	\item \textbf{Solution:} Instrumental variables
+	\begin{itemize}
+		\item Need: correlated with price, uncorrelated with $\xi$
+		\item Examples: Hausman IVs, BLP IVs, cost shifters
+	\end{itemize}
+\end{itemize}
+
+\subsection{Consumer Surplus: Log-Sum Formula}
+\begin{itemize}
+	\item Expected utility for consumer $i$:
+	\[
+		E[\max_j u_{ijt}] = \ln\left[\sum_{j=0}^J \exp(\delta_{jt})\right] + \text{constant}
+	\]
+	\item Consumer surplus (in dollars):
+	\[
+		CS = \frac{1}{|\alpha|} \ln\left[\sum_{j=0}^J \exp(\delta_{jt})\right]
+	\]
+	\item Divide by $|\alpha|$ to convert utils to dollars
+	\item \textbf{Application:} Welfare change from adding/removing products
+\end{itemize}
+
+\subsection{The IIA Problem}
+\begin{itemize}
+	\item \textbf{IIA:} Ratio of choice probabilities doesn't depend on other options
+	\[
+		\frac{s_{jt}}{s_{kt}} = \frac{\exp(\delta_{jt})}{\exp(\delta_{kt})} = \exp(\delta_{jt} - \delta_{kt})
+	\]
+	\item \textbf{Red Bus / Blue Bus:} Adding identical bus option incorrectly increases welfare
+	\item \textbf{Problem:} Logit doesn't know similar products are close substitutes
+	\item \textbf{Solutions:}
+	\begin{itemize}
+		\item Demographic interactions (partial fix)
+		\item Mixed logit / random coefficients (full fix, beyond scope)
+	\end{itemize}
+\end{itemize}
+
+\subsection{Quick Summary: Logit Formulas}
+\begin{center}
+\begin{tabular}{ll}
+	\toprule
+	\textbf{Formula} & \textbf{Expression} \\
+	\midrule
+	Own-price elasticity & $\eta_{jjt} = \alpha p_{jt} (1 - s_{jt})$ \\
+	Cross-price elasticity & $\eta_{jkt} = -\alpha p_{kt} s_{kt}$ \\
+	Berry inversion & $\delta_{jt} = \ln(s_{jt}) - \ln(s_{0t})$ \\
+	Consumer surplus & $CS = \frac{1}{|\alpha|} \ln\left[\sum_j \exp(\delta_{jt})\right]$ \\
+	\bottomrule
+\end{tabular}
+\end{center}
+Remember: $\alpha < 0$, so own-price elasticity is negative.
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Practice Problems: Demand Estimation}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Practice: Elasticity Calculation}
+\textbf{Question:} Suppose $\alpha = -0.5$, product A has price $p_A = 20$ and share $s_A = 0.1$.
+\begin{itemize}
+	\item (a) Calculate the own-price elasticity of product A.
+	\item (b) If product B has $p_B = 25$ and $s_B = 0.15$, what is the cross-price elasticity of A with respect to B's price?
+\end{itemize}
+
+\textbf{Solution:}
+\begin{itemize}
+	\item \textbf{(a) Own-price elasticity:}
+	\[
+		\eta_{AA} = \alpha p_A (1 - s_A) = (-0.5)(20)(1 - 0.1) = -9
+	\]
+	Demand is elastic (a 1\% price increase reduces quantity by 9\%)
+	\item \textbf{(b) Cross-price elasticity:}
+	\[
+		\eta_{AB} = -\alpha p_B s_B = -(-0.5)(25)(0.15) = 1.875
+	\]
+	A 1\% increase in B's price increases A's share by 1.875\%
+\end{itemize}
+
+\subsection{Practice: Identification (True/False/NEI)}
+\begin{itemize}
+	\item (a) OLS estimation of demand typically underestimates the price coefficient (in absolute value).
+	\item (b) Using prices of the same product in other geographic markets as an IV is valid because prices in other markets don't affect local demand.
+	\item (c) The logit model solves the dimensionality problem by assuming all products are equally substitutable.
+\end{itemize}
+
+\textbf{Solutions:}
+\begin{itemize}
+	\item \textbf{(a) TRUE.} Price endogeneity biases $\alpha$ toward zero. Since $\alpha < 0$, this means $|\hat{\alpha}_{OLS}| < |\alpha_{true}|$.
+	\item \textbf{(b) TRUE (with caveat).} Hausman IVs work because common cost shocks affect prices in all markets (relevance), but other markets' prices don't directly affect local demand (exclusion). Caveat: requires no common demand shocks.
+	\item \textbf{(c) FALSE.} Logit solves dimensionality by using product characteristics. But the IIA problem means substitution is proportional to share, not similarity.
+\end{itemize}
+
+\subsection{Practice: Berry Inversion}
+\textbf{Question:} A market has 3 products plus outside option. Observed shares: $s_{0t} = 0.4$, $s_1 = 0.3$, $s_2 = 0.2$, $s_3 = 0.1$
+\begin{itemize}
+	\item (a) Compute the mean utilities $\delta_1$, $\delta_2$, $\delta_3$.
+	\item (b) Rank the products by consumer preference.
+\end{itemize}
+
+\textbf{Solution:}
+Using $\delta_{jt} = \ln(s_{jt}) - \ln(s_{0t})$:
+\begin{align*}
+	\delta_1 &= \ln(0.3) - \ln(0.4) = \ln(0.75) \approx -0.29 \\
+	\delta_2 &= \ln(0.2) - \ln(0.4) = \ln(0.5) \approx -0.69 \\
+	\delta_3 &= \ln(0.1) - \ln(0.4) = \ln(0.25) \approx -1.39
+\end{align*}
+\textbf{(b)} Ranking: Product 1 $>$ Product 2 $>$ Product 3. All products have negative mean utility relative to outside option (which is normalized to $\delta_0 = 0$).
+
+\subsection{Practice: Consumer Surplus Change}
+\textbf{Question:} Market has $\delta_0 = 0$, $\delta_1 = 1$, $\delta_2 = 0.5$. Price coefficient $\alpha = -0.5$. If product 1 is removed from the market, what is the consumer surplus loss per consumer?
+
+\textbf{Solution:}
+\begin{itemize}
+	\item \textbf{Before removal:}
+	\[
+		CS^{\text{before}} = \frac{1}{0.5} \ln(e^0 + e^1 + e^{0.5}) = 2 \ln(1 + 2.72 + 1.65) = 2 \ln(5.37) \approx 3.36
+	\]
+	\item \textbf{After removal:}
+	\[
+		CS^{\text{after}} = \frac{1}{0.5} \ln(e^0 + e^{0.5}) = 2 \ln(1 + 1.65) = 2 \ln(2.65) \approx 1.95
+	\]
+	\item \textbf{CS Loss:} $3.36 - 1.95 = \$1.41$ per consumer
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Pricing and Price Discrimination}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Monopoly Pricing: Key Equations}
+\begin{itemize}
+	\item Profit maximization: $\max_q \pi = p(q) \cdot q - c(q)$
+	\item First-order condition: $MR = MC$
+	\item \textbf{Lerner index:}
+	\[
+		L = \frac{p - MC}{p} = \frac{1}{|\varepsilon|}
+	\]
+	\item \textbf{Interpretation:} Markup is inversely related to elasticity
+	\item Equivalently: $p = \frac{MC}{1 - 1/|\varepsilon|}$
+\end{itemize}
+
+\subsection{Types of Price Discrimination}
+\begin{enumerate}
+	\item \textbf{Perfect price discrimination}
+	\begin{itemize}
+		\item Charge each consumer their exact WTP
+		\item Benchmark; rarely feasible
+	\end{itemize}
+	\item \textbf{Selection by indicators}
+	\begin{itemize}
+		\item Different prices for observable groups
+		\item Example: student discounts, geographic pricing
+	\end{itemize}
+	\item \textbf{Self-selection}
+	\begin{itemize}
+		\item Design menu to induce type revelation
+		\item Example: versioning, bundling
+	\end{itemize}
+\end{enumerate}
+
+\subsection{Selection by Indicators: Inverse Elasticity Rule}
+\begin{itemize}
+	\item Two markets with different elasticities
+	\item Apply Lerner in each market:
+	\[
+		\frac{p_1 - MC}{p_1} = \frac{1}{|\varepsilon_1|} \quad \text{and} \quad \frac{p_2 - MC}{p_2} = \frac{1}{|\varepsilon_2|}
+	\]
+	\item \textbf{Key insight:} Charge higher price in more inelastic market
+	\item Rearranging: $p = \frac{MC}{1 - 1/|\varepsilon|}$
+\end{itemize}
+
+\subsection{Two-Part Tariffs}
+\begin{itemize}
+	\item Structure: $\text{Payment} = F + p \cdot q$
+	\item \textbf{Optimal (homogeneous consumers):}
+	\begin{itemize}
+		\item Set $p = MC$ (maximize total surplus)
+		\item Set $F = CS(p = MC)$ (extract all surplus)
+	\end{itemize}
+	\item \textbf{Result:} Firm captures entire surplus; efficient but inequitable
+	\item \textbf{Heterogeneous consumers:} Tradeoff between extraction and participation
+\end{itemize}
+
+\subsection{Self-Selection: IC and IR Constraints}
+\begin{itemize}
+	\item \textbf{IC (Incentive Compatibility):} Each type prefers their option
+	\[
+		\text{IC}_H: \quad v_H^F - p_F \geq v_H^S - p_S
+	\]
+	\item \textbf{IR (Individual Rationality):} Each type willing to participate
+	\[
+		\text{IR}_L: \quad v_L^S - p_S \geq 0
+	\]
+	\item \textbf{Optimal menu:} IC binds for H, IR binds for L
+	\item H gets ``information rent''; L gets zero surplus
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Practice Problems: Pricing}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Practice: Lerner Index}
+\textbf{Question:} A monopolist faces demand $p = 100 - 2q$ and has constant marginal cost $MC = 20$.
+\begin{itemize}
+	\item (a) Find the profit-maximizing price and quantity.
+	\item (b) Calculate the Lerner index.
+	\item (c) Verify using the elasticity formula.
+\end{itemize}
+
+\textbf{Solution:}
+\begin{itemize}
+	\item \textbf{(a)} $MR = 100 - 4q$. Set $MR = MC$: $100 - 4q = 20 \Rightarrow q = 20$. Price: $p = 100 - 2(20) = 60$
+	\item \textbf{(b)} Lerner index: $L = \frac{60 - 20}{60} = \frac{40}{60} = \frac{2}{3}$
+	\item \textbf{(c)} Elasticity: $\varepsilon = \frac{dq}{dp} \cdot \frac{p}{q} = -\frac{1}{2} \cdot \frac{60}{20} = -1.5$. Check: $L = \frac{1}{|\varepsilon|} = \frac{1}{1.5} = \frac{2}{3}$ $\checkmark$
+\end{itemize}
+
+\subsection{Practice: Selection by Indicators}
+\textbf{Question:} A firm sells in two markets. Market A has $\varepsilon_A = -3$. Market B has $\varepsilon_B = -5$. Marginal cost is $MC = 10$. Find the optimal price in each market.
+
+\textbf{Solution:}
+Using $p = \frac{MC}{1 - 1/|\varepsilon|}$:
+\begin{itemize}
+	\item \textbf{Market A:} $p_A = \frac{10}{1 - 1/3} = \frac{10}{2/3} = 15$
+	\item \textbf{Market B:} $p_B = \frac{10}{1 - 1/5} = \frac{10}{4/5} = 12.50$
+\end{itemize}
+Higher price in more inelastic market (A).
+
+\subsection{Practice: Self-Selection}
+\textbf{Question:} Two products (Premium, Basic), two consumer types.
+\begin{center}
+	\begin{tabular}{|c|c|c|}
+		\hline
+		& Premium & Basic \\
+		\hline
+		High type & 100 & 60 \\
+		Low type & 50 & 40 \\
+		\hline
+	\end{tabular}
+\end{center}
+$MC = 20$ for both. Equal numbers of each type. A firm considers: $p_P = 100$, $p_B = 40$.
+\begin{itemize}
+	\item (a) What does each type buy?
+	\item (b) Is this menu optimal? If not, what should change?
+\end{itemize}
+
+\textbf{Solution:}
+\begin{itemize}
+	\item \textbf{(a) Consumer choices:}
+	\begin{itemize}
+		\item High type: $CS_P = 100 - 100 = 0$, $CS_B = 60 - 40 = 20$. High type buys Basic! (IC violated)
+		\item Low type: $CS_P = 50 - 100 = -50$, $CS_B = 40 - 40 = 0$. Low type buys Basic
+	\end{itemize}
+	\item \textbf{(b) Not optimal.} Need to lower $p_P$ so IC binds. IC binds when: $100 - p_P = 60 - 40 = 20 \Rightarrow p_P = 80$. Optimal menu: $p_P = 80$, $p_B = 40$
+\end{itemize}
+
+\subsection{Practice: Two-Part Tariff}
+\textbf{Question:} A gym has demand $q = 20 - p$ from each consumer. Marginal cost is $MC = 4$.
+\begin{itemize}
+	\item (a) What is the optimal two-part tariff $(F, p)$?
+	\item (b) What is the firm's profit per customer?
+	\item (c) What would happen if firm charged $p = 10$ and $F = 50$?
+\end{itemize}
+
+\textbf{Solution:}
+\begin{itemize}
+	\item \textbf{(a)} Optimal: $p = MC = 4$. At $p = 4$: $q = 20 - 4 = 16$. Consumer surplus: $CS = \frac{1}{2}(20-4)(16) = 128$. Optimal fee: $F = 128$
+	\item \textbf{(b)} Profit per customer: $F + (p - MC)q = 128 + 0 = 128$
+	\item \textbf{(c)} At $p = 10$: $q = 10$, $CS = \frac{1}{2}(20-10)(10) = 50$. $F = 50$ is feasible, but profit = $50 + (10-4)(10) = 110 < 128$. Lesson: $p > MC$ leaves money on the table!
+\end{itemize}
+
+\subsection{Practice: Backing Out Marginal Cost}
+\textbf{Question:} Firm observes price $p = 50$ and elasticity $\varepsilon = -2$.
+\begin{itemize}
+	\item (a) What is the firm's marginal cost?
+	\item (b) If the elasticity were actually $-4$, what would $MC$ be?
+	\item (c) What does this say about the importance of accurate elasticity estimates?
+\end{itemize}
+
+\textbf{Solution:}
+Using Lerner: $MC = p\left(1 - \frac{1}{|\varepsilon|}\right)$
+\begin{itemize}
+	\item \textbf{(a)} $MC = 50(1 - 1/2) = 50(0.5) = 25$
+	\item \textbf{(b)} $MC = 50(1 - 1/4) = 50(0.75) = 37.5$
+	\item \textbf{(c)} Key insight: inferred MC is very sensitive to elasticity! Doubling $|\varepsilon|$ increased inferred $MC$ by 50\%. This matters for merger analysis: need accurate elasticities.
+\end{itemize}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\section{Key Points Summary}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{enumerate}
+	\item \textbf{Logit:} $s_{jt} = \exp(\delta_{jt})/[1 + \Sigma\exp(\delta_{kt})]$
+	\item \textbf{Berry inversion:} $\ln(s_{jt}) - \ln(s_{0t}) = \delta_{jt}$
+	\item \textbf{Elasticities:} Own: $\alpha p_{jt}(1-s_{jt})$; Cross: $-\alpha p_{kt} s_{kt}$
+	\item \textbf{IVs needed} because $E[p_{jt} \xi_{jt}] \neq 0$; bias toward zero
+	\item \textbf{Lerner:} $L = (p-MC)/p = 1/|\varepsilon|$
+	\item \textbf{Selection by indicators:} Higher price in inelastic market
+	\item \textbf{Two-part tariff:} $p = MC$, $F = CS$
+	\item \textbf{Self-selection:} IC binds for high type, IR for low type
+\end{enumerate}
+
+\end{document}

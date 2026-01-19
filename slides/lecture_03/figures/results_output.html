@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <style>
+        body {
+            font-family: 'SF Mono', 'Menlo', 'Monaco', monospace;
+            background: #1e1e1e;
+            color: #d4d4d4;
+            padding: 20px;
+            margin: 0;
+        }
+        .header {
+            color: #569cd6;
+            font-size: 16px;
+            margin-bottom: 15px;
+            font-weight: bold;
+        }
+        .results-box {
+            background: #2d2d2d;
+            padding: 25px;
+            border-radius: 8px;
+            display: inline-block;
+        }
+        table {
+            border-collapse: collapse;
+            font-size: 15px;
+        }
+        th {
+            text-align: left;
+            color: #4ec9b0;
+            padding: 12px 20px;
+            border-bottom: 2px solid #444;
+            font-weight: bold;
+        }
+        td {
+            padding: 10px 20px;
+        }
+        .var { color: #d4d4d4; }
+        .coef { color: #dcdcaa; text-align: right; font-family: monospace; }
+        .se { color: #888; text-align: right; font-size: 13px; }
+        .sig { color: #4ec9b0; }
+        .note { color: #888; font-size: 12px; margin-top: 15px; }
+    </style>
+</head>
+<body>
+    <div class="header">Logit Demand Estimation Results</div>
+    <div class="results-box">
+        <table>
+            <tr>
+                <th>Variable</th>
+                <th style="text-align: right">Coefficient</th>
+                <th style="text-align: right">Std. Error</th>
+            </tr>
+            <tr>
+                <td class="var">Constant</td>
+                <td class="coef">   -9.8927<span class="sig">***</span></td>
+                <td class="se">(0.2662)</td>
+            </tr>
+            <tr>
+                <td class="var">HP/Weight</td>
+                <td class="coef">    1.3303<span class="sig">***</span></td>
+                <td class="se">(0.4166)</td>
+            </tr>
+            <tr>
+                <td class="var">Air</td>
+                <td class="coef">    0.6783<span class="sig">***</span></td>
+                <td class="se">(0.1398)</td>
+            </tr>
+            <tr>
+                <td class="var">Miles/$</td>
+                <td class="coef">    0.1828<span class="sig">***</span></td>
+                <td class="se">(0.0462)</td>
+            </tr>
+            <tr>
+                <td class="var">Space</td>
+                <td class="coef">    2.3722<span class="sig">***</span></td>
+                <td class="se">(0.1298)</td>
+            </tr>
+            <tr>
+                <td class="var">Price</td>
+                <td class="coef">   -0.1499<span class="sig">***</span></td>
+                <td class="se">(0.0117)</td>
+            </tr>
+        </table>
+        <p class="note">N = 2,217 | 20 markets | Robust SEs | *** p&lt;0.01</p>
+    </div>
+</body>
+</html>
