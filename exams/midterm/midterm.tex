@@ -42,92 +42,74 @@
 \begin{questions}
 
 \subsection*{1. Short Answer Questions (30 points)}
-\vspace{11pt}
-\question For each question, write either:
-\begin{itemize}
-	\item a number or formula
-	\item one of: True, False, or NEI (Not Enough Information)
-	\item a brief definition or explanation (one sentence)
-\end{itemize}
-\vspace{11pt}
+\vspace{5pt}
+\question For each question, give a number, True/False/NEI, or a 1-2 sentence answer.
+\vspace{5pt}
 \begin{parts}
-	\part[3] A monopolist faces demand with elasticity $\varepsilon = -2$. The Lerner index is:
+	\part[4] A monopolist faces demand with elasticity $\varepsilon = -2$ and has $MC = \$30$. What is the profit-maximizing price?
 
-	\answerline
+	\vspace{2cm}
 
-	\part[3] Write the Berry inversion formula that relates market shares to mean utilities in the logit model.
+	\part[4] Consider the logit utility: $u_{ijt} = \beta \cdot \text{sugar}_j + \alpha \cdot p_{jt} + \xi_{jt} + \varepsilon_{ijt}$. What is the economic interpretation of $\alpha$?
 
-	\answerline
+	\vspace{2cm}
 
-	\part[3] True, False, or NEI: Adding demographic interactions to a logit model fully solves the IIA problem.
+	\part[4] True, False, or NEI: If we add 5 to the mean utility of all goods (including the outside option), the market shares do not change.
 
-	\answerline
+	\vspace{2cm}
 
-	\part[3] What is the economic interpretation of the price coefficient $\alpha$ in the logit demand model?
+	\part[4] Why are BLP instruments (characteristics of other products) \textit{relevant} for price? (1-2 sentences)
 
-	\answerline
+	\vspace{2cm}
 
-	\part[3] True, False, or NEI: If marginal cost increases by \$1, a monopolist with linear demand will raise price by exactly \$1.
+	\part[4] True, False, or NEI: In the logit model with small market shares, higher-priced products typically have more elastic demand.
 
-	\answerline
+	\vspace{2cm}
 
-	\part[3] True, False, or NEI: Under a two-part tariff with homogeneous consumers, the optimal per-unit price equals marginal cost.
+	\part[3] True, False, or NEI: Under average cost pricing ($P = AC$), deadweight loss is zero.
 
-	\answerline
+	\vspace{2cm}
 
-	\part[3] Name one reason why the ``BLP instruments'' (characteristics of other products) help identify the price coefficient.
+	\part[4] A researcher claims that consumer surplus in logit is $CS = \frac{1}{|\alpha|} \left( \exp(\delta_1) + \exp(\delta_2) \right)$. Consider a market with two goods ($\delta_1 = \delta_2 = 2$) and an outside option. Is this formula correct? Explain.
 
-	\answerline
+	\vspace{3cm}
 
-	\part[3] True, False, or NEI: In a self-selection problem, the binding incentive compatibility constraint is that the low type must not prefer the high-type product.
+\newpage
 
-	\answerline
+	\part[3] True, False, or NEI: Under perfect price discrimination, deadweight loss is zero.
 
-	\part[3] What is ``versioning'' in the context of self-selection?
-
-	\answerline
-
-	\part[3] True, False, or NEI: Consumer surplus in the logit model can be computed using the log-sum formula: $CS = \frac{1}{|\alpha|} \ln(1 + \sum_j \exp(v_j))$.
-
-	\answerline
+	\vspace{2cm}
 
 \end{parts}
 
 \newpage
 \subsection*{2. Demand Estimation (30 points)}
-\question Consider a market with 3 differentiated products. The logit demand model is:
-$$u_{ijt} = \delta_{jt} + \alpha p_{jt} + \varepsilon_{ijt}$$
-where $\alpha = -0.5$ is the price coefficient.
-
-The following data are observed:
-\begin{center}
-\begin{tabular}{lccc}
-\toprule
-Product & Price ($p_j$) & Mean Utility ($\delta_{jt}$) \\
-\midrule
-1 & \$20 & 4.0 \\
-2 & \$15 & 3.0 \\
-3 & \$10 & 2.0 \\
-\bottomrule
-\end{tabular}
-\end{center}
+\question A researcher wants to estimate demand for automobiles using a logit model:
+$$u_{ijt} = \beta \cdot \text{mpg}_{j} + \alpha \cdot p_{jt} + \xi_{jt} + \varepsilon_{ijt}$$
+where $\text{mpg}_j$ is fuel efficiency, $p_{jt}$ is price, $\xi_{jt}$ is unobserved product quality, and $\varepsilon_{ijt}$ is i.i.d. Type 1 Extreme Value.
 
 \begin{parts}
-	\part[8] Compute $v_j = \delta_{jt} + \alpha p_{jt}$ for each product. Then compute the market shares using:
-	$$s_{jt} = \frac{\exp(v_j)}{1 + \sum_k \exp(v_k)}$$
-
-	\vspace{5cm}
-
-	\part[6] Compute the own-price elasticity for each product using $\eta_{jj} = \alpha p_j (1 - s_j)$. Which product has the most elastic demand?
+	\part[5] Define the mean utility $\delta_{jt}$. Using the Berry inversion, derive an expression for $\delta_{jt}$ in terms of observed market shares $s_{jt}$ and the outside option share $s_{0t}$.
 
 	\vspace{4cm}
 
-	\part[6] A researcher estimates demand using OLS (regressing $\ln(s_{jt}) - \ln(s_{0t})$ on price and product characteristics). Explain why this leads to biased estimates of $\alpha$. What is the direction of the bias?
+	\part[5] Write down the linear regression equation the researcher would estimate to recover $\beta$ and $\alpha$. Clearly identify the dependent variable, regressors, and error term.
 
 	\vspace{4cm}
 
-	\part[10] Using the log-sum formula, compute consumer surplus per consumer. If product 3 is removed from the market, what is the change in consumer surplus?
-	$$CS = \frac{1}{|\alpha|} \ln\left(1 + \sum_j \exp(v_j)\right)$$
+	\part[5] Why does OLS produce biased estimates of $\alpha$? What is the likely direction of the bias? (2-3 sentences)
+
+	\vspace{4cm}
+
+	\part[5] A researcher proposes using ``Hausman instruments'' (prices of the same car in other markets) to address the endogeneity problem. Explain one reason why these instruments might be problematic.
+
+	\vspace{4cm}
+
+	\part[5] Compared to the basic logit, what is one advantage of adding demographic interactions (e.g., income $\times$ price) to the model?
+
+	\vspace{3cm}
+
+	\part[5] A researcher takes all Toyota Corollas and splits them into two ``products'' based on the last digit of their license plate: ``Corolla-Odd'' and ``Corolla-Even.'' What will the logit model predict about the change in consumer surplus from this split? Should we believe this prediction? Explain.
 
 \end{parts}
 

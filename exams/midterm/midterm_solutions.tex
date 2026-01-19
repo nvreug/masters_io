@@ -9,6 +9,9 @@
 \usepackage{amssymb}
 \usepackage{booktabs}
 
+\unframedsolutions
+\renewcommand{\solutiontitle}{}
+
 \title{ECN 594: Midterm Exam - SOLUTIONS}
 \rhead{\footnotesize ECN 594: Midterm Solutions}
 
@@ -22,264 +25,150 @@
 \subsection*{1. Short Answer Questions (30 points)}
 \question
 \begin{parts}
-	\part[3] Lerner index with $\varepsilon = -2$:
+	\part[4] Profit-maximizing price:
 	\begin{solution}
-	$L = \frac{P - MC}{P} = \frac{1}{|\varepsilon|} = \frac{1}{2} = \boxed{0.5}$
+	$\frac{P - MC}{P} = \frac{1}{|\varepsilon|} = \frac{1}{2} \implies P - 30 = 0.5P \implies P^* = \$60$
 	\end{solution}
 
-	\part[3] Berry inversion formula:
+	\part[4] Interpretation of $\alpha$:
 	\begin{solution}
-	$\boxed{\ln(s_{jt}) - \ln(s_{0t}) = \delta_{jt} + \alpha p_{jt}}$
-
-	Or equivalently: $\delta_{jt} = \ln(s_{jt}) - \ln(s_{0t}) - \alpha p_{jt}$
+	$\alpha$ is the price coefficient in \underline{dollars}: if price goes up by \$1, utility decreases by $\alpha$ dollars.
 	\end{solution}
 
-	\part[3] Demographics and IIA:
+	\part[4] Adding 5 to all goods (including outside option):
 	\begin{solution}
-	\textbf{False.} Demographics help at the aggregate level by creating different consumer segments, but for any individual consumer type, IIA still holds. Only random coefficients (mixed logit) fully address IIA by allowing idiosyncratic preferences.
+	True. $s_j = \frac{e^{\delta_j + 5}}{e^5 + \sum_k e^{\delta_k + 5}} = \frac{e^5 \cdot e^{\delta_j}}{e^5(1 + \sum_k e^{\delta_k})} = \frac{e^{\delta_j}}{1 + \sum_k e^{\delta_k}}$
 	\end{solution}
 
-	\part[3] Interpretation of $\alpha$:
+	\part[4] BLP instruments relevance:
 	\begin{solution}
-	$\alpha$ is the marginal disutility of price (negative because higher prices reduce utility). It can be interpreted as the negative of the marginal utility of income, relating utils to dollars. It determines price sensitivity and is used to convert utility changes to dollar-equivalent consumer surplus.
+	More/closer competitors $\rightarrow$ more competition $\rightarrow$ lower prices.
 	\end{solution}
 
-	\part[3] Cost pass-through with linear demand:
+	\part[4] Higher-priced products typically more elastic:
 	\begin{solution}
-	\textbf{False.} With linear demand $P = a - bQ$, the monopolist passes through only 50\% of cost increases. If $MC$ increases by \$1, the optimal price increases by \$0.50.
-
-	(Derivation: FOC gives $P = \frac{a + MC}{2}$, so $\frac{dP}{dMC} = \frac{1}{2}$)
+	True. $\eta_{jj} \approx \alpha p_j$ when $s_j$ small. Since $\alpha < 0$, higher $p_j$ $\rightarrow$ more elastic.
 	\end{solution}
 
-	\part[3] Two-part tariff optimal price:
+	\part[3] DWL under average cost pricing:
 	\begin{solution}
-	\textbf{True.} With homogeneous consumers, the optimal two-part tariff sets $p = MC$ to maximize total surplus (eliminate deadweight loss), then extracts all consumer surplus via the fixed fee $F = CS$.
+	False. $P = AC > MC$ $\Rightarrow$ consumers with WTP $\in (MC, AC)$ don't buy $\Rightarrow$ DWL $> 0$.
 	\end{solution}
 
-	\part[3] Why BLP instruments work:
+	\part[4] False CS formula (two goods example):
 	\begin{solution}
-	BLP instruments (characteristics of other products) affect the firm's competitive environment, which shifts the firm's pricing behavior. Products facing more similar competitors charge lower prices. These characteristics are correlated with price (relevance) but uncorrelated with unobserved demand shocks (exclusion)---other products' characteristics don't directly affect own-product demand.
+	Incorrect. Correct formula is $CS = \frac{1}{|\alpha|} \ln(1 + e^{\delta_1} + e^{\delta_2}) = \frac{\ln(1 + 2e^2)}{|\alpha|} \approx \frac{2.76}{|\alpha|}$.
+
+	The proposed formula gives $\frac{2e^2}{|\alpha|} \approx \frac{14.8}{|\alpha|}$---missing the log.
 	\end{solution}
 
-	\part[3] Which IC constraint binds:
+	\part[3] DWL under perfect price discrimination:
 	\begin{solution}
-	\textbf{False.} The binding IC constraint is that the \textbf{high type must not prefer the low-type product}. The high type is tempted to ``mimic'' the low type to get a lower price. The low type's IC typically doesn't bind because the high-quality product is priced too high for them anyway.
-	\end{solution}
-
-	\part[3] Versioning:
-	\begin{solution}
-	\textbf{Versioning} is creating multiple versions of a product at different quality levels to induce consumer self-selection. Often involves ``damaging'' a product (adding restrictions, removing features) to make it less attractive to high-value consumers. Examples: software lite vs. pro, airline economy vs. business, student editions.
-	\end{solution}
-
-	\part[3] Consumer surplus formula:
-	\begin{solution}
-	\textbf{True.} $CS = \frac{1}{|\alpha|} \ln(1 + \sum_j \exp(v_j))$ where $v_j = \delta_{jt} + \alpha p_{jt}$.
-
-	The inclusive value is $IV = \ln(1 + \sum_j \exp(v_j))$, and $CS = IV / |\alpha|$.
+	True. Sells to all with WTP $\geq$ MC $\Rightarrow$ efficient quantity $\Rightarrow$ DWL = 0.
 	\end{solution}
 \end{parts}
 
-\newpage
 \subsection*{2. Demand Estimation (30 points)}
 \question
 \begin{parts}
-	\part[8] Compute $v_j$ and market shares:
+	\part[5] Define $\delta_{jt}$ and derive Berry inversion:
 	\begin{solution}
-	$v_j = \delta_{jt} + \alpha p_{jt}$ with $\alpha = -0.5$:
+	$\delta_{jt} = \beta \cdot \text{mpg}_j + \alpha \cdot p_{jt} + \xi_{jt}$ (part of utility common to all consumers).
 
-	$v_1 = 4.0 + (-0.5)(20) = 4.0 - 10.0 = -6.0$
-
-	$v_2 = 3.0 + (-0.5)(15) = 3.0 - 7.5 = -4.5$
-
-	$v_3 = 2.0 + (-0.5)(10) = 2.0 - 5.0 = -3.0$
-
-	$\exp(v_j)$: $e^{-6.0} = 0.00248$, $e^{-4.5} = 0.0111$, $e^{-3.0} = 0.0498$
-
-	Denominator: $1 + 0.00248 + 0.0111 + 0.0498 = 1.0634$
-
-	Market shares:
-
-	$s_1 = 0.00248 / 1.0634 = \boxed{0.0023}$ (0.23\%)
-
-	$s_2 = 0.0111 / 1.0634 = \boxed{0.0104}$ (1.04\%)
-
-	$s_3 = 0.0498 / 1.0634 = \boxed{0.0468}$ (4.68\%)
-
-	$s_{0} = 1 / 1.0634 = 0.940$ (94.0\%)
+	Berry inversion: $\delta_{jt} = \ln(s_{jt}) - \ln(s_{0t})$
 	\end{solution}
 
-	\part[6] Own-price elasticities:
+	\part[5] Regression equation:
 	\begin{solution}
-	$\eta_{jj} = \alpha p_{j} (1 - s_{j})$
+	$\ln(s_{jt}) - \ln(s_{0t}) = \beta \cdot \text{mpg}_j + \alpha \cdot p_{jt} + \xi_{jt}$
 
-	$\eta_{11} = (-0.5)(20)(1 - 0.0023) = (-0.5)(20)(0.9977) = \boxed{-9.98}$
-
-	$\eta_{22} = (-0.5)(15)(1 - 0.0104) = (-0.5)(15)(0.9896) = \boxed{-7.42}$
-
-	$\eta_{33} = (-0.5)(10)(1 - 0.0468) = (-0.5)(10)(0.9532) = \boxed{-4.77}$
-
-	\textbf{Product 3 has the most inelastic demand} ($|\eta_{33}| = 4.77$), driven by its lower price.
+	Dependent variable: $\ln(s_{jt}) - \ln(s_{0t})$. Regressors: $\text{mpg}_j$, $p_{jt}$. Error: $\xi_{jt}$.
 	\end{solution}
 
-	\part[6] OLS bias:
+	\part[5] OLS bias:
 	\begin{solution}
-	OLS is biased because price $p_j$ is correlated with the error term (unobserved quality $\xi_j$).
+	$\text{Cov}(p_{jt}, \xi_{jt}) > 0$: high-quality cars command higher prices.
 
-	\textbf{Mechanism:} Firms with higher unobserved quality (better brand, taste, advertising) can charge higher prices. This creates positive correlation: $\text{Cov}(p_j, \xi_j) > 0$.
-
-	\textbf{Direction:} Upward bias (less negative $\alpha$). OLS interprets high prices with high shares as ``consumers aren't price sensitive'' when really high $\xi_j$ is driving both.
-
-	\textbf{Solution:} Use instrumental variables (cost shifters, BLP instruments) that are correlated with price but uncorrelated with $\xi_j$.
+	Upward bias (less negative $\hat{\alpha}$): OLS attributes high demand for expensive cars to low price sensitivity rather than unobserved quality.
 	\end{solution}
 
-	\part[10] Consumer surplus calculation:
+	\part[5] Hausman instruments:
 	\begin{solution}
-	$IV = \ln(1 + \sum_j \exp(v_j)) = \ln(1.0634) = 0.0615$
+	If $\xi_{jt}$ is correlated across markets (e.g., brand reputation), then other-market prices are correlated with own-market $\xi_{jt}$, violating the exclusion restriction.
+	\end{solution}
 
-	$CS = \frac{IV}{|\alpha|} = \frac{0.0615}{0.5} = \boxed{\$0.123}$ per consumer
+	\part[5] Advantage of demographic interactions:
+	\begin{solution}
+	Allows heterogeneous price sensitivity across consumers, partially addressing IIA: substitution patterns depend on which consumers buy each product.
+	\end{solution}
 
-	\textbf{Without product 3:}
+	\part[5] Corolla-Odd vs. Corolla-Even:
+	\begin{solution}
+	Model predicts CS increases: $CS = \frac{1}{|\alpha|} \ln(1 + \sum_j \exp(\delta_j))$ rises when products are added.
 
-	$IV' = \ln(1 + e^{-6.0} + e^{-4.5}) = \ln(1 + 0.00248 + 0.0111) = \ln(1.0136) = 0.0135$
-
-	$CS' = \frac{0.0135}{0.5} = \$0.027$
-
-	$\Delta CS = 0.027 - 0.123 = \boxed{-\$0.096}$ per consumer
-
-	Consumers lose about 9.6 cents per person from removing product 3.
+	Should we believe it? No. The ``products'' are physically identical---consumers don't care about license plates. This is an example of the ``red-bus blue-bus'' problem.
 	\end{solution}
 \end{parts}
 
-\newpage
 \subsection*{3. Two-Part Tariffs (20 points)}
 \question
 \begin{parts}
 	\part[5] Profit as a function of $F$ and $p$:
 	\begin{solution}
-	Each consumer's demand: $q = 20 - 2p$
+	$q = 20 - 2p$, choke price $p = 10$.
 
-	Consumer surplus at price $p$: $CS(p) = \frac{1}{2} \cdot q \cdot (10 - p) = \frac{1}{2}(20-2p)(10-p) = (10-p)^2$
+	$CS(p) = \frac{1}{2}(20-2p)(10-p) = (10-p)^2$, so max fee $F = (10-p)^2$.
 
-	(The choke price is $p = 10$ where $q = 0$.)
-
-	Maximum fee: $F = CS(p) = (10-p)^2$
-
-	Per-visit profit margin: $(p - c) = (p - 2)$
-
-	Profit per consumer: $\pi = F + (p-c) \cdot q = (10-p)^2 + (p-2)(20-2p)$
-
-	Total profit (100 consumers): $\boxed{\Pi = 100 \left[ (10-p)^2 + (p-2)(20-2p) \right]}$
+	$\Pi = 100 \left[ (10-p)^2 + (p-2)(20-2p) \right]$
 	\end{solution}
 
 	\part[5] Show $p^* = c = 2$:
 	\begin{solution}
-	Per-consumer profit: $\pi(p) = (10-p)^2 + (p-2)(20-2p)$
+	$\frac{d\pi}{dp} = -2(10-p) + (20-2p) - 2(p-2) = 4 - 2p$
 
-	Take derivative with respect to $p$:
-
-	$\frac{d\pi}{dp} = 2(10-p)(-1) + (20-2p) + (p-2)(-2)$
-
-	$= -2(10-p) + (20-2p) - 2(p-2)$
-
-	$= -20 + 2p + 20 - 2p - 2p + 4$
-
-	$= 4 - 2p$
-
-	Set equal to zero: $4 - 2p = 0 \Rightarrow \boxed{p^* = 2 = c}$
-
-	\textbf{Intuition:} Setting $p = MC$ maximizes total surplus (no deadweight loss). The firm then extracts all surplus via the fee $F$.
+	$4 - 2p = 0 \Rightarrow p^* = 2 = c$
 	\end{solution}
 
 	\part[10] Comparing two pricing strategies:
 	\begin{solution}
-	First, compute consumer surplus at $p = 0$:
-	\begin{itemize}
-		\item Heavy users: $q_H = 10$, $CS_H = \frac{1}{2}(10)(10) = 50$
-		\item Light users: $q_L = 5$, $CS_L = \frac{1}{2}(5)(5) = 12.5$
-	\end{itemize}
+	At $p = 0$: $CS_H = \frac{1}{2}(10)(10) = 50$, $CS_L = \frac{1}{2}(5)(5) = 12.5$.
 
-	\textbf{(a) $F = 50$, $p = 0$:}
-	\begin{itemize}
-		\item Heavy: $CS_H = 50 \geq F = 50$, so they join
-		\item Light: $CS_L = 12.5 < F = 50$, so they don't join
-		\item Profit $= 50 \times 50 = \boxed{\$2,500}$
-	\end{itemize}
+	(a) $F = 50$: Heavy join ($CS_H = 50 \geq F$), light don't ($CS_L = 12.5 < F$). Profit $= 50 \times 50 = \$2,500$.
 
-	\textbf{(b) $F = 12.5$, $p = 0$:}
-	\begin{itemize}
-		\item Heavy: $CS_H = 50 \geq F = 12.5$, so they join
-		\item Light: $CS_L = 12.5 \geq F = 12.5$, so they join
-		\item Profit $= 150 \times 12.5 = \boxed{\$1,875}$
-	\end{itemize}
+	(b) $F = 12.5$: Both join. Profit $= 150 \times 12.5 = \$1,875$.
 
-	\textbf{Strategy (a) is better.} It's more profitable to serve only heavy users and charge them their full surplus, rather than lowering the fee to attract light users.
+	Strategy (a) is better.
 	\end{solution}
 \end{parts}
 
-\newpage
 \subsection*{4. Self-Selection (20 points)}
 \question
 \begin{parts}
 	\part[4] Perfect price discrimination:
 	\begin{solution}
-	Charge each type their full WTP for their preferred version:
+	Businesses: $P_P = \$400$. Students: $P_B = \$100$.
 
-	Businesses: $P_P = \$400$, sell Pro
-
-	Students: $P_B = \$100$, sell Basic
-
-	Profit: $40(400 - 30) + 60(100 - 30) = 40(370) + 60(70) = 14,800 + 4,200 = \boxed{\$19,000}$
+	Profit $= 40(370) + 60(70) = \$19,000$
 	\end{solution}
 
 	\part[4] IC constraint for businesses:
 	\begin{solution}
-	Businesses must prefer Pro to Basic:
-
-	$WTP_P^{Bus} - P_P \geq WTP_B^{Bus} - P_B$
-
-	$400 - P_P \geq 150 - P_B$
-
-	$\boxed{P_P - P_B \leq 250}$
-
-	(Or equivalently: $P_P \leq P_B + 250$)
+	$400 - P_P \geq 150 - P_B \implies P_P - P_B \leq 250$
 	\end{solution}
 
 	\part[6] Why $P_P = \$380$, $P_B = \$100$ is not optimal:
 	\begin{solution}
-	Check the business IC constraint:
+	Business surplus from Pro: $400 - 380 = 20$. From Basic: $150 - 100 = 50$.
 
-	Business surplus from Pro: $400 - 380 = 20$
-
-	Business surplus from Basic: $150 - 100 = 50$
-
-	Since $20 < 50$, \textbf{businesses prefer Basic to Pro!}
-
-	$\boxed{\text{The business IC constraint is violated: } P_P - P_B = 280 > 250}$
-
-	At these prices, businesses would buy Basic (getting surplus of \$50) rather than Pro (surplus of \$20). The firm loses the high-margin Pro sales to businesses.
+	Since $20 < 50$, businesses prefer Basic. IC violated: $P_P - P_B = 280 > 250$.
 	\end{solution}
 
 	\part[6] Self-selection prices:
 	\begin{solution}
-	Constraints:
-	\begin{itemize}
-	\item IC for businesses: $400 - P_P \geq 150 - P_B$, i.e., $P_P \leq P_B + 250$
-	\item IC for students: $100 - P_B \geq 120 - P_P$, i.e., $P_P \geq P_B + 20$
-	\item IR for students: $P_B \leq 100$
-	\item IR for businesses: $P_P \leq 400$
-	\end{itemize}
+	Binding: Student IR ($P_B = 100$) and Business IC ($P_P = P_B + 250 = 350$).
 
-	The binding constraints are:
-	\begin{itemize}
-	\item Student IR: $P_B = 100$ (extract all student surplus)
-	\item Business IC: $P_P = P_B + 250 = 350$ (businesses just indifferent)
-	\end{itemize}
-
-	Check student IC: $100 - 100 = 0 \geq 120 - 350 = -230$ \checkmark
-
-	Profit: $40(350 - 30) + 60(100 - 30) = 40(320) + 60(70) = 12,800 + 4,200 = \boxed{\$17,000}$
-
-	(Lost \$2,000 compared to perfect discrimination due to business IC constraint)
+	Check student IC: $100 - 100 = 0 \geq 120 - 350 = -230$
+	Profit $= 40(320) + 60(70) = \$17,000$
 	\end{solution}
 \end{parts}
 
