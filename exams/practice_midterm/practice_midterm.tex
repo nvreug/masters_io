@@ -1,4 +1,4 @@
-% ECN 594: Practice Midterm
+% ECN 594: Practice Midterm Exam
 \documentclass[addpoints]{exam}
 \usepackage{fullpage}
 \usepackage[left=1.0in,top=1.0in,right=1.0in,bottom=1.0in,headheight=3ex,headsep=3ex]{geometry}
@@ -20,7 +20,7 @@
 	\fbox{\fbox{\parbox{6in}{\centering
 		\textbf{Instructions}:
 		\begin{itemize}
-		\item You have \textbf{70 minutes}
+		\item You have \textbf{80 minutes}
 		\item You may bring a calculator and notes on a two-sided cheat-sheet (letter-size paper)
 		\item Please be neat. If your work is too messy it will not be graded.
 		\item Be sure to show your working.
@@ -42,145 +42,155 @@
 \begin{questions}
 
 \subsection*{1. Short Answer Questions (30 points)}
-\vspace{11pt}
-\question For each question, write either:
-\begin{itemize}
-	\item a number or formula
-	\item one of: True, False, or NEI (Not Enough Information)
-	\item a brief definition or explanation (one sentence)
-\end{itemize}
-\vspace{11pt}
+\vspace{5pt}
+\question For each question, give a number, True/False/NEI, or a 1-2 sentence answer.
+\vspace{5pt}
 \begin{parts}
-	\part[3] A monopolist faces constant elasticity demand with $\varepsilon = -3$ and has marginal cost $c = 20$. What is the optimal price?
+	\part[4] A monopolist faces demand with elasticity $\varepsilon = -4$ and has $MC = \$15$. What is the profit-maximizing price?
 
-	\answerline[$\$30$]
+	\vspace{2cm}
 
-	\part[3] In the logit demand model, write the formula for the own-price elasticity $\eta_{jj}$ in terms of the price coefficient $\alpha$, price $p_j$, and market share $s_{jt}$.
+	\part[4] Consider the logit utility: $u_{ijt} = \beta \cdot \text{calories}_j + \alpha \cdot p_{jt} + \xi_{jt} + \varepsilon_{ijt}$. What is the economic interpretation of $\xi_{jt}$?
 
-	\answerline[$\eta_{jj} = \alpha p_{jt} (1 - s_{jt})$]
+	\vspace{2cm}
 
-	\part[3] True, False, or NEI: In a logit demand model, products with higher prices always have more elastic demand.
+	\part[4] True, False, or NEI: In the logit model, if we remove one product from the market, the remaining products' market shares all increase proportionally.
 
-	\answerline[True (mechanically, from the elasticity formula)]
+	\vspace{2cm}
 
-	\part[3] What does ``IIA'' stand for, and why is it a limitation of the basic logit model?
+	\part[4] Why are cost shifters (e.g., input prices) valid instruments for price? Explain both relevance and exogeneity. (1-2 sentences)
 
-	\answerline[Independence of Irrelevant Alternatives; substitution doesn't depend on similarity]
+	\vspace{2cm}
 
-	\part[3] True, False, or NEI: OLS estimation of logit demand will underestimate the price coefficient (make it less negative) due to price endogeneity.
+	\part[4] True, False, or NEI: In the logit model, cross-price elasticity between products $j$ and $k$ depends on how similar the products are.
 
-	\answerline[True]
+	\vspace{2cm}
 
-	\part[3] True, False, or NEI: Under perfect price discrimination, there is no deadweight loss.
+	\part[3] True, False, or NEI: Ramsey pricing sets price equal to marginal cost for all goods.
 
-	\answerline[True]
+	\vspace{2cm}
 
-	\part[3] Name one type of instrument commonly used to address price endogeneity in demand estimation.
+	\part[4] A researcher claims that consumer surplus in logit is $CS = \delta_1 + \delta_2$. Consider a market with two goods and an outside option. Is this formula correct? Explain.
 
-	\answerline[Cost shifters, BLP instruments (characteristics of other products), Hausman instruments]
+	\vspace{3cm}
 
-	\part[3] True, False, or NEI: A two-part tariff with $F > 0$ and $p = MC$ always increases total surplus compared to uniform monopoly pricing.
+\newpage
 
-	\answerline[True (extracts CS but eliminates DWL)]
+	\part[3] True, False, or NEI: In a self-selection problem with two types, the high-type's incentive compatibility constraint always binds at the optimum.
 
-	\part[3] What is ``selection by indicators''? Give a brief example.
-
-	\answerline[Price discrimination based on observable characteristics (e.g., student discounts)]
-
-	\part[3] True, False, or NEI: In a self-selection pricing problem, the firm must ensure that high-type consumers don't want to buy the low-type product.
-
-	\answerline[True (incentive compatibility constraint)]
+	\vspace{2cm}
 
 \end{parts}
 
 \newpage
 \subsection*{2. Demand Estimation (30 points)}
-\question Consider a market with 3 products and an outside option. The logit demand model is:
-$$u_{ijt} = \delta_{jt} + \alpha p_{jt} + \varepsilon_{ijt}$$
-where $\delta_{jt}$ is the mean utility (excluding price), $\alpha = -0.5$ is the price coefficient, and $\varepsilon_{ijt}$ is i.i.d. Type 1 Extreme Value.
+\question A researcher wants to estimate demand for smartphones using a logit model:
+$$u_{ijt} = \beta \cdot \text{screen}_j + \alpha \cdot p_{jt} + \xi_{jt} + \varepsilon_{ijt}$$
+where $\text{screen}_j$ is screen size (inches), $p_{jt}$ is price, $\xi_{jt}$ is unobserved product quality, and $\varepsilon_{ijt}$ is i.i.d. Type 1 Extreme Value.
 
-The following data are observed:
+\begin{parts}
+	\part[5] Define the mean utility $\delta_{jt}$. Using the Berry inversion, derive an expression for $\delta_{jt}$ in terms of observed market shares $s_{jt}$ and the outside option share $s_{0t}$.
+
+	\vspace{5cm}
+
+	\part[5] Write down the linear regression equation the researcher would estimate to recover $\beta$ and $\alpha$. Clearly identify the dependent variable, regressors, and error term.
+
+	\vspace{5cm}
+
+	\part[5] Why does OLS produce biased estimates of $\alpha$? What is the likely direction of the bias? (2-3 sentences)
+
+	\vspace{5cm}
+
+\newpage
+
+	\part[5] A researcher proposes using ``cost shifters'' (e.g., semiconductor chip prices) as instruments. Give one reason why these instruments might fail the exclusion restriction.
+
+	\vspace{5cm}
+
+	\part[5] Compared to the basic logit, what is one advantage of adding demographic interactions (e.g., age $\times$ screen size) to the model?
+
+	\vspace{5cm}
+
+	\part[5] A phone manufacturer launches two versions of the same phone: ``Phone Pro'' and ``Phone Pro Max,'' which are identical except for color. What will the logit model predict about consumer surplus from having both versions available? Is this prediction reasonable? Explain.
+
+	\vspace{5cm}
+
+\end{parts}
+
+\newpage
+\subsection*{3. Two-Part Tariffs (20 points)}
+\question A streaming service charges a monthly subscription fee $F$ and a per-movie price $p$. Marginal cost per movie is $c = 1$.
+
+\textbf{Part A: Homogeneous consumers}
+
+There are 200 identical consumers, each with demand $q = 30 - 3p$ for movies per month.
+
+\begin{parts}
+	\part[5] Write down the streaming service's profit as a function of $F$ and $p$. (Hint: What is consumer surplus at price $p$? What is the maximum $F$ the service can charge?)
+
+	\vspace{6cm}
+
+	\part[5] Show that the profit-maximizing per-movie price is $p^* = c = 1$. (Hint: Take the derivative of profit with respect to $p$ and set it equal to zero.)
+
+	\vspace{6cm}
+
+\end{parts}
+
+\newpage
+
+\textbf{Part B: Heterogeneous consumers}
+
+Now suppose there are 100 ``movie buffs'' with demand $q_H = 20 - 2p$ and 100 ``casual viewers'' with demand $q_L = 8 - 2p$. Marginal cost is $c = 0$.
+
+\begin{parts}
+\setcounter{partno}{2}
+	\part[10] The streaming service is considering two pricing strategies:
+	\begin{itemize}
+		\item[(a)] $F = 50$, $p = 0$
+		\item[(b)] $F = 8$, $p = 0$
+	\end{itemize}
+	Calculate profit under each strategy. Which is better and why?
+
+	\vspace{6cm}
+
+\end{parts}
+
+\newpage
+\subsection*{4. Self-Selection (20 points)}
+\question An airline sells two ticket classes: Business (B) and Economy (E). There are two types of travelers: corporate travelers with high willingness to pay and leisure travelers with low willingness to pay.
+
 \begin{center}
-\begin{tabular}{lccc}
+\begin{tabular}{lcc}
 \toprule
-Product & Price ($p_j$) & Mean Utility ($\delta_{jt}$) & Market Share ($s_{jt}$) \\
+ & \multicolumn{2}{c}{Willingness to Pay} \\
+Traveler Type & Business Class & Economy Class \\
 \midrule
-1 & \$10 & 2.0 & 0.25 \\
-2 & \$8  & 1.5 & 0.20 \\
-3 & \$12 & 2.5 & 0.15 \\
-Outside & -- & 0 & 0.40 \\
+Corporate (50 travelers) & \$800 & \$300 \\
+Leisure (100 travelers) & \$200 & \$150 \\
 \bottomrule
 \end{tabular}
 \end{center}
 
+Marginal cost is \$50 for both classes.
+
 \begin{parts}
-	\part[5] Verify that the market share for product 1 is approximately correct using the logit formula:
-	$$s_{jt} = \frac{\exp(\delta_{jt} + \alpha p_{jt})}{1 + \sum_k \exp(\delta_{kt} + \alpha p_{kt})}$$
+	\part[4] If the airline could perfectly identify traveler types, what prices would it charge for each class to each type? What is total profit?
 
-	\vspace{3cm}
+	\vspace{6cm}
 
-	\part[5] Compute the own-price elasticity for each product. Which product has the most elastic demand?
-
-	\vspace{4cm}
-
-	\part[5] Compute the cross-price elasticity $\eta_{12}$ (how much demand for product 1 changes when the price of product 2 changes). What does the IIA property imply about $\eta_{12}$ vs $\eta_{13}$?
+	\part[4] The airline cannot identify types but offers both classes. Write down the incentive compatibility (IC) constraint that ensures corporate travelers buy Business rather than Economy.
 
 	\vspace{4cm}
-
-	\part[5] Suppose you only observe prices and market shares (not $\delta_{jt}$). Write down the Berry inversion formula that would allow you to recover $\delta_{jt} + \alpha p_{jt}$ from the data.
-
-	\vspace{3cm}
-
-	\part[10] Using the log-sum formula, compute the expected consumer surplus per consumer in this market. If product 3 were removed, what would be the change in consumer surplus?
-
-	$$CS = \frac{1}{|\alpha|} \ln\left(1 + \sum_j \exp(\delta_{jt} + \alpha p_{jt})\right)$$
-
-\end{parts}
 
 \newpage
-\subsection*{3. Price Discrimination by Indicators (20 points)}
-\question A monopolist sells software licenses. There are two customer segments: businesses (B) and students (S). Marginal cost is \$10 per license.
 
-\begin{itemize}
-\item Business demand: $Q_B = 100 - P_B$
-\item Student demand: $Q_S = 50 - 2P_S$
-\end{itemize}
+	\part[6] Suppose the airline sets $P_B = \$750$ and $P_E = \$150$. Explain why these prices are not optimal. Which constraint is violated?
 
-\begin{parts}
-	\part[5] The firm can identify customer type (e.g., through verification). Solve for the optimal prices under price discrimination by indicators.
+	\vspace{7cm}
 
-	\vspace{4cm}
+	\part[6] Find the profit-maximizing prices for Business and Economy under self-selection. (Hint: Which IC constraint binds? Set it as an equality and solve.)
 
-	\part[5] Compute total profit under price discrimination.
-
-	\vspace{3cm}
-
-	\part[5] Now suppose the firm cannot distinguish customers and must charge a uniform price. What is the total demand curve? Find the optimal uniform price.
-
-	\vspace{4cm}
-
-	\part[5] Compare consumer surplus across the two scenarios (price discrimination vs. uniform pricing). Which group benefits from price discrimination?
-
-\end{parts}
-
-\newpage
-\subsection*{4. Two-Part Tariff (20 points)}
-\question A gym has a monopoly in its local market. There are 100 identical consumers, each with demand $q = 20 - p$ for gym visits per month. The marginal cost of a gym visit is \$2.
-
-\begin{parts}
-	\part[5] If the gym can only charge a uniform price per visit, what is the profit-maximizing price and profit?
-
-	\vspace{4cm}
-
-	\part[5] Now suppose the gym uses a two-part tariff: a monthly membership fee $F$ and a per-visit price $p$. What is the optimal two-part tariff?
-
-	\vspace{4cm}
-
-	\part[5] Compare total surplus under uniform pricing vs. the two-part tariff. Explain the efficiency difference.
-
-	\vspace{4cm}
-
-	\part[5] Suppose there are now two types of consumers: 50 ``heavy users'' with demand $q_H = 30 - p$ and 50 ``light users'' with demand $q_L = 10 - p$. If the gym must offer a single two-part tariff to all consumers, what constraint determines the optimal fee $F$?
+	\vspace{5cm}
 
 \end{parts}
 
