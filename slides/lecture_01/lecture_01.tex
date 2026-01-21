@@ -150,6 +150,7 @@ Nicholas Vreugdenhil \\
     \item Random utility framework
     \item The logit model
     \item Berry (1994) inversion
+    \item The identification problem
   \end{wideenumerate}
 \end{frame}
 
@@ -241,6 +242,7 @@ Nicholas Vreugdenhil \\
     \item Random utility framework
     \item The logit model
     \item Berry (1994) inversion
+    \item The identification problem
   \end{wideenumerate}
 \end{frame}
 
@@ -320,6 +322,7 @@ Nicholas Vreugdenhil \\
     \item Random utility framework
     \item The logit model
     \item Berry (1994) inversion
+    \item The identification problem
   \end{wideenumerate}
 \end{frame}
 
@@ -345,6 +348,7 @@ Nicholas Vreugdenhil \\
     \item Random utility framework
     \item The logit model
     \item Berry (1994) inversion
+    \item The identification problem
   \end{wideenumerate}
 \end{frame}
 
@@ -405,6 +409,7 @@ Nicholas Vreugdenhil \\
     \item \textbf{Random utility framework}
     \item The logit model
     \item Berry (1994) inversion
+    \item The identification problem
   \end{wideenumerate}
 \end{frame}
 
@@ -545,6 +550,7 @@ Nicholas Vreugdenhil \\
     \item Random utility framework
     \item \textbf{The logit model}
     \item Berry (1994) inversion
+    \item The identification problem
   \end{wideenumerate}
 \end{frame}
 
@@ -599,6 +605,7 @@ Nicholas Vreugdenhil \\
     \item Random utility framework
     \item The logit model
     \item \textbf{Berry (1994) inversion}
+    \item The identification problem
   \end{wideenumerate}
 \end{frame}
 
@@ -674,6 +681,96 @@ Nicholas Vreugdenhil \\
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% THE IDENTIFICATION PROBLEM
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Plan for today}
+  \begin{wideenumerate}
+    \item What is industrial organization?
+    \item Course structure and logistics
+    \item Why do we need demand models?
+    \item Ordinal vs cardinal utility
+    \item Random utility framework
+    \item The logit model
+    \item Berry (1994) inversion
+    \item \textbf{The identification problem}
+  \end{wideenumerate}
+\end{frame}
+
+\begin{frame}{The estimating equation}
+	\begin{wideitemize}
+		\item From Berry inversion:
+		\begin{align*}
+			\ln(s_{jt}) - \ln(s_{0t}) = x_{jt} \beta + \alpha p_{jt} + \xi_{jt} \quad (\alpha < 0)
+		\end{align*}
+		\item This looks like a regression we can run with OLS
+		\item \textbf{But there's a problem...}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{The classic identification problem}
+	\begin{wideitemize}
+		\item We observe equilibrium prices and quantities
+		\item \only<1>{Question: what's the demand curve?}\only<2->{Problem: cannot tell if demand or supply is shifting}
+	\end{wideitemize}
+	\begin{figure}
+		\begin{tikzpicture}[scale=0.5]
+			%y axis
+			\draw [->] (0,0) to (0,10) node [left] {$p$};
+			%x axis
+			\draw [->] (0,0) to (10,0) node [below] {$q$};
+
+			% D curves (shown on slide 2+)
+			\onslide<2->{
+				\draw [thick, blue] (0,8) to (8,0) node [below] {$D_1$};
+				\draw [thick, blue] (2,10) to (10,2) node [right] {$D_2$};
+			}
+
+			% S curve (shown on slide 2+)
+			\onslide<2->{
+				\draw [thick, red] (0,2) to (8,10) node [right] {$S$};
+			}
+
+			% equilibrium points (always shown) - at intersections: D1∩S=(3,5), D2∩S=(5,7)
+			\node [black] at (3,5) {\LARGE \textbullet};
+			\node [black] at (5,7) {\LARGE \textbullet};
+
+			\draw [dashed] (3,5) to (3,0);
+			\draw [dashed] (5,7) to (5,0);
+		\end{tikzpicture}
+	\end{figure}
+\end{frame}
+
+\begin{frame}{The classic identification problem}
+	\begin{wideitemize}
+		\item If we just regress $q$ on $p$, what do we get?
+		\item Neither demand nor supply!
+		\item \textbf{Question:} What variation do we need to identify demand? \pause
+		\item \textbf{Key insight:} We need variation that shifts ONE curve but not the other
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item To identify demand: need \textbf{supply shifters}
+			\item To identify supply: need \textbf{demand shifters}
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Price endogeneity in demand estimation}
+	\begin{wideitemize}
+		\item Our estimating equation:
+		\begin{align*}
+			\ln(s_{jt}) - \ln(s_{0t}) = x_{jt} \beta + \alpha p_{jt} + \xi_{jt} \quad (\alpha < 0)
+		\end{align*}
+		\item $\xi_{jt}$ = unobserved product quality
+		\item \textbf{Problem:} Firms observe $\xi_{jt}$ when setting prices!
+		\item High quality products ($\xi_{jt}$ high) tend to have high prices
+		\item $\Rightarrow$ $\text{Cov}(p_{jt}, \xi_{jt}) > 0$
+		\item OLS gives biased estimates
+		\item \textbf{Next time:} How to solve this with instrumental variables
+	\end{wideitemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % KEY POINTS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -683,10 +780,9 @@ Nicholas Vreugdenhil \\
 		\item \textbf{IO} studies firm behavior between perfect competition and monopoly
 		\item This course has \textbf{theory} (pricing, oligopoly) and \textbf{empirical} (demand estimation) components
 		\item \textbf{Demand estimation} is central to IO: elasticities $\rightarrow$ market power $\rightarrow$ policy
-		\item \textbf{Quasi-linear utility} makes consumer surplus measurable in \$
 		\item \textbf{Random utility:} $u_{ijt} = x_{jt} \beta + \alpha p_{jt} + \xi_{jt} + \varepsilon_{ijt}$ \quad ($\alpha < 0$)
-		\item \textbf{Logit:} Type I EV errors give closed-form choice probabilities
 		\item \textbf{Berry inversion:} $\ln(s_{jt}) - \ln(s_{0t}) = \delta_{jt}$ turns demand into a regression
+		\item \textbf{Identification problem:} Price is endogenous because firms observe $\xi_{jt}$
 	\end{wideenumerate}
 \end{frame}
 

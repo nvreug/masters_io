@@ -143,12 +143,13 @@ Nicholas Vreugdenhil \\
 
 \begin{frame}{Plan for today}
   \begin{wideenumerate}
-    \item \textbf{Recap: Logit and Berry inversion}
-    \item The identification problem
+    \item \textbf{Recap: Logit, Berry inversion, and identification}
     \item Direction of bias
     \item Uber example
     \item Instrumental variables
     \item Elasticities and limitations
+    \item The demographic interaction model
+    \item Why demographics help
   \end{wideenumerate}
 \end{frame}
 
@@ -156,117 +157,33 @@ Nicholas Vreugdenhil \\
 % LOGIT ESTIMATION
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Recap: Logit and Berry inversion}
+\begin{frame}{Recap: Logit, Berry inversion, and identification}
 	\begin{wideitemize}
 		\item Mean utility: $\delta_{jt} = x_{jt} \beta + \alpha p_{jt} + \xi_{jt}$ \quad ($\alpha < 0$)
-		\item Logit shares:
-		\begin{align*}
-			s_{jt} = \frac{\exp(\delta_{jt})}{1 + \sum_{k=1}^J \exp(\delta_{kt})}, \qquad s_{0t} = \frac{1}{1 + \sum_{k=1}^J \exp(\delta_{kt})}
-		\end{align*}
-		\item \textbf{Berry inversion} (from last time):
+		\item \textbf{Berry inversion:}
 		\begin{align*}
 			\ln(s_{jt}) - \ln(s_{0t}) = x_{jt} \beta + \alpha p_{jt} + \xi_{jt}
 		\end{align*}
-		\item This looks like a regression we can run... but there's a problem
-		\item \textbf{Today:} Price endogeneity and instrumental variables
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Plan for today}
-  \begin{wideenumerate}
-    \item Recap: Logit and Berry inversion
-    \item \textbf{The identification problem}
-    \item Direction of bias
-    \item Uber example
-    \item Instrumental variables
-    \item Elasticities and limitations
-  \end{wideenumerate}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% IDENTIFICATION AND IVs
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}{The estimating equation (from Lecture 1)}
-	\begin{wideitemize}
-		\item From Berry inversion:
-		\begin{align*}
-			\ln(s_{jt}) - \ln(s_{0t}) = x_{jt} \beta + \alpha p_{jt} + \xi_{jt} \quad (\alpha < 0)
-		\end{align*}
-		\item This looks like a regression we can run with OLS
-		\item \textbf{But there's a problem...}
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{The classic identification problem}
-	\begin{wideitemize}
-		\item We observe equilibrium prices and quantities
-		\item \only<1>{Question: what's the demand curve?}\only<2->{Problem: cannot tell if demand or supply is shifting}
-	\end{wideitemize}
-	\begin{figure}
-		\begin{tikzpicture}[scale=0.5]
-			%y axis
-			\draw [->] (0,0) to (0,10) node [left] {$p$};
-			%x axis
-			\draw [->] (0,0) to (10,0) node [below] {$q$};
-
-			% D curves (shown on slide 2+)
-			\onslide<2->{
-				\draw [thick, blue] (0,8) to (8,0) node [below] {$D_1$};
-				\draw [thick, blue] (2,10) to (10,2) node [right] {$D_2$};
-			}
-
-			% S curve (shown on slide 2+)
-			\onslide<2->{
-				\draw [thick, red] (0,2) to (8,10) node [right] {$S$};
-			}
-
-			% equilibrium points (always shown) - at intersections: D1∩S=(3,5), D2∩S=(5,7)
-			\node [black] at (3,5) {\LARGE \textbullet};
-			\node [black] at (5,7) {\LARGE \textbullet};
-
-			\draw [dashed] (3,5) to (3,0);
-			\draw [dashed] (5,7) to (5,0);
-		\end{tikzpicture}
-	\end{figure}
-\end{frame}
-
-\begin{frame}{The classic identification problem}
-	\begin{wideitemize}
-		\item If we just regress $q$ on $p$, what do we get?
-		\item Neither demand nor supply!
-		\item \textbf{Question:} What variation do we need to identify demand? \pause
-		\item \textbf{Key insight:} We need variation that shifts ONE curve but not the other
+		\item \textbf{The identification problem:}
 		\begin{wideitemize}
 			\vspace{5pt}
-			\item To identify demand: need \textbf{supply shifters}
-			\item To identify supply: need \textbf{demand shifters}
+			\item Firms observe $\xi_{jt}$ when setting prices
+			\item $\Rightarrow$ $\text{Cov}(p_{jt}, \xi_{jt}) > 0$ $\Rightarrow$ OLS is biased
+			\item Need supply shifters (IVs) to identify demand
 		\end{wideitemize}
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Price endogeneity in demand estimation}
-	\begin{wideitemize}
-		\item Our estimating equation:
-		\begin{align*}
-			\ln(s_{jt}) - \ln(s_{0t}) = x_{jt} \beta + \alpha p_{jt} + \xi_{jt} \quad (\alpha < 0)
-		\end{align*}
-		\item $\xi_{jt}$ = unobserved product quality
-		\item \textbf{Problem:} Firms observe $\xi_{jt}$ when setting prices!
-		\item High quality products ($\xi_{jt}$ high) tend to have high prices
-		\item $\Rightarrow$ $\text{Cov}(p_{jt}, \xi_{jt}) > 0$
-		\item OLS gives biased estimates
+		\item \textbf{Today:} Direction of bias, IV strategies, and limitations
 	\end{wideitemize}
 \end{frame}
 
 \begin{frame}{Plan for today}
   \begin{wideenumerate}
-    \item Recap: Logit and Berry inversion
-    \item The identification problem
+    \item Recap: Logit, Berry inversion, and identification
     \item \textbf{Direction of bias}
     \item Uber example
     \item Instrumental variables
     \item Elasticities and limitations
+    \item The demographic interaction model
+    \item Why demographics help
   \end{wideenumerate}
 \end{frame}
 
@@ -296,12 +213,13 @@ Nicholas Vreugdenhil \\
 
 \begin{frame}{Plan for today}
   \begin{wideenumerate}
-    \item Recap: Logit and Berry inversion
-    \item The identification problem
+    \item Recap: Logit, Berry inversion, and identification
     \item Direction of bias
     \item \textbf{Uber example}
     \item Instrumental variables
     \item Elasticities and limitations
+    \item The demographic interaction model
+    \item Why demographics help
   \end{wideenumerate}
 \end{frame}
 
@@ -401,12 +319,13 @@ Nicholas Vreugdenhil \\
 
 \begin{frame}{Plan for today}
   \begin{wideenumerate}
-    \item Recap: Logit and Berry inversion
-    \item The identification problem
+    \item Recap: Logit, Berry inversion, and identification
     \item Direction of bias
     \item Uber example
     \item \textbf{Instrumental variables}
     \item Elasticities and limitations
+    \item The demographic interaction model
+    \item Why demographics help
   \end{wideenumerate}
 \end{frame}
 
@@ -597,12 +516,13 @@ Nicholas Vreugdenhil \\
 
 \begin{frame}{Plan for today}
   \begin{wideenumerate}
-    \item Recap: Logit and Berry inversion
-    \item The identification problem
+    \item Recap: Logit, Berry inversion, and identification
     \item Direction of bias
     \item Uber example
     \item Instrumental variables
     \item \textbf{Elasticities and limitations}
+    \item The demographic interaction model
+    \item Why demographics help
   \end{wideenumerate}
 \end{frame}
 
@@ -654,7 +574,7 @@ Nicholas Vreugdenhil \\
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{Limitation \#2: Cross-price elasticity (IIA)}
+\begin{frame}{Limitation \#2: Unrealistic substitution patterns}
 	\begin{wideitemize}
 		\item Cross-price elasticity: $\eta_{jk} = -\alpha p_{kt} s_{kt}$
 		\item This doesn't depend on product $j$ at all!
@@ -665,11 +585,11 @@ Nicholas Vreugdenhil \\
 			\item Logit says: same fraction go to Mercedes as to Honda Civic!
 			\item Reality: BMW consumers mostly switch to Mercedes, Audi
 		\end{wideitemize}
-		\item This is the \textbf{IIA} (Independence of Irrelevant Alternatives) property
+		\item Substitution depends on \textbf{market share}, not product similarity
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{The IIA problem: Diversion ratios}
+\begin{frame}{Diversion ratios in logit}
 	\begin{wideitemize}
 		\item When product $k$'s price rises, where do consumers go?
 		\item \textbf{Diversion ratio} from $k$ to $j$:
@@ -687,9 +607,9 @@ Nicholas Vreugdenhil \\
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{What causes the IIA problem?}
+\begin{frame}{Why logit has unrealistic substitution}
 	\begin{wideitemize}
-		\item IIA comes from the \textbf{logit error structure}
+		\item The problem comes from the \textbf{logit error structure}
 		\item Key assumption: $\varepsilon_{ijt}$ are \textit{independent} across products
 		\item This means: your taste shock for BMW is unrelated to your taste shock for Mercedes
 		\item The model doesn't ``know'' that BMW and Mercedes are similar \pause
@@ -703,6 +623,146 @@ Nicholas Vreugdenhil \\
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% DEMOGRAPHIC INTERACTIONS
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Plan for today}
+  \begin{wideenumerate}
+    \item Recap: Logit, Berry inversion, and identification
+    \item Direction of bias
+    \item Uber example
+    \item Instrumental variables
+    \item Elasticities and limitations
+    \item \textbf{The demographic interaction model}
+    \item Why demographics help
+  \end{wideenumerate}
+\end{frame}
+
+\begin{frame}{The demographic interaction model}
+	\begin{wideitemize}
+		\item We estimate a version of \textbf{Berry, Levinsohn \& Pakes (1995)} --- ``BLP''
+		\item Allow preferences to vary across consumers:
+		\begin{align*}
+			u_{ijt} = x_{jt} \beta_i + \alpha_i p_{jt} + \xi_{jt} + \varepsilon_{ijt}
+		\end{align*}
+		\item $\beta_i$, $\alpha_i$: consumer $i$'s taste for characteristics and price
+		\item \textbf{Key question:} What drives heterogeneity in $\beta_i$ and $\alpha_i$?
+		\item \textbf{Our approach:} Observed demographics
+		\begin{align*}
+			\beta_{ik} = \beta_k + \sum_{\ell=1}^L \pi_{k\ell} D_{i\ell}, \qquad \alpha_i = \alpha + \sum_{\ell=1}^L \pi_{\alpha\ell} D_{i\ell}
+		\end{align*}
+		\item $D_{i\ell}$: demographic $\ell$ for consumer $i$ (income, age, family size, etc.)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Rewriting in terms of mean utility}
+	\begin{wideitemize}
+		\item Substituting the expressions for $\beta_{ik}$ and $\alpha_i$:
+		\begin{align*}
+			u_{ijt} = \underbrace{x_{jt} \beta + \alpha p_{jt} + \xi_{jt}}_{\delta_{jt} \text{ (mean utility)}} + \underbrace{\sum_{k,\ell} \pi_{k\ell} D_{i\ell} x_{jt,k}}_{\mu_{ijt}} + \varepsilon_{ijt}
+		\end{align*}
+		\item \textbf{Mean utility} $\delta_{jt}$: part common to all consumers
+		\begin{wideitemize}
+			\item Contains ``\textbf{linear parameters}'' $(\beta, \alpha)$ --- enter linearly in $\delta$
+		\end{wideitemize}
+		\item \textbf{Individual deviation} $\mu_{ijt}$: how consumer $i$ differs from average
+		\begin{wideitemize}
+			\item Contains ``\textbf{nonlinear parameters}'' $(\pi_{k\ell})$ --- enter nonlinearly via shares
+		\end{wideitemize}
+		\item Note: $\alpha < 0$ (higher price $\rightarrow$ lower utility)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{From utility to demand}
+	\begin{wideitemize}
+		\item \textbf{Individual choice probability} (with T1EV errors):
+		\begin{align*}
+			s_{ijt} = \frac{\exp(\delta_{jt} + \mu_{ijt})}{1 + \sum_{k=1}^J \exp(\delta_{kt} + \mu_{ikt})}
+		\end{align*}
+		\item \textbf{Market share} (aggregate over consumers):
+		\begin{align*}
+			s_{jt} = \frac{1}{I} \sum_{i=1}^{I} s_{ijt}
+		\end{align*}
+		\item This is \textbf{demand}: the fraction of consumers who buy product $j$
+		\item Key: shares depend on mean utilities $\delta$ and demographics $D_i$
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan for today}
+  \begin{wideenumerate}
+    \item Recap: Logit, Berry inversion, and identification
+    \item Direction of bias
+    \item Uber example
+    \item Instrumental variables
+    \item Elasticities and limitations
+    \item The demographic interaction model
+    \item \textbf{Why demographics help}
+  \end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Elasticities with demographic interactions}
+	\begin{wideitemize}
+		\item \textbf{Elasticities with heterogeneous consumers:}
+		\[  \eta_{jkt} =  \left\{
+		\begin{array}{ll}
+		\frac{p_{jt}}{s_{jt}} \sum_i \alpha_i s_{ijt} (1-s_{ijt}) & \text{if } j=k \\[8pt]
+		-\frac{p_{kt}}{s_{jt}} \sum_i \alpha_i s_{ijt} s_{ikt} & \text{otherwise} \\
+		\end{array}
+		\right. \]
+		\item $s_{ijt}$: probability that consumer $i$ purchases product $j$
+		\item \textbf{Key insight:} Cross-elasticity now depends on $\sum_i s_{ijt} s_{ikt}$
+		\begin{wideitemize}
+			\item Products that attract \textit{similar consumers} have higher cross-elasticity
+			\item BMW and Mercedes attract similar (high-income) consumers $\Rightarrow$ closer substitutes
+		\end{wideitemize}
+		\item Correlation in $\mu_{ijt}$ and $\mu_{ikt}$ drives realistic substitution patterns
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Classic example: Nevo (2001) - Cereal demand}
+	\begin{columns}
+		\begin{column}{0.65\textwidth}
+			\begin{wideitemize}
+				\item ``Measuring Market Power in the Ready-to-Eat Cereal Industry''
+				\item Estimated demand for cereal using demographic interactions
+				\item Key findings:
+				\begin{wideitemize}
+					\vspace{5pt}
+					\item High-income households less price-sensitive
+					\item Families with children prefer kid-targeted cereals
+					\item Without demographics: wrong substitution patterns
+				\end{wideitemize}
+				\item Result: Basic logit would underestimate markups!
+			\end{wideitemize}
+		\end{column}
+		\begin{column}{0.35\textwidth}
+			\includegraphics[width=\textwidth]{../../previous_courses/phd_io/demand_estimation/cereal.png}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Limitations: Demographics vs Mixed Logit}
+	\begin{wideitemize}
+		\item \textbf{Demographics model} (what we use):
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Heterogeneity only from observed characteristics
+			\item Substitution still restrictive within demographic groups
+			\item Simple and tractable
+		\end{wideitemize}
+		\item \textbf{Mixed logit / random coefficients} (advanced):
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Heterogeneity from unobserved factors too
+			\item Fully flexible substitution patterns
+			\item Computationally intensive (requires simulation)
+		\end{wideitemize}
+		\item For this course: demographics are sufficient
+		\item Know that mixed logit exists for research
+	\end{wideitemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % KEY POINTS
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -711,9 +771,9 @@ Nicholas Vreugdenhil \\
 	\begin{wideenumerate}
 		\item \textbf{Price is endogenous}: Firms observe $\xi_{jt}$ when pricing $\rightarrow$ OLS biased toward zero
 		\item \textbf{Solution}: Instrumental variables (cost shifters, BLP IVs, Hausman IVs)
-		\item \textbf{Experiments} (like Uber) provide cleanest identification
-		\item \textbf{Logit elasticities}: $\eta_{jj} = \alpha p_{jt}(1-s_{jt})$, $\eta_{jk} = -\alpha p_{kt} s_{kt}$
-		\item \textbf{IIA problem}: Cross-elasticity doesn't depend on $j$ $\Rightarrow$ unrealistic substitution
+		\item \textbf{Logit limitation}: Cross-elasticity doesn't depend on $j$ $\Rightarrow$ unrealistic substitution
+		\item \textbf{Demographic model}: $u_{ijt} = \delta_{jt} + \sum_{k,\ell} \pi_{k\ell} D_{i\ell} x_{jt,k} + \varepsilon_{ijt}$
+		\item Demographics $\Rightarrow$ heterogeneous preferences $\Rightarrow$ realistic substitution
 	\end{wideenumerate}
 \end{frame}
 

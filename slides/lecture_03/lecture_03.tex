@@ -158,9 +158,7 @@ Nicholas Vreugdenhil \\
 
 \begin{frame}{Plan for today}
   \begin{wideenumerate}
-    \item \textbf{Recap: The IIA problem}
-    \item The demographic interaction model
-    \item Why demographics help with IIA
+    \item \textbf{Recap: The demographic model}
     \item Introduction to pyblp
     \item Worked example: Basic logit
     \item Worked example: With demographics
@@ -169,216 +167,19 @@ Nicholas Vreugdenhil \\
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% RECAP: IIA PROBLEM
+% RECAP: THE DEMOGRAPHIC MODEL
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{Recap: The IIA problem}
+\begin{frame}{Recap: The demographic model}
 	\begin{wideitemize}
-		\item Last time: basic logit gives elasticities
+		\item Last time: the demographic interaction model
 		\begin{align*}
-			\eta_{jj} = \alpha p_{jt} (1 - s_{jt}), \qquad \eta_{jk} = -\alpha p_{kt} s_{kt}
+			u_{ijt} = \underbrace{x_{jt} \beta + \alpha p_{jt} + \xi_{jt}}_{\delta_{jt}} + \underbrace{\sum_{k,\ell} \pi_{k\ell} D_{i\ell} x_{jt,k}}_{\mu_{ijt}} + \varepsilon_{ijt}
 		\end{align*}
-		\item \textbf{Problem:} Cross-price elasticity $\eta_{jk}$ doesn't depend on $j$!
-		\item All products have the \textit{same} cross-elasticity with product $k$
-		\item Example: BMW raises price $\Rightarrow$ same fraction go to Mercedes as to Honda Civic
-		\item This is unrealistic: BMW and Mercedes are closer substitutes
-		\item \textbf{Today:} Fix this with demographic interactions
-	\end{wideitemize}
-\end{frame}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% DEMOGRAPHIC INTERACTIONS
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\begin{frame}{Plan for today}
-  \begin{wideenumerate}
-    \item Recap: The IIA problem
-    \item \textbf{The demographic interaction model}
-    \item Why demographics help with IIA
-    \item Introduction to pyblp
-    \item Worked example: Basic logit
-    \item Worked example: With demographics
-    \item Interpreting results
-  \end{wideenumerate}
-\end{frame}
-
-\begin{frame}{The demographic interaction model}
-	\begin{wideitemize}
-		\item We estimate a version of \textbf{Berry, Levinsohn \& Pakes (1995)} --- ``BLP''
-		\item Allow preferences to vary across consumers:
-		\begin{align*}
-			u_{ijt} = x_{jt} \beta_i + \alpha_i p_{jt} + \xi_{jt} + \varepsilon_{ijt}
-		\end{align*}
-		\item $\beta_i$, $\alpha_i$: consumer $i$'s taste for characteristics and price
-		\item \textbf{Key question:} What drives heterogeneity in $\beta_i$ and $\alpha_i$?
-		\item \textbf{Our approach:} Observed demographics
-		\begin{align*}
-			\beta_{ik} = \beta_k + \sum_{\ell=1}^L \pi_{k\ell} D_{i\ell}, \qquad \alpha_i = \alpha + \sum_{\ell=1}^L \pi_{\alpha\ell} D_{i\ell}
-		\end{align*}
-		\item $D_{i\ell}$: demographic $\ell$ for consumer $i$ (income, age, family size, etc.)
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Rewriting in terms of mean utility}
-	\begin{wideitemize}
-		\item Substituting the expressions for $\beta_{ik}$ and $\alpha_i$:
-		\begin{align*}
-			u_{ijt} = \underbrace{x_{jt} \beta + \alpha p_{jt} + \xi_{jt}}_{\delta_{jt} \text{ (mean utility)}} + \underbrace{\sum_{k,\ell} \pi_{k\ell} D_{i\ell} x_{jt,k}}_{\mu_{ijt}} + \varepsilon_{ijt}
-		\end{align*}
-		\item \textbf{Mean utility} $\delta_{jt}$: part common to all consumers
-		\begin{wideitemize}
-			\item Contains ``\textbf{linear parameters}'' $(\beta, \alpha)$ --- enter linearly in $\delta$
-		\end{wideitemize}
-		\item \textbf{Individual deviation} $\mu_{ijt}$: how consumer $i$ differs from average
-		\begin{wideitemize}
-			\item Contains ``\textbf{nonlinear parameters}'' $(\pi_{k\ell})$ --- enter nonlinearly via shares
-		\end{wideitemize}
-		\item Note: $\alpha < 0$ (higher price $\rightarrow$ lower utility)
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{From utility to demand}
-	\begin{wideitemize}
-		\item \textbf{Individual choice probability} (with T1EV errors):
-		\begin{align*}
-			s_{ijt} = \frac{\exp(\delta_{jt} + \mu_{ijt})}{1 + \sum_{k=1}^J \exp(\delta_{kt} + \mu_{ikt})}
-		\end{align*}
-		\item \textbf{Market share} (aggregate over consumers):
-		\begin{align*}
-			s_{jt} = \frac{1}{I} \sum_{i=1}^{I} s_{ijt}
-		\end{align*}
-		\item This is \textbf{demand}: the fraction of consumers who buy product $j$
-		\item Key: shares depend on mean utilities $\delta$ and demographics $D_i$
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Examples of demographic interactions}
-	\begin{wideitemize}
-		\item Recall: $\mu_{ijt} = \sum_{k,\ell} \pi_{k\ell} D_{i\ell} x_{jt,k}$ captures preference heterogeneity
-		\item Effective price coefficient for consumer $i$: $\alpha_i = \alpha + \pi_{\text{inc} \times p} \cdot \text{income}_i$
-		\item \textbf{Question:} High-income consumers are typically \textit{less} price-sensitive.
-		\begin{wideitemize}
-			\vspace{3pt}
-			%\item We need $\alpha_i$ to be less negative for high-income consumers
-			\item Given $\alpha < 0$, what sign should $\pi_{\text{inc} \times p}$ have?
-		\end{wideitemize}
-	\end{wideitemize}
-	\vspace{10pt}
-	%\centering
-	%\textit{Take 1 minute to think about this.}
-\end{frame}
-
-\begin{frame}{Where do demographics come from?}
-	\begin{wideitemize}
-		\item Two scenarios:
-		\begin{wideenumerate}
-			\vspace{5pt}
-			\item \textbf{Individual-level data:} Observe $D_i$ for each consumer
-			\begin{wideitemize}
-				\item Survey data, loyalty card data
-			\end{wideitemize}
-			\item \textbf{Market-level data:} Know distribution of $D_i$ in each market
-			\begin{wideitemize}
-				\item Census data, Current Population Survey
-				\item This is more common in practice
-			\end{wideitemize}
-		\end{wideenumerate}
-		\item pyblp handles both cases
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{How do we estimate this model?}
-	\begin{wideitemize}
-		\item Caveat: this is one algorithm, many variations exist
-		\item \textbf{Two-step procedure:}
-		\begin{wideenumerate}
-			\vspace{5pt}
-			\item \textbf{Estimate $\pi$ and $\delta_{jt}$:}
-			\begin{wideitemize}
-				\item Maximum likelihood with $\delta_{jt}$ as product fixed effects
-				\item Jointly estimates demographic coefficients $\pi$
-			\end{wideitemize}
-			\item \textbf{Recover $\beta$ and $\alpha$:}
-			\begin{wideitemize}
-				\item Run 2SLS on $\delta_{jt} = x_{jt}\beta + \alpha p_{jt} + \xi_{jt}$
-				\item Need instruments because price is endogenous
-			\end{wideitemize}
-		\end{wideenumerate}
-		\item \textbf{Key insight:} First step gives us $\delta_{jt}$, then step 2 is linear regression with endogeneity (which we know how to handle!)
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Plan for today}
-  \begin{wideenumerate}
-    \item Recap: The IIA problem
-    \item The demographic interaction model
-    \item \textbf{Why demographics help with IIA}
-    \item Introduction to pyblp
-    \item Worked example: Basic logit
-    \item Worked example: With demographics
-    \item Interpreting results
-  \end{wideenumerate}
-\end{frame}
-
-\begin{frame}{Elasticities with demographic interactions}
-	\begin{wideitemize}
-		\item \textbf{Elasticities with heterogeneous consumers:}
-		\[  \eta_{jkt} =  \left\{
-		\begin{array}{ll}
-		\frac{p_{jt}}{s_{jt}} \sum_i \alpha_i s_{ijt} (1-s_{ijt}) & \text{if } j=k \\[8pt]
-		-\frac{p_{kt}}{s_{jt}} \sum_i \alpha_i s_{ijt} s_{ikt} & \text{otherwise} \\
-		\end{array}
-		\right. \]
-		\item $s_{ijt}$: probability that consumer $i$ purchases product $j$
-		\item \textbf{Key insight:} Cross-elasticity now depends on $\sum_i s_{ijt} s_{ikt}$
-		\begin{wideitemize}
-			\item Products that attract \textit{similar consumers} have higher cross-elasticity
-			\item BMW and Mercedes attract similar (high-income) consumers $\Rightarrow$ closer substitutes
-		\end{wideitemize}
-		\item Correlation in $\mu_{ijt}$ and $\mu_{ikt}$ drives realistic substitution patterns
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Classic example: Nevo (2001) - Cereal demand}
-	\begin{columns}
-		\begin{column}{0.65\textwidth}
-			\begin{wideitemize}
-				\item ``Measuring Market Power in the Ready-to-Eat Cereal Industry''
-				\item Estimated demand for cereal using demographic interactions
-				\item Key findings:
-				\begin{wideitemize}
-					\vspace{5pt}
-					\item High-income households less price-sensitive
-					\item Families with children prefer kid-targeted cereals
-					\item Without demographics: wrong substitution patterns
-				\end{wideitemize}
-				\item Result: Basic logit would underestimate markups!
-			\end{wideitemize}
-		\end{column}
-		\begin{column}{0.35\textwidth}
-			\includegraphics[width=\textwidth]{../../previous_courses/phd_io/demand_estimation/cereal.png}
-		\end{column}
-	\end{columns}
-\end{frame}
-
-\begin{frame}{Limitations: Demographics vs Mixed Logit}
-	\begin{wideitemize}
-		\item \textbf{Demographics model} (what we use):
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Heterogeneity only from observed characteristics
-			\item IIA still holds within demographic groups
-			\item Simple and tractable
-		\end{wideitemize}
-		\item \textbf{Mixed logit / random coefficients} (advanced):
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Heterogeneity from unobserved factors too
-			\item Fully relaxes IIA
-			\item Computationally intensive (requires simulation)
-		\end{wideitemize}
-		\item For this course: demographics are sufficient
-		\item Know that mixed logit exists for research
+		\item $\delta_{jt}$: mean utility (common to all consumers)
+		\item $\mu_{ijt}$: individual deviation based on demographics $D_i$
+		\item \textbf{Key insight:} Demographics $\Rightarrow$ heterogeneous preferences $\Rightarrow$ realistic substitution
+		\item \textbf{Today:} Estimate this model using pyblp
 	\end{wideitemize}
 \end{frame}
 
@@ -388,9 +189,7 @@ Nicholas Vreugdenhil \\
 
 \begin{frame}{Plan for today}
   \begin{wideenumerate}
-    \item Recap: The IIA problem
-    \item The demographic interaction model
-    \item Why demographics help with IIA
+    \item Recap: The demographic model
     \item \textbf{Introduction to pyblp}
     \item Worked example: Basic logit
     \item Worked example: With demographics
@@ -482,9 +281,7 @@ product_data = pd.read_csv(pyblp.data.BLP_PRODUCTS_LOCATION)
 
 \begin{frame}{Plan for today}
   \begin{wideenumerate}
-    \item Recap: The IIA problem
-    \item The demographic interaction model
-    \item Why demographics help with IIA
+    \item Recap: The demographic model
     \item Introduction to pyblp
     \item \textbf{Worked example: Basic logit}
     \item Worked example: With demographics
@@ -609,9 +406,7 @@ own_price_elasticities = np.diag(elasticities)  # extract diagonal
 
 \begin{frame}{Plan for today}
   \begin{wideenumerate}
-    \item Recap: The IIA problem
-    \item The demographic interaction model
-    \item Why demographics help with IIA
+    \item Recap: The demographic model
     \item Introduction to pyblp
     \item Worked example: Basic logit
     \item \textbf{Worked example: With demographics}
@@ -746,9 +541,7 @@ results = problem.solve(sigma=0, pi=np.array([[0.5]]))
 
 \begin{frame}{Plan for today}
   \begin{wideenumerate}
-    \item Recap: The IIA problem
-    \item The demographic interaction model
-    \item Why demographics help with IIA
+    \item Recap: The demographic model
     \item Introduction to pyblp
     \item Worked example: Basic logit
     \item Worked example: With demographics
@@ -864,13 +657,11 @@ results = problem.solve(sigma=0, pi=np.array([[0.5]]))
 \begin{frame}{Key Points}
 	\vspace{11pt}
 	\begin{wideenumerate}
-		\item \textbf{Elasticities}: Own $= \alpha p_{jt}(1-s_{jt})$; Cross $= -\alpha p_{kt} s_{kt}$ \quad ($\alpha < 0$)
-		\item \textbf{IIA problem}: Cross-elasticities don't depend on product similarity
-		\item \textbf{Demographic interaction model}: $u_{ijt} = \delta_{jt} + \sum_{k,\ell} \pi_{k\ell} D_{i\ell} x_{jt,k} + \varepsilon_{ijt}$
-		\item Demographics allow \textbf{heterogeneous preferences} and help with IIA
-		\item \textbf{pyblp workflow}: Data $\rightarrow$ Formulation $\rightarrow$ Problem $\rightarrow$ Solve $\rightarrow$ Interpret
+		\item \textbf{pyblp}: Python package for demand estimation (Conlon \& Gortmaker 2020)
+		\item \textbf{Workflow}: Data $\rightarrow$ Formulation $\rightarrow$ Problem $\rightarrow$ Solve $\rightarrow$ Interpret
 		\item \textbf{Key outputs}: Coefficients (check signs), standard errors, elasticities, markups
 		\item Price coefficient should be \textbf{negative}; OLS biases it toward zero
+		\item Demographics: interact with product characteristics to capture preference heterogeneity
 		\item This is the foundation for HW1
 	\end{wideenumerate}
 \end{frame}
