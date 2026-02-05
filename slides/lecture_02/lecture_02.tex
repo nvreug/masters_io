@@ -187,15 +187,6 @@ Nicholas Vreugdenhil \\
   \end{wideenumerate}
 \end{frame}
 
-\begin{frame}{Direction of bias}
-	\begin{wideitemize}
-		\item If high-quality products have high prices...
-		\item OLS sees: high price, but demand still high (because of $\xi$)
-		\item OLS concludes: price doesn't hurt demand much
-		\item \textbf{Result:} $\hat{\alpha}$ biased toward zero (less negative than truth)
-	\end{wideitemize}
-\end{frame}
-
 \begin{frame}{Worked example: Bias direction}
 	\begin{wideitemize}
 		\item \textbf{Question:} You estimate a logit demand model using OLS and get $\hat{\alpha} = -0.3$. A colleague says the true $\alpha$ is likely $-0.5$.
@@ -210,6 +201,16 @@ Nicholas Vreugdenhil \\
 		\end{wideitemize}
 	\end{wideitemize}
 \end{frame}
+
+\begin{frame}{Direction of bias}
+	\begin{wideitemize}
+		\item If high-quality products have high prices...
+		\item OLS sees: high price, but demand still high (because of $\xi$)
+		\item OLS concludes: price doesn't hurt demand much
+		\item \textbf{Result:} $\hat{\alpha}$ biased toward zero (less negative than truth)
+	\end{wideitemize}
+\end{frame}
+
 
 \begin{frame}{Plan for today}
   \begin{wideenumerate}
@@ -331,7 +332,7 @@ Nicholas Vreugdenhil \\
 
 \begin{frame}{Instrumental variables: the solution}
 	\begin{wideitemize}
-		\item Need variables $z$ that are:
+		\item Need variables $z$ that are: \pause
 		\begin{wideenumerate}
 			\vspace{5pt}
 			\item \textbf{Relevant:} Correlated with price ($\text{Cov}(z, p) \neq 0$)
@@ -458,6 +459,26 @@ Nicholas Vreugdenhil \\
 	\end{wideitemize}
 \end{frame}
 
+\begin{frame}{IV \#4: Fan/Waldfogel instruments}
+	\begin{wideitemize}
+		\item \textbf{Idea:} Use demographics in \textit{other markets} where the product is sold
+		\item Example: Fan (2013) - Newspaper demand
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Newspapers sold in multiple counties
+			\item Use demographics in other counties as IVs for price
+		\end{wideitemize} \pause
+		\item \textbf{Why it works:}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Product characteristics shaped by demographics in ALL markets where sold
+			\item Demographics elsewhere affect costs/design but not local demand
+		\end{wideitemize}
+		\item \textbf{Validity:} $\xi_{jt}$ not correlated across markets (same as Hausman)
+		\item \textbf{Concern:} Which markets a firm enters may be endogenous
+	\end{wideitemize}
+\end{frame}
+
 \begin{frame}{Worked example: Evaluating an IV}
 	\begin{wideitemize}
 		\item \textbf{Question:} A researcher proposes using gasoline prices as an IV for car prices. Is this valid?
@@ -470,7 +491,7 @@ Nicholas Vreugdenhil \\
 			\item This might shift which cars look ``good'' to consumers
 			\item Potentially problematic!
 		\end{wideitemize}
-		\item \textbf{Verdict:} Probably not a great IV
+		\item \textbf{Overall:} Probably not a great IV
 	\end{wideitemize}
 \end{frame}
 
@@ -502,6 +523,7 @@ Nicholas Vreugdenhil \\
 		Cost shifters (input prices) & Strong & Usually OK \\
 		Hausman IVs (prices elsewhere) & Strong & Debatable \\
 		BLP IVs (competitor chars) & Medium & Usually OK \\
+		Fan/Waldfogel (demographics elsewhere) & Medium & Debatable \\
 		Experiments (Uber wiggle) & Perfect & Perfect \\
 		\bottomrule
 	\end{tabular}
@@ -659,7 +681,7 @@ Nicholas Vreugdenhil \\
 	\begin{wideitemize}
 		\item Substituting the expressions for $\beta_{ik}$ and $\alpha_i$:
 		\begin{align*}
-			u_{ijt} = \underbrace{x_{jt} \beta + \alpha p_{jt} + \xi_{jt}}_{\delta_{jt} \text{ (mean utility)}} + \underbrace{\sum_{k,\ell} \pi_{k\ell} D_{i\ell} x_{jt,k}}_{\mu_{ijt}} + \varepsilon_{ijt}
+			u_{ijt} = \underbrace{x_{jt} \beta + \alpha p_{jt} + \xi_{jt}}_{\delta_{jt} \text{ (mean utility)}} + \underbrace{\sum_{k,\ell} \pi_{k\ell} D_{i\ell} x_{jt,k} + \sum_{\ell} \pi_{\alpha\ell} D_{i\ell} p_{jt}}_{\mu_{ijt}} + \varepsilon_{ijt}
 		\end{align*}
 		\item \textbf{Mean utility} $\delta_{jt}$: part common to all consumers
 		\begin{wideitemize}
@@ -717,28 +739,6 @@ Nicholas Vreugdenhil \\
 		\end{wideitemize}
 		\item Correlation in $\mu_{ijt}$ and $\mu_{ikt}$ drives realistic substitution patterns
 	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Classic example: Nevo (2001) - Cereal demand}
-	\begin{columns}
-		\begin{column}{0.65\textwidth}
-			\begin{wideitemize}
-				\item ``Measuring Market Power in the Ready-to-Eat Cereal Industry''
-				\item Estimated demand for cereal using demographic interactions
-				\item Key findings:
-				\begin{wideitemize}
-					\vspace{5pt}
-					\item High-income households less price-sensitive
-					\item Families with children prefer kid-targeted cereals
-					\item Without demographics: wrong substitution patterns
-				\end{wideitemize}
-				\item Result: Basic logit would underestimate markups!
-			\end{wideitemize}
-		\end{column}
-		\begin{column}{0.35\textwidth}
-			\includegraphics[width=\textwidth]{../../previous_courses/phd_io/demand_estimation/cereal.png}
-		\end{column}
-	\end{columns}
 \end{frame}
 
 \begin{frame}{Limitations: Demographics vs Mixed Logit}

@@ -1,0 +1,341 @@
+\documentclass[notes,11pt, aspectratio=169]{beamer}
+
+\usepackage{pgfpages}
+\setbeameroption{hide notes} % Only slide
+
+\usepackage{array}
+\usepackage{tikz}
+\usepackage{verbatim}
+\setbeamertemplate{note page}{\pagecolor{gray!5}\insertnote}
+\usetikzlibrary{positioning}
+\usetikzlibrary{snakes}
+\usetikzlibrary{calc}
+\usetikzlibrary{arrows}
+\usetikzlibrary{decorations.markings}
+\usetikzlibrary{shapes.misc}
+\usetikzlibrary{matrix,shapes,arrows,fit,tikzmark}
+\usepackage{amsmath}
+\usepackage{mathpazo}
+\usepackage{hyperref}
+\usepackage{lipsum}
+\usepackage{multimedia}
+\usepackage{graphicx}
+\usepackage{multirow}
+\usepackage{dcolumn}
+\usepackage{bbm}
+\newcolumntype{d}[0]{D{.}{.}{5}}
+
+\usepackage{changepage}
+\usepackage{appendixnumberbeamer}
+
+\usepackage[space]{grffile}
+\usepackage{booktabs}
+
+% Colors
+\definecolor{blue}{RGB}{0,114,178}
+\definecolor{red}{RGB}{213,94,0}
+\definecolor{yellow}{RGB}{240,228,66}
+\definecolor{green}{RGB}{0,158,115}
+\definecolor{solutionbg}{RGB}{240,248,240}
+\definecolor{solutionframe}{RGB}{0,158,115}
+
+% Solution box environment for worked answers
+\usepackage{tcolorbox}
+\newtcolorbox{solutionbox}[1][]{
+  enhanced,
+  colback=solutionbg,
+  colframe=solutionframe,
+  boxrule=0pt,
+  leftrule=3pt,
+  arc=0pt,
+  left=8pt,
+  right=8pt,
+  top=6pt,
+  bottom=6pt,
+  fonttitle=\bfseries,
+  title={#1},
+  attach boxed title to top left={yshift=-2mm, xshift=5mm},
+  boxed title style={colback=solutionframe, colframe=solutionframe, size=small, arc=2pt}
+}
+
+\hypersetup{
+  colorlinks=false,
+  linkbordercolor = {white},
+  linkcolor = {blue}
+}
+
+\definecolor{MyBackground}{RGB}{255,253,218}
+
+\newenvironment{transitionframe}{
+  \setbeamercolor{background canvas}{bg=white}
+  \begin{frame}}{
+    \end{frame}
+}
+
+\setbeamercolor{frametitle}{fg=blue}
+\setbeamercolor{title}{fg=black}
+\setbeamertemplate{footline}[frame number]
+\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{itemize items}{-}
+\setbeamercolor{itemize item}{fg=blue}
+\setbeamercolor{itemize subitem}{fg=blue}
+\setbeamercolor{enumerate item}{fg=blue}
+\setbeamercolor{enumerate subitem}{fg=blue}
+\setbeamercolor{button}{bg=MyBackground,fg=blue,}
+
+\setbeamercolor{section in toc}{fg=blue}
+\setbeamercolor{subsection in toc}{fg=red}
+\setbeamersize{text margin left=1em,text margin right=1em}
+
+\newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
+\newenvironment{wideenumerate}{\enumerate\addtolength{\itemsep}{10pt}}{\endenumerate}
+
+\title[]{\textcolor{blue}{ECN 594: Oligopoly Review}}
+\author[PGP]{}
+\institute[FRBNY]{\small{\begin{tabular}{c c c}
+Nicholas Vreugdenhil \\
+\end{tabular}}}
+\date{}
+
+\begin{document}
+
+% Title Slide
+\begin{frame}
+\maketitle
+  \centering
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% OLIGOPOLY REFRESHER
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Plan}
+  \begin{wideenumerate}
+    \item Cournot competition (refresher)
+    \item Bertrand competition (refresher)
+    \item Escaping the Bertrand paradox
+  \end{wideenumerate}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% COURNOT AND BERTRAND
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{From ECN 532: Oligopoly models}
+	\begin{wideitemize}
+		\item You covered Cournot and Bertrand in Hector's class
+		\item Today: quick refresher in IO notation
+		\item \textbf{New focus:} Market power measurement
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Connecting oligopoly models to Lerner index
+			\item When does each model apply?
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Cournot competition: setup}
+	\begin{wideitemize}
+		\item $n$ firms producing homogeneous goods
+		\item Firms choose \textbf{quantities} simultaneously
+		\item Inverse demand: $P = P(Q)$ where $Q = \sum_{i=1}^n q_i$
+		\item Constant marginal cost: $c$
+		\item Firm $i$ profit: $\pi_i = P(Q) \cdot q_i - c \cdot q_i$
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: Cournot duopoly}
+	\begin{wideitemize}
+		\item \textbf{Setup:} Inverse demand is $P = 100 - Q$. Two firms with $MC = 10$.
+		\item \textbf{Steps:}
+		\begin{wideenumerate}
+			\item Write down firm $i$'s profit function
+			\item Find firm $i$'s best response function
+			\item Use symmetry to find equilibrium $Q$ and $P$
+		\end{wideenumerate}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: Cournot duopoly (solution)}
+	\begin{wideitemize}
+		\item \textbf{Step 1:} Profit: $\pi_i = (100 - q_i - q_j)q_i - 10q_i$
+		\item \textbf{Step 2:} FOC: $\frac{d\pi_i}{dq_i} = 100 - 2q_i - q_j - 10 = 0$
+		\item Best response: $q_i = \frac{90 - q_j}{2} = 45 - 0.5q_j$
+		\item \textbf{Step 3:} Symmetry: $q_1 = q_2 = q^*$
+		\item $q^* = 45 - 0.5q^* \Rightarrow 1.5q^* = 45 \Rightarrow q^* = 30$
+		\item $Q = 60$, $P = 100 - 60 = 40$
+		\item Profit per firm: $\pi = (40 - 10) \times 30 = 900$
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Cournot with $n$ symmetric firms}
+	\begin{wideitemize}
+		\item \textbf{Setup:}
+		\item $n$ firms with constant marginal cost $c$
+		\item Linear demand: $P = a - bQ$ where $Q = q_1 + q_2 + \ldots + q_n$
+		\item \textbf{Question:} What are the Cournot equilibrium quantities and price?
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Cournot with $n$ symmetric firms (solution)}
+	\begin{wideitemize}
+		\item Firm $i$ profit: $\pi_i = q_i(a - bQ) - cq_i$
+		\item FOC: $\frac{d\pi_i}{dq_i} = a - bQ - bq_i - c = 0$
+		\item By symmetry: $q_1 = q_2 = \ldots = q_n = q^*$, so $Q = nq^*$
+		\item Substituting: $a - bnq^* - bq^* - c = 0$
+		\item Solving: $q^* = \frac{a-c}{b(n+1)}$, \quad $P^* = \frac{a + nc}{n+1}$
+		\item Profit: $\pi^* = (P^* - c)q^* = \frac{a-c}{n+1} \cdot \frac{a-c}{b(n+1)} = \frac{(a-c)^2}{b(n+1)^2}$
+		\item \textbf{Key insight:} As $n \to \infty$, $P \to c$ and $\pi \to 0$
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Practice: Cournot comparative statics}
+	\begin{wideitemize}
+		\item \textbf{True, False, or NEI:}
+		\item (a) Adding a third firm to a Cournot duopoly always reduces industry profits.
+		\item (b) In Cournot, all firms must have the same marginal cost.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Practice: Cournot comparative statics (solution)}
+	\begin{wideitemize}
+		\item \textbf{Answers:}
+		\item \textbf{(a) TRUE.} More firms $\Rightarrow$ lower price $\Rightarrow$ lower industry profit. Each firm's profit falls, and total profit falls because $P$ is closer to $MC$.
+		\item \textbf{(b) FALSE.} Asymmetric costs work fine. Low-cost firms produce more and earn higher margins.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan}
+  \begin{wideenumerate}
+    \item Cournot competition (refresher)
+    \item Bertrand competition (refresher)
+    \item Escaping the Bertrand paradox
+  \end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Bertrand competition: setup}
+	\begin{wideitemize}
+		\item $n$ firms producing \textbf{homogeneous} goods
+		\item Firms choose \textbf{prices} simultaneously
+		\item Consumers buy from lowest-price firm
+		\item If tie: split demand equally
+		\item Constant marginal cost: $c$
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Bertrand: the paradox}
+	\begin{wideitemize}
+		\item \textbf{Nash equilibrium:} $p_1 = p_2 = c$ (marginal cost pricing!)
+		\item \textbf{Why?}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item If $p_i > p_j > c$: firm $i$ can undercut and capture entire market
+			\item Undercutting continues until $p = c$
+		\end{wideitemize}
+		\item \textbf{The ``paradox'':}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Only 2 firms, but competitive outcome!
+			\item Zero profits with just 2 competitors
+			\item Seems unrealistic for most markets
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Potential solutions to the Bertrand paradox}
+	\begin{wideitemize}
+		\item How could we change the assumptions of the Bertrand model to get a more realistic model with positive profits (i.e. firms pricing above MC)?
+		\item \textbf{Asymmetric (i.e. different) costs}
+		\begin{wideitemize}
+			\item Like `cost leadership'
+		\end{wideitemize}
+		\item \textbf{Product differentiation/branding}
+		\begin{wideitemize}
+			\item Undercutting the price by a small amount may no longer deliver all of total demand
+		\end{wideitemize}
+		\item \textbf{Dynamic competition}
+		\begin{wideitemize}
+			\item What if rivals can retaliate? E.g. you set a high price but threaten to retaliate next time if your rival undercuts you?
+		\end{wideitemize}
+		\item \textbf{Capacity constraints}
+		\begin{wideitemize}
+			\item What good is undercutting your rival to get total demand if you cannot actually supply all this demand due to capacity constraints?
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Kreps-Scheinkman (1983): resolving the puzzle}
+	\begin{wideitemize}
+		\item Two-stage game:
+		\begin{wideenumerate}
+			\vspace{5pt}
+			\item Stage 1: Firms choose capacities (quantities)
+			\item Stage 2: Firms compete in prices
+		\end{wideenumerate}
+		\item \textbf{Result:} Equilibrium outcome = Cournot!
+		\item \textbf{Intuition:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Capacity choice commits firms
+			\item Price competition is constrained by capacity
+			\item Undercutting is limited by what you can produce
+		\end{wideitemize}
+		\item Key insight: commitment matters
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{When does each model apply?}
+	\begin{wideitemize}
+		\item \textbf{Cournot applies when:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Capacity constraints matter
+			\item Firms commit to production before selling
+			\item Quantities are hard to adjust quickly
+		\end{wideitemize}
+		\item Examples: manufacturing, airlines (seat capacity)
+		\item \textbf{Bertrand applies when:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Prices adjust quickly
+			\item No capacity constraints
+			\item Homogeneous products
+		\end{wideitemize}
+		\item Examples: online retail, commodities
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Industry examples: which model?}
+	\begin{center}
+	\begin{tabular}{|l|c|l|}
+		\hline
+		\textbf{Industry} & \textbf{Model} & \textbf{Why?} \\
+		\hline
+		Airlines & \pause Cournot & Capacity (planes, gates) committed \\
+		\hline \pause
+		Cement & \pause Cournot & Production committed; transport costs \\
+		\hline \pause
+		Gasoline stations & \pause Bertrand & Prices adjust daily; commodity \\
+		\hline \pause
+		Online retail & \pause Bertrand & Instant price changes; no capacity \\
+		\hline
+	\end{tabular}
+	\end{center}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% KEY POINTS FOR OLIGOPOLY
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Key Points}
+	\vspace{11pt}
+	\begin{wideenumerate}
+		\item \textbf{Cournot:} Firms choose quantities; $P > MC$
+		\item \textbf{Bertrand (homogeneous):} $P = MC$, zero profits
+		\item \textbf{Bertrand paradox:} Only 2 firms but competitive outcome
+		\item Cournot applies with capacity constraints; Bertrand with flexible prices
+		\item \textbf{Escaping the paradox:} Capacity constraints, differentiation, collusion
+	\end{wideenumerate}
+\end{frame}
+
+\end{document}

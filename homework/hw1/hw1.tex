@@ -83,11 +83,12 @@ There are two datasets:
 
 Consider the homogeneous-consumer logit model:
 \begin{align*}
-	u_{ijt} = \beta_1 \cdot \text{sugar}_{jt} + \alpha \cdot p_{jt} + \xi_{jt} + \epsilon_{ijt}
+	u_{ijt} = \beta_0 + \beta_1 \cdot \text{sugar}_{jt} + \alpha \cdot p_{jt} + \xi_{jt} + \epsilon_{ijt}
 \end{align*}
 where:
 \begin{itemize}
 	\item $u_{ijt}$: Utility of consumer $i$ for product $j$ in market $t$
+	\item $\beta_0$: Constant (intercept)
 	\item $\text{sugar}_{jt}$: Sugar content of product $j$ in market $t$
 	\item $p_{jt}$: Price of product $j$ in market $t$
 	\item $\xi_{jt}$: Unobserved product quality
@@ -116,7 +117,7 @@ The utility of the outside option (not purchasing any cereal) is normalized to $
 
 Now consider a model that allows preferences to vary with observed consumer demographics:
 \begin{align*}
-	u_{ijt} = (\beta_1 + \pi_1 \cdot \text{income}_i) \cdot \text{sugar}_{jt} + (\alpha + \pi_\alpha \cdot \text{income}_i) \cdot p_{jt} + \xi_{jt} + \epsilon_{ijt}
+	u_{ijt} = \beta_0 + (\beta_1 + \pi_1 \cdot \text{income}_i) \cdot \text{sugar}_{jt} + (\alpha + \pi_\alpha \cdot \text{income}_i) \cdot p_{jt} + \xi_{jt} + \epsilon_{ijt}
 \end{align*}
 
 This model has four parameters:

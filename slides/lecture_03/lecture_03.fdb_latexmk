@@ -1,7 +1,8 @@
 # Fdb version 4
-["pdflatex"] 1768723672.78831 "/Users/nicholasvreugdenhil/ASU Dropbox/Nicholas Vreugdenhil/masters_io_2026/slides/lecture_03/lecture_03.tex" "lecture_03.pdf" "lecture_03" 1768723674.50688 0
+["pdflatex"] 1769399489.67091 "/Users/nicholasvreugdenhil/ASU Dropbox/Nicholas Vreugdenhil/masters_io_2026/slides/lecture_03/lecture_03.tex" "lecture_03.pdf" "lecture_03" 1769399491.4423 0
   "../../previous_courses/phd_io/demand_estimation/cereal.png" 1642652908 482380 0ccccb3257e1421782ad3d3ca5991313 ""
-  "/Users/nicholasvreugdenhil/ASU Dropbox/Nicholas Vreugdenhil/masters_io_2026/slides/lecture_03/lecture_03.tex" 1768723672.56562 28387 938f12f1d5e960bb01ffddd9b17a2f3d ""
+  "../../previous_courses/phd_io/demand_estimation/nevo_1.jpeg" 1642663582 498141 78ac0a45cd0bf6d82eaf4667be6f161d ""
+  "/Users/nicholasvreugdenhil/ASU Dropbox/Nicholas Vreugdenhil/masters_io_2026/slides/lecture_03/lecture_03.tex" 1769399487.57003 28293 fb90846850da2c60fe8385f0f81391ea ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -48,7 +49,6 @@
   "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmsy10.pfb" 1248133631 32569 5e5ddc8df908dea60932f3c484a54c0d ""
   "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt10.pfb" 1248133631 31099 c85edf1dd5b9e826d67c9c7293b6786c ""
   "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/cm/cmtt9.pfb" 1248133631 29078 718ea4567ceff944262b0f5b0800e1d9 ""
-  "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/amsfonts/symbols/msam10.pfb" 1248133631 31764 459c573c03a4949a528c2cc7f557e217 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfit0900.pfb" 1215737283 158366 01d97129a4bd5d2ecf7b6bfbd124c543 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/cm-super/sfss1095.pfb" 1215737283 97272 e31c1319e3ff43b442c57e2c8f2acc52 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/type1/public/mathpazo/fplmr.pfb" 1136849748 9356 a3851bc942e9b6995883193472ba1847 ""
@@ -299,12 +299,12 @@
   "/usr/local/texlive/2025/texmf-var/fonts/map/pdftex/updmap/pdftex.map" 1762320741 5467155 19efa205003f9ecad95fbbaa6ff24da1 ""
   "/usr/local/texlive/2025/texmf-var/web2c/pdftex/pdflatex.fmt" 1741450574 3345740 46b66fdb0378f7bf5921b5eabf1762b8 ""
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
-  "lecture_03.aux" 1768723674.39937 5463 96ce86b7b4811a99817dc3157de605a2 "pdflatex"
-  "lecture_03.listing" 1768723674.2312 477 6af94823dbad0b6519231b5e0c3d089a "pdflatex"
-  "lecture_03.nav" 1768723674.40072 3806 dc6cd9bd11b5862db379b6b87555791e "pdflatex"
-  "lecture_03.out" 1768723673.63064 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "lecture_03.tex" 1768723672.56562 28387 938f12f1d5e960bb01ffddd9b17a2f3d ""
-  "lecture_03.vrb" 1768723674.2286 537 6070cc1b3bd1176d46e1d5b4cf6346c5 "pdflatex"
+  "lecture_03.aux" 1769399491.30815 5594 d220a2c4e189df31f0bfcde89df8e021 "pdflatex"
+  "lecture_03.listing" 1769399491.12323 428 20627a17a0909c20567063018bc3666e "pdflatex"
+  "lecture_03.nav" 1769399491.3094 3901 d240d24623cd6a1c96695d980224b825 "pdflatex"
+  "lecture_03.out" 1769399490.43645 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "lecture_03.tex" 1769399487.57003 28293 fb90846850da2c60fe8385f0f81391ea ""
+  "lecture_03.vrb" 1769399491.12068 488 c4cadea21be68109d8d3981b208aa161 "pdflatex"
   (generated)
   "lecture_03.aux"
   "lecture_03.listing"

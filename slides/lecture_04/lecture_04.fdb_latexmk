@@ -1,6 +1,6 @@
 # Fdb version 4
-["pdflatex"] 1768767676.14353 "/Users/nicholasvreugdenhil/ASU Dropbox/Nicholas Vreugdenhil/masters_io_2026/slides/lecture_04/lecture_04.tex" "lecture_04.pdf" "lecture_04" 1768767677.95244 0
-  "/Users/nicholasvreugdenhil/ASU Dropbox/Nicholas Vreugdenhil/masters_io_2026/slides/lecture_04/lecture_04.tex" 1768767674.11644 36062 131d87b40eb4d988aad4eccf5cc72516 ""
+["pdflatex"] 1769399542.71966 "/Users/nicholasvreugdenhil/ASU Dropbox/Nicholas Vreugdenhil/masters_io_2026/slides/lecture_04/lecture_04.tex" "lecture_04.pdf" "lecture_04" 1769399544.3061 0
+  "/Users/nicholasvreugdenhil/ASU Dropbox/Nicholas Vreugdenhil/masters_io_2026/slides/lecture_04/lecture_04.tex" 1769382789.16618 28380 ded58676a9b7f5c00c0b6e724d5b048d ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/base/8r.enc" 1165713224 4850 80dc9bab7f31fb78a000ccfed0e27cab ""
   "/usr/local/texlive/2025/texmf-dist/fonts/enc/dvips/cm-super/cm-super-ts1.enc" 1136849721 2900 1537cc8184ad1792082cd229ecc269f4 ""
   "/usr/local/texlive/2025/texmf-dist/fonts/map/fontname/texfonts.map" 1577235249 3524 cb3e574dea2d1052e39280babc910dc8 ""
@@ -279,10 +279,10 @@
   "/usr/local/texlive/2025/texmf.cnf" 1741450484 577 418a7058ec8e006d8704f60ecd22c938 ""
   "cheerios.png" 1768763835.52981 459945 95bb02ca86a466615f8cd0941a79beb1 ""
   "ftc.jpeg" 1768767591.15998 240185 c2d479ac33ae0e7d5b6aa8629693dc28 ""
-  "lecture_04.aux" 1768767677.85086 7656 17b3c62cc5a6c0c3ce1cc56086f20fc7 "pdflatex"
-  "lecture_04.nav" 1768767677.85227 5387 c4326fc2c7a6e6264a8657e9010d4ac3 "pdflatex"
-  "lecture_04.out" 1768767676.8666 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
-  "lecture_04.tex" 1768767674.11644 36062 131d87b40eb4d988aad4eccf5cc72516 ""
+  "lecture_04.aux" 1769399544.20077 5979 ab435e3be06867e27bd2016989fc50db "pdflatex"
+  "lecture_04.nav" 1769399544.20181 4178 fe9bef6b28af8afa8a81c37827a7c3ca "pdflatex"
+  "lecture_04.out" 1769399543.42315 0 d41d8cd98f00b204e9800998ecf8427e "pdflatex"
+  "lecture_04.tex" 1769382789.16618 28380 ded58676a9b7f5c00c0b6e724d5b048d ""
   "logos.jpeg" 1768767591.15407 85555 8bc5301877f4678762a67a6d021ff2f7 ""
   "minivan.jpeg" 1768763835.5283 372296 7f02ca127fc126d41be78cfd30882ec5 ""
   "outcome.jpeg" 1768767591.16563 165629 4d74e438fc3a01cd6f001b052bb507e8 ""

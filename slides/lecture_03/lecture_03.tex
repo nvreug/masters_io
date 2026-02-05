@@ -159,10 +159,12 @@ Nicholas Vreugdenhil \\
 \begin{frame}{Plan for today}
   \begin{wideenumerate}
     \item \textbf{Recap: The demographic model}
+    \item Typical data
+    \item The BLP algorithm
+    \item Classic example: Nevo (2001)
     \item Introduction to pyblp
     \item Worked example: Basic logit
     \item Worked example: With demographics
-    \item Interpreting results
   \end{wideenumerate}
 \end{frame}
 
@@ -174,7 +176,7 @@ Nicholas Vreugdenhil \\
 	\begin{wideitemize}
 		\item Last time: the demographic interaction model
 		\begin{align*}
-			u_{ijt} = \underbrace{x_{jt} \beta + \alpha p_{jt} + \xi_{jt}}_{\delta_{jt}} + \underbrace{\sum_{k,\ell} \pi_{k\ell} D_{i\ell} x_{jt,k}}_{\mu_{ijt}} + \varepsilon_{ijt}
+			u_{ijt} = \underbrace{x_{jt} \beta + \alpha p_{jt} + \xi_{jt}}_{\delta_{jt}} + \underbrace{\sum_{k,\ell} \pi_{k\ell} D_{i\ell} x_{jt,k} + \sum_{\ell} \pi_{\alpha\ell} D_{i\ell} p_{jt}}_{\mu_{ijt}} + \varepsilon_{ijt}
 		\end{align*}
 		\item $\delta_{jt}$: mean utility (common to all consumers)
 		\item $\mu_{ijt}$: individual deviation based on demographics $D_i$
@@ -184,16 +186,198 @@ Nicholas Vreugdenhil \\
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% TYPICAL DATA
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Plan for today}
+  \begin{wideenumerate}
+    \item Recap: The demographic model
+    \item \textbf{Typical data}
+    \item The BLP algorithm
+    \item Classic example: Nevo (2001)
+    \item Introduction to pyblp
+    \item Worked example: Basic logit
+    \item Worked example: With demographics
+  \end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Estimation: What parameters do we need?}
+	\begin{wideitemize}
+		\item \underline{Linear parameters:}
+		\begin{wideitemize}
+			\item $\beta$: coefficients on product characteristics
+			\item $\alpha$: price coefficient
+		\end{wideitemize}
+		\item \underline{Nonlinear parameters:}
+		\begin{wideitemize}
+			\item $\pi$: coefficients on demographic interactions
+		\end{wideitemize}
+		\item Full parameter vector: $\theta = (\alpha, \beta, \pi)$
+		\item Why ``linear'' vs ``nonlinear''?
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item $\beta, \alpha$ enter the mean utility $\delta_{jt}$ linearly
+			\item $\pi$ enters the individual deviation $\mu_{ijt}$ nonlinearly (through the share integral)
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Typical data: Three types of variables}
+	\begin{wideitemize}
+		\item \underline{1. Market shares (or quantities)}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Aggregations of individual consumer choices
+			\item Convert quantities to shares: $s_{jt} = q_{jt} / I_t$ where $I_t$ is market size
+			\item Key assumption: consumers in the same market face same prices, characteristics
+		\end{wideitemize}
+		\item \underline{2. Prices and product characteristics}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item $p_{jt}$: prices of each product $j$ in market $t$
+			\item $x_{jt}$: observed characteristics (e.g., horsepower, fuel efficiency)
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Typical data: Consumer demographics}
+	\begin{wideitemize}
+		\item \underline{3. Information on consumer demographics $D_i$}
+		\item Three common data structures:
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item \textbf{Micro-data:} Observe $D_i$ for each consumer
+			\begin{wideitemize}
+				\item e.g., survey data on car purchases with buyer demographics
+			\end{wideitemize}
+			\item \textbf{Aggregate data:} Distribution of demographics $F_t(D)$
+			\begin{wideitemize}
+				\item e.g., income distribution from Census/CPS by city
+				\item Draw simulated consumers from this distribution
+			\end{wideitemize}
+			\item \textbf{Summary statistics:} Average demographics of buyers
+			\begin{wideitemize}
+				\item e.g., average age of consumers who purchase product $j$
+			\end{wideitemize}
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% THE BLP ALGORITHM
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Plan for today}
+  \begin{wideenumerate}
+    \item Recap: The demographic model
+    \item Typical data
+    \item \textbf{The BLP algorithm}
+    \item Classic example: Nevo (2001)
+    \item Introduction to pyblp
+    \item Worked example: Basic logit
+    \item Worked example: With demographics
+  \end{wideenumerate}
+\end{frame}
+
+\begin{frame}{(A version of) the estimation algorithm in the background}
+	\begin{wideitemize}
+		\item We have the model---but how do we actually estimate it?
+		\item \textbf{Step 1: Estimate $\pi$ and $\delta$ via maximum likelihood}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Maximum likelihood finds the $\pi$ and $\delta$ that best predicts consumer choices
+			\item What variation in the data identifies $\pi$? What variation identifies $\delta$? \pause
+			\item \textbf{Answer:} How choices vary with demographics identifies $\pi$; matching the empirical market shares identifies $\delta$
+		\end{wideitemize}
+		\item \textbf{Step 2: Recover $\delta$ parameters ($\beta$ and $\alpha$) via two stage least squares (2SLS)}
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item Use estimated mean utilities: $\delta_{jt} = x_{jt} \beta + \alpha p_{jt} + \xi_{jt}$
+			\item Instruments handle price endogeneity
+		\end{wideitemize}
+		\item \textbf{Key:} pyblp handles all of this for you! (using a slightly different algorithm, but similar idea)
+	\end{wideitemize}
+\end{frame}
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% NEVO (2001) EXAMPLE
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Plan for today}
+  \begin{wideenumerate}
+    \item Recap: The demographic model
+    \item Typical data
+    \item The BLP algorithm
+    \item \textbf{Classic example: Nevo (2001)}
+    \item Introduction to pyblp
+    \item Worked example: Basic logit
+    \item Worked example: With demographics
+  \end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Nevo (2001): The cereal industry}
+	\begin{columns}
+		\begin{column}{0.65\textwidth}
+			\begin{wideitemize}
+				\item ``Measuring Market Power in the Ready-to-Eat Cereal Industry''
+				\item Why study cereal?
+				\begin{wideitemize}
+					\vspace{5pt}
+					\item Concentrated market (few major firms)
+					\item High profit margins
+					\item High advertising-to-sales ratios
+					\item Aggressive new product introduction
+				\end{wideitemize}
+				\item Classic example of differentiated products industry
+				\item \textbf{Question:} Is there collusive pricing?
+			\end{wideitemize}
+		\end{column}
+		\begin{column}{0.35\textwidth}
+			\includegraphics[width=\textwidth]{../../previous_courses/phd_io/demand_estimation/cereal.png}
+		\end{column}
+	\end{columns}
+\end{frame}
+
+\begin{frame}{Nevo (2001): Data and approach}
+	\begin{wideitemize}
+	\item Utility model is exactly what we have seen:
+	\begin{align*}
+	u_{ijt} = x_{jt} \beta_i + \alpha_i p_{jt} + \xi_{jt} + \epsilon_{ijt}
+	\end{align*}
+	\item \textbf{Data:}
+	\item Use top 25 cereal brands
+	\item Scanner data $\rightarrow$ get market shares, prices, etc. 
+	\begin{wideitemize}
+	\item Aggregate to MSA-quarter level = 1124 markets.
+	\end{wideitemize}
+	\item Advertising data
+	\item Cereal box characteristics (nutritional information); subjective characteristics (`mushy')
+	\item Demographics from CPS
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Nevo (2001): Demand estimates}
+	\begin{figure}
+		\centering
+		\includegraphics[scale=0.16]{../../previous_courses/phd_io/demand_estimation/nevo_1.jpeg}
+	\end{figure}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % pyblp ESTIMATION
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Plan for today}
   \begin{wideenumerate}
     \item Recap: The demographic model
+    \item Typical data
+    \item The BLP algorithm
+    \item Classic example: Nevo (2001)
     \item \textbf{Introduction to pyblp}
     \item Worked example: Basic logit
     \item Worked example: With demographics
-    \item Interpreting results
   \end{wideenumerate}
 \end{frame}
 
@@ -282,10 +466,12 @@ product_data = pd.read_csv(pyblp.data.BLP_PRODUCTS_LOCATION)
 \begin{frame}{Plan for today}
   \begin{wideenumerate}
     \item Recap: The demographic model
+    \item Typical data
+    \item The BLP algorithm
+    \item Classic example: Nevo (2001)
     \item Introduction to pyblp
     \item \textbf{Worked example: Basic logit}
     \item Worked example: With demographics
-    \item Interpreting results
   \end{wideenumerate}
 \end{frame}
 
@@ -393,11 +579,6 @@ own_price_elasticities = np.diag(elasticities)  # extract diagonal
 			\bottomrule
 		\end{tabular}
 	\end{center}
-	\vspace{5pt}
-	\begin{wideitemize}
-		\item $\hat{\alpha} = -0.225 < 0$ (higher price $\rightarrow$ lower utility)
-		\item Some coefficients have unexpected signs (omitted variable bias without constant)
-	\end{wideitemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -407,10 +588,12 @@ own_price_elasticities = np.diag(elasticities)  # extract diagonal
 \begin{frame}{Plan for today}
   \begin{wideenumerate}
     \item Recap: The demographic model
+    \item Typical data
+    \item The BLP algorithm
+    \item Classic example: Nevo (2001)
     \item Introduction to pyblp
     \item Worked example: Basic logit
     \item \textbf{Worked example: With demographics}
-    \item Interpreting results
   \end{wideenumerate}
 \end{frame}
 
@@ -542,10 +725,12 @@ results = problem.solve(sigma=0, pi=np.array([[0.5]]))
 \begin{frame}{Plan for today}
   \begin{wideenumerate}
     \item Recap: The demographic model
+    \item Typical data
+    \item The BLP algorithm
+    \item Classic example: Nevo (2001)
     \item Introduction to pyblp
     \item Worked example: Basic logit
-    \item Worked example: With demographics
-    \item \textbf{Interpreting results}
+    \item \textbf{Worked example: With demographics}
   \end{wideenumerate}
 \end{frame}
 
@@ -589,19 +774,19 @@ results = problem.solve(sigma=0, pi=np.array([[0.5]]))
 
 \begin{frame}{Common pyblp errors and how to fix them}
 	\begin{wideitemize}
-		\item \textbf{``Singular matrix'' error:}
+		\item \textbf{``Singular matrix'' error:} \pause
 		\begin{wideitemize}
 			\vspace{3pt}
 			\item Likely: collinear variables in formulation
 			\item Fix: Remove redundant variables
 		\end{wideitemize}
-		\item \textbf{Price coefficient positive or near zero:}
+		\item \textbf{Price coefficient positive or near zero:} \pause
 		\begin{wideitemize}
 			\vspace{3pt}
 			\item Likely: weak instruments
 			\item Fix: Check first-stage F-stat; try different IVs
 		\end{wideitemize}
-		\item \textbf{Huge standard errors:}
+		\item \textbf{Huge standard errors:} \pause
 		\begin{wideitemize}
 			\vspace{3pt}
 			\item Likely: weak identification or too few observations
