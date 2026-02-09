@@ -90,7 +90,7 @@
 \newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
 \newenvironment{wideenumerate}{\enumerate\addtolength{\itemsep}{10pt}}{\endenumerate}
 
-\title[]{\textcolor{blue}{ECN 594: Product Differentiation and Hotelling}}
+\title[]{\textcolor{blue}{ECN 594: Oligopoly and Product Differentiation}}
 \author[PGP]{}
 \institute[FRBNY]{\small{\begin{tabular}{c c c}
 Nicholas Vreugdenhil \\
@@ -105,51 +105,250 @@ Nicholas Vreugdenhil \\
   \centering
 \end{frame}
 
-\begin{frame}{Recap: Cournot and Bertrand}
+\begin{frame}{Plan}
+  \begin{wideenumerate}
+    \item \textbf{Cournot competition (refresher from ECN 532)}
+    \item Bertrand paradox and escaping it
+    \item Hotelling model
+  \end{wideenumerate}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% OLIGOPOLY REFRESHER (from ECN 532)
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{From ECN 532: Oligopoly models}
 	\begin{wideitemize}
-		\item Last time we covered:
+		\item You covered Cournot and Bertrand in Hector's class
+		\item Today: quick refresher
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Cournot competition: setup}
+	\begin{wideitemize}
+		\item $n$ firms producing homogeneous goods
+		\item Firms choose \textbf{quantities} simultaneously
+		\item Inverse demand: $P = P(Q)$ where $Q = \sum_{i=1}^n q_i$
+		\item Constant marginal cost: $c$
+		\item Firm $i$ profit: $\pi_i = P(Q) \cdot q_i - c \cdot q_i$
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: Cournot duopoly}
+	\begin{wideitemize}
+		\item \textbf{Setup:} Inverse demand is $P = 100 - Q$. Two firms with $MC = 10$.
+		\item \textbf{Steps:}
+		\begin{wideenumerate}
+			\item Write down firm $i$'s profit function
+			\item Find firm $i$'s best response function
+			\item Use symmetry to find equilibrium $Q$ and $P$
+		\end{wideenumerate}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: Cournot duopoly (solution)}
+	\begin{wideitemize}
+		\item \textbf{Step 1:} Profit: $\pi_i = (100 - q_i - q_j)q_i - 10q_i$
+		\item \textbf{Step 2:} FOC: $\frac{d\pi_i}{dq_i} = 100 - 2q_i - q_j - 10 = 0$
+		\item Best response: $q_i = \frac{90 - q_j}{2} = 45 - 0.5q_j$
+		\item \textbf{Step 3:} Symmetry: $q_1 = q_2 = q^*$
+		\item $q^* = 45 - 0.5q^* \Rightarrow 1.5q^* = 45 \Rightarrow q^* = 30$
+		\item $Q = 60$, $P = 100 - 60 = 40$
+		\item Profit per firm: $\pi = (40 - 10) \times 30 = 900$
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Cournot with $n$ symmetric firms}
+	\begin{wideitemize}
+		\item \textbf{Setup:}
+		\item $n$ firms with constant marginal cost $c$
+		\item Linear demand: $P = a - bQ$ where $Q = q_1 + q_2 + \ldots + q_n$
+		\item \textbf{Question:} What are the Cournot equilibrium quantities and price?
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Cournot with $n$ symmetric firms (solution)}
+	\begin{wideitemize}
+		\item Firm $i$ profit: $\pi_i = q_i(a - bQ) - cq_i$
+		\item FOC: $\frac{d\pi_i}{dq_i} = a - bQ - bq_i - c = 0$
+		\item By symmetry: $q_1 = q_2 = \ldots = q_n = q^*$, so $Q = nq^*$
+		\item Substituting: $a - bnq^* - bq^* - c = 0$
+		\item Solving: $q^* = \frac{a-c}{b(n+1)}$, \quad $P^* = \frac{a + nc}{n+1}$
+		\item Profit: $\pi^* = (P^* - c)q^* = \frac{a-c}{n+1} \cdot \frac{a-c}{b(n+1)} = \frac{(a-c)^2}{b(n+1)^2}$
+		\item \textbf{Key insight:} As $n \to \infty$, $P \to c$ and $\pi \to 0$
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan}
+  \begin{wideenumerate}
+    \item Cournot competition (refresher from ECN 532)
+    \item \textbf{Bertrand paradox and escaping it}
+    \item Hotelling model
+  \end{wideenumerate}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% BERTRAND
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Bertrand competition: setup}
+	\begin{wideitemize}
+		\item $n$ firms producing \textbf{homogeneous} goods
+		\item Firms choose \textbf{prices} simultaneously
+		\item Consumers buy from lowest-price firm
+		\item If tie: split demand equally
+		\item Constant marginal cost: $c$
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Bertrand: the paradox}
+	\begin{wideitemize}
+		\item \textbf{Nash equilibrium:} $p_1 = p_2 = c$ (marginal cost pricing!)
+		\item \textbf{Why?}
 		\begin{wideitemize}
 			\vspace{5pt}
-			\item \textbf{Cournot:} Firms choose quantities; $L = s_i/|\varepsilon|$
-			\item \textbf{Bertrand:} Firms choose prices; $P = MC$ (paradox!)
+			\item If $p_i > p_j > c$: firm $i$ can undercut and capture entire market
+			\item Undercutting continues until $p = c$
 		\end{wideitemize}
-		\item \textbf{Escaping the Bertrand paradox:}
+		\item \textbf{The ``paradox'':}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Only 2 firms, but competitive outcome!
+			\item Zero profits with just 2 competitors
+			\item Seems unrealistic for most markets
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{The Bertrand trap: real-world examples}
+	\begin{wideitemize}
+		\item \textbf{Encyclopedias:}
+		\begin{wideitemize}
+			\item Encyclopedia Britannica: until the 1990s, 32-volume hardback sold for \$1,600
+			\item Microsoft Encarta entered in the 1990s on CD for less than \$100
+			\item By 2000: both sold for \$89.99
+		\end{wideitemize}
+		\item \textbf{Airlines:}
+		\begin{wideitemize}
+			\item In 1992, American Airlines introduced a ``value pricing'' plan that cut fares
+			\item Competitors announced even bigger cuts; American undercut further; industry followed
+			\item Total cost of the price war: \$4 billion
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Potential solutions to the Bertrand paradox}
+	\begin{wideitemize}
+		\item How could we change the assumptions of the Bertrand model to get a more realistic model with positive profits (i.e. firms pricing above MC)?
+		\pause
+		\item \textbf{Asymmetric (i.e. different) costs}
+		\begin{wideitemize}
+			\item Like `cost leadership'
+		\end{wideitemize}
+		\item \textbf{Product differentiation/branding}
+		\begin{wideitemize}
+			\item Undercutting the price by a small amount may no longer deliver all of total demand
+		\end{wideitemize}
+		\item \textbf{Dynamic competition}
+		\begin{wideitemize}
+			\item What if rivals can retaliate? E.g. you set a high price but threaten to retaliate next time if your rival undercuts you?
+		\end{wideitemize}
+		\item \textbf{Capacity constraints}
+		\begin{wideitemize}
+			\item What good is undercutting your rival to get total demand if you cannot actually supply all this demand due to capacity constraints?
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Connection between Cournot and Bertrand}
+	\begin{wideitemize}
+		\item Two-stage game:
 		\begin{wideenumerate}
 			\vspace{5pt}
-			\item Capacity constraints (Kreps-Scheinkman)
-			\item \textbf{Product differentiation} (today!)
-			\item Repeated interaction (collusion, later)
+			\item Stage 1: Firms choose capacities (quantities)
+			\item Stage 2: Firms compete in prices
 		\end{wideenumerate}
-		\item Today: How differentiation creates pricing power
+		\item \textbf{Result:} Equilibrium outcome = Cournot!
+		\item \textbf{Intuition:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Capacity choice commits firms
+			\item Price competition is constrained by capacity
+			\item Undercutting is limited by what you can produce
+		\end{wideitemize}
+		\item Key insight: commitment matters
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{Plan}
-  \begin{wideenumerate}
-    \item \textbf{Product differentiation: why it matters}
-    \item Hotelling model
-    \item Connection to demand estimation
-  \end{wideenumerate}
-\end{frame}
-
-\begin{frame}{Why differentiation matters}
+\begin{frame}{When does each model apply?}
 	\begin{wideitemize}
-		\item Bertrand paradox: $P = MC$ with homogeneous products
-		\item \textbf{Solution:} Product differentiation!
-		\item If products are different, consumers don't all buy from lowest-price firm
-		\item Firms have some pricing power
-		\item This is exactly what we modeled in Part 1 (logit demand)
-		\item Now: a classic spatial model of differentiation
+		\item \textbf{Cournot applies when:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Capacity constraints matter
+			\item Firms commit to production before selling
+			\item Quantities are hard to adjust quickly
+		\end{wideitemize}
+		\item \textbf{Bertrand applies when:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Prices adjust quickly
+			\item No capacity constraints
+			\item Homogeneous products
+		\end{wideitemize}
 	\end{wideitemize}
 \end{frame}
 
+\begin{frame}{Industry examples: which model?}
+	\begin{center}
+	\begin{tabular}{|l|c|l|}
+		\hline
+		\textbf{Industry} & \textbf{Model} & \textbf{Why?} \\
+		\hline
+		Airlines & \pause Cournot & Capacity (planes, gates) committed \\
+		\hline \pause
+		Cement & \pause Cournot & Production committed; transport costs \\
+		\hline \pause
+		Gasoline stations & \pause Bertrand & Prices adjust daily; commodity \\
+		\hline \pause
+		Online retail & \pause Bertrand & Instant price changes; no capacity \\
+		\hline
+	\end{tabular}
+	\end{center}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% HOTELLING
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{frame}{Plan}
   \begin{wideenumerate}
-    \item Product differentiation: why it matters
+    \item Cournot competition (refresher from ECN 532)
+    \item Bertrand paradox and escaping it
     \item \textbf{Hotelling model}
-    \item Connection to demand estimation
   \end{wideenumerate}
 \end{frame}
+
+\begin{frame}{Static Models of Oligopoly: Hotelling Competition}
+	\begin{wideitemize}
+		\item Hotelling competition relates to selling products with \textbf{horizontal differentiation}.
+		\item `Horizontal differentiation' relates to characteristics where there is no clear quality ordering
+		\item Examples:
+		\begin{wideitemize}
+			\item Geographical differentiation (one supermarket might be closer to where you live than another)
+			\item Product characteristics that appeal to different `tastes' (Pepsi vs Coke)
+			\item Ice-cream vendors on a 1 mile beach (this was the original example given when this model was written)
+		\end{wideitemize}
+		\item Contrast: `Vertical differentiation' - consumers agree on which is the better product (i.e. quality differentiation)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Static Models of Oligopoly: Horizontal Differentiation On Campus}
+	\begin{figure}
+		\item \includegraphics[scale=0.18]{tempe_map.jpeg}
+	\end{figure}
+\end{frame}
+
 
 \begin{frame}{Hotelling model: setup}
 	\begin{wideitemize}
@@ -194,228 +393,189 @@ Nicholas Vreugdenhil \\
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{Finding the indifferent consumer}
+\begin{frame}{Solving Hotelling -- Step 1: Get the payoffs}
 	\begin{wideitemize}
-		\item Consumer at $\hat{x}$ is indifferent between firms:
+		\item Assume consumers always buy from one firm (high enough $v$)
+		\item Consumer at $x'$ is indifferent between the two firms if:
 		\begin{align*}
-			v - p_1 - t|\hat{x} - a| = v - p_2 - t|b - \hat{x}|
+			tx'+p_1 = t(1-x')+p_2
 		\end{align*}
-		\item With $a = 0$ and $b = 1$ (firms at endpoints):
+		\item Consumers to the left of $x'$ buy from Firm 1, to the right from Firm 2
+		\item Solving for $x'$ gives demand:
 		\begin{align*}
-			v - p_1 - t\hat{x} &= v - p_2 - t(1 - \hat{x}) \\
-			p_2 - p_1 &= t(1 - 2\hat{x}) \\
-			\hat{x} &= \frac{1}{2} + \frac{p_2 - p_1}{2t}
+			q_1 &= 0.5 + \frac{p_2 - p_1}{2t}, \quad
+			q_2 = 0.5 + \frac{p_1 - p_2}{2t}
 		\end{align*}
-		\item Demand for firm 1: $D_1 = \hat{x}$
-		\item Demand for firm 2: $D_2 = 1 - \hat{x}$
+		\item Payoffs:
+		\begin{align*}
+			\pi_1 &= \left(0.5 + \frac{p_2 - p_1}{2t}\right)(p_1-c_1), \quad
+			\pi_2 = \left(0.5 + \frac{p_1 - p_2}{2t}\right)(p_2-c_2)
+		\end{align*}
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{Hotelling: equilibrium prices}
+\begin{frame}{Solving Hotelling -- Step 2: Get the best responses}
 	\begin{wideitemize}
-		\item Firm 1 maximizes: $\pi_1 = (p_1 - c) \cdot \hat{x}(p_1, p_2)$
-		\item FOC: $\frac{\partial \pi_1}{\partial p_1} = \hat{x} + (p_1 - c) \frac{\partial \hat{x}}{\partial p_1} = 0$
-		\item With $\frac{\partial \hat{x}}{\partial p_1} = -\frac{1}{2t}$:
+		\item Take derivative of payoffs w.r.t.\ own price and set to 0:
+		\item \underline{Firm 1}:
 		\begin{align*}
-			\frac{1}{2} + \frac{p_2 - p_1}{2t} - \frac{p_1 - c}{2t} = 0
+			0.5 + \frac{p_2-p_1}{2t} - \frac{1}{2t}(p_1-c_1) = 0 \quad \Rightarrow \quad p_1 = \frac{1}{2}(c_1+t+p_2)
 		\end{align*}
-		\item Symmetric equilibrium ($p_1 = p_2 = p^*$):
+		\item \underline{Firm 2}:
 		\begin{align*}
-			p^* = c + t
+			0.5 + \frac{p_1-p_2}{2t} - \frac{1}{2t}(p_2-c_2) = 0 \quad \Rightarrow \quad p_2 = \frac{1}{2}(c_2+t+p_1)
 		\end{align*}
-		\item \textbf{Markup = transport cost!}
+		\item Best responses are \textit{upward sloping} (strategic complements)
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{Hotelling: interpretation}
+\begin{frame}{Solving Hotelling -- Step 3: Nash equilibrium}
 	\begin{wideitemize}
-		\item $p^* = c + t$: Firms charge above marginal cost
-		\item \textbf{Transport cost $t$ measures differentiation}
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item High $t$: products very different $\rightarrow$ high markup
-			\item Low $t$: products similar $\rightarrow$ low markup
-			\item $t \to 0$: products identical $\rightarrow$ Bertrand ($p \to c$)
-		\end{wideitemize}
-		\item \textbf{No Bertrand paradox:} Differentiation creates pricing power
-		\item Each firm gets half the market: $D_1 = D_2 = 1/2$
+		\item Set $c_1=c_2=c$. By symmetry, $p_1=p_2=p^*$:
+		\begin{align*}
+			p^* = \frac{1}{2}(c+t+p^*) \quad \Rightarrow \quad p^* = c+t
+		\end{align*}
+		\item \textbf{The greater the product differentiation ($t$), the greater the market power}
+		\item If $t=0$: consumers flock to lowest price $\rightarrow$ Bertrand solution ($p=c$)
+		\item So product differentiation ($t>0$) solves the Bertrand paradox
+		\item Each firm gets half the market: $q_1 = q_2 = 1/2$
 		\item Profit: $\pi = (p^* - c) \cdot \frac{1}{2} = \frac{t}{2}$
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{Worked example: Hotelling}
+\begin{frame}{Worked example: Hotelling with asymmetric locations}
 	\begin{wideitemize}
-		\item \textbf{Question:} Two ice cream vendors on a beach of length 1 mile. Transport cost $t = 2$ dollars per mile. Marginal cost $c = 1$.
-		\item (a) Find the equilibrium price.
-		\item (b) If firm 1 raises price to $p_1 = 4$, what is its market share?
-		\item (c) Calculate firm 1's demand elasticity at the equilibrium.
+		\item \textbf{Question:} Two ice cream vendors on a beach of length 1 mile. Firm 1 at location $0$, Firm 2 at location $0.8$. Transport cost $t = 2$, marginal cost $c = 1$.
+		\item (a) Find the indifferent consumer and each firm's demand
+		\item (b) Find the equilibrium price for each firm
+		\item (c) Which firm earns more profit? Explain intuitively.
 	\end{wideitemize}
-	\vspace{10pt}
-	\centering
-	\textit{Take 4 minutes.}
 \end{frame}
 
 \begin{frame}{Worked example: Hotelling (solution)}
 	\begin{wideitemize}
-		\item \textbf{(a)} $p^* = c + t = 1 + 2 = 3$
-		\item \textbf{(b)} At $p_1 = 4$, $p_2 = 3$:
+		\item \textbf{(a)} Indifferent consumer at $x'$: $2x' + p_1 = 2(0.8 - x') + p_2$
 		\begin{align*}
-			\hat{x} = \frac{1}{2} + \frac{3 - 4}{2(2)} = \frac{1}{2} - \frac{1}{4} = \frac{1}{4}
+			x' = 0.4 + \frac{p_2 - p_1}{4}, \quad D_1 = x', \quad D_2 = 1 - x'
 		\end{align*}
-		\item Firm 1's market share falls to 25\%
-		\item \textbf{(c)} At equilibrium: $D_1 = 1/2$, $\frac{\partial D_1}{\partial p_1} = -\frac{1}{2t} = -\frac{1}{4}$
+		\item \textbf{(b)} Best responses (FOCs):
 		\begin{align*}
-			\varepsilon_1 = \frac{\partial D_1}{\partial p_1} \cdot \frac{p_1}{D_1} = -\frac{1}{4} \cdot \frac{3}{1/2} = -1.5
+			p_1 = \frac{2.6 + p_2}{2}, \quad p_2 = \frac{3.4 + p_1}{2}
 		\end{align*}
+		\item Solving: $3p_1 = 8.6 \Rightarrow p_1 \approx 2.87$, \quad $p_2 \approx 3.13$
+		\item \textbf{(c)} $D_1 \approx 0.47$, $D_2 \approx 0.53$
+		\begin{align*}
+			\pi_1 = 1.87 \times 0.47 \approx 0.87, \quad \pi_2 = 2.13 \times 0.53 \approx 1.14
+		\end{align*}
+		\item Firm 2 earns more: it is closer to center, so it has a larger captive market, charges a higher price, \textit{and} has a larger market share
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{Hotelling: why transport cost matters}
-	\begin{wideitemize}
-		\item \textbf{High $t$:} Strong differentiation
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Consumers have strong location preferences
-			\item Firm can raise price without losing many customers
-			\item Example: specialty restaurants vs fast food
-		\end{wideitemize}
-		\item \textbf{Low $t$:} Weak differentiation
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Consumers nearly indifferent across locations
-			\item Small price cut steals many customers
-			\item Approaches Bertrand as $t \to 0$
-		\end{wideitemize}
-		\item In demand estimation: $1/|\alpha|$ plays similar role to $t$
-	\end{wideitemize}
-\end{frame}
 
-\begin{frame}{Practice: T/F on Hotelling}
+\begin{frame}{Hotelling with endogenous locations}
 	\begin{wideitemize}
-		\item \textbf{True, False, or NEI:}
-		\item (a) In Hotelling equilibrium, firms always split the market equally.
-		\item (b) A monopolist in Hotelling should locate at the center of the line.
-		\item (c) Higher transport costs benefit consumers because products are more differentiated.
-	\end{wideitemize}
-	\vspace{10pt}
-	\centering
-	\textit{Take 2 minutes.}
-\end{frame}
-
-\begin{frame}{Practice: T/F on Hotelling (solution)}
-	\begin{wideitemize}
-		\item \textbf{(a) TRUE} (with caveat). If firms are at endpoints and have same costs, yes. With asymmetric locations or costs, shares differ.
-		\item \textbf{(b) TRUE.} Monopolist minimizes total transport costs by locating at center. This maximizes consumer value and thus WTP.
-		\item \textbf{(c) FALSE.} Higher $t$ means higher prices ($p^* = c + t$) and higher transport costs. Both hurt consumers.
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Welfare in Hotelling}
-	\begin{wideitemize}
-		\item \textbf{Total welfare} = Consumer surplus + Profits
-		\item Transport costs are deadweight loss
-		\item \textbf{Socially optimal locations:} $a = 1/4$, $b = 3/4$
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Minimizes total transport costs
-		\end{wideitemize}
-		\item \textbf{Equilibrium locations:} Both firms at $1/2$ (minimum differentiation)
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Firms want to capture more customers
-			\item But this increases total transport costs
-		\end{wideitemize}
-		\item ``Principle of minimum differentiation'' (but fragile)
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Plan}
-  \begin{wideenumerate}
-    \item Product differentiation: why it matters
-    \item Hotelling model
-    \item \textbf{Connection to demand estimation}
-  \end{wideenumerate}
-\end{frame}
-
-\begin{frame}{Connection to demand estimation}
-	\begin{wideitemize}
-		\item Hotelling is a specific \textbf{differentiated Bertrand} model
-		\item Location $\leftrightarrow$ product characteristics
-		\item Transport cost $\leftrightarrow$ preference heterogeneity
-		\item \textbf{Logit demand} generalizes this idea:
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Products differ in characteristics space
-			\item Consumers have heterogeneous preferences
-			\item Price competition with differentiated products
-		\end{wideitemize}
-		\item Next lectures: how to use demand estimates for merger simulation
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{From Hotelling to logit: the connection}
-	\begin{center}
-	\begin{tabular}{|l|l|}
-		\hline
-		\textbf{Hotelling} & \textbf{Logit} \\
-		\hline
-		Location on line & Product characteristics \\
-		\hline
-		Transport cost $t$ & Sensitivity $1/|\alpha|$ \\
-		\hline
-		Consumer position & Consumer preferences \\
-		\hline
-		Linear utility & Logit choice probabilities \\
-		\hline
-		2 products & $J$ products \\
-		\hline
-	\end{tabular}
-	\end{center}
-	\vspace{5pt}
-	\begin{wideitemize}
-		\item Logit demand lets us do empirical Hotelling-style analysis
-		\item Estimate $\alpha$ from data $\rightarrow$ calibrate ``differentiation''
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Oligopoly models: summary}
-	\begin{wideitemize}
-		\item \textbf{Homogeneous products:}
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Cournot (quantity): $L = s_i/|\varepsilon|$
-			\item Bertrand (price): $P = MC$
-		\end{wideitemize}
-		\item \textbf{Differentiated products:}
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Hotelling/Differentiated Bertrand: $P > MC$
-			\item Markup depends on differentiation (transport cost)
-		\end{wideitemize}
-		\item \textbf{Empirical approach:}
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Estimate demand (logit)
-			\item Assume pricing behavior (usually differentiated Bertrand)
-			\item Back out marginal costs
-		\end{wideitemize}
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Preview: merger simulation}
-	\begin{wideitemize}
-		\item \textbf{Key question:} If two firms merge, what happens to prices?
-		\item \textbf{Approach:}
+		\item \textbf{Two-stage game:}
 		\begin{wideenumerate}
 			\vspace{5pt}
-			\item Estimate demand $\rightarrow$ get elasticities
-			\item Assume Bertrand pricing $\rightarrow$ back out $MC$
-			\item Change ownership structure
-			\item Solve new Bertrand equilibrium
-			\item Compare prices and welfare
+			\item Stage 1: Firms simultaneously choose locations $a$ and $b$ on $[0,1]$
+			\item Stage 2: Firms simultaneously choose prices
 		\end{wideenumerate}
-		\item This is exactly what HW2 will do!
-		\item Will cover in detail in Lecture 10
+		\item Solve by backward induction: first solve Stage 2 for general locations
+		\item \textbf{Stage 2 equilibrium} (for $a \leq b$):
+		\begin{align*}
+			p_1^* &= c + \frac{t(a + b + 2)}{3}, \quad p_2^* = c + \frac{t(4 - a - b)}{3}
+		\end{align*}
+		\item Demands and profits:
+		\begin{align*}
+			D_1^* = \frac{a + b + 2}{6}, \quad \pi_1^* = \frac{t(a + b + 2)^2}{18}
+		\end{align*}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: Should firm 1 move toward firm 2?}
+	\begin{wideitemize}
+		\item \textbf{Setup:} $t = 1$, $c = 0$. Firm 2 is at $b = 1$.
+		\item Currently, firm 1 is at $a = 0$ (endpoints).
+		\item Firm 1 considers moving to $a = 1/4$.
+		\item \textbf{Question:} Does firm 1 benefit from moving closer to firm 2?
+		\item Calculate price, market share, and profit for each location.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: Location choice (solution)}
+	\begin{wideitemize}
+		\item \textbf{At endpoints} ($a = 0$, $b = 1$):
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item $p_1^* = (0 + 1 + 2)/3 = 1$, \quad $D_1^* = 3/6 = 1/2$
+			\item $\pi_1^* = 1 \times 1/2 = 0.50$
+		\end{wideitemize}
+		\item \textbf{Firm 1 moves to $a = 1/4$} ($b = 1$):
+		\begin{wideitemize}
+			\vspace{3pt}
+			\item $p_1^* = (1/4 + 1 + 2)/3 = 13/12 \approx 1.08$, \quad $D_1^* = (13/4)/6 = 13/24 \approx 0.54$
+			\item $\pi_1^* = (13/12)(13/24) = 169/288 \approx 0.59$
+		\end{wideitemize}
+		\item \textbf{Yes!} Moving toward rival increases both price \textit{and} market share
+		\item Profit rises by 17\%
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Minimum differentiation}
+	\begin{wideitemize}
+		\item Both firms have incentive to move toward center:
+		\begin{align*}
+			\frac{\partial \pi_1^*}{\partial a} = \frac{t(a + b + 2)}{9} > 0 \quad \text{(always!)}
+		\end{align*}
+		\item \textbf{Hotelling (1929):} ``Principle of minimum differentiation''
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Firms cluster together to capture more customers
+			\item Examples: gas stations on same corner, fast food clusters
+		\end{wideitemize}
+		\item \textbf{Problem:} With linear transport costs, the price equilibrium breaks down when firms are too close (d'Aspremont et al. 1979)
+		\item With \textbf{quadratic} transport costs $t(x - \ell_j)^2$: result reverses to \textit{maximum} differentiation (firms at endpoints)
+		\item Real markets: some clustering (convenience) but not perfect overlap
+	\end{wideitemize}
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+% APPLICATION: STRATEGIC TRADE POLICY
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}{Application: Strategic trade policy}
+	\begin{wideitemize}
+		\item \textbf{Background:} Airplane producers: US (Boeing); EU (Airbus)
+		\item In 2005, the US sued the EU before the World Trade Organization, accusing the EU of subsidizing Airbus
+		\item We'd like to know: what was the impact of these subsidies on Boeing's profitability?
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Strategic trade policy: setup}
+	\begin{wideitemize}
+		\item \textbf{Setup:} Suppose that we have the Hotelling setup from before, where the best responses were:
+		\begin{align*}
+			p_1 = \frac{1}{2}(c_1+t+p_2), \quad p_2 = \frac{1}{2}(c_2+t+p_1)
+		\end{align*}
+		\item \textbf{Questions:}
+		\item (a) What is the Nash equilibrium with asymmetric costs?
+		\item (b) Starting from $c_1=c_2$, what is the change in Boeing's profits (Firm 1) for a \$1 increase in subsidies for Airbus (Firm 2)?
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Strategic trade policy (solution)}
+	\begin{wideitemize}
+		\item \textbf{(a)} Substituting best responses into each other:
+		\begin{align*}
+			p_i = \frac{2}{3} c_i + \frac{1}{3}c_j + t
+		\end{align*}
+		\item Profit: $\pi_i = \frac{(3t + c_j - c_i)^2}{18t}$
+		\item \textbf{(b)} A \$1 subsidy means $c_2$ falls by \$1. Compute $\frac{d \pi_1}{d c_2}$:
+		\begin{align*}
+			\frac{d \pi_1}{d c_2} = \frac{2(3t + c_2 - c_1)}{18t}
+		\end{align*}
+		\item At $c_1=c_2$: $\frac{d\pi_1}{dc_2} = \frac{6t}{18t} = \frac{1}{3}$
+		\item Since the subsidy \textit{decreases} $c_2$: Boeing's profit falls by 33 cents per \$1 of subsidy
 	\end{wideitemize}
 \end{frame}
 
@@ -426,14 +586,14 @@ Nicholas Vreugdenhil \\
 \begin{frame}{Key Points}
 	\vspace{11pt}
 	\begin{wideenumerate}
-		\item \textbf{Bertrand paradox:} $P = MC$ with homogeneous products
+		\item \textbf{Cournot:} Firms choose quantities; $P > MC$; as $n \to \infty$, $P \to c$
+		\item \textbf{Bertrand paradox:} $P = MC$ with homogeneous products, even with 2 firms
+		\item \textbf{Escaping the paradox:} Capacity constraints, differentiation, collusion
 		\item \textbf{Product differentiation} creates pricing power
 		\item \textbf{Hotelling:} $p^* = c + t$ (markup = transport cost)
 		\item Higher $t$ (more differentiation) $\rightarrow$ higher markup
 		\item Indifferent consumer: $\hat{x} = \frac{1}{2} + \frac{p_2 - p_1}{2t}$
-		\item Welfare: socially optimal locations differ from equilibrium
-		\item Hotelling connects to logit demand from Part 1
-		\item Transport cost $t$ $\leftrightarrow$ price sensitivity $1/|\alpha|$
+		\item Firms want to cluster (minimum differentiation) but this is fragile
 	\end{wideenumerate}
 \end{frame}
 
