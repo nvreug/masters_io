@@ -90,7 +90,7 @@
 \newenvironment{wideitemize}{\itemize\addtolength{\itemsep}{10pt}}{\enditemize}
 \newenvironment{wideenumerate}{\enumerate\addtolength{\itemsep}{10pt}}{\endenumerate}
 
-\title[]{\textcolor{blue}{ECN 594: Entry and Market Structure}}
+\title[]{\textcolor{blue}{ECN 594: Mergers and Merger Policy}}
 \author[PGP]{}
 \institute[FRBNY]{\small{\begin{tabular}{c c c}
 Nicholas Vreugdenhil \\
@@ -107,662 +107,883 @@ Nicholas Vreugdenhil \\
 
 \begin{frame}{Plan}
   \begin{wideenumerate}
-    \item \textbf{What determines market structure?}
-    \item Free entry condition
-    \item Entry with Cournot: worked example
-    \item Entry barriers
-    \item Entry deterrence strategies
-    \item Sequential game analysis (from ECN 532)
+    \item \textbf{Horizontal mergers: effects on prices}
+    \item Merger simulation (connects Part 1 to Part 2!)
+    \item Worked example: simple merger simulation
+    \item Antitrust and merger review
+    \item Market definition and HHI
+    \item Efficiency defense
   \end{wideenumerate}
 \end{frame}
 
+\begin{frame}{HW2 released}
+	\begin{wideitemize}
+		\item \textbf{HW2:} Merger simulation exercise
+		\item You will be given a demand system (estimated in Part 1 style)
+		\item Your task: simulate price effects of a merger
+		\item This lecture explains the methodology
+	\end{wideitemize}
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% ENTRY AND MARKET STRUCTURE
+% MERGER EFFECTS AND SIMULATION
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\begin{frame}{What determines market structure?}
+\begin{frame}{Horizontal mergers}
 	\begin{wideitemize}
-		\item Why do some industries have many firms (restaurants) and others few (aircraft)?
-		\item \textbf{Key factors:}
+		\item \textbf{Horizontal merger:} Competitors combine
+		\item \textbf{Key concern:} Market power
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Fewer firms $\rightarrow$ less competition
+			\item Higher prices for consumers
+		\end{wideitemize}
+		\item \textbf{But also:} Potential efficiencies
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Economies of scale
+			\item Elimination of duplicated costs
+		\end{wideitemize}
+		\item Trade-off: market power vs efficiency
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Why do prices increase after a merger?}
+	\begin{wideitemize}
+		\item \textbf{Before merger:} Firm A and Firm B compete
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item If A raises price, loses customers to B
+			\item This constrains A's pricing
+		\end{wideitemize}
+		\item \textbf{After merger:} Single firm owns both A and B
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item If A raises price, some customers go to B
+			\item But merged firm also owns B!
+			\item Lost customers are ``recaptured''
+		\end{wideitemize}
+		\item Merger \textbf{internalizes substitution} between products
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Diversion ratio}
+	\begin{wideitemize}
+		\item \textbf{Definition:} If product A loses a customer, what fraction goes to B?
+		\begin{align*}
+			D_{AB} = \frac{\partial q_B / \partial p_A}{-\partial q_A / \partial p_A} = \frac{\text{gain by B}}{\text{loss by A}}
+		\end{align*}
+		\item \textbf{High diversion:} A and B are close substitutes
+		\item \textbf{Low diversion:} A and B are distant substitutes
+		\item \textbf{Key insight:} Higher diversion $\rightarrow$ larger price increase from merger
+		\item Diversion is the key input to merger analysis
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Diversion with logit demand}
+	\begin{wideitemize}
+		\item Under logit, diversion is simple:
+		\begin{align*}
+			D_{jkt} = \frac{s_{kt}}{1 - s_{jt}}
+		\end{align*}
+		\item \textbf{Proportional diversion:} Lost sales go to others proportionally
+		\item This is the IIA property at work!
+		\item \textbf{Implication:} Mergers between large firms are worse
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Large $s_k$ means high diversion
+			\item More recapture $\rightarrow$ bigger price increase
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan}
+  \begin{wideenumerate}
+    \item Horizontal mergers: effects on prices
+    \item \textbf{Merger simulation (connects Part 1 to Part 2!)}
+    \item Worked example: simple merger simulation
+    \item Antitrust and merger review
+    \item Market definition and HHI
+    \item Efficiency defense
+  \end{wideenumerate}
+\end{frame}
+
+\begin{frame}{From demand estimation to merger analysis}
+	\begin{wideitemize}
+		\item In Part 1, we estimated demand systems like:
+		\begin{align*}
+			q_j = q_j(p_1, p_2, \ldots, p_J; x, \xi)
+		\end{align*}
+		\item Now: How do firms \textit{set} these prices?
+		\item \textbf{Assumption:} Bertrand-Nash competition with differentiated products
+		\item Each firm sets price to maximize profit, taking rivals' prices as given
+		\item This gives us the \textbf{pricing equations} we need for merger simulation
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Bertrand with differentiated products: setup}
+	\begin{wideitemize}
+		\item Two firms with differentiated products
+		\item \textbf{Demand system:}
+		\begin{align*}
+			q_1 &= a - bp_1 + dp_2 \\
+			q_2 &= a - bp_2 + dp_1
+		\end{align*}
+		\item $b > d > 0$: own-price effect dominates cross-price
+		\item $d$ measures substitutability (higher $d$ = closer substitutes)
+		\item Marginal cost: $c$ (symmetric for now)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Firm 1's pricing problem}
+	\begin{wideitemize}
+		\item Firm 1 maximizes profit taking $p_2$ as given:
+		\begin{align*}
+			\max_{p_1} \quad \pi_1 = (p_1 - c)(a - bp_1 + dp_2)
+		\end{align*}
+		\item \textbf{First-order condition:}
+		\begin{align*}
+			\frac{\partial \pi_1}{\partial p_1} = (a - bp_1 + dp_2) + (p_1 - c)(-b) = 0
+		\end{align*}
+		\item Rearranging for $p_1$:
+		\begin{align*}
+			a - bp_1 + dp_2 - bp_1 + bc = 0
+		\end{align*}
+		\begin{align*}
+			p_1 = \frac{a + bc + dp_2}{2b}
+		\end{align*}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Best response functions}
+	\begin{wideitemize}
+		\item \textbf{Firm 1's best response:}
+		\begin{align*}
+			p_1^{BR}(p_2) = \frac{a + bc + dp_2}{2b}
+		\end{align*}
+		\item \textbf{Firm 2's best response:} (by symmetry)
+		\begin{align*}
+			p_2^{BR}(p_1) = \frac{a + bc + dp_1}{2b}
+		\end{align*}
+		\item Note: Best responses are \textit{upward sloping}
+		\item If rival raises price $\rightarrow$ I raise my price too
+		\item This is \textbf{strategic complementarity} in prices
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Pre-merger equilibrium}
+	\begin{wideitemize}
+		\item \textbf{Symmetric equilibrium:} $p_1^* = p_2^* = p^*$
+		\item Substitute into best response:
+		\begin{align*}
+			p^* = \frac{a + bc + dp^*}{2b}
+		\end{align*}
+		\item Solving:
+		\begin{align*}
+			2bp^* - dp^* = a + bc \implies p^* = \frac{a + bc}{2b - d}
+		\end{align*}
+		\item \textbf{Markup:} $p^* - c = \frac{a + bc}{2b - d} - c = \frac{a - bc + dc}{2b - d}$
+		\item As $d \to b$: $p^* \to \infty$ (but model breaks down---products identical)
+		\item As $d \to 0$: $p^* \to \frac{a + bc}{2b}$ (independent monopolists)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{What happens when firms 1 and 2 merge?}
+	\begin{wideitemize}
+		\item \textbf{Key change:} Merged firm now owns \textit{both} products
+		\item Sets $p_1$ and $p_2$ to maximize \textit{joint} profit:
+		\begin{align*}
+			\max_{p_1, p_2} \quad \pi = (p_1 - c)q_1 + (p_2 - c)q_2
+		\end{align*}
+		\item \textbf{New FOC for $p_1$:}
+		\begin{align*}
+			\frac{\partial \pi}{\partial p_1} = q_1 + (p_1 - c)\frac{\partial q_1}{\partial p_1} + (p_2 - c)\frac{\partial q_2}{\partial p_1} = 0
+		\end{align*}
+		\item The new term $(p_2 - c)\frac{\partial q_2}{\partial p_1}$ captures \textbf{cannibalization}
+		\item When I raise $p_1$, some customers switch to product 2 (which I also own!)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Merger internalizes substitution}
+	\begin{wideitemize}
+		\item Pre-merger: Raising $p_1$ loses customers to rival (bad)
+		\item Post-merger: Some of those customers go to product 2 (mine!)
+		\item \textbf{Result:} Less aggressive pricing $\rightarrow$ higher prices
+		\item With symmetric products and costs:
+		\begin{align*}
+			\frac{\partial \pi}{\partial p_1} = (a - bp_1 + dp_2) - b(p_1 - c) + d(p_2 - c) = 0
+		\end{align*}
+		\item Symmetric equilibrium ($p_1 = p_2 = p^M$):
+		\begin{align*}
+			a - bp^M + dp^M - bp^M + bc + dp^M - dc = 0
+		\end{align*}
+		\begin{align*}
+			p^M = \frac{a + bc - dc}{2b - 2d} = \frac{a + (b-d)c}{2(b - d)}
+		\end{align*}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: Pre-merger pricing}
+	\begin{wideitemize}
+		\item Demand: $q_i = 100 - 2p_i + p_j$, Cost: $c = 20$
+		\item So $a = 100$, $b = 2$, $d = 1$
+		\item \textbf{Find:}
 		\begin{wideenumerate}
-			\vspace{5pt}
-			\item Fixed costs of entry
-			\item Market size (demand)
-			\item Nature of competition
-			\item Entry barriers
+			\item Each firm's best response function
+			\item Pre-merger equilibrium price
+			\item Each firm's quantity and profit
 		\end{wideenumerate}
-		\item Today: focus on entry decisions and barriers
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{Plan}
-  \begin{wideenumerate}
-    \item What determines market structure?
-    \item \textbf{Free entry condition}
-    \item Entry with Cournot: worked example
-    \item Entry barriers
-    \item Entry deterrence strategies
-    \item Sequential game analysis (from ECN 532)
-  \end{wideenumerate}
-\end{frame}
-
-\begin{frame}{Free entry condition}
+\begin{frame}{Worked example: Pre-merger pricing (solution)}
 	\begin{wideitemize}
-		\item Suppose entry requires fixed cost $F$
-		\item \textbf{Entry decision:} Enter if $\pi(N) > F$
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item $\pi(N)$ = profit when $N$ firms in market
-		\end{wideitemize}
-		\item \textbf{Free entry equilibrium:} Number of firms $N^*$ such that:
-		\begin{align*}
-			\pi(N^*) \geq F > \pi(N^* + 1)
-		\end{align*}
-		\item \textbf{Intuition:}
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Current firms earn enough to cover $F$
-			\item One more firm would push profits below $F$
-		\end{wideitemize}
+		\item \textbf{(1)} $p_i^{BR} = \frac{100 + 2(20) + p_j}{2(2)} = \frac{140 + p_j}{4}$
+		\item \textbf{(2)} Symmetric: $p^* = \frac{140 + p^*}{4}$
+		\item $4p^* = 140 + p^* \Rightarrow 3p^* = 140 \Rightarrow p^* = 46.67$
+		\item \textbf{(3)} $q^* = 100 - 2(46.67) + 46.67 = 53.33$
+		\item $\pi^* = (46.67 - 20)(53.33) = 1,422$
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{Entry reduces profits}
+\begin{frame}{Worked example: Post-merger pricing}
 	\begin{wideitemize}
-		\item As $N$ increases:
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Competition intensifies
-			\item Prices fall
-			\item Each firm's profit falls
-		\end{wideitemize}
-		\item $\pi(N)$ is decreasing in $N$
-		\item Eventually: $\pi(N) < F$ and entry stops
+		\item Same setup: $q_i = 100 - 2p_i + p_j$, $c = 20$
+		\item \textbf{Find:}
+		\begin{wideenumerate}
+			\item Post-merger equilibrium price
+			\item Post-merger quantity (per product)
+			\item Post-merger profit (total for merged firm)
+			\item Compare to pre-merger: Price change? Profit change?
+		\end{wideenumerate}
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{Entry reduces profits: graphical}
-	\begin{center}
-		\begin{tikzpicture}[scale=0.8]
-			\draw[->] (0,0) -- (8,0) node[right] {$N$};
-			\draw[->] (0,0) -- (0,5) node[above] {$\pi$};
-
-			% Profit curve
-			\draw[thick, blue, domain=1:7, smooth] plot (\x, {4/(\x*\x/4 + 0.5)});
-			\node[blue, right] at (7,0.8) {$\pi(N)$};
-
-			% Fixed cost line
-			\draw[dashed, red] (0,1.5) -- (8,1.5) node[right] {$F$};
-
-			% Equilibrium
-			\draw[dashed] (3,0) -- (3,1.5);
-			\node[below] at (3,0) {$N^*$};
-
-			% Labels
-			\node[left] at (0,1.5) {$F$};
-		\end{tikzpicture}
-	\end{center}
+\begin{frame}{Worked example: Post-merger pricing (solution)}
 	\begin{wideitemize}
-		\item Entry continues until $\pi(N) = F$
-		\item $N^*$ = equilibrium number of firms
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Comparative statics of entry}
-	\begin{wideitemize}
-		\item \textbf{How does $N^*$ change when:}
-		\item Market size $\uparrow$: $N^* \uparrow$ (more room for firms)
-		\item Fixed cost $F \uparrow$: $N^* \downarrow$ (harder to cover costs)
-		\item Marginal cost $c \uparrow$: $N^* \downarrow$ (lower profit margins)
-		\item Competition intensity $\uparrow$: $N^* \downarrow$ (profits lower for any $N$)
-		\item \textbf{Prediction:} Large markets with low entry costs have many small firms
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Practice: Free entry}
-	\begin{wideitemize}
-		\item \textbf{True, False, or NEI:}
-		\item (a) In a free entry equilibrium, all firms earn zero profit.
-		\item (b) Higher fixed costs lead to more concentrated industries.
-		\item (c) Under Bertrand competition with homogeneous products, free entry leads to the same number of firms as Cournot.
-	\end{wideitemize}
-	\vspace{10pt}
-	\centering
-	\textit{Take 2 minutes.}
-\end{frame}
-
-\begin{frame}{Practice: Free entry (solution)}
-	\begin{wideitemize}
-		\item \textbf{(a) FALSE.} Firms earn $\pi(N^*) \geq F$. Integer constraint means they may earn more than $F$.
-		\item \textbf{(b) TRUE.} Higher $F$ means fewer firms can cover their fixed costs. Industries are more concentrated.
-		\item \textbf{(c) FALSE.} Under Bertrand with homogeneous products, $P = MC$ even with 2 firms. More entry doesn't change profits---1 firm would be monopoly, 2+ gives $P = MC$.
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Plan}
-  \begin{wideenumerate}
-    \item What determines market structure?
-    \item Free entry condition
-    \item \textbf{Entry with Cournot: worked example}
-    \item Entry barriers
-    \item Entry deterrence strategies
-    \item Sequential game analysis (from ECN 532)
-  \end{wideenumerate}
-\end{frame}
-
-\begin{frame}{Entry with Cournot: setup}
-	\begin{wideitemize}
-		\item Inverse demand: $P = a - bQ$
-		\item $N$ symmetric firms, each with $MC = c$
-		\item Fixed cost of entry: $F$
-		\item Cournot equilibrium with $N$ firms:
-		\begin{align*}
-			q_i^* &= \frac{a - c}{b(N + 1)} \\
-			P^* &= \frac{a + Nc}{N + 1} \\
-			\pi_i^* &= \frac{(a - c)^2}{b(N + 1)^2}
-		\end{align*}
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Worked example: Entry with Cournot}
-	\begin{wideitemize}
-		\item \textbf{Question:} $P = 100 - Q$, $c = 20$, $F = 100$.
-		\item How many firms will enter in equilibrium?
-	\end{wideitemize}
-	\vspace{15pt}
-	\centering
-	\textit{Take 5 minutes.}
-\end{frame}
-
-\begin{frame}{Worked example: Entry (solution)}
-	\begin{wideitemize}
-		\item With $a = 100$, $b = 1$, $c = 20$:
-		\begin{align*}
-			\pi(N) = \frac{(100 - 20)^2}{(N + 1)^2} = \frac{6400}{(N + 1)^2}
-		\end{align*}
-		\item Check different values of $N$:
+		\item \textbf{(1)} $p^M = \frac{100 + (2-1)(20)}{2(2-1)} = \frac{100 + 20}{2} = 60$
+		\item \textbf{(2)} $q^M = 100 - 2(60) + 60 = 40$
+		\item \textbf{(3)} $\pi^{total} = 2 \times (60 - 20)(40) = 2 \times 1,600 = 3,200$
+		\item \textbf{(4)} Comparison:
 		\begin{center}
-			\begin{tabular}{|c|c|c|}
+			\begin{tabular}{|l|c|c|}
 				\hline
-				$N$ & $\pi(N)$ & Enter? \\
+				& Pre-merger & Post-merger \\
 				\hline
-				1 & $6400/4 = 1600$ & Yes ($> 100$) \\
-				2 & $6400/9 = 711$ & Yes \\
-				3 & $6400/16 = 400$ & Yes \\
-				5 & $6400/36 = 178$ & Yes \\
-				7 & $6400/64 = 100$ & Indifferent \\
-				8 & $6400/81 = 79$ & No ($< 100$) \\
+				Price & 46.67 & 60 \\
+				Quantity (each) & 53.33 & 40 \\
+				Profit (total) & 2,844 & 3,200 \\
 				\hline
 			\end{tabular}
 		\end{center}
-		\item \textbf{Answer:} $N^* = 7$ firms enter
+		\item Price up 29\%, quantity down 25\%, profit up 13\%
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{Fixed costs and natural monopoly}
+\begin{frame}{The general method: Merger simulation}
 	\begin{wideitemize}
-		\item When $F$ is very high relative to demand:
+		\item What we just did \textit{is} merger simulation!
+		\item \textbf{The cookbook:}
+		\begin{wideenumerate}
+			\item Estimate demand system (Part 1: own and cross-price elasticities)
+			\item Assume Bertrand-Nash pricing
+			\item Use FOCs to back out marginal costs from observed prices
+			\item Re-solve FOCs with merged ownership structure
+			\item Compare pre- and post-merger prices
+		\end{wideenumerate}
+		\item Steps 3-5 are what we just did by hand
+		\item In practice: Use estimated demand, not assumed linear form
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Why Bertrand with differentiated products?}
+	\begin{wideitemize}
+		\item \textbf{Contrast with Cournot:}
 		\begin{wideitemize}
 			\vspace{5pt}
-			\item Only one firm can profitably operate
-			\item \textbf{Natural monopoly}
+			\item Cournot: Firms choose quantities, price clears market
+			\item ``Merger paradox'': Mergers often unprofitable (rivals expand)
 		\end{wideitemize}
-		\item \textbf{Examples:}
+		\item \textbf{Differentiated Bertrand:}
 		\begin{wideitemize}
 			\vspace{5pt}
-			\item Utilities (water, electricity distribution)
-			\item Railroad tracks
-			\item Cable infrastructure
+			\item Firms choose prices, consumers choose products
+			\item Mergers typically profitable (internalize substitution)
+			\item Matches most retail/consumer goods markets
 		\end{wideitemize}
-		\item Average cost is declining over relevant range
-		\item One firm can serve entire market more cheaply than multiple firms
+		\item This is why antitrust authorities care about mergers!
+		\item The question isn't ``is it profitable?'' (yes)
+		\item The question is ``how much do prices rise?'' (consumer harm)
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{Practice: Market structure}
+\begin{frame}{Connecting to demand estimation}
 	\begin{wideitemize}
-		\item \textbf{Question:} Two industries with same demand $P = 100 - Q$.
-		\item Industry A: $F_A = 200$, $c_A = 10$ (Cournot)
-		\item Industry B: $F_B = 50$, $c_B = 30$ (Cournot)
-		\item Which industry will have more firms in equilibrium?
-	\end{wideitemize}
-	\vspace{10pt}
-	\centering
-	\textit{Take 3 minutes.}
-\end{frame}
-
-\begin{frame}{Practice: Market structure (solution)}
-	\begin{wideitemize}
-		\item Industry A: $\pi_A(N) = \frac{(100-10)^2}{(N+1)^2} = \frac{8100}{(N+1)^2}$
-		\begin{wideitemize}
-			\vspace{3pt}
-			\item $N=5$: $\pi = 225 > 200$ (Enter)
-			\item $N=6$: $\pi = 165 < 200$ (No)
-			\item $\Rightarrow N^*_A = 5$
-		\end{wideitemize}
-		\item Industry B: $\pi_B(N) = \frac{(100-30)^2}{(N+1)^2} = \frac{4900}{(N+1)^2}$
-		\begin{wideitemize}
-			\vspace{3pt}
-			\item $N=8$: $\pi = 60 > 50$ (Enter)
-			\item $N=9$: $\pi = 49 < 50$ (No)
-			\item $\Rightarrow N^*_B = 8$
-		\end{wideitemize}
-		\item Industry B has more firms despite higher MC (lower $F$ dominates)
+		\item The demand system $q_i = a - bp_i + dp_j$ is simple
+		\item In Part 1, we estimated richer models:
+		\begin{align*}
+			u_{ijt} = x_{jt}\beta + \alpha p_{jt} + \xi_{jt} + \varepsilon_{ijt} \quad (\alpha < 0)
+		\end{align*}
+		\item These give us the \textbf{elasticity matrix} we computed in pyblp
+		\item Merger simulation uses those elasticities in the same FOCs
+		\item \textbf{Key insight:} Demand estimation + Bertrand = Merger simulation
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{Excess entry theorem (brief)}
+\begin{frame}{The pricing equation in practice}
 	\begin{wideitemize}
-		\item Free entry may produce ``too many'' firms
-		\item \textbf{Why?} Each entrant ignores:
+		\item With $J$ products, the FOC for product $j$ owned by firm $f$:
+		\begin{align*}
+			q_j + \sum_{k \in \mathcal{F}_f} (p_k - c_k) \frac{\partial q_k}{\partial p_j} = 0
+		\end{align*}
+		\item $\mathcal{F}_f$ = set of products owned by firm $f$
+		\item Pre-merger: Each firm owns one product
+		\item Post-merger: Merged firm owns multiple products
+		\item The sum captures cannibalization across owned products
+		\item \textbf{HW2:} You'll implement this!
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Merger simulation: the idea}
+	\begin{wideitemize}
+		\item \textbf{Goal:} Predict post-merger prices
+		\item \textbf{Ingredients:}
 		\begin{wideenumerate}
 			\vspace{5pt}
-			\item Business-stealing effect: takes customers from incumbents
-			\item Consumer surplus: captured by entrant, not new value created
+			\item Demand estimates (from Part 1!)
+			\item Pre-merger prices and market structure
+			\item The merger (which firms combine)
 		\end{wideenumerate}
-		\item Private incentive to enter $>$ social incentive
-		\item \textbf{Result:} Free entry equilibrium can have more firms than socially optimal
-		\item Caveat: depends on model specifics
+		\item \textbf{Method:}
+		\begin{wideenumerate}
+			\vspace{5pt}
+			\item Write down firms' pricing FOCs
+			\item Change ownership structure
+			\item Solve for new equilibrium prices
+		\end{wideenumerate}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{The ownership matrix}
+	\begin{wideitemize}
+		\item Define ownership matrix $\mathbf{H}$ where:
+		\begin{align*}
+			H_{jk} = \begin{cases} 1 & \text{if products } j \text{ and } k \text{ have same owner} \\ 0 & \text{otherwise} \end{cases}
+		\end{align*}
+		\item \textbf{Pre-merger} (products 1, 2 owned separately):
+		\begin{align*}
+			\mathbf{H}^{pre} = \begin{pmatrix} 1 & 0 \\ 0 & 1 \end{pmatrix}
+		\end{align*}
+		\item \textbf{Post-merger} (same owner):
+		\begin{align*}
+			\mathbf{H}^{post} = \begin{pmatrix} 1 & 1 \\ 1 & 1 \end{pmatrix}
+		\end{align*}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Pricing FOC with ownership}
+	\begin{wideitemize}
+		\item Owner of products in set $\mathcal{F}$ maximizes:
+		\begin{align*}
+			\sum_{j \in \mathcal{F}} (p_j - mc_j) q_j(p)
+		\end{align*}
+		\item FOC for product $j$:
+		\begin{align*}
+			q_j + \sum_{k \in \mathcal{F}} (p_k - mc_k) \frac{\partial q_k}{\partial p_j} = 0
+		\end{align*}
+		\item Using ownership matrix, in vector form:
+		\begin{align*}
+			\mathbf{q} + (\mathbf{H} \odot \mathbf{\Omega}^T) (\mathbf{p} - \mathbf{mc}) = 0
+		\end{align*}
+		\item where $\Omega_{jk} = \frac{\partial q_j}{\partial p_k}$ (demand derivatives)
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{How the merger changes things}
+	\begin{wideitemize}
+		\item \textbf{Pre-merger:} Each firm only cares about own products
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item $H_{jk} = 0$ for $j \neq k$ (different owners)
+			\item Cross-price effects ignored
+		\end{wideitemize}
+		\item \textbf{Post-merger:} Merged firm cares about both products
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item $H_{jk} = 1$ for merged products
+			\item Cross-price effects internalized
+		\end{wideitemize}
+		\item When $H_{jk}$ changes from 0 to 1:
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Firm now ``counts'' sales diverted to product $k$
+			\item Less incentive to keep price low
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan}
+  \begin{wideenumerate}
+    \item Horizontal mergers: effects on prices
+    \item Merger simulation (connects Part 1 to Part 2!)
+    \item \textbf{Worked example: simple merger simulation}
+    \item Antitrust and merger review
+    \item Market definition and HHI
+    \item Efficiency defense
+  \end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Worked example: Simple merger simulation}
+	\begin{wideitemize}
+		\item Two firms, each with one product
+		\item Demand: $q_j = 100 - 3p_j + p_k$ (products are substitutes)
+		\item $MC = 10$ for both products
+		\item \textbf{Questions:}
+		\item (a) Find pre-merger equilibrium prices
+		\item (b) Find post-merger equilibrium prices
+		\item (c) Calculate price increase from merger
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: Pre-merger (solution)}
+	\begin{wideitemize}
+		\item \textbf{Pre-merger:} Each firm maximizes own profit
+		\item Firm 1: $\max_{p_1} (p_1 - 10)(100 - 3p_1 + p_2)$
+		\item FOC: $100 - 6p_1 + p_2 + 30 = 0$
+		\item Symmetric: $p_1 = p_2 = p$, so:
+		\begin{align*}
+			100 - 6p + p + 30 = 0 \Rightarrow p = 26
+		\end{align*}
+		\item Pre-merger: $p_1^{pre} = p_2^{pre} = 26$
+		\item Quantity: $q = 100 - 3(26) + 26 = 48$
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: Post-merger (solution)}
+	\begin{wideitemize}
+		\item \textbf{Post-merger:} Merged firm maximizes joint profit
+		\item $\max_{p_1, p_2} (p_1 - 10)q_1 + (p_2 - 10)q_2$
+		\item FOC for $p_1$:
+		\begin{align*}
+			q_1 + (p_1 - 10)(-3) + (p_2 - 10)(1) = 0
+		\end{align*}
+		\item Note: now includes $\frac{\partial q_2}{\partial p_1} = 1$ term!
+		\item Symmetric: $p_1 = p_2 = p$:
+		\begin{align*}
+			100 - 3p + p - 3(p - 10) + (p - 10) = 0 \\
+			100 - 3p + p - 3p + 30 + p - 10 = 0 \\
+			120 - 4p = 0 \Rightarrow p = 30
+		\end{align*}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: Results}
+	\begin{wideitemize}
+		\item \textbf{Pre-merger price:} $p = 26$
+		\item \textbf{Post-merger price:} $p = 30$
+		\item \textbf{Price increase:} $\frac{30 - 26}{26} = 15.4\%$
+		\item \textbf{Why?}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Before: raising $p_1$ loses customers to product 2
+			\item After: those ``lost'' customers still buy from merged firm
+			\item Less competitive pressure $\rightarrow$ higher prices
+		\end{wideitemize}
+		\item This is on HW2 (with more products)!
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Upward Pricing Pressure (UPP)}
+	\begin{wideitemize}
+		\item \textbf{UPP:} Quick measure of merger's pricing incentive
+		\begin{align*}
+			UPP_1 = D_{12} \times (p_2 - mc_2)
+		\end{align*}
+		\item \textbf{Interpretation:} Value of sales recaptured from product 2
+		\item If $UPP_1 > 0$: merger creates upward pricing pressure
+		\item \textbf{Advantage:} Quick to compute, no full simulation needed
+		\item \textbf{Limitation:} First-order approximation only
+		\item Used by DOJ/FTC as a screening tool
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Practice: UPP calculation}
+	\begin{wideitemize}
+		\item \textbf{Question:} Products A and B with:
+		\item $p_A = 100$, $mc_A = 60$, $s_A = 0.2$
+		\item $p_B = 80$, $mc_B = 50$, $s_B = 0.3$
+		\item Using logit diversion, calculate $UPP_A$ and $UPP_B$.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Practice: UPP calculation (solution)}
+	\begin{wideitemize}
+		\item \textbf{Diversion ratios (logit):}
+		\begin{align*}
+			D_{AB} &= \frac{s_B}{1 - s_A} = \frac{0.3}{0.8} = 0.375 \\
+			D_{BA} &= \frac{s_A}{1 - s_B} = \frac{0.2}{0.7} = 0.286
+		\end{align*}
+		\item \textbf{UPP calculations:}
+		\begin{align*}
+			UPP_A &= D_{AB} \times (p_B - mc_B) = 0.375 \times 30 = 11.25 \\
+			UPP_B &= D_{BA} \times (p_A - mc_A) = 0.286 \times 40 = 11.44
+		\end{align*}
+		\item Both positive: merger creates incentive to raise both prices
+		\item Express as \% of price: $UPP_A/p_A = 11.25\%$
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Welfare effects of mergers}
+	\begin{wideitemize}
+		\item \textbf{Consumer surplus:} Falls due to higher prices
+		\item \textbf{Producer surplus:} Rises (merged firm profits increase)
+		\item \textbf{Deadweight loss:} From reduced quantity
+		\item Using logit demand:
+		\begin{align*}
+			\Delta CS_t = \frac{1}{|\alpha|}\left[\ln\left(\sum_j e^{\delta_{jt}^{post}}\right) - \ln\left(\sum_j e^{\delta_{jt}^{pre}}\right)\right]
+		\end{align*}
+		\item Key: $\delta_{jt} = x_{jt}\beta + \alpha p_{jt} + \xi_{jt}$ \quad ($\alpha < 0$)
+		\item Higher prices $\rightarrow$ lower $\delta_{jt}$ $\rightarrow$ lower CS
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Practice: T/F on mergers}
+	\begin{wideitemize}
+		\item \textbf{True, False, or NEI:}
+		\item (a) A merger between firms with high diversion ratio will have a larger price effect.
+		\item (b) Under logit demand, diversion is proportional to market shares.
+		\item (c) The Williamson trade-off always favors blocking mergers.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Practice: T/F on mergers (solution)}
+	\begin{wideitemize}
+		\item \textbf{(a) TRUE.} High diversion means customers switch between merging firms. More recapture = more incentive to raise prices.
+		\item \textbf{(b) TRUE.} Under logit, $D_{jk} = s_k/(1-s_j)$. This is the IIA property: lost sales go proportionally to others.
+		\item \textbf{(c) FALSE.} Williamson trade-off says efficiencies can outweigh market power. Some mergers are welfare-improving.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Merger simulation in practice}
+	\begin{wideitemize}
+		\item \textbf{Step 1:} Estimate demand (logit, nested logit, etc.)
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Get elasticities and demand derivatives
+		\end{wideitemize}
+		\item \textbf{Step 2:} Recover marginal costs
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Use pre-merger FOC: $mc_j = p_j - \frac{q_j}{\partial q_j / \partial p_j}$
+		\end{wideitemize}
+		\item \textbf{Step 3:} Change ownership matrix
+		\item \textbf{Step 4:} Solve for new equilibrium prices
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Often requires numerical solution
+		\end{wideitemize}
+		\item \textbf{Step 5:} Calculate welfare effects
 	\end{wideitemize}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-% ENTRY DETERRENCE
+% MERGER POLICY
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \begin{frame}{Plan}
   \begin{wideenumerate}
-    \item What determines market structure?
-    \item Free entry condition
-    \item Entry with Cournot: worked example
-    \item \textbf{Entry barriers}
-    \item Entry deterrence strategies
-    \item Sequential game analysis (from ECN 532)
+    \item Horizontal mergers: effects on prices
+    \item Merger simulation (connects Part 1 to Part 2!)
+    \item Worked example: simple merger simulation
+    \item \textbf{Antitrust and merger review}
+    \item Market definition and HHI
+    \item Efficiency defense
   \end{wideenumerate}
 \end{frame}
 
-\begin{frame}{Entry barriers}
+\begin{frame}{Antitrust and merger review}
 	\begin{wideitemize}
-		\item \textbf{Structural barriers:} inherent to industry
+		\item \textbf{In the US:}
 		\begin{wideitemize}
 			\vspace{5pt}
-			\item Economies of scale (high $F$)
-			\item Capital requirements
-			\item Patents and intellectual property
-			\item Network effects
+			\item Department of Justice (DOJ) Antitrust Division
+			\item Federal Trade Commission (FTC)
 		\end{wideitemize}
-		\item \textbf{Strategic barriers:} created by incumbents
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Limit pricing
-			\item Capacity commitment
-			\item Product proliferation
-			\item Long-term contracts with customers
-		\end{wideitemize}
+		\item Large mergers must be reported (Hart-Scott-Rodino Act)
+		\item Agencies review and can challenge mergers
+		\item \textbf{Horizontal Merger Guidelines:} Framework for analysis
+		\item Similar agencies in EU, UK, and other jurisdictions
 	\end{wideitemize}
 \end{frame}
 
 \begin{frame}{Plan}
   \begin{wideenumerate}
-    \item What determines market structure?
-    \item Free entry condition
-    \item Entry with Cournot: worked example
-    \item Entry barriers
-    \item \textbf{Entry deterrence strategies}
-    \item Sequential game analysis (from ECN 532)
+    \item Horizontal mergers: effects on prices
+    \item Merger simulation (connects Part 1 to Part 2!)
+    \item Worked example: simple merger simulation
+    \item Antitrust and merger review
+    \item \textbf{Market definition and HHI}
+    \item Efficiency defense
   \end{wideenumerate}
 \end{frame}
 
-\begin{frame}{Entry deterrence: the key question}
+\begin{frame}{Market definition}
 	\begin{wideitemize}
-		\item Can an incumbent prevent entry?
-		\item \textbf{The credibility problem:}
+		\item First step: define the relevant market
+		\item \textbf{SSNIP test:} Small but Significant Non-transitory Increase in Price
 		\begin{wideitemize}
 			\vspace{5pt}
-			\item Incumbent threatens to ``fight'' if entry occurs
-			\item But is this threat credible?
-			\item Once entry happens, fighting may hurt the incumbent too
+			\item Would a hypothetical monopolist raise price 5\%?
+			\item If yes: products are in same market
+			\item If no (too much substitution): market is too narrow
 		\end{wideitemize}
-		\item \textbf{From ECN 532:} Need subgame perfect equilibrium (SPE)
+		\item Market definition is often contentious
+		\item Broader market $\rightarrow$ lower market shares $\rightarrow$ merger more likely approved
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{HHI: Herfindahl-Hirschman Index}
+	\begin{wideitemize}
+		\item \textbf{Definition:}
+		\begin{align*}
+			HHI = \sum_{i=1}^N s_i^2 \times 10000
+		\end{align*}
+		\item where $s_i$ is firm $i$'s market share (as decimal)
+		\item Ranges from 0 to 10,000
+		\item \textbf{Interpretation:}
 		\begin{wideitemize}
 			\vspace{5pt}
-			\item Check what incumbent would actually do if entry occurs
-			\item Non-credible threats are ignored
+			\item $HHI < 1500$: Unconcentrated
+			\item $1500 \leq HHI < 2500$: Moderately concentrated
+			\item $HHI \geq 2500$: Highly concentrated
 		\end{wideitemize}
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{Entry game: basic structure}
+\begin{frame}{HHI and merger guidelines}
+	\begin{wideitemize}
+		\item Agencies look at $\Delta HHI$ from merger
+		\item \textbf{Merger thresholds (approx):}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item $\Delta HHI < 100$: Unlikely to raise concerns
+			\item Post-merger $HHI < 1500$: Unlikely to raise concerns
+			\item Post-merger $HHI > 2500$ AND $\Delta HHI > 200$: Likely scrutiny
+		\end{wideitemize}
+		\item HHI is a screen, not definitive
+		\item Real analysis uses merger simulation, efficiencies, etc.
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: HHI calculation}
+	\begin{wideitemize}
+		\item \textbf{Question:} Market has 4 firms with shares: 40\%, 30\%, 20\%, 10\%.
+		\item Firm 1 (40\%) merges with Firm 4 (10\%).
+		\item (a) Calculate pre-merger HHI
+		\item (b) Calculate post-merger HHI and $\Delta HHI$
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Worked example: HHI (solution)}
+	\begin{wideitemize}
+		\item \textbf{(a) Pre-merger:}
+		\begin{align*}
+			HHI = (0.40)^2 + (0.30)^2 + (0.20)^2 + (0.10)^2 = 0.30
+		\end{align*}
+		\item $HHI = 3000$ (highly concentrated)
+		\item \textbf{(b) Post-merger:}
+		\begin{align*}
+			HHI = (0.50)^2 + (0.30)^2 + (0.20)^2 = 0.38
+		\end{align*}
+		\item $HHI = 3800$, $\Delta HHI = 800$
+		\item \textbf{Shortcut:} $\Delta HHI = 2 \times s_1 \times s_4 \times 10000 = 2 \times 0.4 \times 0.1 \times 10000 = 800$
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Plan}
+  \begin{wideenumerate}
+    \item Horizontal mergers: effects on prices
+    \item Merger simulation (connects Part 1 to Part 2!)
+    \item Worked example: simple merger simulation
+    \item Antitrust and merger review
+    \item Market definition and HHI
+    \item \textbf{Efficiency defense}
+  \end{wideenumerate}
+\end{frame}
+
+\begin{frame}{Efficiency defense}
+	\begin{wideitemize}
+		\item Mergers can create efficiencies:
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Economies of scale
+			\item Elimination of duplicated fixed costs
+			\item Better management
+		\end{wideitemize}
+		\item \textbf{Williamson trade-off:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Market power effect: prices rise, deadweight loss
+			\item Efficiency effect: costs fall, resource savings
+		\end{wideitemize}
+		\item Merger approved if efficiency gains outweigh market power harms
+		\item In practice: high bar for efficiency claims
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Williamson trade-off: graphical}
 	\begin{center}
-		\begin{tikzpicture}[
-			level 1/.style={sibling distance=5cm, level distance=2cm},
-			level 2/.style={sibling distance=3cm, level distance=2cm}
-		]
-			\node[circle, draw] (E) {E}
-			child {
-				node[circle, draw] (I) {I}
-				child {node {$(20, 0)$} edge from parent node[left] {Fight}}
-				child {node {$(50, 30)$} edge from parent node[right] {Accommodate}}
-				edge from parent node[left] {Enter}
-			}
-			child {
-				node {$(0, 100)$}
-				edge from parent node[right] {Stay Out}
-			};
-			\node[left=0.3cm of E] {\small Entrant};
+		\begin{tikzpicture}[scale=0.6]
+			% Axes
+			\draw[->] (0,0) -- (8,0) node[right] {$Q$};
+			\draw[->] (0,0) -- (0,6) node[above] {$P$};
+
+			% Demand
+			\draw[thick, blue] (0.5,5.5) -- (7.5,0.5);
+
+			% Pre-merger MC
+			\draw[thick, red] (0,2) -- (8,2) node[right] {$MC^{pre}$};
+
+			% Post-merger MC (lower)
+			\draw[thick, green] (0,1) -- (8,1) node[right] {$MC^{post}$};
+
+			% Pre-merger price
+			\draw[dashed] (0,3) -- (4.5,3) -- (4.5,0);
+			\node[left] at (0,3) {$P^{pre}$};
+			\node[below] at (4.5,0) {$Q^{pre}$};
+
+			% Post-merger price
+			\draw[dashed] (0,3.5) -- (3.5,3.5) -- (3.5,0);
+			\node[left] at (0,3.5) {$P^{post}$};
+
+			% Labels for areas
+			\node at (2.5,2.5) {\small DWL};
+			\node at (3,1.5) {\small Eff.};
 		\end{tikzpicture}
 	\end{center}
 	\begin{wideitemize}
-		\item Payoffs: (Entrant, Incumbent)
-		\item If I would Accommodate, threat to Fight is not credible
+		\item DWL (lost surplus) vs Efficiency gain (cost savings)
+		\item Merger is welfare-improving if Efficiency $>$ DWL
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{Finding the SPE}
+\begin{frame}{Practice: Merger policy}
 	\begin{wideitemize}
-		\item \textbf{Step 1: Incumbent's decision (if entry occurs)}
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Fight: $\pi_I = 0$
-			\item Accommodate: $\pi_I = 30$
-			\item $\Rightarrow$ Incumbent accommodates
-		\end{wideitemize}
-		\item \textbf{Step 2: Entrant's decision (knowing I will accommodate)}
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Enter: $\pi_E = 50$
-			\item Stay Out: $\pi_E = 0$
-			\item $\Rightarrow$ Entrant enters
-		\end{wideitemize}
-		\item \textbf{SPE:} (Enter, Accommodate) with payoffs $(50, 30)$
-		\item Entry not deterred because threat wasn't credible
+		\item \textbf{Question:} Market has shares: 35\%, 25\%, 20\%, 15\%, 5\%.
+		\item The 35\% and 25\% firms propose to merge.
+		\item (a) Calculate pre-merger and post-merger HHI.
+		\item (b) Would this merger likely face scrutiny under the Guidelines?
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{Limit pricing}
+\begin{frame}{Practice: Merger policy (solution)}
 	\begin{wideitemize}
-		\item Incumbent sets price low enough that entry is unprofitable
-		\item \textbf{Idea:} If $P$ is low, post-entry profits are low
-		\item \textbf{Problem:} Why would incumbent maintain low $P$ after entry?
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item If entrant enters anyway, incumbent may prefer to accommodate
-			\item Threat to keep $P$ low may not be credible
-		\end{wideitemize}
-		\item Works better if low $P$ is a commitment device
-		\item Or if low $P$ signals low costs
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Capacity commitment}
-	\begin{wideitemize}
-		\item Incumbent builds excess capacity before entry decision
-		\item \textbf{Why it works:}
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Capacity is a sunk cost
-			\item With excess capacity, incumbent's marginal cost is low
-			\item Post-entry, incumbent will produce more (use the capacity)
-			\item Entrant anticipates this $\rightarrow$ lower post-entry profits
-		\end{wideitemize}
-		\item \textbf{Key insight:} Capacity makes ``fight'' credible
-		\item Building capacity is a commitment device
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Plan}
-  \begin{wideenumerate}
-    \item What determines market structure?
-    \item Free entry condition
-    \item Entry with Cournot: worked example
-    \item Entry barriers
-    \item Entry deterrence strategies
-    \item \textbf{Sequential game analysis (from ECN 532)}
-  \end{wideenumerate}
-\end{frame}
-
-\begin{frame}{Entry deterrence game: structure}
-	\begin{wideitemize}
-		\item \textbf{Stage 1:} Incumbent chooses capacity $K$
-		\item \textbf{Stage 2:} Entrant observes $K$ and decides: Enter or Stay Out
-		\item \textbf{Stage 3:} If entry, firms compete (Cournot or Bertrand)
-		\item Solve by \textbf{backward induction} (from ECN 532):
-		\begin{wideenumerate}
-			\vspace{5pt}
-			\item Find post-entry equilibrium profits given $K$
-			\item Determine when entrant enters
-			\item Find incumbent's optimal $K$
-		\end{wideenumerate}
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Worked example: Entry deterrence}
-	\begin{wideitemize}
-		\item \textbf{Setup:}
-		\item Inverse demand: $P = 100 - Q$
-		\item Incumbent has capacity $K$ (sunk), $MC = 0$ up to $K$
-		\item Entrant has $MC = 20$, fixed cost $F = 200$
-		\item If entry: Cournot competition
-		\item \textbf{Question:} What $K$ deters entry?
-	\end{wideitemize}
-	\vspace{10pt}
-	\centering
-	\textit{Take 5 minutes to set up the backward induction.}
-\end{frame}
-
-\begin{frame}{Worked example: Entry deterrence (solution 1)}
-	\begin{wideitemize}
-		\item \textbf{Step 1: Post-entry equilibrium}
-		\item Incumbent produces $q_I \leq K$ at $MC = 0$
-		\item Entrant FOC: $100 - 2q_E - q_I - 20 = 0 \Rightarrow q_E = 40 - q_I/2$
-		\item If $K$ is large, incumbent produces $q_I = K$
-		\item Entrant produces: $q_E = 40 - K/2$
-		\item Price: $P = 100 - K - (40 - K/2) = 60 - K/2$
-		\item Entrant profit: $\pi_E = (60 - K/2 - 20)(40 - K/2) = (40 - K/2)^2$
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Worked example: Entry deterrence (solution 2)}
-	\begin{wideitemize}
-		\item \textbf{Step 2: Entry decision}
-		\item Entrant enters if: $\pi_E - F > 0$
+		\item \textbf{(a) Pre-merger:}
 		\begin{align*}
-			(40 - K/2)^2 > 200
+			HHI = 35^2 + 25^2 + 20^2 + 15^2 + 5^2 = 2500
 		\end{align*}
-		\item Entry occurs if: $40 - K/2 > \sqrt{200} \approx 14.1$
-		\item Entry is deterred if: $K \geq 2(40 - 14.1) = 51.8$
-		\item \textbf{Step 3: Incumbent's choice}
-		\item If deterrence is profitable: Set $K \geq 52$
-		\item Compare: monopoly profits with $K = 52$ vs accommodation
+		\item \textbf{Post-merger:}
+		\begin{align*}
+			HHI = 60^2 + 20^2 + 15^2 + 5^2 = 4250
+		\end{align*}
+		\item $\Delta HHI = 1750$ (or: $2 \times 35 \times 25 = 1750$)
+		\item \textbf{(b) Yes.} Post-merger HHI $> 2500$ (highly concentrated) and $\Delta HHI > 200$. Merger would likely face significant scrutiny.
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{When is deterrence profitable?}
+\begin{frame}{Remedies in merger review}
 	\begin{wideitemize}
-		\item Incumbent compares:
+		\item \textbf{If merger raises concerns, agencies can:}
 		\begin{wideenumerate}
 			\vspace{5pt}
-			\item \textbf{Deter:} Monopoly profits minus cost of excess capacity
-			\item \textbf{Accommodate:} Duopoly profits
+			\item Block the merger entirely
+			\item Require divestitures (sell some products/plants)
+			\item Impose behavioral conditions (licensing, access)
 		\end{wideenumerate}
-		\item Deterrence is profitable when:
+		\item \textbf{Divestitures:} Sell assets to maintain competition
 		\begin{wideitemize}
 			\vspace{5pt}
-			\item Cost of deterrence (excess capacity) is low
-			\item Post-entry competition is intense
-			\item Monopoly profits are high
+			\item Must sell to capable buyer
+			\item Assets must be ``viable'' standalone
 		\end{wideitemize}
-		\item Sometimes: accommodation is better (``puppy dog'' strategy)
+		\item Example: T-Mobile/Sprint required divestiture to Dish
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{Fudenberg-Tirole taxonomy}
+\begin{frame}{Recent merger cases}
+	\begin{wideitemize}
+		\item \textbf{Tech mergers:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Google/Fitbit: wearables and data
+			\item Microsoft/Activision: gaming
+		\end{wideitemize}
+		\item \textbf{Healthcare:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Hospital mergers: quality vs price concerns
+		\end{wideitemize}
+		\item \textbf{Key issues in modern cases:}
+		\begin{wideitemize}
+			\vspace{5pt}
+			\item Data as competitive asset
+			\item Potential competition (would target have grown into competitor?)
+			\item Vertical concerns (platforms buying content)
+		\end{wideitemize}
+	\end{wideitemize}
+\end{frame}
+
+\begin{frame}{Merger simulation vs HHI}
 	\begin{center}
-	\begin{tabular}{|l|c|c|}
+	\begin{tabular}{|l|p{4cm}|p{4cm}|}
 		\hline
-		& \textbf{Deter} & \textbf{Accommodate} \\
+		& \textbf{HHI} & \textbf{Merger Simulation} \\
 		\hline
-		\textbf{Tough} & Top Dog & Lean \& Hungry \\
-		& (Overinvest) & (Underinvest) \\
+		\textbf{Data needed} & Market shares & Demand estimates \\
 		\hline
-		\textbf{Soft} & Puppy Dog & Fat Cat \\
-		& (Underinvest) & (Overinvest) \\
+		\textbf{Output} & Concentration screen & Predicted price increase \\
+		\hline
+		\textbf{Pros} & Simple, transparent & Accounts for substitution \\
+		\hline
+		\textbf{Cons} & Ignores substitution & Requires demand model \\
 		\hline
 	\end{tabular}
 	\end{center}
 	\vspace{5pt}
 	\begin{wideitemize}
-		\item ``Tough'' = investment makes incumbent more aggressive
-		\item ``Soft'' = investment makes incumbent less aggressive
-		\item Optimal strategy depends on competition type!
+		\item Modern merger review uses both approaches
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{Practice: Entry deterrence}
+\begin{frame}{Connection to HW2}
 	\begin{wideitemize}
-		\item \textbf{True, False, or NEI:}
-		\item (a) An incumbent should always try to deter entry.
-		\item (b) Building excess capacity is always a credible deterrent.
-		\item (c) Limit pricing works better when entrant believes incumbent has low costs.
-	\end{wideitemize}
-	\vspace{10pt}
-	\centering
-	\textit{Take 2 minutes.}
-\end{frame}
-
-\begin{frame}{Practice: Entry deterrence (solution)}
-	\begin{wideitemize}
-		\item \textbf{(a) FALSE.} Sometimes accommodation is more profitable. Deterrence has costs (excess capacity, low prices).
-		\item \textbf{(b) FALSE.} Capacity must actually be usable. If capacity depreciates, or if using it is costly, it may not be credible.
-		\item \textbf{(c) TRUE.} Limit pricing as signaling: low price $\rightarrow$ entrant infers low $MC$ $\rightarrow$ post-entry profits low $\rightarrow$ don't enter.
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Product proliferation}
-	\begin{wideitemize}
-		\item Fill product space to leave no room for entrants
-		\item \textbf{Example:} Ready-to-eat cereals (FTC case, 1970s)
-		\begin{wideitemize}
+		\item \textbf{HW2 asks you to:}
+		\begin{wideenumerate}
 			\vspace{5pt}
-			\item Kellogg's, General Mills, General Foods, Quaker
-			\item Launched many brand variants
-			\item Claimed: deterred entry into cereal market
-		\end{wideitemize}
-		\item \textbf{Logic:} In product space (Hotelling), each niche is smaller
-		\item Entrant can't find profitable niche if all are occupied
-		\item \textbf{Commitment:} Products are sunk; can't remove them post-entry
+			\item Take demand estimates (given)
+			\item Compute pre-merger margins and implied MC
+			\item Change ownership matrix
+			\item Solve for post-merger equilibrium
+			\item Calculate price effects and welfare change
+		\end{wideenumerate}
+		\item This connects Part 1 (demand) to Part 2 (competition)
+		\item Same methodology used in real merger cases!
 	\end{wideitemize}
 \end{frame}
 
-\begin{frame}{Real-world examples of entry deterrence}
-	\begin{wideitemize}
-		\item \textbf{Airlines:} Frequent flyer programs, gate slots
+\begin{frame}{Merger analysis summary}
+	\begin{wideenumerate}
+		\item \textbf{Diversion ratio:} Key determinant of price effects
 		\begin{wideitemize}
 			\vspace{3pt}
-			\item Switching costs for consumers
-			\item Scarce airport capacity
+			\item High diversion = close substitutes = larger price increase
 		\end{wideitemize}
-		\item \textbf{Tech platforms:} Network effects + exclusive contracts
-		\begin{wideitemize}
-			\vspace{3pt}
-			\item Facebook: acquire potential competitors
-			\item Google: default search engine contracts
-		\end{wideitemize}
-		\item \textbf{Retail:} Long-term leases in prime locations
-		\item \textbf{Pharma:} Patent thickets, authorized generics
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Predatory pricing (brief)}
-	\begin{wideitemize}
-		\item \textbf{Predatory pricing:} Price below cost to drive out competitor
-		\item \textbf{Requirements:}
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item ``Deep pockets'' - survive losses longer than rival
-			\item Recoupment - raise prices after rival exits
-		\end{wideitemize}
-		\item \textbf{Antitrust concern:}
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Hard to distinguish from aggressive competition
-			\item Low prices benefit consumers (in short run)
-		\end{wideitemize}
-		\item \textbf{Legal standard:} Price below appropriate cost measure + recoupment likely
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Summary: barriers and deterrence}
-	\begin{center}
-		\begin{tabular}{|l|p{4cm}|p{4cm}|}
-			\hline
-			& \textbf{Structural} & \textbf{Strategic} \\
-			\hline
-			\textbf{Examples} & Economies of scale, patents, network effects & Capacity, limit pricing, product proliferation \\
-			\hline
-			\textbf{Created by} & Industry characteristics & Incumbent behavior \\
-			\hline
-			\textbf{Key issue} & -- & Credibility of threat \\
-			\hline
-		\end{tabular}
-	\end{center}
-\end{frame}
-
-\begin{frame}{Entry and antitrust policy}
-	\begin{wideitemize}
-		\item \textbf{Key question for regulators:}
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Is lack of entry due to structural barriers (efficient)?
-			\item Or strategic barriers (potentially anticompetitive)?
-		\end{wideitemize}
-		\item \textbf{Tricky cases:}
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Low prices can be competitive OR predatory
-			\item Large capacity can be efficient OR exclusionary
-			\item Product variety can be consumer-friendly OR entry-deterring
-		\end{wideitemize}
-		\item Intent is hard to prove; focus on market effects
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Empirical entry models}
-	\begin{wideitemize}
-		\item \textbf{Bresnahan \& Reiss (1991):} Entry thresholds
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item How much market size needed to support $N$ firms?
-			\item If threshold for 2nd firm $>$ 2$\times$ threshold for 1st $\rightarrow$ competition
-		\end{wideitemize}
-		\item \textbf{Berry (1992):} Entry in airline markets
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Which routes do airlines serve?
-			\item How do hub presence and distance affect entry?
-		\end{wideitemize}
-		\item These papers estimate the entry model we studied today
-	\end{wideitemize}
-\end{frame}
-
-\begin{frame}{Connection to merger analysis}
-	\begin{wideitemize}
-		\item \textbf{Why entry matters for mergers:}
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Merger raises prices $\rightarrow$ creates entry opportunity
-			\item If entry is easy, price increase is temporary
-			\item Antitrust agencies consider ``entry conditions''
-		\end{wideitemize}
-		\item \textbf{Horizontal Merger Guidelines:}
-		\begin{wideitemize}
-			\vspace{5pt}
-			\item Entry must be timely (2 years)
-			\item Entry must be likely
-			\item Entry must be sufficient to restore competition
-		\end{wideitemize}
-		\item Next lecture: mergers in detail
-	\end{wideitemize}
+		\item \textbf{Simulation:} Change ownership, solve new equilibrium
+		\item \textbf{UPP:} Quick screen: $D \times margin$
+		\item \textbf{HHI:} Concentration screen, not definitive
+		\item \textbf{Efficiencies:} Can offset price effects, but hard to prove
+		\item \textbf{Practice:} Apply these tools in HW2!
+	\end{wideenumerate}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -772,14 +993,13 @@ Nicholas Vreugdenhil \\
 \begin{frame}{Key Points}
 	\vspace{11pt}
 	\begin{wideenumerate}
-		\item \textbf{Free entry:} Enter until $\pi(N^*) \geq F > \pi(N^* + 1)$
-		\item As $N$ increases, profits decrease
-		\item High fixed costs $\rightarrow$ few firms (natural monopoly at extreme)
-		\item Free entry may lead to \textbf{excess entry} (business stealing)
-		\item \textbf{Barriers:} Structural (inherent) vs Strategic (created)
-		\item Entry deterrence requires \textbf{credible} commitment
-		\item \textbf{Capacity commitment:} Makes ``fight'' credible (sunk cost)
-		\item Solve deterrence games by \textbf{backward induction} (SPE)
+		\item Mergers reduce competition by \textbf{internalizing substitution}
+		\item \textbf{Merger simulation:} Use demand + ownership change to predict prices
+		\item Key: ownership matrix $\mathbf{H}$ changes from 0 to 1 for merged products
+		\item FOC changes: merged firm counts cross-price effects
+		\item \textbf{SSNIP test:} Would hypothetical monopolist raise price 5\%?
+		\item \textbf{HHI} = $\Sigma s_i^2 \times 10000$; $\Delta HHI$ screens mergers
+		\item \textbf{Efficiency defense:} Cost savings may offset price effects
 	\end{wideenumerate}
 \end{frame}
 
